@@ -1,3 +1,52 @@
 page-home {
-
+    ion-grid {
+        display: block;
+        height: auto;
+        position: absolute;
+        bottom: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: 7em;
+    }
+    ion-row {
+        height: 33%;
+    }
+    ion-col {
+        padding: 0px !important;
+    }
+    .btn {
+        height: 100%;
+        display: flex;
+        box-shadow: none !important;
+        align-items: center;
+    }
+    .font {
+        font-weight: 100;
+        font-size: x-large;
+        width: 100%;
+        color: color($colors, font);
+        text-align: center;
+        vertical-align: middle !important;
+    }
+    .line {
+        background-color: color($colors, accent);
+        border: none;
+    }
+    .line.vertical {
+        margin: 7% 0 7% 0 !important;
+        flex: 0 0 1px;
+    }
+    .line.horizontal {
+        margin: 0 7% 0 7% !important;
+        height: 1px;
+    }
+    .line.no {
+        background-color: transparent;
+        flex: 0 0 1px;
+        height: 1px;
+    }
+    .linerow {
+        height: 1px;
+    }
 }

@@ -1,14 +1,17 @@
-<ion-menu [content]="content">
+<ion-menu [content]="content" type="overlay">
   <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu</ion-title>
+    <ion-toolbar color="transparent">
+      <div class="page-header">Menu</div>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
     <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
+      <button [ngStyle]="{'background-color':checkActive(p) ? 'rgba(255, 255, 255, 0.3)' : 'transparent' }" menuClose
+        ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        <div class="button">
+          {{p.title}}
+        </div>
       </button>
     </ion-list>
   </ion-content>

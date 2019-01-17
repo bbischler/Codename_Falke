@@ -1,18 +1,98 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
+	<ion-toolbar color="transparent">
+		<button ion-button menuToggle>
+			<ion-icon color="font" name="menu"></ion-icon>
+		</button>
+		<ion-title>
+			<div class="page-header">Home</div>
+		</ion-title>
+	</ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+	<ion-grid>
+		<ion-row justify-content-around>
+			<ion-col>
+				<button ion-button block color="transparent" class="btn" (click)="openCricket()">
+					<div class="font">
+						Cricket
+					</div>
+				</button>
+			</ion-col>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+			<ion-col class="line vertical">
+			</ion-col>
+
+			<ion-col>
+				<button ion-button block color="transparent" class="btn" (click)="openX01(3)">
+					<div class="font">
+						301
+					</div>
+				</button>
+			</ion-col>
+		</ion-row>
+
+		<ion-row class="linerow">
+			<ion-col class="line horizontal">
+			</ion-col>
+			<ion-col class="line no">
+			</ion-col>
+			<ion-col class="line horizontal">
+			</ion-col>
+		</ion-row>
+
+		<ion-row justify-content-around>
+			<ion-col>
+				<button ion-button block color="transparent" class="btn" (click)="openX01(5)">
+					<div class="font">
+						501
+					</div>
+				</button>
+			</ion-col>
+
+			<ion-col class="line vertical">
+			</ion-col>
+
+			<ion-col>
+				<button ion-button block color="transparent" class="btn" (click)="openX01(7)">
+					<div class="font">
+						701
+					</div>
+				</button>
+			</ion-col>
+		</ion-row>
+
+		<ion-row class="linerow">
+			<ion-col class="line horizontal">
+			</ion-col>
+			<ion-col class="line no">
+			</ion-col>
+			<ion-col class="line horizontal">
+			</ion-col>
+		</ion-row>
+
+
+		<ion-row justify-content-around>
+			<ion-col>
+				<button ion-button block color="transparent" class="btn" (click)="openInstructions()">
+					<div class="font">
+						Instructions
+					</div>
+				</button>
+			</ion-col>
+
+			<ion-col class="line vertical">
+			</ion-col>
+
+			<ion-col>
+				<button ion-button block color="transparent" class="btn" (click)="inviteFriend()">
+					<div class="font">
+						Invite friend
+					</div>
+				</button>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+
 </ion-content>
