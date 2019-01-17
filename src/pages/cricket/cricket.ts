@@ -25,8 +25,8 @@ export class CricketPage {
     console.log('ionViewDidLoad CricketPage');
     this.players.push(new Player(0, "basti", 0));
     this.players.push(new Player(1, "marco", 0));
-    // this.players.push(new Player(2, "tim", 0));
-    // this.players.push(new Player(3, "patrick", 0));
+    this.players.push(new Player(2, "tim", 0));
+    this.players.push(new Player(3, "patrick", 0));
   }
 
   addPoints(points: number, id: number) {

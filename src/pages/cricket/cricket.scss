@@ -8,14 +8,6 @@ page-cricket {
         text-align: center;
         font-size: x-large;
     }
-    .dot {
-        margin: 0.4em 0 0.4em;
-        height: 0.7em;
-        width: 0.7em; // border-width: 1px;
-        background-color: transparent;
-        border-radius: 100%;
-        border: solid color($colors, accentSec); // display: inline-block;
-    }
     .active {
         margin: 0.4 0 0.4em 0;
         border: none;
@@ -58,5 +50,15 @@ page-cricket {
     }
     ion-col {
         // border: solid green;
+    }
+    .fas.fa-circle {
+        margin: 0.2em 0 0.2em 0;
+        display: block;
+        color: color($colors, accent);
+    }
+    .far.fa-circle {
+        margin: 0.2em 0 0.2em 0;
+        display: block;
+        color: color($colors, accentSec);
     }
 }
