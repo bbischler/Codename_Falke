@@ -15,7 +15,7 @@ import { CricketPage } from '../pages/cricket/cricket';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = CricketPage;
   activePage: any;
   pages: Array<{ title: string, component: any }>;
 

@@ -11,5 +11,165 @@
 
 
 <ion-content padding>
+	<ion-grid style="height:10%">
+		<ion-row justify-content-around>
+			<ion-col *ngFor="let player of players" class="playerName">
+				{{player.name}}
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			<ion-col *ngFor="let player of players" class="playerScore">
+				{{player.score}}
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+
+	<ion-grid class="scoreboard" no-padding>
+		<ion-row style="height:100%">
+			<ion-col *ngFor="let player of players">
+				<ion-grid no-padding style="height:100%">
+					<ion-row class="scoreboardrow">
+						<ion-col col-8>
+							<button ion-button block color="transparent" class="numbercontainer" (click)="addPoints(20, player.id)">
+								<div class="numberscore">
+									20
+								</div>
+							</button>
+						</ion-col>
+						<ion-col col-4 class="dotscontainer">
+							<div class="dots">
+								<div class="dot"></div>
+								<div class="dot active"></div>
+								<div class="dot active"></div>
+							</div>
+						</ion-col>
+					</ion-row>
+					<ion-row class="scoreboardrow">
+						<ion-col col-8>
+							<button ion-button block color="transparent" class="numbercontainer" (click)="addPoints(19, player.id)">
+								<div class="numberscore">
+									19
+								</div>
+							</button>
+						</ion-col>
+						<ion-col col-4 class="dotscontainer">
+							<div class="dots">
+								<div class="dot"></div>
+								<div class="dot active"></div>
+								<div class="dot active"></div>
+							</div>
+						</ion-col>
+					</ion-row>
+					<ion-row class="scoreboardrow">
+						<ion-col col-8>
+							<button ion-button block color="transparent" class="numbercontainer" (click)="addPoints(18, player.id)">
+								<div class="numberscore">
+									18
+								</div>
+							</button>
+						</ion-col>
+						<ion-col col-4 class="dotscontainer">
+							<div class="dots">
+								<div class="dot"></div>
+								<div class="dot active"></div>
+								<div class="dot active"></div>
+							</div>
+						</ion-col>
+					</ion-row>
+					<ion-row class="scoreboardrow">
+						<ion-col col-8>
+							<button ion-button block color="transparent" class="numbercontainer" (click)="addPoints(17, player.id)">
+								<div class="numberscore">
+									17
+								</div>
+							</button>
+						</ion-col>
+						<ion-col col-4 class="dotscontainer">
+							<div class="dots">
+								<div class="dot"></div>
+								<div class="dot active"></div>
+								<div class="dot active"></div>
+							</div>
+						</ion-col>
+					</ion-row>
+					<ion-row class="scoreboardrow">
+						<ion-col col-8>
+							<button ion-button block color="transparent" class="numbercontainer" (click)="addPoints(16, player.id)">
+								<div class="numberscore">
+									16
+								</div>
+							</button>
+						</ion-col>
+						<ion-col col-4 class="dotscontainer">
+							<div class="dots">
+								<div class="dot"></div>
+								<div class="dot active"></div>
+								<div class="dot active"></div>
+							</div>
+						</ion-col>
+					</ion-row>
+					<ion-row class="scoreboardrow">
+						<ion-col col-8>
+							<button ion-button block color="transparent" class="numbercontainer" (click)="addPoints(15, player.id)">
+								<div class="numberscore">
+									15
+								</div>
+							</button>
+						</ion-col>
+						<ion-col col-4 class="dotscontainer">
+							<div class="dots">
+								<div class="dot"></div>
+								<div class="dot active"></div>
+								<div class="dot active"></div>
+							</div>
+						</ion-col>
+					</ion-row>
+					<ion-row class="scoreboardrow">
+						<ion-col col-8>
+							<button ion-button block color="transparent" class="numbercontainer" (click)="addPoints(25, player.id)">
+								<div class="numberscore">
+									Bull
+								</div>
+							</button>
+						</ion-col>
+						<ion-col col-4 class="dotscontainer">
+							<div class="dots">
+								<div class="dot"></div>
+								<div class="dot active"></div>
+								<div class="dot active"></div>
+							</div>
+						</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+
+	<ion-grid style="height:10%">
+		<ion-row>
+			<ion-col col-3>
+				<button ion-button block color="transparent" class="btn_bottom" (click)="undo()">
+					UNDO
+				</button>
+			</ion-col>
+			<ion-col col-3>
+				<button ion-button block color="transparent" class="btn_bottom" (click)="newgame()">
+					NEW GAME
+				</button>
+			</ion-col>
+			<ion-col col-3>
+				<button ion-button block color="transparent" class="btn_bottom" (click)="double()">
+					DOUBLE
+				</button>
+			</ion-col>
+			<ion-col col-3>
+				<button ion-button block color="transparent" class="btn_bottom" (click)="trible()">
+					TRIBLE
+				</button>
+			</ion-col>
+
+		</ion-row>
+	</ion-grid>
+
 
 </ion-content>
