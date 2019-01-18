@@ -16,7 +16,7 @@ div.page-header {
     margin: 0;
     padding: 0;
     color: #fff;
-    background-color: color($colors, background);
+    background-color:transparent;
     font-size: medium;
 }
 
@@ -31,7 +31,7 @@ ion-title {
 }
 
 ion-content {
-    background-image: linear-gradient(color($colors, background), color($colors, backgroundSec)) !important;
+    background-image: linear-gradient(155deg,color($colors, background),color($colors, backgroundSec)) !important;
 }
 .scroll-content {
     padding: 0 !important;

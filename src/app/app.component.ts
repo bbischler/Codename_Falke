@@ -6,7 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { CricketPage } from '../pages/cricket/cricket';
-
+import { X01Page } from '../pages/x01/x01';
 
 @Component({
   selector: 'page-menu',
@@ -18,6 +18,7 @@ export class MyApp {
   rootPage: any = CricketPage;
   activePage: any;
   pages: Array<{ title: string, component: any }>;
+  pagesx01: Array<{ title: string, component: any }>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
@@ -26,7 +27,12 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'Cricket', component: CricketPage },
-      { title: 'List', component: ListPage }
+    ];
+
+    this.pagesx01 = [
+      { title: '301', component: X01Page },
+      { title: '501', component: X01Page },
+      { title: '701', component: X01Page },
     ];
 
   }
@@ -45,6 +51,17 @@ export class MyApp {
     // we wouldn't want the back button to show in this scenario
     // this.nav.setRoot(page.component);
     this.nav.push(page.component);
+    this.activePage = page;
+
+  }
+
+  openPageX01(page, num) {
+    // Reset the content nav to have just this page
+    // we wouldn't want the back button to show in this scenario
+    // this.nav.setRoot(page.component);
+    this.nav.push(page.component, {
+      param: num
+    });
     this.activePage = page;
 
   }

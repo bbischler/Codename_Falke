@@ -13,6 +13,12 @@
           {{p.title}}
         </div>
       </button>
+      <button [ngStyle]="{'background-color':checkActive(p) ? 'rgba(255, 255, 255, 0.3)' : 'transparent' }" menuClose
+        ion-item *ngFor="let p of pagesx01" (click)="openPageX01(p,p.title)">
+        <div class="button">
+          {{p.title}}
+        </div>
+      </button>
     </ion-list>
   </ion-content>
 
