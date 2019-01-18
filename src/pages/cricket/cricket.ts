@@ -17,6 +17,8 @@ import { Player } from '../../models/player';
 export class CricketPage {
 
   players: Player[] = [];
+  isDouble: Boolean = false;
+  isTriple: Boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -30,8 +32,15 @@ export class CricketPage {
   }
 
   addPoints(points: number, id: number) {
-    // console.log(number + " " + id);
+    if (this.isDouble) {
+      points = points * 2;
+    }
+    if (this.isTriple) {
+      points = points * 3;
+    }
     this.players[id].setScore(points);
+    this.isDouble = false;
+    this.isTriple = false;
   }
   undo() {
     console.log("undo");
@@ -40,10 +49,12 @@ export class CricketPage {
     console.log("newgame");
   }
   double() {
-    console.log("double");
+    this.isTriple = false;
+    this.isDouble = !this.isDouble;
   }
   trible() {
-    console.log("trible");
+    this.isDouble = false;
+    this.isTriple = !this.isTriple;
   }
 
 }

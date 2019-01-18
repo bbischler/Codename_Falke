@@ -39,7 +39,7 @@ page-cricket {
         color: color($colors, fontSec);
     }
     .scoreboard {
-        height: 80%; // position: absolute;
+        height: 75%; // position: absolute;
         bottom: 0;
         top: 0;
         left: 0;
@@ -55,6 +55,10 @@ page-cricket {
         font-size: small;
         color: color($colors, fontSec);
     }
+    .active_btn {
+        background-color: rgba(255, 255, 255, 0.3);
+        color: color($colors, font);
+    }
     ion-col {
         // border: solid green;
     }
@@ -63,7 +67,6 @@ page-cricket {
         display: block;
         color: color($colors, accent);
     }
-
     .fas.fa-circle.full {
         margin: 0.2em 0 0.2em 0;
         display: block;

@@ -25,6 +25,8 @@ export class X01Page {
   num: any;
   players: Player[] = [];
   numbers: number[] = [1, 6, 11, 16];
+  isDouble: Boolean = false;
+  isTriple: Boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     if (this.navParams.get('param')) {
@@ -47,13 +49,26 @@ export class X01Page {
   }
 
   addPoints(points: number) {
+    if (this.isDouble) {
+      points = points * 2;
+    }
+    if (this.isTriple) {
+      points = points * 3;
+    }
     console.log(points);
+    // this.players[id].setScore(points);
+    this.isDouble = false;
+    this.isTriple = false;
   }
   undo() { }
-  trible() { }
-
-  double() { }
-
+  double() {
+    this.isTriple = false;
+    this.isDouble = !this.isDouble;
+  }
+  triple() {
+    this.isDouble = false;
+    this.isTriple = !this.isTriple;
+  }
 
 
 }

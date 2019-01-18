@@ -75,16 +75,16 @@
 				</button>
 			</ion-col>
 			<ion-col>
-				<button ion-button block color="transparent" class="numbercontainer" (click)="double()">
+				<button ion-button block [ngClass]="isDouble ? 'active_btn' : 'numbercontainer' " (click)="double()">
 					<div class="numberscore">
 						DOUBLE
 					</div>
 				</button>
 			</ion-col>
 			<ion-col>
-				<button ion-button block color="transparent" class="numbercontainer" (click)="trible()">
+				<button ion-button block [ngClass]="isTriple ? 'active_btn' : 'numbercontainer' " (click)="triple()">
 					<div class="numberscore">
-						TRIBLE
+						TRIPLE
 					</div>
 				</button>
 			</ion-col>

@@ -145,7 +145,7 @@
 		</ion-row>
 	</ion-grid>
 
-	<ion-grid style="height:10%">
+	<ion-grid style="height:8%">
 		<ion-row>
 			<ion-col col-3>
 				<button ion-button block color="transparent" class="btn_bottom" (click)="undo()">
@@ -158,12 +158,16 @@
 				</button>
 			</ion-col>
 			<ion-col col-3>
-				<button ion-button block color="transparent" class="btn_bottom" (click)="double()">
+				<!-- <button ion-button block [ngStyle]="{'background-color':isDouble ? 'rgba(255, 255, 255, 0.2)' : 'transparent' }"
+				 (click)="double()" class="btn_bottom">
+					DOUBLE
+				</button> -->
+				<button ion-button block [ngClass]="isDouble ? 'active_btn' : 'btn_bottom' " class="btn_bottom" (click)="double()">
 					DOUBLE
 				</button>
 			</ion-col>
 			<ion-col col-3>
-				<button ion-button block color="transparent" class="btn_bottom" (click)="trible()">
+				<button ion-button block [ngClass]="isTriple ? 'active_btn' : 'btn_bottom' " class="btn_bottom" (click)="trible()">
 					TRIBLE
 				</button>
 			</ion-col>
