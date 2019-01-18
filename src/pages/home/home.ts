@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { CricketPage } from '../cricket/cricket';
-
+import { X01Page } from '../x01/x01';
 
 @Component({
   selector: 'page-home',
@@ -15,19 +15,18 @@ export class HomePage {
 
   openCricket() {
     console.log('open cricket');
-    this.navCtrl.setRoot(CricketPage);
+    this.navCtrl.push(CricketPage);
   }
   openX01(num: number) {
-    console.log('open ' + num + "01");
-    // this.navCtrl.setRoot(CricketPage);
+    this.navCtrl.push(X01Page, {
+      param: num
+    });
   }
   openInstructions() {
     console.log('open instructions');
-    // this.navCtrl.setRoot(CricketPage);
   }
   inviteFriend() {
     console.log('invite friend');
-    // this.navCtrl.setRoot(CricketPage);
   }
 
 }

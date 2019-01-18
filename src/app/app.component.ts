@@ -15,7 +15,7 @@ import { X01Page } from '../pages/x01/x01';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = CricketPage;
+  rootPage: any = X01Page;
   activePage: any;
   pages: Array<{ title: string, component: any }>;
   pagesx01: Array<{ title: string, component: any }>;

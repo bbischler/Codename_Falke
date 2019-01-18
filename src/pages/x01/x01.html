@@ -13,5 +13,96 @@
 <ion-content padding>
 
 
-  
+	<ion-slides #slides (ionSlideDidChange)="slideChanged()">
+		<ion-slide *ngFor="let player of players">
+			<ion-card>
+				<ion-card-header>
+					<ion-card-title>
+						{{player.name}}
+						{{player.score}}
+					</ion-card-title>
+				</ion-card-header>
+			</ion-card>
+		</ion-slide>
+	</ion-slides>
+
+
+
+	<ion-grid style="height:80%">
+		<ion-row *ngFor="let num of numbers" class="scoreboardrow">
+			<ion-col>
+				<button ion-button block color="transparent" class="numbercontainer" (click)="addPoints(num)">
+					<div class="numberscore">
+						{{num}}
+					</div>
+				</button>
+			</ion-col>
+			<ion-col>
+				<button ion-button block color="transparent" class="numbercontainer" (click)="addPoints(num+1)">
+					<div class="numberscore">
+						{{num+1}}
+					</div>
+				</button>
+			</ion-col>
+			<ion-col>
+				<button ion-button block color="transparent" class="numbercontainer" (click)="addPoints(num+2)">
+					<div class="numberscore">
+						{{num+2}}
+					</div>
+				</button>
+			</ion-col>
+			<ion-col>
+				<button ion-button block color="transparent" class="numbercontainer" (click)="addPoints(num+3)">
+					<div class="numberscore">
+						{{num+3}}
+					</div>
+				</button>
+			</ion-col>
+			<ion-col>
+				<button ion-button block color="transparent" class="numbercontainer" (click)="addPoints(num+4)">
+					<div class="numberscore">
+						{{num+4}}
+					</div>
+				</button>
+			</ion-col>
+		</ion-row>
+		<ion-row class="scoreboardrow">
+			<ion-col>
+				<button ion-button block color="transparent" class="numbercontainer" (click)="undo()">
+					<div class="numberscore">
+						UNDO
+					</div>
+				</button>
+			</ion-col>
+			<ion-col>
+				<button ion-button block color="transparent" class="numbercontainer" (click)="double()">
+					<div class="numberscore">
+						DOUBLE
+					</div>
+				</button>
+			</ion-col>
+			<ion-col>
+				<button ion-button block color="transparent" class="numbercontainer" (click)="trible()">
+					<div class="numberscore">
+						TRIBLE
+					</div>
+				</button>
+			</ion-col>
+			<ion-col>
+				<button ion-button block color="transparent" class="numbercontainer" (click)="addPoints(25)">
+					<div class="numberscore">
+						BULL
+					</div>
+				</button>
+			</ion-col>
+			<ion-col>
+				<button ion-button block color="transparent" class="numbercontainer" (click)="addPoints(0)">
+					<div class="numberscore">
+						0
+					</div>
+				</button>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+
 </ion-content>

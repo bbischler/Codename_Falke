@@ -1,3 +1,30 @@
 page-x01 {
-
+    ion-card {
+        height: 100%;
+        border: solid 1px color($colors, accentSec);
+    }
+    ion-card-header {
+        height: 100%;
+    }
+    ion-card-title {
+        color: color($colors, font) !important;
+    }
+    .slide-zoom {
+        height: 100%; // overflow:hidden;
+    }
+    ion-slides {
+        padding-bottom: 1em !important;
+        height: 20%;
+    }
+    .card {
+        background-color: color($colors, transparent);
+        margin-top: 0 !important;
+    }
+    .scoreboardrow {
+        height: 16%;
+    }
+    .numbercontainer {
+        height: 100%;
+        width: 100%;
+    }
 }
