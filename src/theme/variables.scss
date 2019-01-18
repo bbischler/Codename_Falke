@@ -39,12 +39,12 @@ $colors: (
   danger:     #f53d3d,
   light:      #f53d3d,
   font:       #ffffff,
-  fontSec:    #ffffffa1,
+  fontSec:    rgba(255, 255, 255, 0.3),
   accent:     #43C0A2,
-  accentSec:     rgba(67, 192, 163, 0.5),
+  accentSec:  rgba(67, 192, 163, 0.3),
   background: #171D24,
-  backgroundSec: #2d3753,
-  transparent: #ffffff00,
+  backgroundSec:#2d3753,
+  transparent: rgba(67, 192, 163, 0),
   dark:       #222
 );
 

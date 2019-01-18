@@ -28,10 +28,13 @@ ion-title {
     width: 100%;
     height: 100%;
     text-align: center;
-  }
+}
 
 ion-content {
     background-image: linear-gradient(color($colors, background), color($colors, backgroundSec)) !important;
+}
+.scroll-content {
+    padding: 0 !important;
 }
 
 page-menu {
