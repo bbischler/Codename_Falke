@@ -15,8 +15,8 @@
 div.page-header {
     margin: 0;
     padding: 0;
-    color: #fff;
-    background-color:transparent;
+    color: color($colors, fontSec);
+    background-color: transparent;
     font-size: medium;
 }
 
@@ -31,10 +31,23 @@ ion-title {
 }
 
 ion-content {
-    background-image: linear-gradient(155deg,color($colors, background),color($colors, backgroundSec)) !important;
+    background-image: linear-gradient(155deg, color($colors, background), color($colors, backgroundSec)) !important;
 }
+
 .scroll-content {
     padding: 0 !important;
+}
+
+.fas.fa-circle {
+    margin: 0.2em 0 0.2em 0;
+    display: block;
+    color: color($colors, accent);
+}
+
+.far.fa-circle {
+    margin: 0.2em 0 0.2em 0;
+    display: block;
+    color: color($colors, accentSec);
 }
 
 page-menu {

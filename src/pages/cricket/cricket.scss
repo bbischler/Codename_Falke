@@ -56,25 +56,11 @@ page-cricket {
         color: color($colors, fontSec);
     }
     .active_btn {
-        background-color: rgba(255, 255, 255, 0.3);
+        background-color: color($colors, semiTransparent) !important;
         color: color($colors, font);
     }
     ion-col {
         // border: solid green;
     }
-    .fas.fa-circle {
-        margin: 0.2em 0 0.2em 0;
-        display: block;
-        color: color($colors, accent);
-    }
-    .fas.fa-circle.full {
-        margin: 0.2em 0 0.2em 0;
-        display: block;
-        color: color($colors, fontSec);
-    }
-    .far.fa-circle {
-        margin: 0.2em 0 0.2em 0;
-        display: block;
-        color: color($colors, accentSec);
-    }
+    
 }

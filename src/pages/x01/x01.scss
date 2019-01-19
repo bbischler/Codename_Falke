@@ -1,12 +1,16 @@
 page-x01 {
-    ion-card {
+
+    .cardClass {
+        height: 100%;
+        border: solid 1px color($colors, semiTransparent);
+    }
+    .cardClassActive {
         height: 100%;
         border: solid 1px color($colors, accentSec);
+        background-color: color($colors, semiTransparent) !important;
     }
     ion-card-header {
         height: 100%;
-    }
-    ion-card-title {
         color: color($colors, font) !important;
     }
     .slide-zoom {
@@ -14,7 +18,7 @@ page-x01 {
     }
     ion-slides {
         padding-bottom: 1em !important;
-        height: 20%;
+        height: 30%;
     }
     .card {
         background-color: color($colors, transparent);
@@ -24,14 +28,43 @@ page-x01 {
         height: 16%;
     }
     .numbercontainer {
-        background-color: transparent;
-        // height: 100%;
+        background-color: transparent; // height: 100%;
+        box-shadow: none !important;
         width: 100%;
+        font-weight: 200;
+        color: color($colors, font); // text-align: right;
+        font-size: large;
     }
     .active_btn {
-        background-color: rgba(255, 255, 255, 0.3);
-        color: color($colors, font);
-        // height: 100%;
+        background-color: color($colors, semiTransparent) !important;
+        color: color($colors, font); // height: 100%;
         width: 100%;
+    }
+    .playerName {
+        // font-weight: 300;
+        // font-size: small;
+        color: color($colors, fontSec);
+    }
+    .playerAvg {
+        // font-weight: 200;
+        // font-size: small;
+        color: color($colors, fontSec);
+    }
+    .playerScore {
+        color: color($colors, font);
+        // font-weight: 100;
+        font-size: x-large;
+    }
+    .playerInfo {
+        height: 60%;
+    }
+    .threeDots {
+        height: 20%;
+    }
+    .lastScores {
+        height: 20%;
+    }
+    div.lastThree{
+        font-weight: 100;
     }
 }

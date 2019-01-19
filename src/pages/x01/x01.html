@@ -1,7 +1,7 @@
-<ion-header>
+<ion-header no-border>
 	<ion-toolbar color="transparent">
 		<button ion-button menuToggle>
-			<ion-icon color="font" name="menu"></ion-icon>
+			<ion-icon color="fontSec" name="menu"></ion-icon>
 		</button>
 		<ion-title>
 			<div class="page-header">{{num}}</div>
@@ -14,13 +14,39 @@
 
 
 	<ion-slides #slides (ionSlideDidChange)="slideChanged()">
-		<ion-slide *ngFor="let player of players">
-			<ion-card>
-				<ion-card-header>
-					<ion-card-title>
-						{{player.name}}
-						{{player.score}}
-					</ion-card-title>
+		<ion-slide *ngFor="let player of players" #player.id>
+			<ion-card [ngClass]="isActive(player.id) ? 'cardClassActive' : 'cardClass' ">
+				<ion-card-header no-padding>
+					<ion-grid style="height:100%;padding:1em;"> 
+						<ion-row class="playerInfo">
+							<ion-col class="playerName">
+								{{player.name}}
+							</ion-col>
+							<ion-col class="playerScore">
+								{{player.score}}
+							</ion-col>
+							<ion-col class="playerAvg">
+								AVG:
+							</ion-col>
+						</ion-row> 
+
+						<ion-row class="lastScores">
+							<ion-col *ngFor="let points of containerof3">
+								<div class="lastThree">
+									{{player.lastThreeScores[points-1]}}
+								</div>
+							</ion-col>
+
+						</ion-row>
+						<ion-row class="threeDots">
+							<ion-col *ngFor="let num of containerof3">
+								<div [ngClass]="(num <=throwCounter) && isActive(player.id)? 'fas fa-circle fa-xs' : 'far fa-circle fa-xs' "></div>
+
+							</ion-col>
+						</ion-row>
+
+
+					</ion-grid>
 				</ion-card-header>
 			</ion-card>
 		</ion-slide>
@@ -28,7 +54,7 @@
 
 
 
-	<ion-grid style="height:80%">
+	<ion-grid style="height:80%" no-padding>
 		<ion-row *ngFor="let num of numbers" class="scoreboardrow">
 			<ion-col>
 				<button ion-button block color="transparent" class="numbercontainer" (click)="addPoints(num)">
@@ -98,7 +124,7 @@
 			<ion-col>
 				<button ion-button block color="transparent" class="numbercontainer" (click)="addPoints(0)">
 					<div class="numberscore">
-						0
+						MISS
 					</div>
 				</button>
 			</ion-col>

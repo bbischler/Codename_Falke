@@ -2,6 +2,7 @@ export class Player {
     id: number;
     name: string;
     score: number;
+    lastThreeScores: number[] = [];
 
     constructor(id: number, name: string, score: number) {
         this.id = id;
@@ -10,6 +11,13 @@ export class Player {
     }
     setScore(score: number) {
         this.score += score;
+    }
+
+    setLastScore(points) {
+        this.lastThreeScores.push(points);
+    }
+    removeLastThreePoints() {
+        this.lastThreeScores = [];
     }
 }
 

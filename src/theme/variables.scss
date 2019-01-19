@@ -14,7 +14,6 @@ $app-direction: ltr;
 
 @import "ionic.globals";
 
-
 // Shared Variables
 // --------------------------------------------------
 // To customize the look and feel of this app, you can override
@@ -48,6 +47,7 @@ $colors: (
   background: #1C1D1F,
   backgroundSec:#232b41,
   transparent: rgba(67, 192, 163, 0),
+  semiTransparent:    rgba(255, 255, 255, 0.07),
   dark:       #222
 );
 
