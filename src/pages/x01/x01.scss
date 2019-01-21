@@ -38,7 +38,7 @@ page-x01 {
         background-color: transparent;
         box-shadow: none !important;
         font-weight: 200;
-        font-size: small;
+        font-size: 1.5rem;
         color: color($colors, fontSec);
     }
     .active_btn {
@@ -47,7 +47,7 @@ page-x01 {
         box-shadow: none !important;
         width: 100%;
         font-weight: 200;
-        font-size: small;
+        font-size: 1.5rem;
     }
     .playerName {
         color: color($colors, fontSec);
@@ -59,7 +59,7 @@ page-x01 {
     }
     .playerScore {
         color: color($colors, font);
-        font-size: x-large;
+        font-size: 2rem;
     }
     .playerInfo {
         height: 60%;

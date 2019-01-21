@@ -12,6 +12,11 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none;
+}
+
 div.page-header {
     margin: 0;
     padding: 0;
@@ -43,6 +48,12 @@ ion-content {
     margin: 0.2em 0 0.2em 0;
     display: block;
     color: color($colors, accent);
+}
+
+.fas.fa-circle.closed {
+    margin: 0.2em 0 0.2em 0;
+    display: block;
+    color: color($colors, fontSec);
 }
 
 .far.fa-circle {
