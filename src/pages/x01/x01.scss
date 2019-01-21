@@ -1,5 +1,4 @@
 page-x01 {
-
     .cardClass {
         height: 100%;
         border: solid 1px color($colors, semiTransparent);
@@ -14,7 +13,7 @@ page-x01 {
         color: color($colors, font) !important;
     }
     .slide-zoom {
-        height: 100%; // overflow:hidden;
+        height: 100%;
     }
     ion-slides {
         padding-bottom: 1em !important;
@@ -28,31 +27,38 @@ page-x01 {
         height: 16%;
     }
     .numbercontainer {
-        background-color: transparent; // height: 100%;
+        background-color: transparent;
         box-shadow: none !important;
         width: 100%;
         font-weight: 200;
-        color: color($colors, font); // text-align: right;
+        color: color($colors, font);
         font-size: large;
+    }
+    .btn_bottom {
+        background-color: transparent;
+        box-shadow: none !important;
+        font-weight: 200;
+        font-size: small;
+        color: color($colors, fontSec);
     }
     .active_btn {
         background-color: color($colors, semiTransparent) !important;
-        color: color($colors, font); // height: 100%;
+        color: color($colors, font);
+        box-shadow: none !important;
         width: 100%;
+        font-weight: 200;
+        font-size: small;
     }
     .playerName {
-        // font-weight: 300;
-        // font-size: small;
         color: color($colors, fontSec);
+        // font-weight: 200;
     }
     .playerAvg {
         // font-weight: 200;
-        // font-size: small;
         color: color($colors, fontSec);
     }
     .playerScore {
         color: color($colors, font);
-        // font-weight: 100;
         font-size: x-large;
     }
     .playerInfo {
@@ -64,7 +70,7 @@ page-x01 {
     .lastScores {
         height: 20%;
     }
-    div.lastThree{
+    div.lastThree {
         font-weight: 100;
     }
 }

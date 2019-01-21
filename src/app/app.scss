@@ -18,6 +18,7 @@ div.page-header {
     color: color($colors, fontSec);
     background-color: transparent;
     font-size: medium;
+    font-weight: 200;
 }
 
 ion-title {
@@ -51,7 +52,25 @@ ion-content {
 }
 
 page-menu {
-    .button {
+    .pageActive {
+        font-weight: 400;
+        background-color: color($colors, semiTransparent);
+        color: color($colors, accent);
+        text-align: center;
+    }
+    .pageTransparent {
+        text-align: center;
+        font-weight: 200;
         color: color($colors, font);
+        background-color: transparent;
+    }
+    .page-header-menu {
+        color: color($colors, accent);
+        height: 5em;
+        vertical-align: middle;
+        text-align: center;
+        font-size: x-large;
+        font-weight: 300;
+        line-height: 5em;
     }
 }

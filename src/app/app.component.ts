@@ -7,6 +7,8 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { CricketPage } from '../pages/cricket/cricket';
 import { X01Page } from '../pages/x01/x01';
+import { ServiceProvider } from '../providers/service/service';
+
 
 @Component({
   selector: 'page-menu',
@@ -16,11 +18,11 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = X01Page;
-  activePage: any;
+  // activePage: any;
   pages: Array<{ title: string, component: any }>;
   pagesx01: Array<{ title: string, component: any }>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private service: ServiceProvider, ) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -51,7 +53,7 @@ export class MyApp {
     // we wouldn't want the back button to show in this scenario
     // this.nav.setRoot(page.component);
     this.nav.push(page.component);
-    this.activePage = page;
+    this.service.setActivePage(page.title);
 
   }
 
@@ -59,14 +61,14 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     // this.nav.setRoot(page.component);
+    this.service.setActivePage(num);
     this.nav.push(page.component, {
       param: num
     });
-    this.activePage = page;
 
   }
 
   checkActive(page) {
-    return page == this.activePage;
+    return page == this.service.getActivePage();
   }
 }

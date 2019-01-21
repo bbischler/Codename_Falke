@@ -62,8 +62,10 @@ export class X01Page {
       points = points * 3;
     }
     this.slides.slideTo(this.playerCounter, 1000);
-    this.players[this.playerCounter].setScore(0 - points);
+    this.players[this.playerCounter].reducePoints(points);
     this.players[this.playerCounter].setLastScore(points);
+    this.players[this.playerCounter].setThrowCount();
+    this.players[this.playerCounter].setTotalScore(points);
 
     this.isDouble = false;
     this.isTriple = false;
@@ -82,6 +84,7 @@ export class X01Page {
 
 
   undo() { }
+
   double() {
     this.isTriple = false;
     this.isDouble = !this.isDouble;

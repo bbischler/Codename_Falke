@@ -1,7 +1,7 @@
 page-cricket {
     .playerName {
         color: color($colors, fontSec);
-        text-align: center;
+        text-align: center; // font-weight: 200;
     }
     .playerScore {
         color: color($colors, font);
@@ -51,7 +51,7 @@ page-cricket {
     .btn_bottom {
         background-color: transparent;
         box-shadow: none !important;
-        font-weight: 400;
+        font-weight: 200;
         font-size: small;
         color: color($colors, fontSec);
     }
@@ -62,5 +62,4 @@ page-cricket {
     ion-col {
         // border: solid green;
     }
-    
 }

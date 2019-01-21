@@ -1,7 +1,7 @@
 <ion-header no-border>
 	<ion-toolbar color="transparent">
 		<button ion-button menuToggle>
-			<ion-icon color="fontSec" name="menu"></ion-icon>
+			<ion-icon color="font" name="menu"></ion-icon>
 		</button>
 		<ion-title>
 			<div class="page-header">{{num}}</div>
@@ -26,7 +26,7 @@
 								{{player.score}}
 							</ion-col>
 							<ion-col class="playerAvg">
-								AVG:
+								AVG: {{player.avg}}
 							</ion-col>
 						</ion-row> 
 
@@ -94,35 +94,35 @@
 		</ion-row>
 		<ion-row class="scoreboardrow">
 			<ion-col>
-				<button ion-button block color="transparent" class="numbercontainer" (click)="undo()">
+				<button ion-button block color="transparent" class="btn_bottom" (click)="undo()">
 					<div class="numberscore">
 						UNDO
 					</div>
 				</button>
 			</ion-col>
 			<ion-col>
-				<button ion-button block [ngClass]="isDouble ? 'active_btn' : 'numbercontainer' " (click)="double()">
+				<button ion-button block [ngClass]="isDouble ? 'active_btn' : 'btn_bottom' " (click)="double()">
 					<div class="numberscore">
 						DOUBLE
 					</div>
 				</button>
 			</ion-col>
 			<ion-col>
-				<button ion-button block [ngClass]="isTriple ? 'active_btn' : 'numbercontainer' " (click)="triple()">
+				<button ion-button block [ngClass]="isTriple ? 'active_btn' : 'btn_bottom' " (click)="triple()">
 					<div class="numberscore">
 						TRIPLE
 					</div>
 				</button>
 			</ion-col>
 			<ion-col>
-				<button ion-button block color="transparent" class="numbercontainer" (click)="addPoints(25)">
+				<button ion-button block color="transparent" class="btn_bottom" (click)="addPoints(25)">
 					<div class="numberscore">
 						BULL
 					</div>
 				</button>
 			</ion-col>
 			<ion-col>
-				<button ion-button block color="transparent" class="numbercontainer" (click)="addPoints(0)">
+				<button ion-button block color="transparent" class="btn_bottom" (click)="addPoints(0)">
 					<div class="numberscore">
 						MISS
 					</div>
