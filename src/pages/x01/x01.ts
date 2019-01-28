@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides, ModalController, Modal, ModalOptions } from 'ionic-angular';
 import { Player } from '../../models/player';
-import { ThrowStmt } from '@angular/compiler';
+// import { SettingsX01Page } from '../settings-x01/settings-x01';
+// import { ThrowStmt } from '@angular/compiler';
 
 /**
  * Generated class for the X01Page page.
@@ -21,7 +22,7 @@ export class X01Page {
     this.slides.spaceBetween = 1;
     this.slides.slidesPerView = 1.3;
     this.slides.centeredSlides = true;
-    this.slides.effect = "slide";
+    this.slides.effect = "cube";
   }
   num: any;
   players: Player[] = [];
@@ -32,7 +33,7 @@ export class X01Page {
   playerCounter: number = 0;
   containerof3: number[] = [1, 2, 3];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
     if (this.navParams.get('param')) {
       this.num = this.navParams.get('param');
     } else {
@@ -40,6 +41,13 @@ export class X01Page {
     }
 
 
+    }
+  openModal() {
+    const myModalOptions: ModalOptions = {
+      enableBackdropDismiss: false
+    };
+    // const myModal: Modal = this.modalCtrl.create("ModalX01Page"); 
+    // myModal.present();
   }
 
   ionViewDidLoad() {
@@ -48,6 +56,8 @@ export class X01Page {
     this.players.push(new Player(1, "Marco", this.num));
     this.players.push(new Player(2, "Tim", this.num));
     this.players.push(new Player(3, "Patrick", this.num));
+
+    this.openModal();
 
   }
   slideChanged() {
