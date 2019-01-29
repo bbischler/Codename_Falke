@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
+import { NativeAudio } from '@ionic-native/native-audio';
 import { IonicPage, NavController, NavParams, Slides, ModalController, Modal, ModalOptions } from 'ionic-angular';
 import { Player } from '../../models/player';
+
 // import { SettingsX01Page } from '../settings-x01/settings-x01';
 // import { ThrowStmt } from '@angular/compiler';
 
@@ -33,7 +35,14 @@ export class X01Page {
   playerCounter: number = 0;
   containerof3: number[] = [1, 2, 3];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+  constructor( public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+    // this.nativeAudio.preloadSimple('uniqueId1', 'path/to/file.mp3').then(onSuccess, onError);
+    // this.nativeAudio.preloadSimple('uniqueId1', 'assets/sounds/ding.mp3').then((success) => {
+    //   console.log("success");
+    // }, (error) => {
+    //   console.log(error);
+    // });
+
     if (this.navParams.get('param')) {
       this.num = this.navParams.get('param');
     } else {
@@ -41,7 +50,7 @@ export class X01Page {
     }
 
 
-    }
+  }
   openModal() {
     const myModalOptions: ModalOptions = {
       enableBackdropDismiss: false

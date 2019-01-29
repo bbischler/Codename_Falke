@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { CricketPage } from '../cricket/cricket';
 import { X01Page } from '../x01/x01';
+import { InstructionsPage } from '../instructions/instructions';
 import { ServiceProvider } from '../../providers/service/service';
 
 @Component({
@@ -25,7 +26,8 @@ export class HomePage {
     });
   }
   openInstructions() {
-    console.log('open instructions');
+    this.service.setActivePage('Instructions');
+    this.navCtrl.push(InstructionsPage);
   }
   inviteFriend() {
     console.log('invite friend');

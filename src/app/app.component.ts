@@ -4,7 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { InstructionsPage } from '../pages/instructions/instructions';
 import { CricketPage } from '../pages/cricket/cricket';
 import { X01Page } from '../pages/x01/x01';
 import { ServiceProvider } from '../providers/service/service';
@@ -17,10 +17,12 @@ import { ServiceProvider } from '../providers/service/service';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = X01Page;
+  rootPage: any = InstructionsPage;
+
   // activePage: any;
   pages: Array<{ title: string, component: any }>;
   pagesx01: Array<{ title: string, component: any }>;
+  instructions: Array<{ title: string, component: any }>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private service: ServiceProvider, ) {
     this.initializeApp();
@@ -35,6 +37,9 @@ export class MyApp {
       { title: '301', component: X01Page },
       { title: '501', component: X01Page },
       { title: '701', component: X01Page },
+    ];
+    this.instructions = [
+      { title: 'Instructions', component: InstructionsPage }
     ];
 
   }
@@ -71,4 +76,5 @@ export class MyApp {
   checkActive(page) {
     return page == this.service.getActivePage();
   }
+
 }

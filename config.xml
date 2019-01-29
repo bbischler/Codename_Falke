@@ -88,4 +88,5 @@
     <allow-navigation href="http://192.168.0.94:8101" sessionid="812e0364" />
     <engine name="ios" spec="4.5.5" />
     <engine name="android" spec="7.1.4" />
+    <plugin name="cordova-plugin-nativeaudio" spec="3.0.9" />
 </widget>

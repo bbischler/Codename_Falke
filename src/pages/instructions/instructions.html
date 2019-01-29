@@ -1,0 +1,76 @@
+<ion-header no-border>
+  <ion-toolbar color="transparent">
+    <button ion-button menuToggle>
+      <ion-icon color="accentSec" name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <div class="page-header">Instructions</div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content padding>
+
+  <ion-segment class="SwipedTabs-tabs">
+    <ion-segment-button *ngFor='let tab of tabs ; let i = index ' value="IngoreMe" (click)="selectTab(i)" [ngClass]='{ "SwipedTabs-activeTab" : ( this.SwipedTabsSlider  && ( this.SwipedTabsSlider.getActiveIndex() === i || (  tabs.length -1 === i&& this.SwipedTabsSlider.isEnd()))) }'>
+      {{tab}}
+    </ion-segment-button>
+  </ion-segment>
+
+  <!-- here is our dynamic line  "indicator"-->
+  <div id='indicator' class="SwipedTabs-indicatorSegment" [ngStyle]="{'width.%': (100/this.tabs.length)}"></div>
+
+  <ion-slides #SwipedTabsSlider (ionSlideDrag)="animateIndicator($event)" (ionSlideWillChange)="updateIndicatorPosition()"
+    (ionSlideDidChange)="updateIndicatorPosition()" (pan)="updateIndicatorPosition()" [pager]="false">
+
+    <ion-slide>
+      <section class="textblock">
+        <div class="header"> 1. Aim of the game</div>
+        The object of Cricket is to close all numbers from 15 to 20, and the bull's eye before the opponent does. To
+        close a number, a player must score three of that number (any combination of singles doubles and triples).
+
+        <div class="header"> 2. Scoring</div>
+        Once a player closes a number every subsequent score on that number increases their score, unless the other
+        player has closed that number as well.
+        <div class="header">3. Play & Win</div>
+        The player who has closed all numbers and whose score is not lower than the opponent's, wins the game. The
+        player
+        who has the highest score when 20 turns are over, wins the game. If the scores are tied after the 20th turn,
+        the
+        player who has closed the more numbers wins. If the number of the closed numbers is equal, there are 10
+        possible
+        extra turns to decide the winner.
+      </section>
+    </ion-slide>
+
+    <ion-slide>
+      <section class="textblock">
+
+        Each player starts with X-01 (301, 501, 701) points. The number of points collected while hitting a board with a dart is
+        subtracted from the given player's points. The winner is the player who scores exactly 0 points that way.
+        It is a double out game, which means that players must hit a double that makes their score exactly zero to win
+        the game.
+        <div class="header">Bust</div>
+        In case of a bust the player's score from the previous turn is restored. There is bust if one of the following
+        events arise:
+        <ul>
+          <li>The player scores more points in the active turn, than his current score (subtracting would result in a
+            negative
+            score)</li>
+          <li>The player has 1 point after subtracting (you cannot score 1 with double out)</li>
+          <li>The player has 0 point after subtracting but violates the double-out rule</li>
+        </ul>
+        <div class="header">End of the game</div>
+        Players continue playing until one of them scores 0 points in total. The player who does so, wins the game.
+        If none of the players gets to zero in 20 turns, the player with the lower point wins.
+        If the scores are equal after 20 turns, the game will continue for another possible 10 turns.
+        During these extra turns, the player who gets to zero obviously wins. A player with lower score any time after
+        the 20th turn also wins the match.
+        If the scores are equal after 20+10 turns, the match will end in a draw.
+      </section>
+    </ion-slide>
+  </ion-slides>
+
+</ion-content>

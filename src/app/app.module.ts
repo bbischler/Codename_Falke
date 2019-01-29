@@ -7,9 +7,12 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { CricketPage } from '../pages/cricket/cricket';
 import { X01Page } from '../pages/x01/x01';
+import { InstructionsPage } from '../pages/instructions/instructions';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ServiceProvider } from '../providers/service/service';
+// import { NativeAudio } from '@ionic-native/native-audio';
+
 
 @NgModule({
   declarations: [
@@ -17,7 +20,8 @@ import { ServiceProvider } from '../providers/service/service';
     HomePage,
     ListPage,
     CricketPage,
-    X01Page
+    X01Page,
+    InstructionsPage,
   ],
   imports: [
     BrowserModule,
@@ -29,9 +33,11 @@ import { ServiceProvider } from '../providers/service/service';
     HomePage,
     CricketPage,
     ListPage,
-    X01Page
+    X01Page,
+    InstructionsPage
   ],
   providers: [
+    // NativeAudio,
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
