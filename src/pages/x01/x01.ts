@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NativeAudio } from '@ionic-native/native-audio';
-import { IonicPage, NavController, NavParams, Slides, ModalController, Modal, ModalOptions } from 'ionic-angular';
+import { IonicPage, NavController, Platform, NavParams, Slides, ModalController, Modal, ModalOptions } from 'ionic-angular';
 import { Player } from '../../models/player';
 
 // import { SettingsX01Page } from '../settings-x01/settings-x01';
@@ -34,14 +34,18 @@ export class X01Page {
   throwCounter: number = 0;
   playerCounter: number = 0;
   containerof3: number[] = [1, 2, 3];
-
-  constructor( public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
-    // this.nativeAudio.preloadSimple('uniqueId1', 'path/to/file.mp3').then(onSuccess, onError);
-    // this.nativeAudio.preloadSimple('uniqueId1', 'assets/sounds/ding.mp3').then((success) => {
-    //   console.log("success");
-    // }, (error) => {
-    //   console.log(error);
-    // });
+  has180: Boolean = true;
+  
+  constructor(public navCtrl: NavController, public platform: Platform,
+    public navParams: NavParams, public modalCtrl: ModalController,
+    private nativeAudio: NativeAudio) {
+    this.platform.ready().then(() => {
+      this.nativeAudio.preloadSimple('180', 'assets/sounds/180.mp3').then((success) => {
+        console.log("success");
+      }, (error) => {
+        console.log(error);
+      });
+    });
 
     if (this.navParams.get('param')) {
       this.num = this.navParams.get('param');
@@ -74,6 +78,9 @@ export class X01Page {
   }
 
   addPoints(points: number) {
+    if (this.has180)
+      this.play180();
+
     if (this.isDouble) {
       points = points * 2;
     }
@@ -120,5 +127,13 @@ export class X01Page {
     }
   }
 
+
+  play180() {
+    this.nativeAudio.play('180').then((success) => {
+      console.log("success playing");
+    }, (error) => {
+      console.log(error);
+    });
+  }
 
 }

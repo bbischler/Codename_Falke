@@ -11,8 +11,8 @@ import { InstructionsPage } from '../pages/instructions/instructions';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ServiceProvider } from '../providers/service/service';
-// import { NativeAudio } from '@ionic-native/native-audio';
-
+import { NativeAudio } from '@ionic-native/native-audio';
+import { AdMobFree } from '@ionic-native/admob-free';
 
 @NgModule({
   declarations: [
@@ -37,9 +37,10 @@ import { ServiceProvider } from '../providers/service/service';
     InstructionsPage
   ],
   providers: [
-    // NativeAudio,
+    NativeAudio,
     StatusBar,
     SplashScreen,
+    AdMobFree,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     ServiceProvider
   ]

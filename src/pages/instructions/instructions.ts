@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
+import { AdMobFree, AdMobFreeBannerConfig, AdMobFreeInterstitialConfig } from '@ionic-native/admob-free';
 
 /**
  * Generated class for the InstructionsPage page.
@@ -18,8 +19,9 @@ export class InstructionsPage {
 
   tabs: any = [];
   SwipedTabsIndicator: any = null;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public admob: AdMobFree) {
     this.tabs = ["Cricket", "X-01"];
+    this.admob.banner.hide();
 
   }
 
