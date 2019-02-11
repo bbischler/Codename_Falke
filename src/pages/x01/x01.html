@@ -17,7 +17,7 @@
 		<ion-slide *ngFor="let player of players" #player.id>
 			<ion-card [ngClass]="isActive(player.id) ? 'cardClassActive' : 'cardClass' ">
 				<ion-card-header no-padding>
-					<ion-grid style="height:100%;padding:1em;"> 
+					<ion-grid style="height:100%;padding:1em;">
 						<ion-row class="playerInfo">
 							<ion-col class="playerName">
 								{{player.name}}
@@ -28,7 +28,7 @@
 							<ion-col class="playerAvg">
 								AVG: {{player.avg}}
 							</ion-col>
-						</ion-row> 
+						</ion-row>
 
 						<ion-row class="lastScores">
 							<ion-col *ngFor="let points of containerof3">
@@ -44,7 +44,13 @@
 
 							</ion-col>
 						</ion-row>
-
+						<ion-row class="lastScores">
+							<ion-col *ngFor="let points of containerof3">
+								<div class="toThrow">
+									{{player.toThrow[points-1]}}
+								</div>
+							</ion-col>
+						</ion-row>
 
 					</ion-grid>
 				</ion-card-header>
@@ -54,7 +60,7 @@
 
 
 
-	<ion-grid style="height:85%" no-padding>
+	<ion-grid style="height:65%" no-padding>
 		<ion-row *ngFor="let num of numbers" class="scoreboardrow">
 			<ion-col>
 				<button ion-button block color="transparent" class="numbercontainer" (click)="addPoints(num)">
@@ -129,6 +135,7 @@
 				</button>
 			</ion-col>
 		</ion-row>
+		<div class="ads"> </div>
 	</ion-grid>
 
 </ion-content>

@@ -27,6 +27,7 @@ page-cricket {
         display: flex;
         box-shadow: none !important;
         align-items: center;
+        margin: 0 !important;
     }
     .numberscore {
         font-weight: 200;
@@ -39,7 +40,7 @@ page-cricket {
         color: color($colors, fontSec);
     }
     .scoreboard {
-        height: 78%; // position: absolute;
+        height: 90%; // position: absolute;
         bottom: 0;
         top: 0;
         left: 0;
@@ -51,6 +52,7 @@ page-cricket {
     .btn_bottom {
         background-color: transparent;
         box-shadow: none !important;
+        height:75%;
         font-weight: 200;
         font-size: 1.5rem;
         color: color($colors, fontSec);
@@ -73,5 +75,9 @@ page-cricket {
     .far.fa-circle {
         font-size: 0.7em;
         margin: 0.4em 0 0.4em 0;
+    }
+    .ads {
+        height: 60px !important;
+        border: solid 1px red;
     }
 }

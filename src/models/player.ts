@@ -6,11 +6,14 @@ export class Player {
     totalScore: number = 0;
     avg: number = 0;
     lastThreeScores: number[] = [];
+    toThrow: string[] = [];
 
     constructor(id: number, name: string, score: number) {
         this.id = id;
         this.name = name;
         this.score = score;
+        this.toThrow = ["2", "5", "D12"];
+
     }
     setScore(score: number) {
         this.score += score;
@@ -31,6 +34,11 @@ export class Player {
     setTotalScore(points) {
         this.totalScore += points;
         this.avg = Math.floor(this.totalScore / this.throwCount);
+    }
+    setToShrow() {
+    }
+    getToThrow() {
+        return this.toThrow;
     }
 }
 

@@ -21,7 +21,7 @@ export class InstructionsPage {
   SwipedTabsIndicator: any = null;
   constructor(public navCtrl: NavController, public navParams: NavParams, public admob: AdMobFree) {
     this.tabs = ["Cricket", "X-01"];
-    this.admob.banner.hide();
+    // this.admob.banner.hide();
 
   }
 

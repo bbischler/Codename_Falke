@@ -17,7 +17,7 @@ import { ServiceProvider } from '../providers/service/service';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = X01Page; 
 
   // activePage: any;
   pages: Array<{ title: string, component: any }>;

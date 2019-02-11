@@ -2,8 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { NativeAudio } from '@ionic-native/native-audio';
 import { IonicPage, NavController, Platform, NavParams, Slides, ModalController, Modal, ModalOptions } from 'ionic-angular';
 import { Player } from '../../models/player';
-
-// import { SettingsX01Page } from '../settings-x01/settings-x01';
 // import { ThrowStmt } from '@angular/compiler';
 
 /**
@@ -35,7 +33,7 @@ export class X01Page {
   playerCounter: number = 0;
   containerof3: number[] = [1, 2, 3];
   has180: Boolean = true;
-  
+
   constructor(public navCtrl: NavController, public platform: Platform,
     public navParams: NavParams, public modalCtrl: ModalController,
     private nativeAudio: NativeAudio) {
@@ -59,12 +57,11 @@ export class X01Page {
     const myModalOptions: ModalOptions = {
       enableBackdropDismiss: false
     };
-    // const myModal: Modal = this.modalCtrl.create("ModalX01Page"); 
-    // myModal.present();
+    const myModal: Modal = this.modalCtrl.create("X01SettingsPage");
+    myModal.present();
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CricketPage');
     this.players.push(new Player(0, "Basti", this.num));
     this.players.push(new Player(1, "Marco", this.num));
     this.players.push(new Player(2, "Tim", this.num));
