@@ -53,31 +53,46 @@ page-x01 {
         font-size: 1.5rem;
     }
     .playerName {
-        color: color($colors, fontSec); // font-weight: 200;
+        color: color($colors, font); // font-weight: 200;
     }
     .playerAvg {
         // font-weight: 200;
-        color: color($colors, fontSec);
+        color: color($colors, font);
     }
     .playerScore {
         color: color($colors, font);
-        font-size: 2rem;
+        font-size: 3rem;
+        font-weight: 200;
     }
     .playerInfo {
-        height: 60%;
+        height: 30%;
     }
-    .threeDots {
-        height: 20%;
-    }
-    .lastScores {
-        height: 20%;
+    .stats {
+        height: 30%;
+        color: color($colors, font);
         font-weight: 100;
     }
+    .lastScores {
+        height: 15%;
+        font-weight: 100;
+    }
+    .threeDots {
+        align-content: center !important;
+        align-items: center !important;
+        height: 10%;
+    }
     .toThrow {
+        height: 15%;
         color: color($colors, fontSec);
     }
     .ads {
         height: 60px !important;
         border: solid 1px red;
+    }
+    ion-row {
+        // border: solid 1px red;
+    }
+    ion-col {
+        // border: solid 1px red;
     }
 }

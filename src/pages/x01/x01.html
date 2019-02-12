@@ -17,7 +17,7 @@
 		<ion-slide *ngFor="let player of players" #player.id>
 			<ion-card [ngClass]="isActive(player.id) ? 'cardClassActive' : 'cardClass' ">
 				<ion-card-header no-padding>
-					<ion-grid style="height:100%;padding:1em;">
+					<ion-grid style="height:100%;">
 						<ion-row class="playerInfo">
 							<ion-col class="playerName">
 								{{player.name}}
@@ -26,7 +26,18 @@
 								{{player.score}}
 							</ion-col>
 							<ion-col class="playerAvg">
-								AVG: {{player.avg}}
+								Avg: {{player.avg}}
+							</ion-col>
+						</ion-row>
+
+						<ion-row class="stats">
+							<ion-col>
+								L: 1/3
+							</ion-col>
+							<ion-col>
+							</ion-col>
+							<ion-col>
+								S : 1/3
 							</ion-col>
 						</ion-row>
 

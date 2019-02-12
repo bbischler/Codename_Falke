@@ -45,19 +45,19 @@ ion-content {
 }
 
 .fas.fa-circle {
-    margin: 0.2 2em 0 0.2em 0;
+    margin: 0.2 2em 0 0.2em;
     display: block;
     color: color($colors, accent);
 }
 
 .fas.fa-circle.closed {
-    margin: 0.2em 0 0.2em 0;
+    margin: 0.2 2em 0 0.2em;
     display: block;
     color: color($colors, fontSec);
 }
 
 .far.fa-circle {
-    margin: 0.2em 0 0.2em 0;
+    margin: 0.2 2em 0 0.2em;
     display: block;
     color: color($colors, accentSec);
 }
@@ -129,4 +129,39 @@ page-menu {
         }
     }
     /* follow me @nodws */
+}
+
+.radio-checked {
+    background-color: color($colors, transparent) !important;
+    border-color: color($colors, accent) !important;
+}
+
+.alert-wrapper {
+    @include border-radius($alert-md-border-radius);
+    box-shadow: $alert-md-box-shadow;
+    background-image: linear-gradient(155deg, color($colors, background), color($colors, backgroundSec)) !important;
+    color: color($colors, font) !important;
+}
+
+.item-radio {
+    background: transparent;
+    color: color($colors, font) !important;
+}
+
+[aria-checked=true] .alert-radio-icon {
+    background-color: color($colors, accent) !important;
+    border: none !important;
+}
+
+[aria-checked=true] .alert-radio-inner {
+    border-color: color($colors, accent) !important;
+    background: transparent;
+}
+
+.alert-radio-label {
+    color: color($colors, font) !important;
+}
+
+.alert-button {
+    color: color($colors, font) !important;
 }

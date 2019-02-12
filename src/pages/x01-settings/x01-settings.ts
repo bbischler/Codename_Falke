@@ -15,8 +15,11 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 })
 export class X01SettingsPage {
   playernumber: any = [1, 2];
-  doubleIn: Boolean = true;
+  doubleIn: Boolean = false;
   doubleOut: Boolean = true;
+  legbased: Boolean = false;
+  legs: number;
+  sets: number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
   }
@@ -36,5 +39,11 @@ export class X01SettingsPage {
   }
   removePlayer() {
     this.playernumber.splice(-1, 1);
+  }
+  quickgame() {
+    this.legbased = false;
+  }
+  legbasedgame() {
+    this.legbased = true;
   }
 }
