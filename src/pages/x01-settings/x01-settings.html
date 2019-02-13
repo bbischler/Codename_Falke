@@ -6,8 +6,8 @@
       </ion-col>
     </ion-row>
 
-    <ion-row *ngFor="let num of playernumber" class="playernames">
-      <ion-input type="text" placeholder="Player {{num}}"></ion-input>
+    <ion-row *ngFor="let player of playernumber;let i=index" class="playernames">
+      <ion-input type="text" placeholder="player {{i}}" [(ngModel)]="players[i]"></ion-input>
     </ion-row>
 
     <ion-row class="ion-rows">

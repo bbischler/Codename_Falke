@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NativeAudio } from '@ionic-native/native-audio';
 import { IonicPage, NavController, Platform, NavParams, Slides, ModalController, Modal, ModalOptions } from 'ionic-angular';
 import { Player } from '../../models/player';
-// import { ThrowStmt } from '@angular/compiler';
+import { ServiceProvider } from '../../providers/service/service';
 
 /**
  * Generated class for the X01Page page.
@@ -24,7 +24,7 @@ export class X01Page {
     this.slides.centeredSlides = true;
     this.slides.effect = "cube";
   }
-  num: any;
+  num: number;
   players: Player[] = [];
   numbers: number[] = [1, 6, 11, 16];
   isDouble: Boolean = false;
@@ -36,7 +36,7 @@ export class X01Page {
 
   constructor(public navCtrl: NavController, public platform: Platform,
     public navParams: NavParams, public modalCtrl: ModalController,
-    private nativeAudio: NativeAudio) {
+    private nativeAudio: NativeAudio, private service: ServiceProvider) {
     this.platform.ready().then(() => {
       this.nativeAudio.preloadSimple('180', 'assets/sounds/180.mp3').then((success) => {
         console.log("success");
@@ -59,16 +59,18 @@ export class X01Page {
     };
     const myModal: Modal = this.modalCtrl.create("X01SettingsPage");
     myModal.present();
+    this.setPlayer();
+  }
+
+  setPlayer() {
+    this.players = this.service.getAllPlayer();
+    for (let player of this.players) {
+      player.setScore(this.num);
+    }
   }
 
   ionViewDidLoad() {
-    this.players.push(new Player(0, "Basti", this.num));
-    this.players.push(new Player(1, "Marco", this.num));
-    this.players.push(new Player(2, "Tim", this.num));
-    this.players.push(new Player(3, "Patrick", this.num));
-
     this.openModal();
-
   }
   slideChanged() {
     let currentIndex = this.slides.getActiveIndex();

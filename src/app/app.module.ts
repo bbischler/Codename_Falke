@@ -13,7 +13,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ServiceProvider } from '../providers/service/service';
 import { NativeAudio } from '@ionic-native/native-audio';
 import { AdMobFree } from '@ionic-native/admob-free';
-import { Provider } from '../providers/provider/provider';
 
 @NgModule({
   declarations: [
@@ -44,7 +43,6 @@ import { Provider } from '../providers/provider/provider';
     AdMobFree,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     ServiceProvider,
-    Provider
   ]
 })
 export class AppModule { }

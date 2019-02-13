@@ -1,4 +1,4 @@
-// import { HttpClient } from '@angular/common/http';
+import { Player } from '../../models/player';
 import { Injectable } from '@angular/core';
 
 /*
@@ -10,6 +10,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ServiceProvider {
   activePage: string = 'Home';
+  players: Player[] = [];
 
   constructor() {
     console.log('Hello ServiceProvider Provider');
@@ -21,4 +22,10 @@ export class ServiceProvider {
     this.activePage = page;
   }
 
+  setPlayer(name: string) {
+    this.players.push(new Player(this.players.length, name));
+  }
+  getAllPlayer() {
+    return this.players;
+  }
 }
