@@ -15,7 +15,7 @@ export class Player {
 
     }
     setScore(score: number) {
-        this.score = score;
+        this.score += score;
     }
 
     setLastScore(points) {

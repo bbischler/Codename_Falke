@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, Modal, ModalOptions } from 'ionic-angular';
 import { AdMobFree, AdMobFreeBannerConfig, AdMobFreeInterstitialConfig } from '@ionic-native/admob-free';
 import { Player } from '../../models/player';
+import { ServiceProvider } from '../../providers/service/service';
+import { HomePage } from '../home/home';
 
 @IonicPage()
 @Component({
@@ -14,16 +16,15 @@ export class CricketPage {
   isDouble: Boolean = false;
   isTriple: Boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public admob: AdMobFree) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public admob: AdMobFree, public modalCtrl: ModalController,
+    private service: ServiceProvider) {
     // this.showBanner();
+    this.openModal();
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CricketPage');
-    this.players.push(new Player(0, "Basti", 0));
-    this.players.push(new Player(1, "Marco", 0));
-    this.players.push(new Player(2, "Tim", 0));
-    this.players.push(new Player(3, "Patrick", 0));
+    this.setPlayer();
     this.showBanner();
   }
 
@@ -69,6 +70,25 @@ export class CricketPage {
       // success
     }).catch(e => console.log(e));
 
+
+  }
+
+  openModal() {
+    const myModalOptions: ModalOptions = {
+      enableBackdropDismiss: false
+    };
+    const myModal: Modal = this.modalCtrl.create("CricketSettingsPage");
+    myModal.present();
+    myModal.onDidDismiss(data => {
+      if (data == true)
+        this.navCtrl.push(HomePage, {}, { animate: true, direction: 'back' });
+      else {
+        this.setPlayer();
+      }
+    });
+  }
+  setPlayer() {
+    this.players = this.service.getAllPlayer();
   }
 
   launchInterstitial() {
@@ -78,12 +98,10 @@ export class CricketPage {
       autoShow: true
       //id: Your Ad Unit ID goes here
     };
-
     this.admob.interstitial.config(interstitialConfig);
-
     this.admob.interstitial.prepare().then(() => {
       // success
     });
-
   }
 }
+

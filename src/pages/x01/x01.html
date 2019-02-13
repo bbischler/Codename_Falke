@@ -18,7 +18,7 @@
 			<ion-card [ngClass]="isActive(player.id) ? 'cardClassActive' : 'cardClass' ">
 				<ion-card-header no-padding>
 					<ion-grid style="height:100%;">
-						<ion-row class="playerInfo">
+						<ion-row class="playerInfo" align-items-center>
 							<ion-col class="playerName">
 								{{player.name}}
 							</ion-col>
@@ -30,7 +30,7 @@
 							</ion-col>
 						</ion-row>
 
-						<ion-row class="stats">
+						<ion-row class="stats" align-items-center>
 							<ion-col>
 								L: 1/3
 							</ion-col>
@@ -41,7 +41,7 @@
 							</ion-col>
 						</ion-row>
 
-						<ion-row class="lastScores">
+						<ion-row class="lastScores" align-items-center>
 							<ion-col *ngFor="let points of containerof3">
 								<div class="lastThree">
 									{{player.lastThreeScores[points-1]}}
@@ -49,13 +49,13 @@
 							</ion-col>
 
 						</ion-row>
-						<ion-row class="threeDots">
+						<ion-row class="threeDots" align-items-center>
 							<ion-col *ngFor="let num of containerof3">
 								<div [ngClass]="(num <=throwCounter) && isActive(player.id)? 'fas fa-circle fa-xs' : 'far fa-circle fa-xs' "></div>
 
 							</ion-col>
 						</ion-row>
-						<ion-row class="lastScores">
+						<ion-row class="lastScores" align-items-center>
 							<ion-col *ngFor="let points of containerof3">
 								<div class="toThrow">
 									{{player.toThrow[points-1]}}

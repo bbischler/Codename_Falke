@@ -1,0 +1,39 @@
+page-cricket-settings {
+    .heading {
+        font-size: 1.5em;
+        margin: 1em;
+        color: color($colors, font);
+        text-align: center;
+    }
+    .playernames {
+        background: transparent;
+        border: solid 1px color($colors, accentSec);
+        margin: 0 1em 1em 1em;
+    }
+    .ion-rows {
+        margin: 0 1em 1em 1em;
+    }
+    .btn_bottom {
+        background-color: transparent;
+        box-shadow: none !important;
+        font-weight: 200;
+        font-size: 1.5rem;
+        color: color($colors, font);
+    }
+    .doubles {
+        background: transparent;
+        color: color($colors, font);
+        font-size: 1em;
+    }
+    .footer {
+        // height: 5em;
+        background-color: color($colors, semiTransparent);
+    }
+    ion-toolbar {
+        height: 60px;
+    }
+    ion-input {
+        padding-left: 8px;
+        color: color($colors, font);
+    }
+}

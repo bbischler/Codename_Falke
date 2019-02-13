@@ -1,0 +1,45 @@
+<ion-content padding>
+  <ion-grid no-padding>
+    <ion-row class="ion-rows">
+      <ion-col>
+        <section class="heading">Settings</section>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let player of playernumber;let i=index" class="playernames">
+      <ion-input type="text" placeholder="player {{i}}" [(ngModel)]="players[i]"></ion-input>
+    </ion-row>
+
+    <ion-row class="ion-rows">
+      <ion-col col-6>
+        <button ion-button full class="btn_bottom" (click)="addPlayer()">
+          Add Player
+        </button>
+      </ion-col>
+      <ion-col col-6>
+        <button ion-button full class="btn_bottom" (click)="removePlayer()">
+          Remove Player
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar transparent>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button ion-button full class="btn_bottom" (click)="dismiss()">
+            Abort
+          </button>
+        </ion-col>
+        <ion-col>
+          <button ion-button full class="btn_bottom" (click)="play()">
+            Play
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

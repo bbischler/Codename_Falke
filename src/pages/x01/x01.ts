@@ -3,6 +3,7 @@ import { NativeAudio } from '@ionic-native/native-audio';
 import { IonicPage, NavController, Platform, NavParams, Slides, ModalController, Modal, ModalOptions } from 'ionic-angular';
 import { Player } from '../../models/player';
 import { ServiceProvider } from '../../providers/service/service';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the X01Page page.
@@ -50,28 +51,32 @@ export class X01Page {
     } else {
       this.num = 301;
     }
-
-
+    this.openModal();
   }
   openModal() {
     const myModalOptions: ModalOptions = {
-      enableBackdropDismiss: false
+      enableBackdropDismiss: true
     };
-    const myModal: Modal = this.modalCtrl.create("X01SettingsPage");
+    const myModal: Modal = this.modalCtrl.create("X01SettingsPage", myModalOptions);
     myModal.present();
-    this.setPlayer();
+    myModal.onDidDismiss(data => {
+      if (data == true)
+        this.navCtrl.push(HomePage, {}, { animate: true, direction: 'back' });
+        else{
+          this.setPlayer();
+        }
+    });
   }
 
   setPlayer() {
     this.players = this.service.getAllPlayer();
+
     for (let player of this.players) {
       player.setScore(this.num);
     }
   }
 
-  ionViewDidLoad() {
-    this.openModal();
-  }
+
   slideChanged() {
     let currentIndex = this.slides.getActiveIndex();
   }

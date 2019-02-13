@@ -1,27 +1,14 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { ServiceProvider } from '../../providers/service/service';
-import { HomePage } from '../../pages/home/home';
-
-/**
- * Generated class for the X01SettingsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
-  selector: 'page-x01-settings',
-  templateUrl: 'x01-settings.html',
+  selector: 'page-cricket-settings',
+  templateUrl: 'cricket-settings.html',
 })
-export class X01SettingsPage {
+export class CricketSettingsPage {
   playernumber: any = [1, 2];
-  doubleIn: Boolean = false;
-  doubleOut: Boolean = true;
-  legbased: Boolean = false;
-  legs: number;
-  sets: number;
   players: string[] = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, private service: ServiceProvider) {
@@ -30,11 +17,7 @@ export class X01SettingsPage {
   }
 
   dismiss() {
-    this.service.setActivePage('Home');
     this.viewCtrl.dismiss(true);
-    
-
-    // this.navCtrl.push(HomePage);
   }
   play() {
     for (let i = 0; i < this.players.length; i++) {
@@ -53,11 +36,5 @@ export class X01SettingsPage {
   removePlayer() {
     this.playernumber.splice(-1, 1);
     this.players.splice(-1, 1);
-  }
-  quickgame() {
-    this.legbased = false;
-  }
-  legbasedgame() {
-    this.legbased = true;
   }
 }
