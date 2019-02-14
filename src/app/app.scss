@@ -45,19 +45,19 @@ ion-content {
 }
 
 .fas.fa-circle {
-    margin: 0.2em 2em 0 0.2em;
+    margin: 0 0.2em 0 0.2em;
     display: block;
     color: color($colors, accent);
 }
 
 .fas.fa-circle.closed {
-    margin: 0.2em 2em 0 0.2em;
+    margin: 0 0.2em 0 0.2em;
     display: block;
     color: color($colors, fontSec);
 }
 
 .far.fa-circle {
-    margin: 0.2em 2em 0 0.2em;
+    margin: 0 0.2em 0 0.2em;
     display: block;
     color: color($colors, accentSec);
 }
