@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-
+import { ChallengePage } from '../pages/challenge/challenge';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
@@ -20,6 +20,7 @@ import { AdMobFree } from '@ionic-native/admob-free';
     HomePage,
     ListPage,
     CricketPage,
+    ChallengePage,
     X01Page,
     InstructionsPage,
   ],
@@ -31,6 +32,7 @@ import { AdMobFree } from '@ionic-native/admob-free';
   entryComponents: [
     MyApp,
     HomePage,
+    ChallengePage,
     CricketPage,
     ListPage,
     X01Page,

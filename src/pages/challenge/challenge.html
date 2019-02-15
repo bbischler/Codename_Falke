@@ -1,0 +1,82 @@
+<ion-header no-border>
+  <ion-toolbar color="transparent">
+    <button ion-button menuToggle>
+      <ion-icon color="accentSec" name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <div class="page-header">Challenge</div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+
+
+  <ion-slides>
+    <ion-slide>
+      <ion-card class="cardClassActive">
+        <ion-card-header no-padding>
+          <ion-grid style="height:100%;">
+            <ion-row class="score" align-items-center>
+              <ion-col class="score">
+                {{score}}
+              </ion-col>
+            </ion-row>
+            <ion-row class="stats" align-items-center>
+              <ion-col>
+                Last Avg: {{lastavg}} %
+              </ion-col>
+              <ion-col>
+              </ion-col>
+              <ion-col>
+                Avg: {{avg}} %
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-header>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
+
+
+
+  <ion-grid style="height:75%" no-padding>
+
+    <ion-row class="hitmiss" align-items-center>
+      <ion-col>
+        <button ion-button block color="transparent" class="btn_miss" (click)="throw(false)">
+          <div class="numberscore">
+            MISS
+          </div>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button block color="transparent" class="btn_hit" (click)="throw(true)">
+          <div class="numberscore">
+            HIT
+          </div>
+        </button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="endgame">
+      <ion-col>
+        <button ion-button block class="btn_bottom" (click)="newgame()">
+          <div class="numberscore">
+            NEW GAME
+          </div>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button block color="transparent" class="btn_bottom" (click)="endgame()">
+          <div class="numberscore">
+            END GAME
+          </div>
+        </button>
+      </ion-col>
+    </ion-row>
+    <div class="ads"> </div>
+  </ion-grid>
+
+</ion-content>

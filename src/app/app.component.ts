@@ -3,6 +3,7 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { ChallengePage } from '../pages/challenge/challenge';
 import { HomePage } from '../pages/home/home';
 import { InstructionsPage } from '../pages/instructions/instructions';
 import { CricketPage } from '../pages/cricket/cricket';
@@ -17,7 +18,7 @@ import { ServiceProvider } from '../providers/service/service';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = X01Page; 
+  rootPage: any = ChallengePage;
 
   // activePage: any;
   pages: Array<{ title: string, component: any }>;
@@ -39,6 +40,7 @@ export class MyApp {
       { title: '701', component: X01Page },
     ];
     this.instructions = [
+      { title: 'Challenge', component: ChallengePage },
       { title: 'Instructions', component: InstructionsPage }
     ];
 

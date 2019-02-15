@@ -6,6 +6,7 @@ import { CricketPage } from '../cricket/cricket';
 import { X01Page } from '../x01/x01';
 import { InstructionsPage } from '../instructions/instructions';
 import { ServiceProvider } from '../../providers/service/service';
+import { ChallengePage } from '../challenge/challenge';
 
 @Component({
   selector: 'page-home',
@@ -54,9 +55,9 @@ export class HomePage {
       param: num
     });
   }
-  openInstructions() {
-    this.service.setActivePage('Instructions');
-    this.navCtrl.push(InstructionsPage);
+  openChallenge() {
+    this.service.setActivePage('Challenge');
+    this.navCtrl.push(ChallengePage);
   }
   inviteFriend() {
     console.log('invite friend');
