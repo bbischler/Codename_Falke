@@ -13,20 +13,25 @@
 <ion-content padding>
 
 
-	<ion-slides #slides (ionSlideDidChange)="slideChanged()">
+	<ion-slides>
 		<ion-slide *ngFor="let player of players" #player.id>
 			<ion-card [ngClass]="isActive(player.id) ? 'cardClassActive' : 'cardClass' ">
 				<ion-card-header no-padding>
 					<ion-grid style="height:100%;">
 						<ion-row class="playerInfo" align-items-center>
 							<ion-col class="playerName">
-								{{player.name}}
+								<div>
+									{{player.name}}
+								</div>
 							</ion-col>
 							<ion-col class="playerScore">
-								{{player.score}}
+								<div>
+									{{player.score}}
+								</div>
 							</ion-col>
 							<ion-col class="playerAvg">
-								Avg: {{player.avg}}
+								<div>
+									Avg: {{player.avg}}</div>
 							</ion-col>
 						</ion-row>
 
@@ -43,13 +48,13 @@
 
 						<ion-row class="lastScores" align-items-center>
 							<ion-col *ngFor="let points of containerof3">
-								<div class="lastThree">
+								<div>
 									{{player.lastThreeScores[points-1]}}
 								</div>
 							</ion-col>
 
 						</ion-row>
-						<ion-row class="threeDots" align-items-center>
+						<ion-row class="lastScores" align-items-center>
 							<ion-col *ngFor="let num of containerof3">
 								<div [ngClass]="(num <=throwCounter) && isActive(player.id)? 'fas fa-circle fa-xs' : 'far fa-circle fa-xs' "></div>
 
@@ -146,7 +151,7 @@
 				</button>
 			</ion-col>
 		</ion-row>
-		<div class="ads"> </div>
+		<!-- <div class="ads"> </div> -->
 	</ion-grid>
 
 </ion-content>

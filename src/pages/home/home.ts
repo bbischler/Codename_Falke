@@ -10,7 +10,7 @@ import { ChallengePage } from '../challenge/challenge';
 
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html'
+  templateUrl: 'home.html' 
 })
 export class HomePage {
   private admobId: any;

@@ -11,6 +11,7 @@ import { Injectable } from '@angular/core';
 export class ServiceProvider {
   activePage: string = 'Home';
   players: Player[] = [];
+  gameIsActive: Boolean = false;
 
   constructor() {
     console.log('Hello ServiceProvider Provider');
@@ -27,5 +28,11 @@ export class ServiceProvider {
   }
   getAllPlayer() {
     return this.players;
+  }
+  setGameIsActive(isactive: Boolean) {
+    this.gameIsActive = isactive;
+  }
+  getGameIsActive() {
+    return this.gameIsActive;
   }
 }

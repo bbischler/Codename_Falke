@@ -37,7 +37,7 @@ ion-title {
 }
 
 ion-content {
-    background-image: linear-gradient(155deg, color($colors, background), color($colors, backgroundSec)) !important;
+    background-image: linear-gradient(160deg, color($colors, background) 5%, color($colors, backgroundSec)) !important;
 }
 
 .scroll-content {
@@ -91,7 +91,7 @@ page-menu {
     .logo b {
         font: 100 5vh "Vibur";
         color: color($colors, font); // text-shadow: 0 -20px 100px, 0 0 2px, 0 0 1em color($colors, accent), 0 0 0.5em color($colors, accent), 0 0 0.1em color($colors, accent), 0 7px 3px #000;
-        text-shadow: 0 -20px 100px, 0 0 2px, 0 0 1em color($colors, accent), 0 0 0.5em color($colors, accent), 0 0 0.1em color($colors, accent), 0 6px 3px #000;
+        text-shadow: 0 -20px 100px color($colors, btnActivated), 0 0 2px, 0 0 1em color($colors, accent), 0 0 0.5em color($colors, accent), 0 0 0.1em color($colors, accent), 0 6px 3px #000;
     }
     .logo b span {
         animation: blink linear infinite 2.5s;
@@ -105,6 +105,7 @@ page-menu {
             color: rgb(128, 128, 128);
         }
         80% {
+            color: color($colors, semiTransparent);
             text-shadow: none;
         }
         81% {
@@ -112,7 +113,7 @@ page-menu {
             text-shadow: inherit;
         }
         82% {
-            color: rgb(128, 128, 128);
+            color: color($colors, semiTransparent);
             text-shadow: none;
         }
         83% {
@@ -131,6 +132,7 @@ page-menu {
     /* follow me @nodws */
 }
 
+//alert popup design
 .radio-checked {
     background-color: color($colors, transparent) !important;
     border-color: color($colors, accent) !important;
@@ -162,6 +164,35 @@ page-menu {
     color: color($colors, font) !important;
 }
 
+.alert-message {
+    color: color($colors, font) !important;
+}
+
 .alert-button {
     color: color($colors, font) !important;
+}
+
+//buttons design
+.button-ios-transparent.activated {
+    background: color($colors, btnActivated) !important;
+}
+
+.button-md-transparent.activated {
+    background: color($colors, btnActivated) !important;
+}
+
+.button-ios.activated {
+    background: color($colors, btnActivated) !important;
+}
+
+.button-md.activated {
+    background: color($colors, btnActivated) !important;
+}
+
+.item-ios.activated {
+    background: color($colors, btnActivated) !important;
+}
+
+.item-md.activated {
+    background: color($colors, btnActivated) !important;
 }

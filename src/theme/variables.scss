@@ -39,11 +39,16 @@ $colors: (
   fontSec:    rgba(255, 255, 255, 0.45),
   accent:rgba(17, 229, 158, 0.9),
   accentSec:  rgba(17, 229, 158, 0.2),
-  background: rgb(28, 29, 31),
-  backgroundSec:#273453,
+  // background: rgb(28, 29, 31),  
+  // backgroundSec:#273453, 
+  background: rgb(5, 5, 6),
+  // backgroundSec:rgba(5, 5, 6, 0.87),
+  backgroundSec:rgb(40, 54, 60),
   transparent: rgba(67, 192, 163, 0),
   semiTransparent:    rgba(255, 255, 255, 0.08),
+  btnActivated:    rgba(255, 255, 255, 0.25),
   dark:       #222,
+  green:rgb(0,255,0)
 );
 
 

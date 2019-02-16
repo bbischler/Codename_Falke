@@ -49,12 +49,12 @@ page-x01-settings {
         background-color: color($colors, semiTransparent);
         border: solid 1px color($colors, accent);
     }
-    .gamestyle {
+    .gamestyle { 
         height: 100%;
         color: color($colors, fontSec);
-        width: 100%;
+        width: 100%; 
         background-color: color($colors, transparent);
-        border: solid 1px color($colors, fontSec);
+        border: solid 1px color($colors, semiTransparent);
     }
     .toggles {
         margin: 2em 1em 1em 1em;

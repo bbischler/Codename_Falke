@@ -68,7 +68,7 @@ page-x01 {
         height: 30%;
     }
     .stats {
-        height: 30%;
+        height: 25%;
         color: color($colors, font);
         font-weight: 100;
     }
@@ -82,7 +82,7 @@ page-x01 {
         height: 15%;
     }
     .toThrow {
-        height: 15%;
+        height: 100%;
         color: color($colors, fontSec);
     }
     .ads {
@@ -93,6 +93,9 @@ page-x01 {
         // border: solid 1px red;
     }
     ion-col {
-        // border: solid 1px red;
+        // border: solid 1px yellow;
+        display: flex;
+        justify-content: center;
+        align-items: center; // border: solid 1px red;
     }
 }

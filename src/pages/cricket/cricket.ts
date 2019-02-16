@@ -84,6 +84,7 @@ export class CricketPage {
         this.navCtrl.push(HomePage, {}, { animate: true, direction: 'back' });
       else {
         this.setPlayer();
+        this.service.setGameIsActive(true);
       }
     });
   }
@@ -91,6 +92,10 @@ export class CricketPage {
     this.players = this.service.getAllPlayer();
   }
 
+  ngOnDestroy() {
+    this.service.setGameIsActive(false);
+  }
+  
   launchInterstitial() {
 
     let interstitialConfig: AdMobFreeInterstitialConfig = {

@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NativeAudio } from '@ionic-native/native-audio';
-import { IonicPage, NavController, Platform, NavParams, Slides, ModalController, Modal, ModalOptions } from 'ionic-angular';
+import { IonicPage, AlertController, NavController, Platform, NavParams, Slides, ModalController, Modal, ModalOptions } from 'ionic-angular';
 import { Player } from '../../models/player';
 import { ServiceProvider } from '../../providers/service/service';
 import { HomePage } from '../home/home';
@@ -34,10 +34,13 @@ export class X01Page {
   playerCounter: number = 0;
   containerof3: number[] = [1, 2, 3];
   has180: Boolean = true;
+  gameOver: Boolean = false;
+  confirmAlert: any;
 
   constructor(public navCtrl: NavController, public platform: Platform,
     public navParams: NavParams, public modalCtrl: ModalController,
-    private nativeAudio: NativeAudio, private service: ServiceProvider) {
+    private nativeAudio: NativeAudio, private service: ServiceProvider,
+    public alertCtrl: AlertController) {
     this.platform.ready().then(() => {
       this.nativeAudio.preloadSimple('180', 'assets/sounds/180.mp3').then((success) => {
         console.log("success");
@@ -53,6 +56,10 @@ export class X01Page {
     }
     this.openModal();
   }
+
+  ngOnDestroy() {
+    this.service.setGameIsActive(false);
+  }
   openModal() {
     const myModalOptions: ModalOptions = {
       enableBackdropDismiss: true
@@ -62,9 +69,10 @@ export class X01Page {
     myModal.onDidDismiss(data => {
       if (data == true)
         this.navCtrl.push(HomePage, {}, { animate: true, direction: 'back' });
-        else{
-          this.setPlayer();
-        }
+      else {
+        this.setPlayer();
+        this.service.setGameIsActive(true);
+      }
     });
   }
 
@@ -74,11 +82,6 @@ export class X01Page {
     for (let player of this.players) {
       player.setScore(this.num);
     }
-  }
-
-
-  slideChanged() {
-    let currentIndex = this.slides.getActiveIndex();
   }
 
   addPoints(points: number) {
@@ -91,6 +94,10 @@ export class X01Page {
     if (this.isTriple) {
       points = points * 3;
     }
+    if (this.hasWon()) {
+      this.service.setGameIsActive(false);
+    }
+
     this.slides.slideTo(this.playerCounter, 1000);
     this.players[this.playerCounter].reducePoints(points);
     this.players[this.playerCounter].setLastScore(points);
@@ -111,9 +118,13 @@ export class X01Page {
       this.slides.slideTo(this.playerCounter, 1000);
     }
   }
+  hasWon() {
+    return false;
+  }
 
-
-  undo() { }
+  undo() {
+    //marco do magic here
+  }
 
   double() {
     this.isTriple = false;
