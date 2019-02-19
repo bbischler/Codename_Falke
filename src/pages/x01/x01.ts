@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NativeAudio } from '@ionic-native/native-audio';
+import { NativeAudio } from '@ionic-native/native-audio/ngx';
 import { IonicPage, AlertController, NavController, Platform, NavParams, Slides, ModalController, Modal, ModalOptions } from 'ionic-angular';
 import { Player } from '../../models/player';
 import { ServiceProvider } from '../../providers/service/service';
