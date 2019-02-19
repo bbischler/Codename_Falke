@@ -23,14 +23,27 @@
                 {{score}}
               </ion-col>
             </ion-row>
+
             <ion-row class="stats" align-items-center>
               <ion-col>
-                Last Avg: {{lastavg}} %
+                Last Avg
               </ion-col>
               <ion-col>
+                Count
               </ion-col>
               <ion-col>
-                Avg: {{avg}} %
+                Avg
+              </ion-col>
+            </ion-row>
+            <ion-row class="stats" align-items-center>
+              <ion-col>
+                {{lastavg}} %
+              </ion-col>
+              <ion-col>
+                {{throwCounter}}
+              </ion-col>
+              <ion-col>
+                {{avg}}
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -41,7 +54,7 @@
 
 
 
-  <ion-grid style="height:75%" no-padding>
+  <ion-grid style="height:65%; margin-top:1em;" no-padding>
 
     <ion-row class="hitmiss" align-items-center>
       <ion-col>
@@ -76,7 +89,7 @@
         </button>
       </ion-col>
     </ion-row>
-    <div class="ads"> </div>
+    <!-- <div class="ads"> </div> -->
   </ion-grid>
 
 </ion-content>

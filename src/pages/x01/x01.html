@@ -46,6 +46,7 @@
 							</ion-col>
 						</ion-row>
 
+
 						<ion-row class="lastScores" align-items-center>
 							<ion-col *ngFor="let points of containerof3">
 								<div>
@@ -56,7 +57,9 @@
 						</ion-row>
 						<ion-row class="lastScores" align-items-center>
 							<ion-col *ngFor="let num of containerof3">
-								<div [ngClass]="(num <=throwCounter) && isActive(player.id)? 'fas fa-circle fa-xs' : 'far fa-circle fa-xs' "></div>
+								<div
+									[ngClass]="(num <=throwCounter) && isActive(player.id)? 'fas fa-circle fa-xs' : 'far fa-circle fa-xs' ">
+								</div>
 
 							</ion-col>
 						</ion-row>

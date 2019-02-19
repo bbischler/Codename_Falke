@@ -12,7 +12,7 @@ page-challenge {
         height: 100%;
     }
     ion-slides {
-        padding-bottom: 1em !important;
+        // padding-bottom: 1em !important;
         height: 25%;
     }
     .card {
@@ -20,19 +20,19 @@ page-challenge {
         margin-top: 0 !important;
     }
     .score {
-        height: 70%;
+        height: 60%;
         color: color($colors, font);
         font-size: 3.5rem;
         font-weight: 200;
     }
     .stats {
-        height: 30%;
+        height: 20%;
         color: color($colors, fontSec);
         font-weight: 100;
     }
     .btn_miss {
         border: solid 1px color($colors, semiTransparent);
-        height: 7em;
+        height: 82%;
         background-color: transparent;
         box-shadow: none !important;
         font-weight: 400;
@@ -42,7 +42,7 @@ page-challenge {
     .btn_hit {
         background-color: color($colors, semiTransparent) !important;
         border: solid 1px color($colors, semiTransparent);
-        height: 7em;
+        height: 82%;
         background-color: transparent;
         box-shadow: none !important;
         font-weight: 400;
@@ -50,7 +50,7 @@ page-challenge {
         color: color($colors, accent);
     }
     .btn_bottom {
-        height: 75%;
+        height: 60%;
         background-color: transparent;
         box-shadow: none !important;
         font-weight: 200;
@@ -58,16 +58,26 @@ page-challenge {
         color: color($colors, fontSec);
     }
     .hitmiss {
-        padding: 1em;
-        height: 70% !important;
+        padding: 0 1em 0 1em;
+        height: 80% !important;
     }
     .endgame {
-        height: 15%;
+        height: 20%;
     }
     ion-row {
         // border: solid 1px red;
+
     }
     ion-col {
         // border: solid 1px red;
+
+        height:100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    ion-grid {
+        // border: solid 1px red;
+
     }
 }

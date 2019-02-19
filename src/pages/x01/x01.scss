@@ -42,6 +42,7 @@ page-x01 {
         font-weight: 200;
         font-size: 1.5rem;
         color: color($colors, fontSec);
+        margin: 0 0.2em 0 0.2em;
     }
     .active_btn {
         background-color: color($colors, semiTransparent) !important;
@@ -50,6 +51,7 @@ page-x01 {
         width: 100%;
         font-weight: 200;
         height: 75%;
+        margin: 0 0.2em 0 0.2em;
         font-size: 1.5rem;
     }
     .playerName {
@@ -93,7 +95,7 @@ page-x01 {
         // border: solid 1px red;
     }
     ion-col {
-        // border: solid 1px yellow;
+        padding: 0 !important; // border: solid 1px yellow;
         display: flex;
         justify-content: center;
         align-items: center; // border: solid 1px red;
