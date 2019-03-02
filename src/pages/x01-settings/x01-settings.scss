@@ -21,6 +21,7 @@ page-x01-settings {
         color: color($colors, font);
     }
     .doubles {
+        margin: 0 1em 0 1em;
         background: transparent;
         color: color($colors, font);
         font-size: 1em;
@@ -49,10 +50,10 @@ page-x01-settings {
         background-color: color($colors, semiTransparent);
         border: solid 1px color($colors, accent);
     }
-    .gamestyle { 
+    .gamestyle {
         height: 100%;
         color: color($colors, fontSec);
-        width: 100%; 
+        width: 100%;
         background-color: color($colors, transparent);
         border: solid 1px color($colors, semiTransparent);
     }
@@ -60,5 +61,5 @@ page-x01-settings {
         margin: 2em 1em 1em 1em;
         height: 3em;
     }
-    
+ 
 }

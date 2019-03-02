@@ -2,6 +2,7 @@ page-x01 {
     .cardClass {
         height: 100%;
         border: solid 1px color($colors, semiTransparent);
+        color: color($colors, fontSec) !important;
     }
     .cardClassActive {
         height: 100%;
@@ -10,7 +11,7 @@ page-x01 {
     }
     ion-card-header {
         height: 100%;
-        color: color($colors, font) !important;
+        color: color($colors, font);
     }
     .slide-zoom {
         height: 100%;
@@ -22,6 +23,9 @@ page-x01 {
     .card {
         background-color: color($colors, transparent);
         margin-top: 0 !important;
+    }
+    .inactive {
+        background-color: color($colors, semiTransparent) !important;
     }
     .scoreboardrow {
         height: 20%;
@@ -54,19 +58,16 @@ page-x01 {
         margin: 0 0.2em 0 0.2em;
         font-size: 1.5rem;
     }
-    .playerName {
-        color: color($colors, font); // font-weight: 200;
-    }
-    .playerAvg {
-        // font-weight: 200;
-        color: color($colors, font);
+    .playerInfoInactive {
+        color: color($colors, fontSec);
+        height: 30%;
     }
     .playerScore {
-        color: color($colors, font);
         font-size: 3rem;
         font-weight: 200;
     }
     .playerInfo {
+        color: color($colors, font);
         height: 30%;
     }
     .stats {
@@ -74,28 +75,38 @@ page-x01 {
         color: color($colors, font);
         font-weight: 100;
     }
-    .lastScores {
-        height: 15%;
+    .statsInactive {
+        height: 25%;
+        color: color($colors, fontSec);
         font-weight: 100;
     }
-    .threeDots {
-        align-content: center !important;
-        align-items: center !important;
+    .lastScore {
         height: 15%;
+        font-weight: 100;
+        color: color($colors, font);
+    }
+    .lastScoreInactive {
+        display: none;
+        height: 15%;
+        font-weight: 100;
     }
     .toThrow {
         height: 100%;
         color: color($colors, fontSec);
     }
-    .ads {
-        height: 60px !important;
-        border: solid 1px red;
+    .playersTurn {
+        display: none;
+    }
+    .playersTurnActive {
+        height: 30%;
+        font-weight: 100;
+        color: color($colors, fontSec);
     }
     ion-row {
         // border: solid 1px red;
     }
     ion-col {
-        padding: 0 !important; // border: solid 1px yellow;
+        // padding: 0 !important; // border: solid 1px yellow;
         display: flex;
         justify-content: center;
         align-items: center; // border: solid 1px red;

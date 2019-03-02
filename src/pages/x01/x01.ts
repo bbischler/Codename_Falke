@@ -36,6 +36,7 @@ export class X01Page {
   has180: Boolean = true;
   gameOver: Boolean = false;
   confirmAlert: any;
+  activePlayerName: string = "";
 
   constructor(public navCtrl: NavController, public platform: Platform,
     public navParams: NavParams, public modalCtrl: ModalController,
@@ -82,6 +83,7 @@ export class X01Page {
     for (let player of this.players) {
       player.setScore(this.num);
     }
+    this.activePlayerName = this.players[0].name;
   }
 
   addPoints(points: number) {
@@ -116,6 +118,8 @@ export class X01Page {
       }
       this.players[this.playerCounter].removeLastThreePoints();
       this.slides.slideTo(this.playerCounter, 1000);
+      this.activePlayerName = this.players[this.playerCounter].name;
+
     }
   }
   hasWon() {

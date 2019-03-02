@@ -18,8 +18,9 @@
 			<ion-card [ngClass]="isActive(player.id) ? 'cardClassActive' : 'cardClass' ">
 				<ion-card-header no-padding>
 					<ion-grid style="height:100%;">
-						<ion-row class="playerInfo" align-items-center>
-							<ion-col class="playerName">
+						<ion-row [ngClass]="isActive(player.id) ? 'playerInfo' : 'playerInfoInactive' "
+							align-items-center>
+							<ion-col>
 								<div>
 									{{player.name}}
 								</div>
@@ -29,13 +30,13 @@
 									{{player.score}}
 								</div>
 							</ion-col>
-							<ion-col class="playerAvg">
+							<ion-col>
 								<div>
 									Avg: {{player.avg}}</div>
 							</ion-col>
 						</ion-row>
 
-						<ion-row class="stats" align-items-center>
+						<ion-row [ngClass]="isActive(player.id) ? 'stats' : 'statsInactive' " align-items-center>
 							<ion-col>
 								L: 1/3
 							</ion-col>
@@ -47,7 +48,7 @@
 						</ion-row>
 
 
-						<ion-row class="lastScores" align-items-center>
+						<ion-row class="lastScore" align-items-center>
 							<ion-col *ngFor="let points of containerof3">
 								<div>
 									{{player.lastThreeScores[points-1]}}
@@ -55,7 +56,8 @@
 							</ion-col>
 
 						</ion-row>
-						<ion-row class="lastScores" align-items-center>
+						<ion-row [ngClass]="isActive(player.id) ? 'lastScore' : 'lastScoreInactive' "
+							align-items-center>
 							<ion-col *ngFor="let num of containerof3">
 								<div
 									[ngClass]="(num <=throwCounter) && isActive(player.id)? 'fas fa-circle fa-xs' : 'far fa-circle fa-xs' ">
@@ -63,11 +65,19 @@
 
 							</ion-col>
 						</ion-row>
-						<ion-row class="lastScores" align-items-center>
+						<ion-row [ngClass]="isActive(player.id) ? 'lastScore' : 'lastScoreInactive' "
+							align-items-center>
 							<ion-col *ngFor="let points of containerof3">
 								<div class="toThrow">
 									{{player.toThrow[points-1]}}
 								</div>
+							</ion-col>
+						</ion-row>
+
+						<ion-row [ngClass]="isActive(player.id) ? 'playersTurn' : 'playersTurnActive' "
+							align-items-center>
+							<ion-col>
+								{{activePlayerName}}'s turn
 							</ion-col>
 						</ion-row>
 

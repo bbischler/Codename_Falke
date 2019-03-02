@@ -10,9 +10,11 @@ page-home {
         margin: 2em;
     }
     ion-row {
-        height: 33%;
+        // border: solid 1px blue;
+        height: 30%;
     }
     ion-col {
+        // border: solid 1px yellow;
         padding: 0px !important;
         display: flex;
         justify-content: center;
@@ -24,6 +26,7 @@ page-home {
         width: 100%;
         box-shadow: none !important;
         align-items: center;
+        background-color: color($colors, semiTransparent2);
     }
     .font {
         font-weight: 100;
@@ -31,6 +34,7 @@ page-home {
         width: 100%;
         color: color($colors, font);
         text-align: center;
+        // border: solid 1px red;
         vertical-align: middle !important;
     }
     .line {

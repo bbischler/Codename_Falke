@@ -4,7 +4,6 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { ChallengePage } from '../pages/challenge/challenge';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { CricketPage } from '../pages/cricket/cricket';
 import { X01Page } from '../pages/x01/x01';
 import { InstructionsPage } from '../pages/instructions/instructions';
@@ -19,7 +18,6 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
   declarations: [
     MyApp,
     HomePage,
-    ListPage,
     CricketPage,
     ChallengePage,
     X01Page,
@@ -35,7 +33,6 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
     HomePage,
     ChallengePage,
     CricketPage,
-    ListPage,
     X01Page,
     InstructionsPage
   ],
