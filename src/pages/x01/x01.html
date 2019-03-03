@@ -27,7 +27,7 @@
 							</ion-col>
 							<ion-col class="playerScore">
 								<div>
-									{{player.score}}
+									{{player.totalScore}}
 								</div>
 							</ion-col>
 							<ion-col>
@@ -60,7 +60,7 @@
 							align-items-center>
 							<ion-col *ngFor="let num of containerof3">
 								<div
-									[ngClass]="(num <=throwCounter) && isActive(player.id)? 'fas fa-circle fa-xs' : 'far fa-circle fa-xs' ">
+									[ngClass]="(num <=player.roundThrowCount) && isActive(player.id)? 'fas fa-circle fa-xs' : 'far fa-circle fa-xs' ">
 								</div>
 
 							</ion-col>
@@ -77,7 +77,7 @@
 						<ion-row [ngClass]="isActive(player.id) ? 'playersTurn' : 'playersTurnActive' "
 							align-items-center>
 							<ion-col>
-								{{activePlayerName}}'s turn
+								{{activePlayer.name}}'s turn
 							</ion-col>
 						</ion-row>
 

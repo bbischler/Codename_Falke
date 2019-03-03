@@ -1,3 +1,4 @@
+import { X01Player } from './../../models/x01Player';
 import { Component, ViewChild } from '@angular/core';
 import { NativeAudio } from '@ionic-native/native-audio/ngx';
 import { IonicPage, AlertController, NavController, Platform, NavParams, Slides, ModalController, Modal, ModalOptions } from 'ionic-angular';
@@ -26,7 +27,7 @@ export class X01Page {
     this.slides.effect = "cube";
   }
   num: number;
-  players: Player[] = [];
+  players: X01Player[] = [];
   numbers: number[] = [1, 6, 11, 16];
   isDouble: Boolean = false;
   isTriple: Boolean = false;
@@ -36,7 +37,7 @@ export class X01Page {
   has180: Boolean = true;
   gameOver: Boolean = false;
   confirmAlert: any;
-  activePlayerName: string = "";
+  activePlayer: X01Player;
 
   constructor(public navCtrl: NavController, public platform: Platform,
     public navParams: NavParams, public modalCtrl: ModalController,
@@ -78,12 +79,11 @@ export class X01Page {
   }
 
   setPlayer() {
-    this.players = this.service.getAllPlayer();
-
-    for (let player of this.players) {
-      player.setScore(this.num);
-    }
-    this.activePlayerName = this.players[0].name;
+    this.players = this.service.getAllPlayer() as X01Player[];
+    this.players.forEach(p =>{
+      p.setTotalScore(this.num);
+    })
+    this.activePlayer = this.players[0];
   }
 
   addPoints(points: number) {
@@ -101,27 +101,25 @@ export class X01Page {
     }
 
     this.slides.slideTo(this.playerCounter, 1000);
+    this.activePlayer.throw(points);
+    /*
     this.players[this.playerCounter].reducePoints(points);
     this.players[this.playerCounter].setLastScore(points);
     this.players[this.playerCounter].setThrowCount();
     this.players[this.playerCounter].setTotalScore(points);
-
+    */
     this.isDouble = false;
     this.isTriple = false;
     this.throwCounter++;
 
-    if (this.throwCounter == 3) {
-      this.playerCounter++;
-      this.throwCounter = 0;
-      if (this.playerCounter == this.players.length) {
-        this.playerCounter = 0;
-      }
-      this.players[this.playerCounter].removeLastThreePoints();
+    if (this.activePlayer.roundThrowCount == 3) {
+      this.playerCounter = (this.playerCounter + 1) % this.players.length;
+      this.activePlayer = this.players[this.playerCounter];
+      this.activePlayer.resetForTurn();
       this.slides.slideTo(this.playerCounter, 1000);
-      this.activePlayerName = this.players[this.playerCounter].name;
-
     }
   }
+
   hasWon() {
     return false;
   }
@@ -134,18 +132,20 @@ export class X01Page {
     this.isTriple = false;
     this.isDouble = !this.isDouble;
   }
+
   triple() {
     this.isDouble = false;
     this.isTriple = !this.isTriple;
   }
+
   isActive(numberid) {
-    if (numberid == this.playerCounter) {
+    console.log("Check active Player " + numberid + " Active player is " + this.playerCounter)
+    if (numberid == this.activePlayer.id) {
       return true;
     } else {
       return false;
     }
   }
-
 
   play180() {
     this.nativeAudio.play('180').then((success) => {

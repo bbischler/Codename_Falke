@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { ServiceProvider } from '../../providers/service/service';
 import { HomePage } from '../../pages/home/home';
+import { X01Player } from '../../models/x01Player';
 
 /**
  * Generated class for the X01SettingsPage page.
@@ -16,29 +17,25 @@ import { HomePage } from '../../pages/home/home';
   templateUrl: 'x01-settings.html',
 })
 export class X01SettingsPage {
-  playernumber: any = [1, 2];
   doubleIn: Boolean = false;
   doubleOut: Boolean = true;
   legbased: Boolean = false;
   legs: number;
   sets: number;
-  players: string[] = [];
+  players: X01Player[] = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, private service: ServiceProvider) {
-    this.players.push("Player 1");
-    this.players.push("Player 2");
+    this.players.push(new X01Player(1, "Player 1"));
+    this.players.push(new X01Player(2, "Player 2"));
   }
 
   dismiss() {
     this.service.setActivePage('Home');
     this.viewCtrl.dismiss(true);
-    
-
-    // this.navCtrl.push(HomePage);
   }
   play() {
     for (let i = 0; i < this.players.length; i++) {
-      this.service.setPlayer(this.players[i]);
+      this.service.addPlayer(this.players[i]);
     }
     this.viewCtrl.dismiss();
   }
@@ -46,12 +43,11 @@ export class X01SettingsPage {
     console.log('ionViewDidLoad X01SettingsPage');
   }
   addPlayer() {
-    this.players.push("Player " + (this.players.length + 1));
-    this.playernumber.push(this.playernumber.length);
+    var newPlayerNumber = this.players.length + 1;
+    this.players.push(new X01Player(newPlayerNumber, "Player " + newPlayerNumber));
   }
 
   removePlayer() {
-    this.playernumber.splice(-1, 1);
     this.players.splice(-1, 1);
   }
   quickgame() {

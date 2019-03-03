@@ -1,3 +1,4 @@
+import { CricketPlayer } from './../../models/cricketPlayer';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, Modal, ModalOptions } from 'ionic-angular';
 import { AdMobFree, AdMobFreeBannerConfig, AdMobFreeInterstitialConfig } from '@ionic-native/admob-free/ngx';
@@ -12,7 +13,7 @@ import { HomePage } from '../home/home';
 })
 export class CricketPage {
 
-  players: Player[] = [];
+  players: CricketPlayer[] = [];
   isDouble: Boolean = false;
   isTriple: Boolean = false;
 
@@ -35,7 +36,7 @@ export class CricketPage {
     if (this.isTriple) {
       points = points * 3;
     }
-    this.players[id].setScore(points);
+    this.players[id-1].throw(points);
     this.isDouble = false;
     this.isTriple = false;
   }
@@ -53,8 +54,6 @@ export class CricketPage {
     this.isDouble = false;
     this.isTriple = !this.isTriple;
   }
-
-
 
   showBanner() {
 
@@ -89,7 +88,7 @@ export class CricketPage {
     });
   }
   setPlayer() {
-    this.players = this.service.getAllPlayer();
+    this.players = this.service.getAllPlayer() as CricketPlayer[];
   }
 
   ngOnDestroy() {

@@ -23,8 +23,8 @@ export class ServiceProvider {
     this.activePage = page;
   }
 
-  setPlayer(name: string) {
-    this.players.push(new Player(this.players.length, name));
+  addPlayer(player: Player) {
+    this.players.push(player);
   }
   getAllPlayer() {
     return this.players;
