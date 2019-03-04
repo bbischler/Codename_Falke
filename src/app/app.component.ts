@@ -10,14 +10,14 @@ import { X01Page } from '../pages/x01/x01';
 import { ServiceProvider } from '../providers/service/service';
 
 
-@Component({
+@Component({ 
   selector: 'page-menu',
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = X01Page;
+  rootPage: any = CricketPage;
   showedAlert: boolean;
   confirmAlert: any;
   // activePage: any;

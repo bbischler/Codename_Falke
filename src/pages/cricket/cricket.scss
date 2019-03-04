@@ -1,7 +1,13 @@
 page-cricket {
+    .player {
+        padding: 0 1em 0 1em !important;
+    }
     .playerName {
         color: color($colors, fontSec);
         text-align: center; // font-weight: 200;
+    }
+    .playerinfo {
+        height: 5%;
     }
     .playerScore {
         color: color($colors, font);
@@ -14,19 +20,20 @@ page-cricket {
         background-color: color($colors, accent);
     }
     .dotscontainer {
-        height: 100%;
+        // height: 100%!important;
         display: flex;
         align-items: center;
     }
     .dots {
+        // padding: 5px !important; // display: block;
         vertical-align: middle !important;
     }
     .numbercontainer {
         height: 100%;
-        background-color: transparent;
-        display: flex;
-        box-shadow: none !important;
-        align-items: center;
+        background-color: transparent; // display: flex;
+        box-shadow: none !important; // align-items: center;
+        // border: solid green;
+        padding: 0 !important;
         margin: 0 !important;
     }
     .numberscore {
@@ -47,12 +54,12 @@ page-cricket {
         right: 0;
     }
     .scoreboardrow {
-        height: 14%;
+        height: 12.8%;
     }
     .btn_bottom {
         background-color: transparent;
         box-shadow: none !important;
-        height:75%;
+        height: 75%;
         font-weight: 200;
         font-size: 1.5rem;
         color: color($colors, fontSec);
@@ -62,19 +69,25 @@ page-cricket {
         color: color($colors, font);
     }
     ion-col {
+        // border: solid 1px green;
+    }
+    ion-grid {
         // border: solid green;
     }
+    ion-row {
+        // border: solid 1px red;
+    }
     .fas.fa-circle {
-        font-size: 0.7em;
-        margin: 0.4em 0 0.4em 0;
+        font-size: 0.6em;
+        margin: 3px 0 3px 0;
     }
     .fas.fa-circle.closed {
-        font-size: 0.7em;
-        margin: 0.4em 0 0.4em 0;
+        font-size: 0.6em;
+        margin: 3px 0 3px 0;
     }
     .far.fa-circle {
-        font-size: 0.7em;
-        margin: 0.4em 0 0.4em 0;
+        margin: 3px 0 3px 0;
+        font-size: 0.6em;
     }
     .ads {
         height: 60px !important;

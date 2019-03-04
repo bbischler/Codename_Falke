@@ -17,6 +17,7 @@ export class CricketPlayer extends Player {
     }
 
     public throw(points: number) : void{
+        
         this.totalScore += points;
     }
 }

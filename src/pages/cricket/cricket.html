@@ -4,13 +4,97 @@
 			<ion-icon color="accentSec" name="menu"></ion-icon>
 		</button>
 		<ion-title>
-			<div class="page-header">Challenge</div>
+			<div class="page-header">Cricket</div>
 		</ion-title>
 	</ion-toolbar>
 </ion-header>
 
-
 <ion-content padding>
+	<ion-grid style="height:95%;padding-top:0;" no-padding>
+		<ion-row justify-content-around style="height:90%">
+			<ion-col *ngFor="let player of players" class="player">
+
+				<!-- PlayerInfo -->
+				<ion-row class="playerinfo">
+					<ion-col class="playerName">
+						{{player.name}}
+					</ion-col>
+				</ion-row>
+				<ion-row class="playerinfo">
+					<ion-col class="playerScore">
+						{{player.totalScore}}
+					</ion-col>
+				</ion-row>
+
+				<!-- Scoreboard -->
+				<ion-row *ngFor="let points of player.points" class="scoreboardrow">
+					<button ion-button block color="transparent" (click)="addPoints(points.value, player.id)"
+						class="numbercontainer">
+
+						<ion-col align-self-center col-8>
+							<!-- <button ion-button block color="transparent" class="numbercontainer"
+									(click)="addPoints(points.value, player.id)"> -->
+							<div [ngClass]="points.isClosed ? 'numberscore full' : 'numberscore'">
+								{{points.displayText}}
+							</div>
+							<!-- </button> -->
+						</ion-col>
+						<ion-col col-4 style="display:flex;">
+							<div class="dots">
+								<i *ngFor="let i of containerofThree" [ngClass]="points.isClosed ? 'fas fa-circle fa-xs closed' :
+								(i <= points.hitCount ? 'fas fa-circle fa-xs' : 'far fa-circle fa-xs')"></i>
+							</div>
+						</ion-col>
+					</button>
+				</ion-row>
+			</ion-col>
+		</ion-row>
+
+
+		<!-- Buttom Buttons -->
+		<ion-row style="height:10%;padding-top:0;">
+			<ion-col col-3>
+				<button ion-button block color="transparent" class="btn_bottom" (click)="undo()">
+					UNDO
+				</button>
+			</ion-col>
+			<ion-col col-3>
+				<button ion-button block color="transparent" class="btn_bottom" (click)="newgame()">
+					NEW GAME
+				</button>
+			</ion-col>
+			<ion-col col-3>
+				<button ion-button block [ngClass]="isDouble ? 'active_btn' : 'btn_bottom' " class="btn_bottom"
+					(click)="double()">
+					DOUBLE
+				</button>
+			</ion-col>
+			<ion-col col-3>
+				<button ion-button block [ngClass]="isTriple ? 'active_btn' : 'btn_bottom' " class="btn_bottom"
+					(click)="trible()">
+					TRIPLE
+				</button>
+			</ion-col>
+
+		</ion-row>
+
+
+
+
+	</ion-grid>
+
+</ion-content>
+
+
+
+
+
+
+
+
+
+
+<!-- <ion-content padding>
 	<ion-grid style="height:15%;padding-top:0;">
 		<ion-row justify-content-around>
 			<ion-col *ngFor="let player of players" class="playerName">
@@ -166,7 +250,7 @@
 			</ion-col>
 
 		</ion-row>
-		<!-- <div class="ads"></div> -->
+		<div class="ads"></div> 
 	</ion-grid>
 
-</ion-content>
+</ion-content> -->
