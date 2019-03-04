@@ -14,76 +14,207 @@
 
 
 	<ion-slides>
-		<ion-slide *ngFor="let player of players" #player.id>
-			<ion-card [ngClass]="isActive(player.id) ? 'cardClassActive' : 'cardClass' ">
-				<ion-card-header no-padding>
-					<ion-grid style="height:100%;">
-						<ion-row [ngClass]="isActive(player.id) ? 'playerInfo' : 'playerInfoInactive' "
-							align-items-center>
-							<ion-col>
-								<div>
-									{{player.name}}
-								</div>
-							</ion-col>
-							<ion-col class="playerScore">
-								<div>
-									{{player.totalScore}}
-								</div>
-							</ion-col>
-							<ion-col>
-								<div>
-									Avg: {{player.avg}}</div>
-							</ion-col>
-						</ion-row>
+		<ion-slide *ngFor="let player of players">
+			<ng-template [ngIf]="isActive(player.id)">
+				<ion-card class="cardClassActive">
+					<ion-card-header no-padding>
+						<ion-grid style="height:100%;">
+							<ion-row class="playerInfo" align-items-center>
+								<ion-col>
+									<div>
+										{{player.name}}
+									</div>
+								</ion-col>
+								<ion-col class="playerScore">
+									<div>
+										{{player.totalScore}}
+									</div>
+								</ion-col>
+								<ion-col>
+									<div>
+										Avg: {{player.avg}}</div>
+								</ion-col>
+							</ion-row>
+							<ion-row class="stats" align-items-center>
+								<ion-col>
+									L: 1/3
+								</ion-col>
+								<ion-col>
+								</ion-col>
+								<ion-col>
+									S : 1/3
+								</ion-col>
+							</ion-row>
+							<ion-row class="lastScore" align-items-center>
+								<ion-col *ngFor="let points of containerof3">
+									<div>
+										{{player.lastThreeScores[points-1]}}
+									</div>
+								</ion-col>
+							</ion-row>
+							<ion-row class="lastScore" align-items-center>
+								<ion-col *ngFor="let num of containerof3">
+									<div
+										[ngClass]="(num <=player.roundThrowCount)? 'fas fa-circle fa-xs' : 'far fa-circle fa-xs' ">
+									</div>
 
-						<ion-row [ngClass]="isActive(player.id) ? 'stats' : 'statsInactive' " align-items-center>
-							<ion-col>
-								L: 1/3
-							</ion-col>
-							<ion-col>
-							</ion-col>
-							<ion-col>
-								S : 1/3
-							</ion-col>
-						</ion-row>
+								</ion-col>
+							</ion-row>
+							<ion-row class="lastScore" align-items-center>
+								<ion-col *ngFor="let points of containerof3">
+									<div class="toThrow">
+										{{player.toThrow[points-1]}}
+									</div>
+								</ion-col>
+							</ion-row>
+
+							<ion-row class="playersTurn" align-items-center>
+								<ion-col>
+									{{activePlayer.name}}'s turn
+								</ion-col>
+							</ion-row>
+						</ion-grid>
+					</ion-card-header>
+				</ion-card>
+
+			</ng-template>
+
+			<ng-template [ngIf]="!isActive(player.id)">
+				<ion-card class="cardClass">
+					<ion-card-header no-padding>
+						<ion-grid style="height:100%;">
+							<ion-row class="playerInfo inactive" align-items-center>
+								<ion-col>
+									<div>
+										{{player.name}}
+									</div>
+								</ion-col>
+								<ion-col class="playerScore inactive">
+									<div>
+										{{player.totalScore}}
+									</div>
+								</ion-col>
+								<ion-col>
+									<div>
+										Avg: {{player.avg}}</div>
+								</ion-col>
+							</ion-row>
+							<ion-row class="stats inactive" align-items-center>
+								<ion-col>
+									L: 1/3
+								</ion-col>
+								<ion-col>
+								</ion-col>
+								<ion-col>
+									S : 1/3
+								</ion-col>
+							</ion-row>
+							<ion-row class="lastScore inactive" align-items-center>
+								<ion-col *ngFor="let points of containerof3">
+									<div>
+										{{player.lastThreeScores[points-1]}}
+									</div>
+								</ion-col>
+							</ion-row>
+							<ion-row class="lastScoreInactive" align-items-center>
+								<ion-col *ngFor="let num of containerof3">
+									<div
+										[ngClass]="(num <=player.roundThrowCount)? 'fas fa-circle fa-xs' : 'far fa-circle fa-xs' ">
+									</div>
+
+								</ion-col>
+							</ion-row>
+							<ion-row class="lastScoreInactive" align-items-center>
+								<ion-col *ngFor="let points of containerof3">
+									<div class="toThrow">
+										{{player.toThrow[points-1]}}
+									</div>
+								</ion-col>
+							</ion-row>
+
+							<ion-row class="playersTurnActive" align-items-center>
+								<ion-col>
+									{{activePlayer.name}}'s turn
+								</ion-col>
+							</ion-row>
+						</ion-grid>
+					</ion-card-header>
+				</ion-card>
+
+			</ng-template>
 
 
-						<ion-row class="lastScore" align-items-center>
-							<ion-col *ngFor="let points of containerof3">
-								<div>
-									{{player.lastThreeScores[points-1]}}
-								</div>
-							</ion-col>
 
-						</ion-row>
-						<ion-row [ngClass]="isActive(player.id) ? 'lastScore' : 'lastScoreInactive' "
-							align-items-center>
-							<ion-col *ngFor="let num of containerof3">
-								<div
-									[ngClass]="(num <=player.roundThrowCount) && isActive(player.id)? 'fas fa-circle fa-xs' : 'far fa-circle fa-xs' ">
-								</div>
 
-							</ion-col>
-						</ion-row>
-						<ion-row [ngClass]="isActive(player.id) ? 'lastScore' : 'lastScoreInactive' "
-							align-items-center>
-							<ion-col *ngFor="let points of containerof3">
-								<div class="toThrow">
-									{{player.toThrow[points-1]}}
-								</div>
-							</ion-col>
-						</ion-row>
 
-						<ion-row [ngClass]="isActive(player.id) ? 'playersTurn' : 'playersTurnActive' "
-							align-items-center>
-							<ion-col>
-								{{activePlayer.name}}'s turn
-							</ion-col>
-						</ion-row>
 
-					</ion-grid>
-				</ion-card-header>
-			</ion-card>
+
+
+
+			<!-- <ion-card [ngClass]="isActive(player.id) ? 'cardClassActive' : 'cardClass' ">
+					<ion-card-header no-padding>
+						<ion-grid style="height:100%;">
+							<ion-row [ngClass]="isActive(player.id) ? 'playerInfo' : 'playerInfoInactive' "
+								align-items-center>
+								<ion-col>
+									<div>
+										{{player.name}}
+									</div>
+								</ion-col>
+								<ion-col class="playerScore">
+									<div>
+										{{player.totalScore}}
+									</div>
+								</ion-col>
+								<ion-col>
+									<div>
+										Avg: {{player.avg}}</div>
+								</ion-col>
+							</ion-row>
+							<ion-row [ngClass]="isActive(player.id) ? 'stats' : 'statsInactive' " align-items-center>
+								<ion-col>
+									L: 1/3
+								</ion-col>
+								<ion-col>
+								</ion-col>
+								<ion-col>
+									S : 1/3
+								</ion-col>
+							</ion-row>
+							<ion-row class="lastScore" align-items-center>
+								<ion-col *ngFor="let points of containerof3">
+									<div>
+										{{player.lastThreeScores[points-1]}}
+									</div>
+								</ion-col>
+							</ion-row>
+							<ion-row [ngClass]="isActive(player.id) ? 'lastScore' : 'lastScoreInactive' "
+								align-items-center>
+								<ion-col *ngFor="let num of containerof3">
+									<div
+										[ngClass]="(num <=player.roundThrowCount) && isActive(player.id)? 'fas fa-circle fa-xs' : 'far fa-circle fa-xs' ">
+									</div>
+	
+								</ion-col>
+							</ion-row>
+							<ion-row [ngClass]="isActive(player.id) ? 'lastScore' : 'lastScoreInactive' "
+								align-items-center>
+								<ion-col *ngFor="let points of containerof3">
+									<div class="toThrow">
+										{{player.toThrow[points-1]}}
+									</div>
+								</ion-col>
+							</ion-row>
+	
+							<ion-row [ngClass]="isActive(player.id) ? 'playersTurn' : 'playersTurnActive' "
+								align-items-center>
+								<ion-col>
+									{{activePlayer.name}}'s turn
+								</ion-col>
+							</ion-row>
+						</ion-grid>
+					</ion-card-header>
+				</ion-card> -->
 		</ion-slide>
 	</ion-slides>
 

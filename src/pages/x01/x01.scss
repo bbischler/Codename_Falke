@@ -57,11 +57,7 @@ page-x01 {
         height: 75%;
         margin: 0 0.2em 0 0.2em;
         font-size: 1.5rem;
-    }
-    .playerInfoInactive {
-        color: color($colors, fontSec);
-        height: 30%;
-    }
+    } 
     .playerScore {
         font-size: 3rem;
         font-weight: 200;
@@ -74,16 +70,15 @@ page-x01 {
         height: 25%;
         color: color($colors, font);
         font-weight: 100;
-    }
-    .statsInactive {
-        height: 25%;
-        color: color($colors, fontSec);
-        font-weight: 100;
-    }
+    } 
     .lastScore {
         height: 15%;
         font-weight: 100;
         color: color($colors, font);
+    }
+    .inactive {
+        background-color: transparent !important;
+        color: color($colors, fontSec);
     }
     .lastScoreInactive {
         display: none;
