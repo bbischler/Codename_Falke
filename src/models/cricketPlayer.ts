@@ -1,5 +1,6 @@
 import { Player } from './player';
 import { CricketPoint } from './cricketPoint';
+import { PointerEvents } from 'ionic-angular/umd/gestures/pointer-events';
 
 export class CricketPlayer extends Player {
     points: CricketPoint[];
@@ -16,7 +17,22 @@ export class CricketPlayer extends Player {
             new CricketPoint(25, this)];
     }
 
-    public throw(points: number): void {
-        this.totalScore += points;
+
+    public getPointsByValue(value: number): CricketPoint {
+        for (let point of this.points) {
+            if (point.value == value)
+                return point
+        }
+    }
+    
+    public throw(point: number, throwAmount: number): void {
+        for (let cpoint of this.points) {
+            if (cpoint.value == point) {
+                cpoint.hitCount += throwAmount;
+                if (cpoint.hitCount > 3 && !cpoint.isClosed) {
+                    this.totalScore += (point * throwAmount);
+                }
+            }
+        }
     }
 }

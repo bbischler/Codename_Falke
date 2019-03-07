@@ -10,6 +10,6 @@ export abstract class Player {
         this.name = name;
     }
 
-    public abstract throw(points: number): void;
+    public abstract throw(points: number, throwAmout: number): void;
 }
 

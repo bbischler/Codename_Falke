@@ -44,11 +44,13 @@ export class CricketPage {
       this.throwAmount = 3;
       // points = points * 3;
     }
-    // this.players[id - 1].throw(points, this.throwAmount);
-    this.players[id - 1].throw(points);
+
+    this.players[id - 1].throw(points, this.throwAmount);
+    // this.players[id - 1].throw(points);
     this.isDouble = false;
     this.isTriple = false;
   }
+
   undo() {
     console.log("undo");
   }
