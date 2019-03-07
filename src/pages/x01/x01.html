@@ -15,7 +15,7 @@
 
 	<ion-slides>
 		<ion-slide *ngFor="let player of players">
-			<ng-template [ngIf]="isActive(player.id)">
+			<ng-template [ngIf]="isActive(player.id)" [ngIfElse]="notactive">
 				<ion-card class="cardClassActive">
 					<ion-card-header no-padding>
 						<ion-grid style="height:100%;">
@@ -79,7 +79,7 @@
 
 			</ng-template>
 
-			<ng-template [ngIf]="!isActive(player.id)">
+			<ng-template #notactive>
 				<ion-card class="cardClass">
 					<ion-card-header no-padding>
 						<ion-grid style="height:100%;">

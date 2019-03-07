@@ -3,7 +3,7 @@
     <name>DartKnight</name>
     <description>An awesome dart scoring app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://10.106.32.98:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -90,6 +90,8 @@
     <plugin name="cordova-plugin-admob-free" spec="0.25.0">
         <variable name="ADMOB_APP_ID" value="ca-app-pub-3290488239272299~6798075353" />
     </plugin>
+    <plugin name="cordova-plugin-vibration" spec="3.1.0" />
+    <allow-navigation href="http://10.106.32.98:8100" sessionid="c3c7288b" />
     <engine name="ios" spec="5.0.0" />
     <engine name="android" spec="8.0.0" />
     <engine name="browser" spec="6.0.0" />

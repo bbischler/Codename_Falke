@@ -1,6 +1,7 @@
 import { X01Player } from './../../models/x01Player';
 import { Component, ViewChild } from '@angular/core';
 import { NativeAudio } from '@ionic-native/native-audio/ngx';
+import { Vibration } from '@ionic-native/vibration/ngx';
 import { IonicPage, AlertController, NavController, Platform, NavParams, Slides, ModalController, Modal, ModalOptions } from 'ionic-angular';
 import { Player } from '../../models/player';
 import { ServiceProvider } from '../../providers/service/service';
@@ -42,7 +43,7 @@ export class X01Page {
   constructor(public navCtrl: NavController, public platform: Platform,
     public navParams: NavParams, public modalCtrl: ModalController,
     private nativeAudio: NativeAudio, private service: ServiceProvider,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController, private vibration: Vibration) {
     this.platform.ready().then(() => {
       this.nativeAudio.preloadSimple('180', 'assets/sounds/180.mp3').then((success) => {
         console.log("success");
@@ -80,7 +81,7 @@ export class X01Page {
 
   setPlayer() {
     this.players = this.service.getAllPlayer() as X01Player[];
-    this.players.forEach(p =>{
+    this.players.forEach(p => {
       p.setTotalScore(this.num);
     })
     this.activePlayer = this.players[0];
@@ -90,7 +91,7 @@ export class X01Page {
     if (this.has180)
       this.play180();
 
-    if (this.isDouble) {
+    if (this.isDouble) { 
       points = points * 2;
     }
     if (this.isTriple) {
@@ -98,6 +99,12 @@ export class X01Page {
     }
     if (this.hasWon()) {
       this.service.setGameIsActive(false);
+    }
+ 
+    if (points == 0) {
+      this.vibrateMiss()
+    } else {
+      this.vibrate()
     }
 
     this.slides.slideTo(this.playerCounter, 1000);
@@ -153,6 +160,14 @@ export class X01Page {
     }, (error) => {
       console.log(error);
     });
+  }
+
+  vibrate() {
+    this.vibration.vibrate(13);
+  }
+
+  vibrateMiss() {
+    this.vibration.vibrate(70);
   }
 
 }

@@ -2,6 +2,7 @@ import { CricketPlayer } from './../../models/cricketPlayer';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, Modal, ModalOptions } from 'ionic-angular';
 import { AdMobFree, AdMobFreeBannerConfig, AdMobFreeInterstitialConfig } from '@ionic-native/admob-free/ngx';
+import { Vibration } from '@ionic-native/vibration/ngx';
 import { Player } from '../../models/player';
 import { ServiceProvider } from '../../providers/service/service';
 import { HomePage } from '../home/home';
@@ -16,11 +17,12 @@ export class CricketPage {
   players: CricketPlayer[] = [];
   isDouble: Boolean = false;
   isTriple: Boolean = false;
-  containerofThree: number[] = [3,2,1];
+  containerofThree: number[] = [3, 2, 1];
+  throwAmount: number = 1;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public admob: AdMobFree, public modalCtrl: ModalController,
-    private service: ServiceProvider) {
+    private service: ServiceProvider, private vibration: Vibration) {
     // this.showBanner();
     this.openModal();
   }
@@ -31,12 +33,18 @@ export class CricketPage {
   }
 
   addPoints(points: number, id: number) {
+    this.throwAmount = 1;
+    this.vibrate();
+
     if (this.isDouble) {
-      points = points * 2;
+      this.throwAmount = 2;
+      // points = points * 2;
     }
     if (this.isTriple) {
-      points = points * 3;
+      this.throwAmount = 3;
+      // points = points * 3;
     }
+    // this.players[id - 1].throw(points, this.throwAmount);
     this.players[id - 1].throw(points);
     this.isDouble = false;
     this.isTriple = false;
@@ -71,6 +79,10 @@ export class CricketPage {
     }).catch(e => console.log(e));
 
 
+  }
+
+  vibrate() {
+    this.vibration.vibrate(13);
   }
 
   openModal() {

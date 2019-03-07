@@ -4,12 +4,12 @@ export abstract class Player {
     totalScore: number = 0;
     roundThrowCount: number = 0;
     totalThrowCount: number = 0;
-    
+
     constructor(id: number, name: string) {
         this.id = id;
         this.name = name;
     }
 
-    public abstract throw(points: number) : void;   
+    public abstract throw(points: number): void;
 }
 

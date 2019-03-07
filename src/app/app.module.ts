@@ -13,6 +13,8 @@ import { ServiceProvider } from '../providers/service/service';
 import { NativeAudio } from '@ionic-native/native-audio/ngx';
 import { AdMobFree } from '@ionic-native/admob-free/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { Vibration } from '@ionic-native/vibration/ngx';
+
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
     InstructionsPage
   ],
   providers: [
+    Vibration,
     NativeAudio,
     StatusBar,
     SplashScreen,
