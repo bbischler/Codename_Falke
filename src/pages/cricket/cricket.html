@@ -29,7 +29,7 @@
 				<!-- Scoreboard -->
 				<ion-row *ngFor="let points of player.points" class="scoreboardrow">
 					<button ion-button block color="transparent" (click)="addPoints(points, player.id)"
-						class="numbercontainer">
+						class="numbercontainer" [disabled]="points.setIsClosed">
 
 						<ion-col align-self-center col-8>
 							<div [ngClass]="points.setIsClosed ? 'numberscore full' : 'numberscore'">
