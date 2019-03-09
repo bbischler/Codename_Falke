@@ -25,11 +25,14 @@ export class CricketPlayer extends Player {
     }
 
     public throwCricket(point: CricketPoint, throwAmount: number): void {
-        if(point.isClosed && !point.setIsClosed){
-            this.totalScore += point.getValue() * throwAmount;
+        console.log(this.name + " throws " + point.value + " " + throwAmount + " times");
+        
+        for(var i = 0; i < throwAmount; i ++){
+            if(point.isClosed && !point.setIsClosed){
+                this.totalScore += point.getValue();
+            }
+            point.increaseHit();
         }
-
-        point.increaseHit();
     }
     
     public throw(point: number, throwAmount: number): void {
