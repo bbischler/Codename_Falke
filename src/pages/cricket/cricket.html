@@ -28,18 +28,18 @@
 
 				<!-- Scoreboard -->
 				<ion-row *ngFor="let points of player.points" class="scoreboardrow">
-					<button ion-button block color="transparent" (click)="addPoints(points.value, player.id)"
+					<button ion-button block color="transparent" (click)="addPoints(points, player.id)"
 						class="numbercontainer">
 
 						<ion-col align-self-center col-8>
-							<div [ngClass]="points.isClosed ? 'numberscore full' : 'numberscore'">
+							<div [ngClass]="points.setIsClosed ? 'numberscore full' : 'numberscore'">
 								{{points.displayText}}
 							</div>
 						</ion-col>
 						<!-- Three Dots -->
 						<ion-col col-4 style="display:flex;">
 							<div class="dots">
-								<i *ngFor="let i of containerofThree" [ngClass]="points.isClosed ? 'fas fa-circle fa-xs closed' :
+								<i *ngFor="let i of containerofThree" [ngClass]="points.setIsClosed ? 'fas fa-circle fa-xs closed' :
 								(i <= points.hitCount ? 'fas fa-circle fa-xs' : 'far fa-circle fa-xs')"></i>
 							</div>
 						</ion-col>

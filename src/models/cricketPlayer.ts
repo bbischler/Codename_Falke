@@ -17,12 +17,19 @@ export class CricketPlayer extends Player {
             new CricketPoint(25, this)];
     }
 
-
     public getPointsByValue(value: number): CricketPoint {
         for (let point of this.points) {
             if (point.value == value)
                 return point
         }
+    }
+
+    public throwCricket(point: CricketPoint, throwAmount: number): void {
+        if(point.isClosed && !point.setIsClosed){
+            this.totalScore += point.getValue() * throwAmount;
+        }
+
+        point.increaseHit();
     }
     
     public throw(point: number, throwAmount: number): void {

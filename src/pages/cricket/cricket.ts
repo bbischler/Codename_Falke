@@ -1,3 +1,4 @@
+import { CricketPoint } from './../../models/cricketPoint';
 import { CricketPlayer } from './../../models/cricketPlayer';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, Modal, ModalOptions } from 'ionic-angular';
@@ -14,11 +15,11 @@ import { HomePage } from '../home/home';
 })
 export class CricketPage {
 
-  players: CricketPlayer[] = [];
+  players: Array<CricketPlayer> = new Array<CricketPlayer>();
   isDouble: Boolean = false;
   isTriple: Boolean = false;
   containerofThree: number[] = [3, 2, 1];
-  throwAmount: number = 1;
+  throwAmount: number = 1; // Factor for double and triple multiplication
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public admob: AdMobFree, public modalCtrl: ModalController,
@@ -32,7 +33,7 @@ export class CricketPage {
     this.showBanner();
   }
 
-  addPoints(points: number, id: number) {
+  addPoints(point: CricketPoint, id: number) {
     this.throwAmount = 1;
     this.vibrate();
 
@@ -45,8 +46,7 @@ export class CricketPage {
       // points = points * 3;
     }
 
-    this.players[id - 1].throw(points, this.throwAmount);
-    // this.players[id - 1].throw(points);
+    this.players[id - 1].throwCricket(point, this.throwAmount);
     this.isDouble = false;
     this.isTriple = false;
   }
@@ -102,8 +102,28 @@ export class CricketPage {
       }
     });
   }
+
   setPlayer() {
+    console.log(typeof(this.players));
     this.players = this.service.getAllPlayer() as CricketPlayer[];
+    function flatten(a,b){return a.concat(b);}
+    for(let player of this.players){
+      for(let point of player.points){
+
+        // onClosed - Handler
+        point.registerOnClosed((value, isClosed) =>{
+          var allClosed : Boolean = true;
+          var pointsToCheck = (this.players.map(p => p.points)
+                                           .reduce(flatten, []) as CricketPoint[])
+                                           .filter(p => p.value == value);
+          var sumOfClosed = pointsToCheck.map(p => (p.isClosed ? 0 : 1) as number)
+                                         .reduce((sum, current) => sum + current);
+          for(let point of pointsToCheck){
+            point.setIsClosed = (sumOfClosed == 0);
+          }
+        });
+      }
+    }
   }
 
   ngOnDestroy() {
