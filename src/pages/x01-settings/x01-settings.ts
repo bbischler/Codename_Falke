@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
 import { ServiceProvider } from '../../providers/service/service';
 import { HomePage } from '../../pages/home/home';
 import { X01Player } from '../../models/x01Player';
@@ -24,7 +24,9 @@ export class X01SettingsPage {
   sets: number;
   players: X01Player[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, private service: ServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public viewCtrl: ViewController, private service: ServiceProvider,
+    public toastController: ToastController) {
     this.players.push(new X01Player(1, "Player 1"));
     this.players.push(new X01Player(2, "Player 2"));
   }
@@ -43,17 +45,45 @@ export class X01SettingsPage {
     console.log('ionViewDidLoad X01SettingsPage');
   }
   addPlayer() {
-    var newPlayerNumber = this.players.length + 1;
-    this.players.push(new X01Player(newPlayerNumber, "Player " + newPlayerNumber));
+    if (this.players.length == 8) {
+      this.presentToastMaxPlayer();
+    } else {
+      var newPlayerNumber = this.players.length + 1;
+      this.players.push(new X01Player(newPlayerNumber, "Player " + newPlayerNumber));
+    }
   }
 
   removePlayer() {
-    this.players.splice(-1, 1);
+    if (this.players.length == 1) {
+      this.presentToastMinPlayer();
+    } else {
+      this.players.splice(-1, 1);
+    }
   }
   quickgame() {
     this.legbased = false;
   }
   legbasedgame() {
     this.legbased = true;
+  }
+
+  async presentToastMaxPlayer() {
+    const toast = await this.toastController.create({
+      cssClass: "playerToast",
+      message: 'Maximum eight player allowed',
+      duration: 2500,
+      position: 'top'
+    });
+    toast.present();
+  }
+
+  async presentToastMinPlayer() {
+    const toast = await this.toastController.create({
+      cssClass: "playerToast",
+      message: 'Minimum one player required',
+      duration: 2500,
+      position: 'top'
+    });
+    toast.present();
   }
 }

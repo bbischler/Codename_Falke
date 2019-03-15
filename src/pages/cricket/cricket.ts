@@ -26,13 +26,35 @@ export class CricketPage {
     public admob: AdMobFree, public modalCtrl: ModalController,
     private service: ServiceProvider, private vibration: Vibration,
     public alertController: AlertController) {
-    // this.showBanner();
-    this.openModal();
   }
 
   ionViewDidLoad() {
-    this.setPlayer();
-    this.showBanner();
+    this.openModal();
+  }
+  async ionViewCanLeave() {
+    const shouldLeave = await this.confirmLeave();
+    return shouldLeave;
+  }
+
+  ionViewWillLeave() {
+    this.service.setGameIsActive(false);
+    this.service.deletePlayers();
+  }
+
+  openModal() {
+    const myModalOptions: ModalOptions = {
+      enableBackdropDismiss: false
+    };
+    const myModal: Modal = this.modalCtrl.create("CricketSettingsPage");
+    myModal.present();
+    myModal.onDidDismiss(data => {
+      if (data == true)
+        this.navCtrl.push(HomePage, {}, { animate: true, direction: 'back' });
+      else {
+        this.setPlayer();
+        this.service.setGameIsActive(true);
+      }
+    });
   }
 
   addPoints(point: CricketPoint, id: number) {
@@ -87,43 +109,6 @@ export class CricketPage {
     }
   }
 
-  showBanner() {
-
-    let bannerConfig: AdMobFreeBannerConfig = {
-      isTesting: true, // Remove in production
-      autoShow: true
-      //id: Your Ad Unit ID goes here
-    };
-
-    this.admob.banner.config(bannerConfig);
-
-    this.admob.banner.prepare().then(() => {
-      // success
-    }).catch(e => console.log(e));
-
-
-  }
-
-  vibrate() {
-    this.vibration.vibrate(13);
-  }
-
-  openModal() {
-    const myModalOptions: ModalOptions = {
-      enableBackdropDismiss: false
-    };
-    const myModal: Modal = this.modalCtrl.create("CricketSettingsPage");
-    myModal.present();
-    myModal.onDidDismiss(data => {
-      if (data == true)
-        this.navCtrl.push(HomePage, {}, { animate: true, direction: 'back' });
-      else {
-        this.setPlayer();
-        this.service.setGameIsActive(true);
-      }
-    });
-  }
-
   setPlayer() {
     console.log(typeof (this.players));
     this.players = this.service.getAllPlayer() as CricketPlayer[];
@@ -147,21 +132,8 @@ export class CricketPage {
     }
   }
 
-  ngOnDestroy() {
-    this.service.setGameIsActive(false);
-  }
-
-  launchInterstitial() {
-
-    let interstitialConfig: AdMobFreeInterstitialConfig = {
-      isTesting: true, // Remove in production
-      autoShow: true
-      //id: Your Ad Unit ID goes here
-    };
-    this.admob.interstitial.config(interstitialConfig);
-    this.admob.interstitial.prepare().then(() => {
-      // success
-    });
+  vibrate() {
+    this.vibration.vibrate(13);
   }
 
   winningPopup(player: CricketPlayer) {
@@ -187,5 +159,25 @@ export class CricketPage {
     alert.present();
   }
 
+  confirmLeave(): Promise<Boolean> {
+    let resolveLeaving;
+    const canLeave = new Promise<Boolean>(resolve => resolveLeaving = resolve);
+    const alert = this.alertController.create({
+      title: 'Leaving game',
+      message: 'Do you want to leave the page? <br> The game will be stored.',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          handler: () => resolveLeaving(false)
+        },
+        {
+          text: 'Yes',
+          handler: () => resolveLeaving(true)
+        }
+      ]
+    });
+    alert.present();
+    return canLeave
+  }
 }
-

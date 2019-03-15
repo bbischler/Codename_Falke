@@ -35,4 +35,8 @@ export class ServiceProvider {
   getGameIsActive() {
     return this.gameIsActive;
   }
+  deletePlayers() {
+    console.log("delete players");
+    this.players = [];
+  }
 }

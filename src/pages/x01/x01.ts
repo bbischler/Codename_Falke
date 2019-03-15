@@ -51,19 +51,28 @@ export class X01Page {
         console.log(error);
       });
     });
-
     if (this.navParams.get('param')) {
       this.num = this.navParams.get('param');
     } else {
       this.num = 301;
     }
-    this.openModal();
   }
 
-  ngOnDestroy() {
-    this.service.setGameIsActive(false);
+  ionViewDidLoad() {
+    this.openSettings();
   }
-  openModal() {
+
+  async ionViewCanLeave() {
+    const shouldLeave = await this.confirmLeave();
+    return shouldLeave;
+  }
+
+  ionViewWillLeave() {
+    this.service.setGameIsActive(false);
+    this.service.deletePlayers();
+  }
+
+  openSettings() {
     const myModalOptions: ModalOptions = {
       enableBackdropDismiss: true
     };
@@ -91,7 +100,7 @@ export class X01Page {
     if (this.has180)
       this.play180();
 
-    if (this.isDouble) { 
+    if (this.isDouble) {
       points = points * 2;
     }
     if (this.isTriple) {
@@ -100,7 +109,7 @@ export class X01Page {
     if (this.hasWon()) {
       this.service.setGameIsActive(false);
     }
- 
+
     if (points == 0) {
       this.vibrateMiss()
     } else {
@@ -109,12 +118,6 @@ export class X01Page {
 
     this.slides.slideTo(this.playerCounter, 1000);
     this.activePlayer.throw(points);
-    /*
-    this.players[this.playerCounter].reducePoints(points);
-    this.players[this.playerCounter].setLastScore(points);
-    this.players[this.playerCounter].setThrowCount();
-    this.players[this.playerCounter].setTotalScore(points);
-    */
     this.isDouble = false;
     this.isTriple = false;
     this.throwCounter++;
@@ -130,11 +133,9 @@ export class X01Page {
   hasWon() {
     return false;
   }
-
   undo() {
     //marco do magic here
   }
-
   double() {
     this.isTriple = false;
     this.isDouble = !this.isDouble;
@@ -170,4 +171,26 @@ export class X01Page {
     this.vibration.vibrate(70);
   }
 
+  confirmLeave(): Promise<Boolean> {
+    let resolveLeaving;
+    const canLeave = new Promise<Boolean>(resolve => resolveLeaving = resolve);
+    const alert = this.alertCtrl.create({
+      title: 'Leaving game',
+      message: 'Do you want to leave the page? <br><br> The game will be stored.',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          handler: () => resolveLeaving(false)
+        },
+        {
+          text: 'Yes',
+          handler: () => resolveLeaving(true)
+        }
+      ]
+    });
+    alert.present();
+    return canLeave
+
+  }
 }

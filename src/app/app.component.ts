@@ -8,16 +8,16 @@ import { InstructionsPage } from '../pages/instructions/instructions';
 import { CricketPage } from '../pages/cricket/cricket';
 import { X01Page } from '../pages/x01/x01';
 import { ServiceProvider } from '../providers/service/service';
+import { App } from 'ionic-angular';
 
-
-@Component({ 
+@Component({
   selector: 'page-menu',
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = CricketPage;
+  rootPage: any = HomePage;
   showedAlert: boolean;
   confirmAlert: any;
   // activePage: any;
@@ -27,7 +27,7 @@ export class MyApp {
 
   constructor(public platform: Platform, public statusBar: StatusBar,
     public splashScreen: SplashScreen, private service: ServiceProvider,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController, public app: App) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -54,80 +54,39 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.showedAlert = false;
-      // Confirm exit
-      this.platform.registerBackButtonAction(() => {
-        console.log("back");
-
-        if (!this.service.getGameIsActive()) {
-          console.log("no game active");
-          if (this.nav.length() == 1) {
-            console.log("lastpage");
-
-            if (!this.showedAlert) {
-              this.confirmExitApp();
-            } else {
-              this.showedAlert = false;
-              this.confirmAlert.dismiss();
-            }
-          } else {
-            this.nav.pop();
-          }
+    });
+    this.platform.registerBackButtonAction(() => {
+      // Catches the active view
+      let nav = this.app.getActiveNavs()[0];
+      let activeView = nav.getActive();
+      // Checks if can go back before show up the alert
+      if (activeView.name === 'HomePage') {
+        if (nav.canGoBack()) {
+          nav.pop();
         } else {
-          console.log("game active");
-
-          this.confirmExitGame();
+          const alert = this.alertCtrl.create({
+            title: 'Confirm Exit',
+            message: 'Are you sure you want to exit the app?',
+            buttons: [{
+              text: 'Cancel',
+              role: 'cancel',
+              handler: () => {
+                this.nav.setRoot(HomePage);
+              }
+            }, {
+              text: 'Exit',
+              handler: () => {
+                this.platform.exitApp();
+              }
+            }]
+          });
+          alert.present();
         }
-      });
-
+      }
+      else {
+        this.nav.pop();
+      }
     });
-  }
-
-  confirmExitApp() {
-    this.showedAlert = true;
-    this.confirmAlert = this.alertCtrl.create({
-      title: "Confirm Exit",
-      message: "Are you sure you want to exit the app?",
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: () => {
-            this.showedAlert = false;
-            return;
-          }
-        },
-        {
-          text: 'Exit',
-          handler: () => {
-            this.platform.exitApp();
-          }
-        }
-      ]
-    });
-    this.confirmAlert.present();
-  }
-
-  confirmExitGame() {
-    this.showedAlert = true;
-    this.confirmAlert = this.alertCtrl.create({
-      title: "Leaving game",
-      message: "Are you sure you want to exit the game?",
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: () => {
-            return;
-          }
-        },
-        {
-          text: 'Exit',
-          handler: () => {
-            this.nav.pop();
-          }
-        }
-      ]
-    });
-    this.confirmAlert.present();
   }
 
   openPage(page) {
@@ -143,15 +102,14 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     // this.nav.setRoot(page.component);
-    this.service.setActivePage(num);
     this.nav.push(page.component, {
       param: num
     });
 
+    this.service.setActivePage(num);
   }
 
   checkActive(page) {
     return page == this.service.getActivePage();
   }
-
 }

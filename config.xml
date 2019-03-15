@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="dartknight.app" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="dartknight.app" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>DartKnight</name>
     <description>An awesome dart scoring app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content original-src="index.html" src="http://10.106.32.98:8100" />
+    <content original-src="index.html" src="http://10.106.32.38:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -87,11 +87,15 @@
     <allow-navigation href="http://192.168.0.94:8100" sessionid="95d246ff" />
     <allow-navigation href="http://192.168.0.94:8101" sessionid="812e0364" />
     <plugin name="cordova-plugin-nativeaudio" spec="3.0.9" />
+    <plugin name="cordova-admob-sdk" spec="../plugins/cordova-admob-sdk">
+        <variable name="PLAY_SERVICES_VERSION" value="+" />
+    </plugin>
     <plugin name="cordova-plugin-admob-free" spec="0.25.0">
         <variable name="ADMOB_APP_ID" value="ca-app-pub-3290488239272299~6798075353" />
     </plugin>
     <plugin name="cordova-plugin-vibration" spec="3.1.0" />
     <allow-navigation href="http://10.106.32.98:8100" sessionid="c3c7288b" />
+    <allow-navigation href="http://10.106.32.38:8100" sessionid="d52b3a85" />
     <engine name="ios" spec="5.0.0" />
     <engine name="android" spec="8.0.0" />
     <engine name="browser" spec="6.0.0" />

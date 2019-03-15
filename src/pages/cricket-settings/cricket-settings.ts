@@ -1,6 +1,6 @@
 import { CricketPlayer } from './../../models/cricketPlayer';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
 import { ServiceProvider } from '../../providers/service/service';
 
 @IonicPage()
@@ -11,7 +11,9 @@ import { ServiceProvider } from '../../providers/service/service';
 export class CricketSettingsPage {
   players: CricketPlayer[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, private service: ServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public viewCtrl: ViewController, private service: ServiceProvider,
+    public toastController: ToastController) {
     this.players.push(new CricketPlayer(1, "Player 1"));
     this.players.push(new CricketPlayer(2, "Player 2"));
   }
@@ -29,11 +31,39 @@ export class CricketSettingsPage {
     console.log('ionViewDidLoad X01SettingsPage');
   }
   addPlayer() {
-    var newPlayerNumber = this.players.length + 1;
-    this.players.push(new CricketPlayer(newPlayerNumber, "Player " + newPlayerNumber));
+    if (this.players.length == 4) {
+      this.presentToastMaxPlayer();
+    } else {
+      var newPlayerNumber = this.players.length + 1;
+      this.players.push(new CricketPlayer(newPlayerNumber, "Player " + newPlayerNumber));
+    }
   }
 
   removePlayer() {
-    this.players.splice(-1, 1);
+    if (this.players.length == 1) {
+      this.presentToastMinPlayer();
+    } else {
+      this.players.splice(-1, 1);
+    }
+  }
+
+  async presentToastMaxPlayer() {
+    const toast = await this.toastController.create({
+      cssClass: "playerToast",
+      message: 'Maximum four player allowed',
+      duration: 2500,
+      position: 'top'
+    });
+    toast.present();
+  }
+
+  async presentToastMinPlayer() {
+    const toast = await this.toastController.create({
+      cssClass: "playerToast",
+      message: 'Minimum one player required',
+      duration: 2500,
+      position: 'top'
+    });
+    toast.present();
   }
 }

@@ -141,7 +141,7 @@ page-menu {
 .alert-wrapper {
     @include border-radius($alert-md-border-radius);
     box-shadow: $alert-md-box-shadow;
-    background-image: linear-gradient(155deg, color($colors, background), color($colors, backgroundSec)) !important;
+    background: color($colors, backgroundSec) !important;
     color: color($colors, font) !important;
 }
 
@@ -195,4 +195,13 @@ page-menu {
 
 .item-md.activated {
     background: color($colors, btnActivated) !important;
+}
+
+
+// Toast Design
+.playerToast {
+    text-align: center;
+}
+.toast-container{
+    background:color($colors, backgroundSec);
 }
