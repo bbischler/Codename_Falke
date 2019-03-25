@@ -57,9 +57,9 @@ page-x01 {
         height: 75%;
         margin: 0 0.2em 0 0.2em;
         font-size: 1.5rem;
-    } 
+    }
     .playerScore {
-        font-size: 3rem;
+        font-size: 3.5rem;
         font-weight: 200;
     }
     .playerInfo {
@@ -68,9 +68,9 @@ page-x01 {
     }
     .stats {
         height: 25%;
-        color: color($colors, font);
+        color: color($colors, fontSec);
         font-weight: 100;
-    } 
+    }
     .lastScore {
         height: 15%;
         font-weight: 100;

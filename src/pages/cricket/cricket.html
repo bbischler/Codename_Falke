@@ -1,7 +1,7 @@
 <ion-header no-border>
 	<ion-toolbar color="transparent">
 		<button ion-button menuToggle>
-			<ion-icon color="accentSec" name="menu"></ion-icon>
+			<ion-icon color="fontSec" name="menu"></ion-icon>
 		</button>
 		<ion-title>
 			<div class="page-header"></div>
@@ -11,7 +11,7 @@
 
 <ion-content padding>
 	<ion-grid style="height:95%;padding-top:0;" no-padding>
-		<ion-row justify-content-around style="height:90%">
+		<ion-row justify-content-around style="height:100%">
 			<ion-col *ngFor="let player of players" class="player">
 
 				<!-- PlayerInfo -->
@@ -20,7 +20,7 @@
 						{{player.name}}
 					</ion-col>
 				</ion-row>
-				<ion-row class="playerinfo">
+				<ion-row class="playerinfo score">
 					<ion-col class="playerScore">
 						{{player.totalScore}}
 					</ion-col>

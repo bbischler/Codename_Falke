@@ -14,6 +14,9 @@ page-cricket {
         text-align: center;
         font-size: x-large;
     }
+    .score {
+        margin-bottom: 2em;
+    }
     .active {
         margin: 0.4 0 0.4em 0;
         border: none;
@@ -39,7 +42,7 @@ page-cricket {
     .numberscore {
         font-weight: 200;
         background-color: transparent;
-        color: color($colors, font); // text-align: right;
+        color: color($colors, fontSec); // text-align: right;
         font-size: large;
         vertical-align: middle !important;
     }
@@ -54,7 +57,7 @@ page-cricket {
         right: 0;
     }
     .scoreboardrow {
-        height: 12.8%;
+        height: 12%;
     }
     .btn_bottom {
         background-color: transparent;
@@ -78,16 +81,16 @@ page-cricket {
         // border: solid 1px red;
     }
     .fas.fa-circle {
-        font-size: 0.6em;
-        margin: 3px 0 3px 0;
+        font-size: 0.45em;
+        margin: 4px 0 4px 0;
     }
     .fas.fa-circle.closed {
-        font-size: 0.6em;
-        margin: 3px 0 3px 0;
+        font-size: 0.45em;
+        margin: 4px 0 4px 0;
     }
     .far.fa-circle {
-        margin: 3px 0 3px 0;
-        font-size: 0.6em;
+        font-size: 0.45em;
+        margin: 4px 0 4px 0;
     }
     .ads {
         height: 60px !important;

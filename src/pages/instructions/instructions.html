@@ -1,7 +1,7 @@
 <ion-header no-border>
   <ion-toolbar color="transparent">
     <button ion-button menuToggle>
-      <ion-icon color="accentSec" name="menu"></ion-icon>
+      <ion-icon color="fontSec" name="menu"></ion-icon>
     </button>
     <ion-title>
       <div class="page-header">Instructions</div>
@@ -14,7 +14,8 @@
 <ion-content padding>
 
   <ion-segment class="SwipedTabs-tabs">
-    <ion-segment-button *ngFor='let tab of tabs ; let i = index ' value="IngoreMe" (click)="selectTab(i)" [ngClass]='{ "SwipedTabs-activeTab" : ( this.SwipedTabsSlider  && ( this.SwipedTabsSlider.getActiveIndex() === i || (  tabs.length -1 === i&& this.SwipedTabsSlider.isEnd()))) }'>
+    <ion-segment-button *ngFor='let tab of tabs ; let i = index ' value="IngoreMe" (click)="selectTab(i)"
+      [ngClass]='{ "SwipedTabs-activeTab" : ( this.SwipedTabsSlider  && ( this.SwipedTabsSlider.getActiveIndex() === i || (  tabs.length -1 === i&& this.SwipedTabsSlider.isEnd()))) }'>
       {{tab}}
     </ion-segment-button>
   </ion-segment>
@@ -22,8 +23,9 @@
   <!-- here is our dynamic line  "indicator"-->
   <div id='indicator' class="SwipedTabs-indicatorSegment" [ngStyle]="{'width.%': (100/this.tabs.length)}"></div>
 
-  <ion-slides #SwipedTabsSlider (ionSlideDrag)="animateIndicator($event)" (ionSlideWillChange)="updateIndicatorPosition()"
-    (ionSlideDidChange)="updateIndicatorPosition()" (pan)="updateIndicatorPosition()" [pager]="false">
+  <ion-slides #SwipedTabsSlider (ionSlideDrag)="animateIndicator($event)"
+    (ionSlideWillChange)="updateIndicatorPosition()" (ionSlideDidChange)="updateIndicatorPosition()"
+    (pan)="updateIndicatorPosition()" [pager]="false">
 
     <ion-slide>
       <section class="textblock">
@@ -48,7 +50,8 @@
     <ion-slide>
       <section class="textblock">
 
-        Each player starts with X-01 (301, 501, 701) points. The number of points collected while hitting a board with a dart is
+        Each player starts with X-01 (301, 501, 701) points. The number of points collected while hitting a board with a
+        dart is
         subtracted from the given player's points. The winner is the player who scores exactly 0 points that way.
         It is a double out game, which means that players must hit a double that makes their score exactly zero to win
         the game.

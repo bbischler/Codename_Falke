@@ -30,11 +30,10 @@ page-home {
     }
     .font {
         font-weight: 100;
-        font-size: 2rem;
+        font-size: 2.5rem;
         width: 100%;
         color: color($colors, font);
-        text-align: center;
-        // border: solid 1px red;
+        text-align: center; // border: solid 1px red;
         vertical-align: middle !important;
     }
     .line {
@@ -43,18 +42,18 @@ page-home {
     }
     .line.vertical {
         margin: 7% 0 7% 0 !important;
-        flex: 0 0 1px;
+        flex: 0 0 2px;
     }
     .line.horizontal {
         margin: 0 7% 0 7% !important;
-        height: 1px;
+        height: 2px;
     }
     .line.no {
         background-color: transparent;
         flex: 0 0 1px;
-        height: 1px;
+        height: 2px;
     }
     .linerow {
-        height: 1px;
+        height: 2px;
     }
 }
