@@ -28,12 +28,15 @@ export class CricketPage {
     public alertController: AlertController) {
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     this.openModal();
   }
+
   async ionViewCanLeave() {
-    const shouldLeave = await this.confirmLeave();
-    return shouldLeave;
+    if (this.service.getGameIsActive()) {
+      const shouldLeave = await this.confirmLeave();
+      return shouldLeave;
+    }
   }
 
   ionViewWillLeave() {
@@ -48,9 +51,11 @@ export class CricketPage {
     const myModal: Modal = this.modalCtrl.create("CricketSettingsPage");
     myModal.present();
     myModal.onDidDismiss(data => {
-      if (data == true)
-        this.navCtrl.push(HomePage, {}, { animate: true, direction: 'back' });
-      else {
+      if (data == false) {
+        this.service.setGameIsActive(false);
+        this.navCtrl.setRoot(HomePage);
+      }
+      else if (data == true) {
         this.setPlayer();
         this.service.setGameIsActive(true);
       }

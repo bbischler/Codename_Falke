@@ -58,13 +58,15 @@ export class X01Page {
     }
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter(){
     this.openSettings();
   }
 
   async ionViewCanLeave() {
-    const shouldLeave = await this.confirmLeave();
-    return shouldLeave;
+    if (this.service.getGameIsActive()) {
+      const shouldLeave = await this.confirmLeave();
+      return shouldLeave;
+    }
   }
 
   ionViewWillLeave() {
@@ -79,9 +81,11 @@ export class X01Page {
     const myModal: Modal = this.modalCtrl.create("X01SettingsPage", myModalOptions);
     myModal.present();
     myModal.onDidDismiss(data => {
-      if (data == true)
-        this.navCtrl.push(HomePage, {}, { animate: true, direction: 'back' });
-      else {
+      if (data == false) {
+        this.service.setGameIsActive(false);
+        this.navCtrl.setRoot(HomePage);
+      }
+      else if (data == true) {
         this.setPlayer();
         this.service.setGameIsActive(true);
       }

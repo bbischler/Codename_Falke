@@ -23,6 +23,8 @@ export class X01SettingsPage {
   legs: number;
   sets: number;
   players: X01Player[] = [];
+  pageName = 'MODAL';
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController, private service: ServiceProvider,
@@ -33,13 +35,13 @@ export class X01SettingsPage {
 
   dismiss() {
     this.service.setActivePage('Home');
-    this.viewCtrl.dismiss(true);
+    this.viewCtrl.dismiss(false);
   }
   play() {
     for (let i = 0; i < this.players.length; i++) {
       this.service.addPlayer(this.players[i]);
     }
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss(true);
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad X01SettingsPage');

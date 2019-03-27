@@ -1,7 +1,6 @@
 <ion-menu [content]="content" type="overlay">
   <ion-header>
     <ion-toolbar color="transparent">
-
       <div class="page-header-menu">
         <div class="logo"><b>M<span>E</span>N<span>U</span></b></div>
       </div>
@@ -10,22 +9,22 @@
 
   <ion-content>
     <ion-list no-lines>
-      <button [ngClass]="checkActive(p.title) ? 'pageActive' : 'pageTransparent'" menuClose ion-item detail-none *ngFor="let p of pages"
-        (click)="openPage(p)">
-        <div class="button">
+      <button [ngClass]="checkActive(p.title) ? 'pageActive' : 'pageTransparent'" menuClose ion-item detail-none
+        *ngFor="let p of pages" (click)="openPage(p)">
+        <div class="buttonSide">
           {{p.title}}
         </div>
       </button>
-      <button [ngClass]="checkActive(p.title) ? 'pageActive' : 'pageTransparent'" menuClose ion-item detail-none *ngFor="let p of pagesx01"
-        (click)="openPageX01(p,p.title)">
-        <div class="button">
+      <button [ngClass]="checkActive(p.title) ? 'pageActive' : 'pageTransparent'" menuClose ion-item detail-none
+        *ngFor="let p of pagesx01" (click)="openPageX01(p,p.title)">
+        <div class="buttonSide">
           {{p.title}}
         </div>
       </button>
 
-      <button [ngClass]="checkActive(p.title) ? 'pageActive' : 'pageTransparent'" menuClose ion-item detail-none *ngFor="let p of instructions"
-        (click)="openPage(p)">
-        <div class="button">
+      <button [ngClass]="checkActive(p.title) ? 'pageActive' : 'pageTransparent'" menuClose ion-item detail-none
+        *ngFor="let p of instructions" (click)="openPage(p)">
+        <div class="buttonSide">
           {{p.title}}
         </div>
       </button>

@@ -57,9 +57,16 @@ export class MyApp {
     });
     this.platform.registerBackButtonAction(() => {
       // Catches the active view
+      
       let nav = this.app.getActiveNavs()[0];
       let activeView = nav.getActive();
       // Checks if can go back before show up the alert
+      let view = nav.getActive().instance.pageName;
+      if (view === 'MODAL') {
+        nav.pop();
+        this.nav.setRoot(HomePage);
+      }
+
       if (activeView.name === 'HomePage') {
         if (nav.canGoBack()) {
           nav.pop();
@@ -84,7 +91,7 @@ export class MyApp {
         }
       }
       else {
-        this.nav.pop();
+        this.nav.setRoot(HomePage);
       }
     });
   }

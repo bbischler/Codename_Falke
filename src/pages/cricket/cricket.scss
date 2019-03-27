@@ -2,35 +2,43 @@ page-cricket {
     .player {
         padding: 0 1em 0 1em !important;
     }
+
     .playerName {
         color: color($colors, fontSec);
         text-align: center; // font-weight: 200;
     }
+
     .playerinfo {
         height: 5%;
     }
+
     .playerScore {
         color: color($colors, font);
         text-align: center;
         font-size: x-large;
     }
+
     .score {
         margin-bottom: 2em;
     }
+
     .active {
         margin: 0.4 0 0.4em 0;
         border: none;
         background-color: color($colors, accent);
     }
+
     .dotscontainer {
         // height: 100%!important;
         display: flex;
         align-items: center;
     }
+
     .dots {
         // padding: 5px !important; // display: block;
         vertical-align: middle !important;
     }
+
     .numbercontainer {
         height: 100%;
         background-color: transparent; // display: flex;
@@ -39,16 +47,19 @@ page-cricket {
         padding: 0 !important;
         margin: 0 !important;
     }
+
     .numberscore {
         font-weight: 200;
         background-color: transparent;
         color: color($colors, fontSec); // text-align: right;
-        font-size: large;
+        font-size: 1.7rem;
         vertical-align: middle !important;
     }
+
     .full {
         color: color($colors, fontSec);
     }
+
     .scoreboard {
         height: 85%; // position: absolute;
         bottom: 0;
@@ -56,9 +67,11 @@ page-cricket {
         left: 0;
         right: 0;
     }
+
     .scoreboardrow {
         height: 12%;
     }
+
     .btn_bottom {
         background-color: transparent;
         box-shadow: none !important;
@@ -67,31 +80,31 @@ page-cricket {
         font-size: 1.5rem;
         color: color($colors, fontSec);
     }
+
     .active_btn {
         background-color: color($colors, semiTransparent) !important;
         color: color($colors, font);
     }
+
     ion-col {
         // border: solid 1px green;
     }
+
     ion-grid {
         // border: solid green;
     }
+
     ion-row {
         // border: solid 1px red;
     }
-    .fas.fa-circle {
-        font-size: 0.45em;
-        margin: 4px 0 4px 0;
-    }
-    .fas.fa-circle.closed {
-        font-size: 0.45em;
-        margin: 4px 0 4px 0;
-    }
+
+    .fas.fa-circle,
+    .fas.fa-circle.closed,
     .far.fa-circle {
-        font-size: 0.45em;
-        margin: 4px 0 4px 0;
+        font-size: 0.7em;
+        margin: 4px 0 4px 4px;
     }
+
     .ads {
         height: 60px !important;
         border: solid 1px red;

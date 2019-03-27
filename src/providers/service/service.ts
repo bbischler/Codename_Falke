@@ -30,6 +30,7 @@ export class ServiceProvider {
     return this.players;
   }
   setGameIsActive(isactive: Boolean) {
+    console.log("game: "+isactive);
     this.gameIsActive = isactive;
   }
   getGameIsActive() {

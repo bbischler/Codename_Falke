@@ -10,6 +10,8 @@ import { ServiceProvider } from '../../providers/service/service';
 })
 export class CricketSettingsPage {
   players: CricketPlayer[] = [];
+  pageName = 'MODAL';
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController, private service: ServiceProvider,
@@ -19,13 +21,13 @@ export class CricketSettingsPage {
   }
 
   dismiss() {
-    this.viewCtrl.dismiss(true);
+    this.viewCtrl.dismiss(false);
   }
   play() {
     for (let i = 0; i < this.players.length; i++) {
       this.service.addPlayer(this.players[i]);
     }
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss(true);
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad X01SettingsPage');
