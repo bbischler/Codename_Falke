@@ -27,21 +27,21 @@
 
     <ion-row class="toggles">
       <ion-col>
-        <button ion-button full [className]="!legbased ? 'gamestyle-active' : 'gamestyle'" (click)="quickgame()">
+        <button ion-button full [className]="!x01Settings.legbased ? 'gamestyle-active' : 'gamestyle'" (click)="quickgame()">
           QUICK GAME
         </button>
       </ion-col>
       <ion-col>
-        <button ion-button full [className]="legbased ? 'gamestyle-active' : 'gamestyle'" (click)="legbasedgame()">
+        <button ion-button full [className]="x01Settings.legbased ? 'gamestyle-active' : 'gamestyle'" (click)="legbasedgame()">
           LEG BASED
         </button>
       </ion-col>
     </ion-row>
 
-    <ion-row *ngIf="legbased">
+    <ion-row *ngIf="x01Settings.legbased">
       <ion-item class="doubles" no-lines>
         <ion-label>Legs: </ion-label>
-        <ion-select interface="alert" [(ngModel)]="legs" placeholder="Select Legs">
+        <ion-select interface="alert" [(ngModel)]="x01Settings.legs" placeholder="Select Legs">
           <ion-option value="1">1</ion-option>
           <ion-option value="2">2</ion-option>
           <ion-option selected="true" value="3">3</ion-option>
@@ -56,10 +56,10 @@
         </ion-select>
       </ion-item>
     </ion-row>
-    <ion-row *ngIf="legbased">
+    <ion-row *ngIf="x01Settings.legbased">
       <ion-item class="doubles" no-lines>
         <ion-label>Sets: </ion-label>
-        <ion-select interface="alert" [(ngModel)]="sets" placeholder="Select Sets">
+        <ion-select interface="alert" [(ngModel)]="x01Settings.sets" placeholder="Select Sets">
           <ion-option value="1">1</ion-option>
           <ion-option value="2">2</ion-option>
           <ion-option selected="true" value="3">3</ion-option>
@@ -72,13 +72,13 @@
       <ion-col col-6>
         <ion-item class="doubles" no-lines>
           <ion-label>DOUBLE IN</ion-label>
-          <ion-checkbox color="accent" checked="true" [(ngModel)]="doubleIn"></ion-checkbox>
+          <ion-checkbox color="accent" checked="true" [(ngModel)]="x01Settings.doubleIn"></ion-checkbox>
         </ion-item>
       </ion-col>
       <ion-col col-6>
         <ion-item class="doubles" no-lines>
-          <ion-label>DOUBLE</ion-label>
-          <ion-checkbox color="accent" checked="true" [(ngModel)]="doubleOut"></ion-checkbox>
+          <ion-label>DOUBLE OUT</ion-label>
+          <ion-checkbox color="accent" checked="true" [(ngModel)]="x01Settings.doubleOut"></ion-checkbox>
         </ion-item>
       </ion-col>
     </ion-row>

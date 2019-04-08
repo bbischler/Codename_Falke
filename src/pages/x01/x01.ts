@@ -4,6 +4,7 @@ import { NativeAudio } from '@ionic-native/native-audio/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { IonicPage, AlertController, NavController, Platform, NavParams, Slides, ModalController, Modal, ModalOptions } from 'ionic-angular';
 import { Player } from '../../models/player';
+import { X01Settings } from '../../models/x01Settings';
 import { ServiceProvider } from '../../providers/service/service';
 import { HomePage } from '../home/home';
 
@@ -39,6 +40,7 @@ export class X01Page {
   gameOver: Boolean = false;
   confirmAlert: any;
   activePlayer: X01Player;
+  x01Settings: X01Settings;
 
   constructor(public navCtrl: NavController, public platform: Platform,
     public navParams: NavParams, public modalCtrl: ModalController,
@@ -56,9 +58,10 @@ export class X01Page {
     } else {
       this.num = 301;
     }
+    this.x01Settings = this.service.getX01Settings();
   }
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.openSettings();
   }
 
@@ -87,6 +90,7 @@ export class X01Page {
       }
       else if (data == true) {
         this.setPlayer();
+        this.x01Settings = this.service.getX01Settings();
         this.service.setGameIsActive(true);
       }
     });

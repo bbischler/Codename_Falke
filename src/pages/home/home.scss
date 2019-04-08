@@ -27,6 +27,8 @@ page-home {
         box-shadow: none !important;
         align-items: center;
         background-color: color($colors, transparent);
+        border-radius: 10px;
+        // margin:5px;
     }
     .font {
         font-weight: 100;
@@ -37,21 +39,21 @@ page-home {
         vertical-align: middle !important;
     }
     .line {
-        background-color: color($colors, accentSec);
+        background-color: color($colors, accent);
         border: none;
     }
     .line.vertical {
         margin: 7% 0 7% 0 !important;
-        flex: 0 0 2px;
+        flex: 0 0 1px;
     }
     .line.horizontal {
         margin: 0 7% 0 7% !important;
-        height: 2px;
+        height: 1px;
     }
     .line.no {
         background-color: transparent;
         flex: 0 0 1px;
-        height: 2px;
+        height: 1px;
     }
     .linerow {
         height: 2px;

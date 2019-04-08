@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, ViewController, ToastController } 
 import { ServiceProvider } from '../../providers/service/service';
 import { HomePage } from '../../pages/home/home';
 import { X01Player } from '../../models/x01Player';
-
+import { X01Settings } from '../../models/x01Settings';
 /**
  * Generated class for the X01SettingsPage page.
  *
@@ -17,18 +17,14 @@ import { X01Player } from '../../models/x01Player';
   templateUrl: 'x01-settings.html',
 })
 export class X01SettingsPage {
-  doubleIn: Boolean = false;
-  doubleOut: Boolean = true;
-  legbased: Boolean = false;
-  legs: number;
-  sets: number;
+  x01Settings: X01Settings;
   players: X01Player[] = [];
   pageName = 'MODAL';
-
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController, private service: ServiceProvider,
     public toastController: ToastController) {
+    this.x01Settings = this.service.getX01Settings();
     this.players.push(new X01Player(1, "Player 1"));
     this.players.push(new X01Player(2, "Player 2"));
   }
@@ -41,6 +37,7 @@ export class X01SettingsPage {
     for (let i = 0; i < this.players.length; i++) {
       this.service.addPlayer(this.players[i]);
     }
+    this.service.setX01Settings(this.x01Settings);
     this.viewCtrl.dismiss(true);
   }
   ionViewDidLoad() {
@@ -63,10 +60,10 @@ export class X01SettingsPage {
     }
   }
   quickgame() {
-    this.legbased = false;
+    this.x01Settings.legbased = false;
   }
   legbasedgame() {
-    this.legbased = true;
+    this.x01Settings.legbased = true;
   }
 
   async presentToastMaxPlayer() {
