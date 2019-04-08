@@ -7,6 +7,8 @@ export class X01Player extends Player {
     lastThreeScores: number[] = [];
     legs: number = 0;
     sets: number = 0;
+    doubleIn: boolean = true;
+    doubleOut: boolean = true;
 
     constructor(id: number, name: string) {
         super(id, name);
@@ -19,7 +21,7 @@ export class X01Player extends Player {
         this.roundScore += points;
         this.totalScore -= points;
         this.lastThreeScores.push(points);
-        this.avg = Math.floor(this.totalScore / this.totalThrowCount);
+        this.avg = Math.floor(this.roundScore / this.totalThrowCount);
     }
 
     public setTotalScore(totalScore: number) {

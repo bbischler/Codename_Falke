@@ -2,7 +2,7 @@ import { X01Player } from './../../models/x01Player';
 import { Component, ViewChild } from '@angular/core';
 import { NativeAudio } from '@ionic-native/native-audio/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
-import { IonicPage, AlertController, NavController, Platform, NavParams, Slides, ModalController, Modal, ModalOptions } from 'ionic-angular';
+import { IonicPage, AlertController, ToastController, NavController, Platform, NavParams, Slides, ModalController, Modal, ModalOptions } from 'ionic-angular';
 import { Player } from '../../models/player';
 import { X01Settings } from '../../models/x01Settings';
 import { ServiceProvider } from '../../providers/service/service';
@@ -45,7 +45,8 @@ export class X01Page {
   constructor(public navCtrl: NavController, public platform: Platform,
     public navParams: NavParams, public modalCtrl: ModalController,
     private nativeAudio: NativeAudio, private service: ServiceProvider,
-    public alertCtrl: AlertController, private vibration: Vibration) {
+    public alertCtrl: AlertController, private vibration: Vibration,
+    public toastController: ToastController) {
     this.platform.ready().then(() => {
       this.nativeAudio.preloadSimple('180', 'assets/sounds/180.mp3').then((success) => {
         console.log("success");
@@ -105,6 +106,17 @@ export class X01Page {
   }
 
   addPoints(points: number) {
+    if (this.x01Settings.doubleIn) {
+      if (!this.isDouble && this.activePlayer.doubleIn) {
+        this.presentToastDoubleIn();
+        this.throw(0);
+        return;
+      } else {
+        this.activePlayer.doubleIn = false;
+      }
+    }
+
+
     if (this.has180)
       this.play180();
 
@@ -123,7 +135,10 @@ export class X01Page {
     } else {
       this.vibrate()
     }
+    this.throw(points);
+  }
 
+  throw(points: number) {
     this.slides.slideTo(this.playerCounter, 1000);
     this.activePlayer.throw(points);
     this.isDouble = false;
@@ -200,5 +215,25 @@ export class X01Page {
     alert.present();
     return canLeave
 
+  }
+
+  async presentToastDoubleIn() {
+    const toast = await this.toastController.create({
+      cssClass: "playerToast",
+      message: 'First throw must be a double',
+      duration: 2500,
+      position: 'top'
+    });
+    toast.present();
+  }
+
+  async presentToastDoubleOut() {
+    const toast = await this.toastController.create({
+      cssClass: "playerToast",
+      message: 'Last throw must be a double',
+      duration: 2500,
+      position: 'top'
+    });
+    toast.present();
   }
 }
