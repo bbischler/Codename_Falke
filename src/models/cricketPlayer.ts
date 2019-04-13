@@ -1,3 +1,4 @@
+import { throwCricketAction } from './throwAction';
 import { Player } from './player';
 import { CricketPoint } from './cricketPoint';
 import { PointerEvents } from 'ionic-angular/umd/gestures/pointer-events';
@@ -24,15 +25,9 @@ export class CricketPlayer extends Player {
         }
     }
 
-    public throwCricket(point: CricketPoint, throwAmount: number): void {
-        console.log(this.name + " throws " + point.value + " " + throwAmount + " times");
-        
-        for(var i = 0; i < throwAmount; i ++){
-            if(point.isClosed && !point.setIsClosed){
-                this.totalScore += point.getValue();
-            }
-            point.increaseHit();
-        }
+    public throwCricket(point: CricketPoint, throwAmount: number): throwCricketAction {
+        var action = new throwCricketAction(point, throwAmount, this);
+        return action;
     }
     
     public throw(point: number, throwAmount: number): void {

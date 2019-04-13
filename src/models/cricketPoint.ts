@@ -28,6 +28,11 @@ export class CricketPoint {
         this.checkForClosed();
     }
 
+    public decreaseHit() : void{
+        this.hitCount = Math.max(0, this.hitCount - 1);
+        this.checkForClosed();
+    }
+
     // Sets isClosed correctly
     private checkForClosed() : void{
         var previousValue = this.isClosed;

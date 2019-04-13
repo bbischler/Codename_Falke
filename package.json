@@ -52,6 +52,7 @@
     "ionicons": "4.5.5",
     "rxjs": "6.4.0",
     "rxjs-compat": "^6.4.0",
+    "stack-typescript": "^1.0.4",
     "sw-toolbox": "3.6.0",
     "zone.js": "0.8.29"
   },

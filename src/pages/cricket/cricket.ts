@@ -1,3 +1,4 @@
+import { throwCricketAction } from './../../models/throwAction';
 import { CricketPoint } from './../../models/cricketPoint';
 import { CricketPlayer } from './../../models/cricketPlayer';
 import { Component } from '@angular/core';
@@ -7,6 +8,7 @@ import { Vibration } from '@ionic-native/vibration/ngx';
 import { Player } from '../../models/player';
 import { ServiceProvider } from '../../providers/service/service';
 import { HomePage } from '../home/home';
+import { Stack } from 'stack-typescript';
 
 @IonicPage()
 @Component({
@@ -21,6 +23,8 @@ export class CricketPage {
   currentHighscore: number = 0;
   containerofThree: number[] = [3, 2, 1];
   throwAmount: number = 1; // Factor for double and triple multiplication
+  actionStack: Stack<throwCricketAction> = new Stack<throwCricketAction>();
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public admob: AdMobFree, public modalCtrl: ModalController,
@@ -73,7 +77,10 @@ export class CricketPage {
       this.throwAmount = 3;
     }
 
-    this.players[id - 1].throwCricket(point, this.throwAmount);
+    var action = this.players[id - 1].throwCricket(point, this.throwAmount);
+    this.actionStack.push(action);
+    action.do();
+
     if (point.player.totalScore > this.currentHighscore)
       this.currentHighscore = point.player.totalScore;
 
@@ -85,7 +92,10 @@ export class CricketPage {
   }
 
   undo() {
-    console.log("undo");
+    console.log("Undo prompted")
+    var action = this.actionStack.pop();
+    if(action != null)
+      action.undo();
   }
   newgame() {
     console.log("newgame");
