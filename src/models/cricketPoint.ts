@@ -1,4 +1,4 @@
-import { CricketPlayer } from './cricketPlayer';
+// import { CricketPlayer } from './cricketPlayer';
 
 export class CricketPoint {
     value: number;
@@ -6,38 +6,40 @@ export class CricketPoint {
     hitCount: number;
     isClosed: Boolean; // Has this point reached 3 Hits
     setIsClosed: Boolean; // Are all points of this value closed (reached 3 hits)
-    player: CricketPlayer;
+    // player: CricketPlayer;
     onClosedCallback: (value: number, isClosed: Boolean) => void; // Function to be called when this point changes its closed state
 
-    constructor(value: number, player: CricketPlayer) {
+    constructor(value: number,
+        //  player: CricketPlayer
+    ) {
         this.value = value;
-        this.player = player;
+        // this.player = player;
         this.hitCount = 0;
         this.isClosed = false;
         this.displayText = (this.value == 25 ? "Bull" : this.value.toString());
     }
 
     // Register callback function for closing event
-    public registerOnClosed(x: (value: number, isClosed: Boolean) => void){
+    public registerOnClosed(x: (value: number, isClosed: Boolean) => void) {
         this.onClosedCallback = x;
     }
 
     // Increases hitCount, checks for max
-    public increaseHit() : void{
+    public increaseHit(): void {
         this.hitCount = Math.min(3, this.hitCount + 1);
         this.checkForClosed();
     }
 
-    public decreaseHit() : void{
+    public decreaseHit(): void {
         this.hitCount = Math.max(0, this.hitCount - 1);
         this.checkForClosed();
     }
 
     // Sets isClosed correctly
-    private checkForClosed() : void{
+    private checkForClosed(): void {
         var previousValue = this.isClosed;
         this.isClosed = (this.hitCount == 3);
-        if(previousValue != this.isClosed){
+        if (previousValue != this.isClosed) {
             this.onClosedCallback(this.value, this.isClosed);
         }
     }

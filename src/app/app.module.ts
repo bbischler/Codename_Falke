@@ -14,6 +14,7 @@ import { NativeAudio } from '@ionic-native/native-audio/ngx';
 import { AdMobFree } from '@ionic-native/admob-free/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
+// import { IonicStorageModule } from '@ionic/storage';
 
 
 @NgModule({
@@ -28,6 +29,8 @@ import { Vibration } from '@ionic-native/vibration/ngx';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    // IonicStorageModule.forRoot(),
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
