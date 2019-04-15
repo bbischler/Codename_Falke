@@ -1,6 +1,6 @@
 import { CricketPlayer } from './cricketPlayer';
 
-export class throwCricketAction {
+export class cricketThrowAction {
     point: number;
 
     amount: number;

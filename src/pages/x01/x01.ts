@@ -1,3 +1,5 @@
+import { Stack } from 'stack-typescript';
+import { x01ThrowAction } from './../../models/x01ThrowAction';
 import { X01Player } from './../../models/x01Player';
 import { Component, ViewChild } from '@angular/core';
 import { NativeAudio } from '@ionic-native/native-audio/ngx';
@@ -41,6 +43,7 @@ export class X01Page {
   confirmAlert: any;
   activePlayer: X01Player;
   x01Settings: X01Settings;
+  actionStack: Stack<x01ThrowAction> = new Stack<x01ThrowAction>();
 
   constructor(public navCtrl: NavController, public platform: Platform,
     public navParams: NavParams, public modalCtrl: ModalController,
@@ -116,7 +119,6 @@ export class X01Page {
       }
     }
 
-
     if (this.has180)
       this.play180();
 
@@ -140,11 +142,16 @@ export class X01Page {
 
   throw(points: number) {
     this.slides.slideTo(this.playerCounter, 1000);
-    this.activePlayer.throw(points);
+    
+    var action = new x01ThrowAction(points, this.activePlayer);
+    this.actionStack.push(action);
+    action.do();
+    
     this.isDouble = false;
     this.isTriple = false;
     this.throwCounter++;
 
+    console.log("Player " + this.activePlayer.id + " roundThrowCounter = " + this.activePlayer.roundThrowCount);
     if (this.activePlayer.roundThrowCount == 3) {
       this.playerCounter = (this.playerCounter + 1) % this.players.length;
       this.activePlayer = this.players[this.playerCounter];
@@ -157,7 +164,18 @@ export class X01Page {
     return false;
   }
   undo() {
-    //marco do magic here
+    console.log("Undo prompted")
+
+    var action = this.actionStack.pop();
+    if (action != null){
+      // Switch to previous Player if necessary
+      if(this.activePlayer.roundThrowCount == 0){
+        this.playerCounter = (this.playerCounter - 1) < 0 ? this.players.length - 1 : (this.playerCounter - 1)
+        this.activePlayer = this.players[this.playerCounter];
+        this.slides.slideTo(this.playerCounter, 1000);
+      }  
+      action.undo();
+    }
   }
   double() {
     this.isTriple = false;
@@ -170,7 +188,6 @@ export class X01Page {
   }
 
   isActive(numberid) {
-    console.log("Check active Player " + numberid + " Active player is " + this.playerCounter)
     if (numberid == this.activePlayer.id) {
       return true;
     } else {

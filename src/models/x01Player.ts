@@ -1,3 +1,4 @@
+import { x01ThrowAction } from './x01ThrowAction';
 import { Player } from './player';
 
 export class X01Player extends Player {
@@ -16,11 +17,35 @@ export class X01Player extends Player {
     }
 
     public throw(points: number): void {
+
+
         this.roundThrowCount++;
         this.totalThrowCount++;
         this.roundScore += points;
         this.totalScore -= points;
         this.lastThreeScores.push(points);
+        this.avg = Math.floor(this.roundScore / this.totalThrowCount);
+    }
+
+    public increaseThrowCount(){
+        this.roundThrowCount++;
+        this.totalThrowCount++;
+    }
+
+    public decreaseThrowCount(){
+        this.roundThrowCount--;
+        this.totalThrowCount--;
+    }
+
+    public scorePoints(points: number){
+        this.roundScore += points;
+        this.totalScore -= points;
+
+        if(points > 0)
+            this.lastThreeScores.push(points);
+        else
+            this.lastThreeScores.pop();
+
         this.avg = Math.floor(this.roundScore / this.totalThrowCount);
     }
 

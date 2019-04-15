@@ -1,4 +1,4 @@
-import { throwCricketAction } from './../../models/throwAction';
+import { cricketThrowAction } from './../../models/cricketThrowAction';
 import { CricketPoint } from './../../models/cricketPoint';
 import { CricketPlayer } from './../../models/cricketPlayer';
 import { Component } from '@angular/core';
@@ -26,7 +26,7 @@ export class CricketPage {
   currentHighscore: number = 0;
   containerofThree: number[] = [3, 2, 1];
   throwAmount: number = 1; // Factor for double and triple multiplication
-  actionStack: Stack<throwCricketAction> = new Stack<throwCricketAction>();
+  actionStack: Stack<cricketThrowAction> = new Stack<cricketThrowAction>();
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -92,8 +92,7 @@ export class CricketPage {
       this.throwAmount = 3;
     }
 
-    // var action = this.players[id - 1].throwCricket(point, this.throwAmount);
-    var action = new throwCricketAction(point.value, this.throwAmount, this.players[id - 1]);
+    var action = new cricketThrowAction(point.value, this.throwAmount, this.players[id - 1]);
     this.actionStack.push(action);
     action.do();
 
