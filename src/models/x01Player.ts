@@ -46,7 +46,7 @@ export class X01Player extends Player {
         else
             this.lastThreeScores.pop();
 
-        this.avg = Math.floor(this.roundScore / this.totalThrowCount);
+        this.avg = this.totalThrowCount == 0 ? 0 : Math.floor(this.roundScore / this.totalThrowCount);
     }
 
     public setTotalScore(totalScore: number) {
