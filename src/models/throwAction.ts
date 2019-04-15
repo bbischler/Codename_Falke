@@ -1,8 +1,6 @@
 import { CricketPlayer } from './cricketPlayer';
-// import { CricketPoint } from './cricketPoint';
 
 export class throwCricketAction {
-    // point: CricketPoint;
     point: number;
 
     amount: number;
@@ -21,17 +19,15 @@ export class throwCricketAction {
         if (this.isDone)
             return;
 
-        console.log("DO: " + this.player.name + " throws " + this.player.getPointsByValue(this.point).value + " " + this.amount + " times");
+        var point = this.player.getPointsByValue(this.point);
 
         for (var i = 0; i < this.amount; i++) {
-            if (this.player.getPointsByValue(this.point).isClosed && !this.player.getPointsByValue(this.point).setIsClosed) {
-                this.player.totalScore += this.player.getPointsByValue(this.point).getValue();
-                this.totalScoreIncrease += this.player.getPointsByValue(this.point).getValue();
+            if (point.isClosed && !point.setIsClosed) {
+                this.player.totalScore += point.getValue();
+                this.totalScoreIncrease += point.getValue();
             }
-            if (!this.player.getPointsByValue(this.point).isClosed) {
-                this.player.getPointsByValue(this.point).increaseHit();
-                console.log("Hit increase: Counter is: " + this.player.getPointsByValue(this.point).hitCount + " isClosed: " + 
-                this.player.getPointsByValue(this.point).isClosed + " setIsClosed: " + this.player.getPointsByValue(this.point).setIsClosed);
+            if (!point.isClosed) {
+                point.increaseHit();
                 this.totalNumberOfPointIncreases += 1;
             }
         }
@@ -42,16 +38,11 @@ export class throwCricketAction {
         if (!this.isDone)
             return;
 
-        console.log("UNDO: " + this.player.name + " throws " + this.player.getPointsByValue(this.point).value + 
-        " " + this.amount + " times");
-        console.log("Decreasing Playerscore");
+        var point = this.player.getPointsByValue(this.point);
         this.player.totalScore -= this.totalScoreIncrease;
 
         for (var i = 0; i < this.totalNumberOfPointIncreases; i++) {
-            this.player.getPointsByValue(this.point).decreaseHit();
-            console.log("Hit decrease: Counter is: " + this.player.getPointsByValue(this.point).hitCount + 
-            " isClosed: " + this.player.getPointsByValue(this.point).isClosed + 
-            " setIsClosed: " + this.player.getPointsByValue(this.point).setIsClosed);
+            point.decreaseHit();
         }
     }
 }

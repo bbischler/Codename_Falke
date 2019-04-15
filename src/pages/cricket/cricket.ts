@@ -59,7 +59,6 @@ export class CricketPage {
     // }
     console.log('cricketStorage wurde gesetzt!');
 
-
     this.service.setGameIsActive(false);
     this.service.deletePlayers();
   }

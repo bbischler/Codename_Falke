@@ -19,25 +19,10 @@ export class CricketPlayer extends Player {
     }
 
     public getPointsByValue(value: number): CricketPoint {
-        for (let point of this.points) {
-            if (point.value == value)
-                return point
-        }
+        return this.points.filter(p => p.value == value)[0];
     }
 
-    // public throwCricket(point: CricketPoint, throwAmount: number): throwCricketAction {
-    //     var action = new throwCricketAction(point, throwAmount, this);
-    //     return action;
-    // }
-
     public throw(point: number, throwAmount: number): void {
-        for (let cpoint of this.points) {
-            if (cpoint.value == point) {
-                cpoint.hitCount += throwAmount;
-                if (cpoint.hitCount > 3 && !cpoint.isClosed) {
-                    this.totalScore += (point * throwAmount);
-                }
-            }
-        }
+        throw new Error("Should never reach method throw on CircketPoint!")
     }
 }

@@ -16,5 +16,4 @@ export class CricketStorage {
         this.currentHighscore = currentHighscore;
         this.throwAmount = throwAmount;
     }
-
 }

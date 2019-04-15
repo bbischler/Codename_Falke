@@ -6,14 +6,11 @@ export class CricketPoint {
     hitCount: number;
     isClosed: Boolean; // Has this point reached 3 Hits
     setIsClosed: Boolean; // Are all points of this value closed (reached 3 hits)
-    // player: CricketPlayer;
     onClosedCallback: (value: number, isClosed: Boolean) => void; // Function to be called when this point changes its closed state
 
     constructor(value: number,
-        //  player: CricketPlayer
     ) {
         this.value = value;
-        // this.player = player;
         this.hitCount = 0;
         this.isClosed = false;
         this.displayText = (this.value == 25 ? "Bull" : this.value.toString());
@@ -24,12 +21,13 @@ export class CricketPoint {
         this.onClosedCallback = x;
     }
 
-    // Increases hitCount, checks for max
+    // Increases hitCount, checks for closing/opening
     public increaseHit(): void {
         this.hitCount = Math.min(3, this.hitCount + 1);
         this.checkForClosed();
     }
 
+    // Decreases hitCount, checks for closing/opening
     public decreaseHit(): void {
         this.hitCount = Math.max(0, this.hitCount - 1);
         this.checkForClosed();
