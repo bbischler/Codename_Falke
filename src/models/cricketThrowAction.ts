@@ -19,6 +19,8 @@ export class cricketThrowAction {
         if (this.isDone)
             return;
 
+        console.log("player: " + JSON.stringify(this.player));
+
         var point = this.player.getPointsByValue(this.point);
 
         for (var i = 0; i < this.amount; i++) {

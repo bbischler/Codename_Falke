@@ -2,7 +2,7 @@ import { cricketThrowAction } from './../../models/cricketThrowAction';
 import { CricketPoint } from './../../models/cricketPoint';
 import { CricketPlayer } from './../../models/cricketPlayer';
 import { Component } from '@angular/core';
-import { IonicPage, AlertController, NavController, NavParams, ModalController, Modal, ModalOptions } from 'ionic-angular';
+import { IonicPage, AlertController, NavController, NavParams, ModalController, Modal, ModalOptions, ToastController } from 'ionic-angular';
 import { AdMobFree, AdMobFreeBannerConfig, AdMobFreeInterstitialConfig } from '@ionic-native/admob-free/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { Player } from '../../models/player';
@@ -32,13 +32,12 @@ export class CricketPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public admob: AdMobFree, public modalCtrl: ModalController,
     private service: ServiceProvider, private vibration: Vibration,
-    public alertController: AlertController) { }
+    public alertController: AlertController, public toastController: ToastController) { }
 
   ionViewDidEnter() {
     if (localStorage.getItem('cricketStorage')) {
       this.openModalRestore();
     } else {
-      localStorage.removeItem('cricketStorage');
       this.openModal();
     }
   }
@@ -46,24 +45,23 @@ export class CricketPage {
   async ionViewCanLeave() {
     if (this.service.getGameIsActive()) {
       const shouldLeave = await this.confirmLeave();
+      if (shouldLeave)
+        this.storeGame();
       return shouldLeave;
     }
   }
 
-  ionViewWillLeave() {
-
+  storeGame() {
     let _cricketStorage = new CricketStorage(this.players, this.isDouble, this.isTriple, this.currentHighscore, this.throwAmount);
     localStorage.setItem('cricketStorage', JSON.stringify(_cricketStorage));
-    // for (let item of this.actionStack.toArray()) {
     localStorage.setItem('cricketStack', JSON.stringify(this.actionStack.toArray()));
-    // }
-    console.log('cricketStorage wurde gesetzt!');
-
+    console.log('cricket Storage wurde gesetzt!');
     this.service.setGameIsActive(false);
     this.service.deletePlayers();
   }
 
   openModal() {
+    this.deleteStorage();
     const myModalOptions: ModalOptions = {
       enableBackdropDismiss: false
     };
@@ -133,6 +131,8 @@ export class CricketPage {
 
     // berücksichtigt nicht edge case: player1 führt mit 100 punkten. player 2 holt auf und hat auch genau 100 dann gewinnt er..
     if (player.totalScore >= this.currentHighscore) {
+      this.service.deletePlayers();
+      this.service.setGameIsActive(false);
       return true;
     } else {
       return false;
@@ -165,23 +165,30 @@ export class CricketPage {
   vibrate() {
     this.vibration.vibrate(13);
   }
+  deleteStorage() {
+    console.log("delete storage");
+    localStorage.removeItem('cricketStorage');
+    localStorage.removeItem('cricketStack');
+  }
 
   restoreGame() {
+    console.log("restore storage");
     this.cricketStorage = JSON.parse(localStorage.getItem('cricketStorage'));
     this.players = this.cricketStorage.players;
     this.isDouble = this.cricketStorage.isDouble;
     this.isTriple = this.cricketStorage.isTriple;
     this.currentHighscore = this.cricketStorage.currentHighscore;
     this.throwAmount = this.cricketStorage.throwAmount;
-    let tmp = JSON.parse(localStorage.getItem('cricketStack'))
+    let tmp = JSON.parse(localStorage.getItem('cricketStack'));
     console.log(tmp);
     for (let i of tmp) {
-      this.actionStack.push(i);
-      console.log("parsing stack");
+      let _stack: cricketThrowAction = i;
+      console.log(_stack);
+      this.actionStack.push(_stack);
     }
-    localStorage.removeItem('cricketStorage');
-    localStorage.removeItem('cricketStack');
-
+    this.deleteStorage();
+    this.service.setGameIsActive(true);
+    this.gameRestoreToast();
   }
 
   winningPopup(player: CricketPlayer) {
@@ -193,12 +200,14 @@ export class CricketPage {
         {
           text: 'Home',
           handler: data => {
+            this.navCtrl.setRoot(HomePage);
             console.log('Cancel clicked');
           }
         },
         {
           text: 'New Game',
           handler: data => {
+            this.ionViewDidEnter();
             console.log('new game');
           }
         }
@@ -250,5 +259,14 @@ export class CricketPage {
       ]
     });
     alert.present();
+  }
+  async gameRestoreToast() {
+    const toast = await this.toastController.create({
+      cssClass: "playerToast",
+      message: 'Game restored',
+      duration: 2500,
+      position: 'top'
+    });
+    toast.present();
   }
 }
