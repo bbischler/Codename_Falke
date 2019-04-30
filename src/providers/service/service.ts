@@ -1,6 +1,7 @@
 import { Player } from '../../models/player';
 import { X01Settings } from '../../models/x01Settings';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 /*
   Generated class for the ServiceProvider provider.
@@ -14,9 +15,34 @@ export class ServiceProvider {
   x01Settings: X01Settings = new X01Settings(false, 3, 1, true, false);
   players: Player[] = [];
   gameIsActive: Boolean = false;
+  checkoutTable = new Map();
 
-  constructor() {
+  constructor(private http: HttpClient) {
     console.log('Hello ServiceProvider Provider');
+    this.getCheckoutTable();
+
+  }
+  getCheckoutTable() {
+    this.http.get('../../assets/checkoutTable.csv', { responseType: 'text' })
+      .subscribe(
+        data => {
+          data = data.replace(/(\r\n|\n|\r)/gm, "Y");
+          var lines = data.split('Y');
+          for (let line of lines) {
+            var arr = line.split(';');
+            let score = parseInt(arr[0]);
+            this.setCheckOutTable(score, arr[1]);
+          }
+
+        },
+        error => {
+          console.log(error);
+        }
+      );
+
+  }
+  setCheckOutTable(key: number, value: String) {
+    this.checkoutTable.set(key, value);
   }
   getActivePage() {
     return this.activePage;

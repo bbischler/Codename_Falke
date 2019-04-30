@@ -33,6 +33,7 @@ export class HomePage {
     //   };
     // }
     this.createBanner();
+   
   }
   createBanner() {
 

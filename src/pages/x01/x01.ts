@@ -106,6 +106,7 @@ export class X01Page {
       p.setTotalScore(this.num);
     })
     this.activePlayer = this.players[0];
+    console.log(this.service.checkoutTable);
   }
 
   addPoints(points: number) {

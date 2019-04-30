@@ -15,6 +15,7 @@ import { AdMobFree } from '@ionic-native/admob-free/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
 // import { IonicStorageModule } from '@ionic/storage';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { Vibration } from '@ionic-native/vibration/ngx';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    HttpClientModule,
     // IonicStorageModule.forRoot(),
 
   ],
