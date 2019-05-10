@@ -10,8 +10,9 @@
 </ion-header>
 
 <ion-content padding>
-	<ion-grid style="height:95%;padding-top:0;" no-padding>
-		<ion-row justify-content-around style="height:100%">
+	<ion-grid style="height:95%;padding-top:0;width:100%;" no-padding>
+		<ion-row  style="height:100%" nowrap class="forecast_container">
+			<!-- <ion-scroll direction="x"> -->
 			<ion-col *ngFor="let player of players" class="player">
 
 				<!-- PlayerInfo -->
@@ -46,6 +47,7 @@
 					</button>
 				</ion-row>
 			</ion-col>
+
 		</ion-row>
 
 

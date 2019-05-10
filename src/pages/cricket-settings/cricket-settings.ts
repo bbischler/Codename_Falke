@@ -33,7 +33,7 @@ export class CricketSettingsPage {
     console.log('ionViewDidLoad X01SettingsPage');
   }
   addPlayer() {
-    if (this.players.length == 4) {
+    if (this.players.length == 8) {
       this.presentToastMaxPlayer();
     } else {
       var newPlayerNumber = this.players.length + 1;
@@ -52,7 +52,7 @@ export class CricketSettingsPage {
   async presentToastMaxPlayer() {
     const toast = await this.toastController.create({
       cssClass: "playerToast",
-      message: 'Maximum four player allowed',
+      message: 'Maximum eight player allowed',
       duration: 2500,
       position: 'top'
     });
