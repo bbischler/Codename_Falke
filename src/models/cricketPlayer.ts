@@ -6,7 +6,7 @@ import { CricketPoint } from './cricketPoint';
 export class CricketPlayer extends Player {
     points: CricketPoint[];
 
-    constructor(id: number, name: string) {
+    constructor(id?: number, name?: string) {
         super(id, name);
         this.points = [
             new CricketPoint(20),
@@ -19,10 +19,32 @@ export class CricketPlayer extends Player {
     }
 
     public getPointsByValue(value: number): CricketPoint {
+        console.log("getPointsByValue");
         return this.points.filter(p => p.value == value)[0];
     }
 
     public throw(point: number, throwAmount: number): void {
         throw new Error("Should never reach method throw on CircketPoint!")
+    }
+
+    public test() {
+        console.log("I AM ALIVE!!");
+
+    }
+
+    setPoints(points) {
+        this.points = [];
+        for (let p of points) {
+            let tmpPoint = new CricketPoint(p.value);
+            Object.assign(tmpPoint, {
+                "hitCount": p.hitCount,
+                "isClosed": p.isClosed,
+                "setIsClosed": p.setIsClosed
+            });
+            this.points.push(tmpPoint);
+        }
+
+        
+
     }
 }

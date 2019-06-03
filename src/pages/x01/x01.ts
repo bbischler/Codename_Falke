@@ -10,12 +10,6 @@ import { X01Settings } from '../../models/x01Settings';
 import { ServiceProvider } from '../../providers/service/service';
 import { HomePage } from '../home/home';
 
-/**
- * Generated class for the X01Page page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -83,9 +77,9 @@ export class X01Page {
 
   openSettings() {
     const myModalOptions: ModalOptions = {
-      enableBackdropDismiss: true
+      enableBackdropDismiss: true,
     };
-    const myModal: Modal = this.modalCtrl.create("X01SettingsPage", myModalOptions);
+    const myModal: Modal = this.modalCtrl.create("X01SettingsPage", { gameNum: this.num }, myModalOptions);
     myModal.present();
     myModal.onDidDismiss(data => {
       if (data == false) {
@@ -127,10 +121,12 @@ export class X01Page {
       points = points * 2;
     }
     if (this.isTriple) {
-      points = points * 3;
-    }
-    if (this.hasWon()) {
-      this.service.setGameIsActive(false);
+      if (points == 25) {
+        this.showPopUpTriple25();
+        return;
+      } else {
+        points = points * 3;
+      }
     }
 
     if (points == 0) {
@@ -143,11 +139,18 @@ export class X01Page {
 
   throw(points: number) {
     this.slides.slideTo(this.playerCounter, 1000);
-    
+
     var action = new x01ThrowAction(points, this.activePlayer);
     this.actionStack.push(action);
     action.do();
-    
+    this.activePlayer.setToThrow(this.service.getCheckOut(this.activePlayer.totalScore));
+
+    if (this.hasWon()) {
+      this.service.setGameIsActive(false);
+      this.winningPopup(this.activePlayer);
+      return;
+    }
+
     this.isDouble = false;
     this.isTriple = false;
     this.throwCounter++;
@@ -162,19 +165,23 @@ export class X01Page {
   }
 
   hasWon() {
-    return false;
+    if (this.activePlayer.totalScore <= 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
   undo() {
     console.log("Undo prompted")
 
     var action = this.actionStack.pop();
-    if (action != null){
+    if (action != null) {
       // Switch to previous Player if necessary
-      if(this.activePlayer.roundThrowCount == 0){
+      if (this.activePlayer.roundThrowCount == 0) {
         this.playerCounter = (this.playerCounter - 1) < 0 ? this.players.length - 1 : (this.playerCounter - 1)
         this.activePlayer = this.players[this.playerCounter];
         this.slides.slideTo(this.playerCounter, 1000);
-      }  
+      }
       action.undo();
     }
   }
@@ -193,6 +200,12 @@ export class X01Page {
       return true;
     } else {
       return false;
+    }
+  }
+
+  resetGame() {
+    for (let p of this.players) {
+      p.resetAll();
     }
   }
 
@@ -254,4 +267,41 @@ export class X01Page {
     });
     toast.present();
   }
+  async showPopUpTriple25() {
+    const toast = await this.toastController.create({
+      cssClass: "playerToast",
+      message: 'Triple not allowed on Bull',
+      duration: 2500,
+      position: 'top'
+    });
+    toast.present();
+  }
+
+
+  winningPopup(player: X01Player) {
+    let alert = this.alertCtrl.create({
+      title: 'Congratulations',
+      message: player.name + ' has won the game!',
+
+      buttons: [
+        {
+          text: 'Home',
+          handler: data => {
+            this.resetGame();
+            this.navCtrl.setRoot(HomePage);
+          }
+        },
+        {
+          text: 'New Game',
+          handler: data => {
+            this.resetGame();
+            this.ionViewDidEnter();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+
 }

@@ -20,11 +20,13 @@ export class X01SettingsPage {
   x01Settings: X01Settings;
   players: X01Player[] = [];
   pageName = 'MODAL';
+  gameNum: String;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController, private service: ServiceProvider,
     public toastController: ToastController) {
     this.x01Settings = this.service.getX01Settings();
+    this.gameNum = navParams.get('gameNum');
     this.players.push(new X01Player(1, "Player 1"));
     this.players.push(new X01Player(2, "Player 2"));
   }

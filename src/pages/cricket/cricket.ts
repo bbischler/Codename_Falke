@@ -36,7 +36,7 @@ export class CricketPage {
 
   ionViewDidEnter() {
     if (localStorage.getItem('cricketStorage')) {
-      this.openModalRestore();
+      this.openPopupRestore();
     } else {
       this.openModal();
     }
@@ -61,6 +61,7 @@ export class CricketPage {
   }
 
   openModal() {
+    this.deleteAll();
     this.deleteStorage();
     const myModalOptions: ModalOptions = {
       enableBackdropDismiss: false
@@ -73,10 +74,21 @@ export class CricketPage {
         this.navCtrl.setRoot(HomePage);
       }
       else if (data == true) {
+        this.players = this.service.getAllPlayer() as CricketPlayer[];
         this.setPlayer();
         this.service.setGameIsActive(true);
       }
     });
+  }
+  deleteAll() {
+    this.players = [];
+    this.service.deletePlayers();
+    this.throwAmount = 0;
+    this.isDouble = false;
+    this.isTriple = false;
+    this.actionStack = new Stack<cricketThrowAction>();
+    this.currentHighscore = 0;
+
   }
 
   addPoints(point: CricketPoint, id: number) {
@@ -97,8 +109,9 @@ export class CricketPage {
     if (this.players[id - 1].totalScore > this.currentHighscore)
       this.currentHighscore = this.players[id - 1].totalScore;
 
-    if (this.hasWon(this.players[id - 1]))
+    if (this.hasWon(this.players[id - 1])){
       this.winningPopup(this.players[id - 1]);
+    }
 
     this.isDouble = false;
     this.isTriple = false;
@@ -112,6 +125,7 @@ export class CricketPage {
   }
   newgame() {
     console.log("newgame");
+    this.openPopupNewGame();
   }
   double() {
     this.isTriple = false;
@@ -141,7 +155,6 @@ export class CricketPage {
 
   setPlayer() {
     console.log(typeof (this.players));
-    this.players = this.service.getAllPlayer() as CricketPlayer[];
     function flatten(a, b) { return a.concat(b); }
     for (let player of this.players) {
       for (let point of player.points) {
@@ -173,18 +186,39 @@ export class CricketPage {
 
   restoreGame() {
     console.log("restore storage");
-    this.cricketStorage = JSON.parse(localStorage.getItem('cricketStorage'));
-    this.players = this.cricketStorage.players;
-    this.isDouble = this.cricketStorage.isDouble;
-    this.isTriple = this.cricketStorage.isTriple;
-    this.currentHighscore = this.cricketStorage.currentHighscore;
-    this.throwAmount = this.cricketStorage.throwAmount;
+    let cStorage = JSON.parse(localStorage.getItem('cricketStorage'));
+
+    this.isDouble = cStorage.isDouble;
+    this.isTriple = cStorage.isTriple;
+    this.currentHighscore = cStorage.currentHighscore;
+    this.throwAmount = cStorage.throwAmount;
+    this.players = [];
+    for (let p of cStorage.players) {
+      let tmpPlayer = new CricketPlayer()
+      Object.assign(tmpPlayer, {
+        "totalScore": p.totalScore,
+        "roundThrowCount": p.roundThrowCount,
+        "totalThrowCount": p.totalThrowCount,
+        "id": p.id,
+        "name": p.name
+      });
+      tmpPlayer.setPoints(p.points);
+      this.players.push(tmpPlayer);
+    }
+    this.setPlayer();
+
     let tmp = JSON.parse(localStorage.getItem('cricketStack'));
-    console.log(tmp);
     for (let i of tmp) {
-      let _stack: cricketThrowAction = i;
-      console.log(_stack);
-      this.actionStack.push(_stack);
+      let tmpAction = new cricketThrowAction();
+      Object.assign(tmpAction, {
+        "point": i.point,
+        "amount": i.amount,
+        "isDone": i.isDone,
+        "totalScoreIncrease": i.totalScoreIncrease,
+        "totalNumberOfPointIncreases": i.totalNumberOfPointIncreases
+      });
+      tmpAction.setPlayer(i.player);
+      this.actionStack.push(tmpAction);
     }
     this.deleteStorage();
     this.service.setGameIsActive(true);
@@ -238,7 +272,32 @@ export class CricketPage {
     return canLeave
   }
 
-  openModalRestore() {
+  openPopupNewGame() {
+    let alert = this.alertController.create({
+      title: 'NEW GAME',
+      message: 'Do you want to start a new game?',
+
+      buttons: [
+        {
+          text: 'No',
+          handler: data => {
+            return;
+          }
+        },
+        {
+          text: 'Yes',
+          handler: data => {
+            this.deleteAll();
+            this.openModal();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+
+  openPopupRestore() {
     let alert = this.alertController.create({
       title: 'Restore game',
       message: 'Do you want to restore the last game?',

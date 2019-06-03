@@ -16,15 +16,14 @@ export class x01ThrowAction {
 
         this.player.increaseThrowCount();
         this.player.scorePoints(this.point)
-        
         this.isDone = true;
     }
 
     public undo(): void {
         if (!this.isDone)
             return;
-        
+
         this.player.decreaseThrowCount();
-        this.player.scorePoints(this.point*-1) // Same method, negative number ;)
+        this.player.scorePoints(this.point * -1) // Same method, negative number ;)
     }
 }

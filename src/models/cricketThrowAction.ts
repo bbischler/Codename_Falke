@@ -2,14 +2,15 @@ import { CricketPlayer } from './cricketPlayer';
 
 export class cricketThrowAction {
     point: number;
-
     amount: number;
     player: CricketPlayer;
     isDone: Boolean = false;
     totalScoreIncrease: number = 0;
     totalNumberOfPointIncreases = 0;
 
-    constructor(point: number, amount: number, player: CricketPlayer) {
+
+
+    constructor(point?: number, amount?: number, player?: CricketPlayer) {
         this.point = point;
         this.amount = amount;
         this.player = player;
@@ -19,7 +20,7 @@ export class cricketThrowAction {
         if (this.isDone)
             return;
 
-        console.log("player: " + JSON.stringify(this.player));
+        // console.log("player: " + JSON.stringify(this.player));
 
         var point = this.player.getPointsByValue(this.point);
 
@@ -46,5 +47,18 @@ export class cricketThrowAction {
         for (var i = 0; i < this.totalNumberOfPointIncreases; i++) {
             point.decreaseHit();
         }
+    }
+
+    public setPlayer(p) {
+        let tmpPlayer = new CricketPlayer();
+        Object.assign(tmpPlayer, {
+            "totalScore": p.totalScore,
+            "roundThrowCount": p.roundThrowCount,
+            "totalThrowCount": p.totalThrowCount,
+            "id": p.id,
+            "name": p.name
+        });
+        this.player = tmpPlayer;
+        this.player.test();
     }
 }

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="dartknight.app" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="dartknight.app" version="2.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>DartKnight</name>
     <description>An awesome dart scoring app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
@@ -96,6 +96,6 @@
     <plugin name="cordova-plugin-vibration" spec="3.1.0" />
     <allow-navigation href="http://10.106.32.98:8100" sessionid="c3c7288b" />
     <engine name="ios" spec="5.0.0" />
-    <engine name="android" spec="8.0.0" />
     <engine name="browser" spec="6.0.0" />
+    <engine name="android" spec="7.1.4" />
 </widget>

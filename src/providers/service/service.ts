@@ -44,6 +44,14 @@ export class ServiceProvider {
   setCheckOutTable(key: number, value: String) {
     this.checkoutTable.set(key, value);
   }
+
+
+  getCheckOut(num) {
+    if (this.checkoutTable.get(num)) {
+      return this.checkoutTable.get(num);
+    }
+  }
+
   getActivePage() {
     return this.activePage;
   }

@@ -13,12 +13,12 @@ export class X01Player extends Player {
 
     constructor(id: number, name: string) {
         super(id, name);
-        this.toThrow = ["2", "5", "D12"];
+        this.toThrow = [];
     }
 
     public throw(points: number): void {
 
-
+        console.log("THROW FUNCTION NEVER USED!!");
         this.roundThrowCount++;
         this.totalThrowCount++;
         this.roundScore += points;
@@ -27,21 +27,35 @@ export class X01Player extends Player {
         this.avg = Math.floor(this.roundScore / this.totalThrowCount);
     }
 
-    public increaseThrowCount(){
+    setToThrow(toThrow) {
+        this.toThrow = [];
+        if (toThrow) {
+            toThrow = toThrow.split(' ');
+            for (let i of toThrow) {
+                console.log("toThrow: " + i);
+                this.toThrow.push(i);
+            }
+        }
+    }
+
+    public increaseThrowCount() {
         this.roundThrowCount++;
         this.totalThrowCount++;
     }
 
-    public decreaseThrowCount(){
+    public decreaseThrowCount() {
         this.roundThrowCount--;
         this.totalThrowCount--;
     }
 
-    public scorePoints(points: number){
+    public scorePoints(points: number) {
         this.roundScore += points;
         this.totalScore -= points;
+        if (this.totalScore <= 0)
+            this.totalScore = 0;
 
-        if(points > 0)
+
+        if (points >= 0)
             this.lastThreeScores.push(points);
         else
             this.lastThreeScores.pop();
@@ -54,8 +68,22 @@ export class X01Player extends Player {
     }
 
     public resetForTurn(): void {
-        this.roundScore = 0;
+        // this.roundScore = 0;
         this.roundThrowCount = 0;
         this.lastThreeScores = [];
+    }
+
+    public resetAll() {
+        this.roundScore = 0;
+        this.avg = 0;
+        this.toThrow = [];
+        this.lastThreeScores = [];
+        this.legs = 0;
+        this.sets = 0;
+        this.doubleIn = true;
+        this.doubleOut = true;
+        this.totalScore = 0;
+        this.roundThrowCount = 0;
+        this.totalThrowCount = 0;
     }
 }
