@@ -44,6 +44,7 @@ export class X01Page {
     private nativeAudio: NativeAudio, private service: ServiceProvider,
     public alertCtrl: AlertController, private vibration: Vibration,
     public toastController: ToastController) {
+    this.openSettings();
     this.platform.ready().then(() => {
       this.nativeAudio.preloadSimple('180', 'assets/sounds/180.mp3').then((success) => {
         console.log("success");
@@ -60,7 +61,7 @@ export class X01Page {
   }
 
   ionViewDidEnter() {
-    this.openSettings();
+    // this.openSettings();
   }
 
   async ionViewCanLeave() {

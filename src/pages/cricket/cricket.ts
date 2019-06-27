@@ -32,14 +32,20 @@ export class CricketPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public admob: AdMobFree, public modalCtrl: ModalController,
     private service: ServiceProvider, private vibration: Vibration,
-    public alertController: AlertController, public toastController: ToastController) { }
+    public alertController: AlertController, public toastController: ToastController) { 
+      if (localStorage.getItem('cricketStorage')) {
+        this.openPopupRestore();
+      } else {
+        this.openModal();
+      }   
+    }
 
   ionViewDidEnter() {
-    if (localStorage.getItem('cricketStorage')) {
-      this.openPopupRestore();
-    } else {
-      this.openModal();
-    }
+    // if (localStorage.getItem('cricketStorage')) {
+    //   this.openPopupRestore();
+    // } else {
+    //   this.openModal();
+    // }
   }
 
   async ionViewCanLeave() {

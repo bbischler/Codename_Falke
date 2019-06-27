@@ -72,6 +72,21 @@
       </ion-col>
     </ion-row>
 
+    <ion-row class="endgame" align-items-center>
+      <ion-col>
+        <button ion-button color="transparent" block [className]="hardmode ? 'gamemode active' : 'gamemode'"
+          (click)="clickmode(true)">
+          HARD MODE
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button color="transparent" block [className]="!hardmode ? 'gamemode active' : 'gamemode'"
+          (click)="clickmode(false)">
+          EASY MODE
+        </button>
+      </ion-col>
+    </ion-row>
+
     <ion-row class="endgame">
       <ion-col>
         <button ion-button block class="btn_bottom" (click)="newgame()">
