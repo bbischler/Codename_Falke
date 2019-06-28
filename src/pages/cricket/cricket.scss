@@ -84,6 +84,7 @@ page-cricket {
 
     .active_btn {
         background-color: color($colors, semiTransparent) !important;
+        border: solid 1px color($colors, accentSec);
         color: color($colors, font);
     }
 

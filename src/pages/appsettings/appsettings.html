@@ -1,0 +1,50 @@
+<ion-header no-border>
+  <ion-toolbar color="transparent">
+    <button ion-button menuToggle>
+      <ion-icon color="fontSec" name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <div class="page-header">Settings</div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid style="height:95%;padding-top:0;width:100%;" no-padding>
+    <ion-row class="toggles">
+      <ion-col>
+        <button ion-button full [className]="sound ? 'btn-active' : 'btn'" (click)="soundon()">
+          SOUND ON
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button full [className]="!sound ? 'btn-active' : 'btn'" (click)="soundoff()">
+          SOUND OFF
+        </button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="toggles">
+      <ion-col>
+        <button ion-button full [className]="vibrate ? 'btn-active' : 'btn'" (click)="vibrateon()">
+          VIBRATION ON
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button full [className]="!vibrate ? 'btn-active' : 'btn'" (click)="vibrateoff()">
+          VIBRATION OFF
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="toggles">
+    </ion-row>
+    <ion-row class="toggles">
+      <ion-col>
+        <button ion-button full class="btn-save" (click)="save()">
+          SAVE
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

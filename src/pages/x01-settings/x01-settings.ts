@@ -27,8 +27,8 @@ export class X01SettingsPage {
     public toastController: ToastController) {
     this.x01Settings = this.service.getX01Settings();
     this.gameNum = navParams.get('gameNum');
-    this.players.push(new X01Player(1, "Player 1"));
-    this.players.push(new X01Player(2, "Player 2"));
+    this.players.push(new X01Player(1, ""));
+    this.players.push(new X01Player(2, ""));
   }
 
   dismiss() {
@@ -37,6 +37,9 @@ export class X01SettingsPage {
   }
   play() {
     for (let i = 0; i < this.players.length; i++) {
+      if (this.players[i].name == "") {
+        this.players[i].name = "Player " + (i + 1);
+      }
       this.service.addPlayer(this.players[i]);
     }
     this.service.setX01Settings(this.x01Settings);
@@ -50,7 +53,7 @@ export class X01SettingsPage {
       this.presentToastMaxPlayer();
     } else {
       var newPlayerNumber = this.players.length + 1;
-      this.players.push(new X01Player(newPlayerNumber, "Player " + newPlayerNumber));
+      this.players.push(new X01Player(newPlayerNumber, ""));
     }
   }
 

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
-
+import { ServiceProvider } from '../../providers/service/service';
 /**
  * Generated class for the ChallengePage page.
  *
@@ -23,11 +23,13 @@ export class ChallengePage {
   hardmode: boolean = false;
   propability = 5;
   points: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 18, 18, 19, 19, 19, 20, 20, 20, 25, 25];
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private service: ServiceProvider) {
     this.resetAll();
     this.getRandomPoints();
   }
-
+  ionViewDidEnter() {
+    this.service.setActivePage("Challenge");
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad ChallengePage');
   }
@@ -58,7 +60,6 @@ export class ChallengePage {
     } else {
       this.propability = 2;
     }
-
   }
 
   throw(hit: boolean) {

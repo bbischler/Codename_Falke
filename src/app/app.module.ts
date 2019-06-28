@@ -5,6 +5,7 @@ import { ChallengePage } from '../pages/challenge/challenge';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { CricketPage } from '../pages/cricket/cricket';
+import { AppsettingsPage } from '../pages/appsettings/appsettings';
 import { X01Page } from '../pages/x01/x01';
 import { InstructionsPage } from '../pages/instructions/instructions';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -26,6 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
     ChallengePage,
     X01Page,
     InstructionsPage,
+    AppsettingsPage,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,8 @@ import { HttpClientModule } from '@angular/common/http';
     ChallengePage,
     CricketPage,
     X01Page,
-    InstructionsPage
+    InstructionsPage,
+    AppsettingsPage,
   ],
   providers: [
     Vibration,

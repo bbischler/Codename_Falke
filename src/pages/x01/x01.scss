@@ -51,6 +51,7 @@ page-x01 {
     .active_btn {
         background-color: color($colors, semiTransparent) !important;
         color: color($colors, font);
+        border: solid 1px color($colors, accentSec);
         box-shadow: none !important;
         width: 100%;
         font-weight: 200;

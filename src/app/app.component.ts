@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { ChallengePage } from '../pages/challenge/challenge';
 import { HomePage } from '../pages/home/home';
 import { InstructionsPage } from '../pages/instructions/instructions';
+import { AppsettingsPage } from '../pages/appsettings/appsettings';
 import { CricketPage } from '../pages/cricket/cricket';
 import { X01Page } from '../pages/x01/x01';
 import { ServiceProvider } from '../providers/service/service';
@@ -43,7 +44,8 @@ export class MyApp {
     ];
     this.instructions = [
       { title: 'Challenge', component: ChallengePage },
-      { title: 'Instructions', component: InstructionsPage }
+      { title: 'Instructions', component: InstructionsPage },
+      { title: 'Settings', component: AppsettingsPage },
     ];
 
   }
@@ -57,7 +59,7 @@ export class MyApp {
     });
     this.platform.registerBackButtonAction(() => {
       // Catches the active view
-      
+
       let nav = this.app.getActiveNavs()[0];
       let activeView = nav.getActive();
       // Checks if can go back before show up the alert

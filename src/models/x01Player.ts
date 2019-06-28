@@ -11,7 +11,7 @@ export class X01Player extends Player {
     doubleIn: boolean = true;
     doubleOut: boolean = true;
 
-    constructor(id: number, name: string) {
+    constructor(id?: number, name?: string) {
         super(id, name);
         this.toThrow = [];
     }

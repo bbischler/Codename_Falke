@@ -5,7 +5,7 @@ export class x01ThrowAction {
     player: X01Player;
     isDone: Boolean = false;
 
-    constructor(point: number, player: X01Player) {
+    constructor(point?: number, player?: X01Player) {
         this.point = point;
         this.player = player;
     }
@@ -25,5 +25,22 @@ export class x01ThrowAction {
 
         this.player.decreaseThrowCount();
         this.player.scorePoints(this.point * -1) // Same method, negative number ;)
+    }
+    public setPlayer(p) {
+        let tmpPlayer = new X01Player();
+        Object.assign(tmpPlayer, {
+            "roundScore": p.roundScore,
+            "avg": p.avg,
+            "toThrow": p.toThrow,
+            "lastThreeScores": p.lastThreeScores,
+            "legs": p.legs,
+            "sets": p.sets,
+            "doubleIn": p.doubleIn,
+            "doubleOut": p.doubleIn,
+            "id": p.id,
+            "name": p.name
+        });
+        this.player = tmpPlayer;
+        // this.player.test();
     }
 }

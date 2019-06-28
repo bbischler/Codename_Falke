@@ -7,7 +7,7 @@
     </ion-row>
 
     <ion-row *ngFor="let player of players;let i=index" class="playernames">
-      <ion-input type="text" placeholder="player {{i}}" [(ngModel)]="players[i].name"></ion-input>
+      <ion-input type="text" placeholder="Player {{i+1}}" [(ngModel)]="players[i].name"></ion-input>
     </ion-row>
 
     <ion-row class="ion-rows">

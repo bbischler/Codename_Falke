@@ -15,7 +15,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 })
 export class HomePage {
   private admobId: any;
-  message: string = "Hey here is a new cool dart scoring app";
+  message: string = "Hey, here is a new cool dart scoring app";
   url: string = "https://play.google.com/store/apps/details?id=dartknight.app";
 
   constructor(public platform: Platform, public navCtrl: NavController,

@@ -20,7 +20,7 @@ export class ServiceProvider {
   constructor(private http: HttpClient) {
     console.log('Hello ServiceProvider Provider');
     this.getCheckoutTable();
-
+    this.setAppSettings();
   }
   getCheckoutTable() {
     this.http.get('../../assets/checkoutTable.csv', { responseType: 'text' })
@@ -82,5 +82,17 @@ export class ServiceProvider {
   deletePlayers() {
     console.log("delete players");
     this.players = [];
+  }
+  setAppSettings() {
+    if (!JSON.parse(localStorage.getItem('appsettings'))) {
+      console.log("appsettings in service NICHT gesetz");
+      localStorage.setItem('appsettings', JSON.stringify({
+        "sound": true,
+        "vibrate": true
+      }));
+    }
+  }
+  getAppSettings() {
+    return JSON.parse(localStorage.getItem('appsettings'));
   }
 }

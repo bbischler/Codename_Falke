@@ -38,13 +38,14 @@ export class X01Page {
   activePlayer: X01Player;
   x01Settings: X01Settings;
   actionStack: Stack<x01ThrowAction> = new Stack<x01ThrowAction>();
+  appSettings: any;
+  showContent: boolean = false;
 
   constructor(public navCtrl: NavController, public platform: Platform,
     public navParams: NavParams, public modalCtrl: ModalController,
     private nativeAudio: NativeAudio, private service: ServiceProvider,
     public alertCtrl: AlertController, private vibration: Vibration,
     public toastController: ToastController) {
-    this.openSettings();
     this.platform.ready().then(() => {
       this.nativeAudio.preloadSimple('180', 'assets/sounds/180.mp3').then((success) => {
         console.log("success");
@@ -57,16 +58,25 @@ export class X01Page {
     } else {
       this.num = 301;
     }
+    // this.openSettings();
     this.x01Settings = this.service.getX01Settings();
   }
 
   ionViewDidEnter() {
-    // this.openSettings();
+    if (localStorage.getItem('x01Storage'+this.num)) {
+      this.openPopupRestore();
+    } else {
+      this.openSettings();
+    }
+    this.appSettings = this.service.getAppSettings();
+    this.service.setActivePage(this.num);
   }
 
   async ionViewCanLeave() {
     if (this.service.getGameIsActive()) {
       const shouldLeave = await this.confirmLeave();
+      if (shouldLeave)
+        this.storeGame();
       return shouldLeave;
     }
   }
@@ -77,8 +87,11 @@ export class X01Page {
   }
 
   openSettings() {
+    // this.deleteAll();
+    this.deleteStorage();
     const myModalOptions: ModalOptions = {
       enableBackdropDismiss: true,
+      showBackdrop: false,
     };
     const myModal: Modal = this.modalCtrl.create("X01SettingsPage", { gameNum: this.num }, myModalOptions);
     myModal.present();
@@ -88,6 +101,7 @@ export class X01Page {
         this.navCtrl.setRoot(HomePage);
       }
       else if (data == true) {
+        this.showContent = true;
         this.setPlayer();
         this.x01Settings = this.service.getX01Settings();
         this.service.setGameIsActive(true);
@@ -211,19 +225,23 @@ export class X01Page {
   }
 
   play180() {
-    this.nativeAudio.play('180').then((success) => {
-      console.log("success playing");
-    }, (error) => {
-      console.log(error);
-    });
+    if (this.appSettings.sound) {
+      this.nativeAudio.play('180').then((success) => {
+        console.log("success playing");
+      }, (error) => {
+        console.log(error);
+      });
+    }
   }
 
   vibrate() {
-    this.vibration.vibrate(13);
+    if (this.appSettings.vibrate)
+      this.vibration.vibrate(13);
   }
 
   vibrateMiss() {
-    this.vibration.vibrate(70);
+    if (this.appSettings.vibrate)
+      this.vibration.vibrate(70);
   }
 
   confirmLeave(): Promise<Boolean> {
@@ -278,6 +296,29 @@ export class X01Page {
     toast.present();
   }
 
+  openPopupRestore() {
+    let alert = this.alertCtrl.create({
+      title: 'Restore game',
+      message: 'Do you want to restore the last game?',
+
+      buttons: [
+        {
+          text: 'No',
+          handler: data => {
+            this.openSettings();
+          }
+        },
+        {
+          text: 'Yes',
+          handler: data => {
+            this.restoreGame();
+            this.showContent = true;
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
 
   winningPopup(player: X01Player) {
     let alert = this.alertCtrl.create({
@@ -305,4 +346,94 @@ export class X01Page {
   }
 
 
+  storeGame() {
+    localStorage.setItem('x01Storage'+this.num, JSON.stringify({
+      "players": this.players,
+      "isDouble": this.isDouble,
+      "isTriple": this.isTriple,
+      "throwCounter": this.throwCounter,
+      "playerCounter": this.playerCounter,
+      "activePlayer": this.activePlayer,
+      "x01Settings": this.x01Settings,
+      "appSettings": this.appSettings,
+      "showContent": this.showContent
+    }));
+    localStorage.setItem('x01Stack'+this.num, JSON.stringify(this.actionStack.toArray()));
+    console.log('X01 Storage wurde gesetzt!');
+    this.service.setGameIsActive(false);
+    this.service.deletePlayers();
+
+    console.log("STOARGE: " + localStorage.getItem('x01Storage'+this.num));
+  }
+
+  getObjectOfPlayer(p) {
+    let tmpPlayer = new X01Player()
+    Object.assign(tmpPlayer, {
+      "roundScore": p.roundScore,
+      "avg": p.avg,
+      "toThrow": p.toThrow,
+      "lastThreeScores": p.lastThreeScores,
+      "legs": p.legs,
+      "sets": p.sets,
+      "doubleIn": p.doubleIn,
+      "doubleOut": p.doubleIn,
+      "id": p.id,
+      "name": p.name,
+      "totalScore": p.totalScore,
+      "roundThrowCount": p.roundThrowCount,
+      "totalThrowCount": p.totalThrowCount
+    });
+    return tmpPlayer;
+  }
+
+
+  restoreGame() {
+    console.log("restore X01storage");
+    let x01Storage = JSON.parse(localStorage.getItem('x01Storage'+this.num));
+    this.players = [];
+    for (let p of x01Storage.players) {
+      this.players.push(this.getObjectOfPlayer(p));
+    }
+    // this.setPlayer();
+    this.isDouble = x01Storage.isDouble;
+    this.isTriple = x01Storage.isTriple;
+    this.throwCounter = x01Storage.throwCounter;
+    this.playerCounter = x01Storage.playerCounter;
+    this.x01Settings = x01Storage.x01Settings;
+    this.appSettings = x01Storage.appSettings;
+    this.showContent = x01Storage.showContent;
+    this.playerCounter = x01Storage.playerCounter;
+    this.activePlayer = this.getObjectOfPlayer(x01Storage.activePlayer);
+
+
+
+    let _x01stack = JSON.parse(localStorage.getItem('x01Stack'+this.num));
+    for (let stack of _x01stack) {
+      let tmpAction = new x01ThrowAction();
+      Object.assign(tmpAction, {
+        "point": stack.point,
+        "isDone": stack.isDone,
+      });
+      tmpAction.setPlayer(stack.player);
+      this.actionStack.push(tmpAction);
+    }
+
+    this.deleteStorage();
+    this.service.setGameIsActive(true);
+    this.gameRestoreToast();
+  }
+  deleteStorage() {
+    console.log("delete x01storage");
+    localStorage.removeItem('x01Storage'+this.num);
+    localStorage.removeItem('x01Stack'+this.num);
+  }
+  async gameRestoreToast() {
+    const toast = await this.toastController.create({
+      cssClass: "playerToast",
+      message: 'Game restored',
+      duration: 2500,
+      position: 'top'
+    });
+    toast.present();
+  }
 }

@@ -9,8 +9,6 @@ import { Player } from '../../models/player';
 import { ServiceProvider } from '../../providers/service/service';
 import { HomePage } from '../home/home';
 import { Stack } from 'stack-typescript';
-import { CricketStorage } from '../../models/cricketStorage';
-
 
 @IonicPage()
 @Component({
@@ -18,8 +16,6 @@ import { CricketStorage } from '../../models/cricketStorage';
   templateUrl: 'cricket.html',
 })
 export class CricketPage {
-
-  cricketStorage: CricketStorage;
   players: Array<CricketPlayer> = new Array<CricketPlayer>();
   isDouble: Boolean = false;
   isTriple: Boolean = false;
@@ -27,25 +23,31 @@ export class CricketPage {
   containerofThree: number[] = [3, 2, 1];
   throwAmount: number = 1; // Factor for double and triple multiplication
   actionStack: Stack<cricketThrowAction> = new Stack<cricketThrowAction>();
-
+  appSettings: any;
+  showContent: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public admob: AdMobFree, public modalCtrl: ModalController,
     private service: ServiceProvider, private vibration: Vibration,
-    public alertController: AlertController, public toastController: ToastController) { 
-      if (localStorage.getItem('cricketStorage')) {
-        this.openPopupRestore();
-      } else {
-        this.openModal();
-      }   
-    }
-
-  ionViewDidEnter() {
+    public alertController: AlertController, public toastController: ToastController) {
     // if (localStorage.getItem('cricketStorage')) {
     //   this.openPopupRestore();
     // } else {
     //   this.openModal();
     // }
+  }
+  ionViewCanEnter() {
+
+  }
+
+  ionViewDidEnter() {
+    if (localStorage.getItem('cricketStorage')) {
+      this.openPopupRestore();
+    } else {
+      this.openModal();
+    }
+    this.service.setActivePage("Cricket");
+    this.appSettings = this.service.getAppSettings();
   }
 
   async ionViewCanLeave() {
@@ -58,12 +60,18 @@ export class CricketPage {
   }
 
   storeGame() {
-    let _cricketStorage = new CricketStorage(this.players, this.isDouble, this.isTriple, this.currentHighscore, this.throwAmount);
-    localStorage.setItem('cricketStorage', JSON.stringify(_cricketStorage));
+    localStorage.setItem('cricketStorage', JSON.stringify({
+      "players": this.players,
+      "isDouble": this.isDouble,
+      "isTriple": this.isTriple,
+      "currentHighscore": this.currentHighscore,
+      "throwAmount": this.throwAmount
+    }));
     localStorage.setItem('cricketStack', JSON.stringify(this.actionStack.toArray()));
     console.log('cricket Storage wurde gesetzt!');
     this.service.setGameIsActive(false);
     this.service.deletePlayers();
+    console.log("STOARGE: " + localStorage.getItem('cricketStorage'));
   }
 
   openModal() {
@@ -80,6 +88,7 @@ export class CricketPage {
         this.navCtrl.setRoot(HomePage);
       }
       else if (data == true) {
+        this.showContent = true;
         this.players = this.service.getAllPlayer() as CricketPlayer[];
         this.setPlayer();
         this.service.setGameIsActive(true);
@@ -115,7 +124,7 @@ export class CricketPage {
     if (this.players[id - 1].totalScore > this.currentHighscore)
       this.currentHighscore = this.players[id - 1].totalScore;
 
-    if (this.hasWon(this.players[id - 1])){
+    if (this.hasWon(this.players[id - 1])) {
       this.winningPopup(this.players[id - 1]);
     }
 
@@ -182,7 +191,12 @@ export class CricketPage {
   }
 
   vibrate() {
-    this.vibration.vibrate(13);
+    if (this.appSettings.vibrate) {
+      console.log("vibrate");
+      this.vibration.vibrate(13);
+    } else {
+      console.log("no vibrate");
+    }
   }
   deleteStorage() {
     console.log("delete storage");
@@ -319,6 +333,7 @@ export class CricketPage {
           text: 'Yes',
           handler: data => {
             this.restoreGame();
+            this.showContent = true;
           }
         }
       ]

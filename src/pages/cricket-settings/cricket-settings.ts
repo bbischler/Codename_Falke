@@ -16,8 +16,8 @@ export class CricketSettingsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController, private service: ServiceProvider,
     public toastController: ToastController) {
-    this.players.push(new CricketPlayer(1, "Player 1"));
-    this.players.push(new CricketPlayer(2, "Player 2"));
+    this.players.push(new CricketPlayer(1, ""));
+    this.players.push(new CricketPlayer(2, ""));
   }
 
   dismiss() {
@@ -25,6 +25,9 @@ export class CricketSettingsPage {
   }
   play() {
     for (let i = 0; i < this.players.length; i++) {
+      if (this.players[i].name == "") {
+        this.players[i].name = "Player " + (i + 1); 
+      }
       this.service.addPlayer(this.players[i]);
     }
     this.viewCtrl.dismiss(true);
@@ -37,7 +40,7 @@ export class CricketSettingsPage {
       this.presentToastMaxPlayer();
     } else {
       var newPlayerNumber = this.players.length + 1;
-      this.players.push(new CricketPlayer(newPlayerNumber, "Player " + newPlayerNumber));
+      this.players.push(new CricketPlayer(newPlayerNumber, ""));
     }
   }
 
