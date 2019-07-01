@@ -4,8 +4,7 @@ import { X01Player } from './../../models/x01Player';
 import { Component, ViewChild } from '@angular/core';
 import { NativeAudio } from '@ionic-native/native-audio/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
-import { IonicPage, AlertController, ToastController, NavController, Platform, NavParams, Slides, ModalController, Modal, ModalOptions } from 'ionic-angular';
-import { Player } from '../../models/player';
+import { IonicPage, NavController, Platform, NavParams, Slides, ModalController, Modal, ModalOptions } from 'ionic-angular';
 import { X01Settings } from '../../models/x01Settings';
 import { ServiceProvider } from '../../providers/service/service';
 import { HomePage } from '../home/home';
@@ -44,8 +43,7 @@ export class X01Page {
   constructor(public navCtrl: NavController, public platform: Platform,
     public navParams: NavParams, public modalCtrl: ModalController,
     private nativeAudio: NativeAudio, private service: ServiceProvider,
-    public alertCtrl: AlertController, private vibration: Vibration,
-    public toastController: ToastController) {
+    private vibration: Vibration) {
     this.platform.ready().then(() => {
       this.nativeAudio.preloadSimple('180', 'assets/sounds/180.mp3').then((success) => {
         console.log("success");
@@ -63,10 +61,10 @@ export class X01Page {
   }
 
   ionViewDidEnter() {
-    if (localStorage.getItem('x01Storage'+this.num)) {
+    if (localStorage.getItem('x01Storage' + this.num)) {
       this.openPopupRestore();
     } else {
-      this.openSettings();
+      this.openSettingsModal();
     }
     this.appSettings = this.service.getAppSettings();
     this.service.setActivePage(this.num);
@@ -86,7 +84,7 @@ export class X01Page {
     this.service.deletePlayers();
   }
 
-  openSettings() {
+  openSettingsModal() {
     // this.deleteAll();
     this.deleteStorage();
     const myModalOptions: ModalOptions = {
@@ -186,9 +184,9 @@ export class X01Page {
       return false;
     }
   }
+
   undo() {
     console.log("Undo prompted")
-
     var action = this.actionStack.pop();
     if (action != null) {
       // Switch to previous Player if necessary
@@ -244,110 +242,8 @@ export class X01Page {
       this.vibration.vibrate(70);
   }
 
-  confirmLeave(): Promise<Boolean> {
-    let resolveLeaving;
-    const canLeave = new Promise<Boolean>(resolve => resolveLeaving = resolve);
-    const alert = this.alertCtrl.create({
-      title: 'Leaving game',
-      message: 'Do you want to leave the page? <br><br> The game will be stored.',
-      buttons: [
-        {
-          text: 'No',
-          role: 'cancel',
-          handler: () => resolveLeaving(false)
-        },
-        {
-          text: 'Yes',
-          handler: () => resolveLeaving(true)
-        }
-      ]
-    });
-    alert.present();
-    return canLeave
-
-  }
-
-  async presentToastDoubleIn() {
-    const toast = await this.toastController.create({
-      cssClass: "playerToast",
-      message: 'First throw must be a double',
-      duration: 2500,
-      position: 'top'
-    });
-    toast.present();
-  }
-
-  async presentToastDoubleOut() {
-    const toast = await this.toastController.create({
-      cssClass: "playerToast",
-      message: 'Last throw must be a double',
-      duration: 2500,
-      position: 'top'
-    });
-    toast.present();
-  }
-  async showPopUpTriple25() {
-    const toast = await this.toastController.create({
-      cssClass: "playerToast",
-      message: 'Triple not allowed on Bull',
-      duration: 2500,
-      position: 'top'
-    });
-    toast.present();
-  }
-
-  openPopupRestore() {
-    let alert = this.alertCtrl.create({
-      title: 'Restore game',
-      message: 'Do you want to restore the last game?',
-
-      buttons: [
-        {
-          text: 'No',
-          handler: data => {
-            this.openSettings();
-          }
-        },
-        {
-          text: 'Yes',
-          handler: data => {
-            this.restoreGame();
-            this.showContent = true;
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
-  winningPopup(player: X01Player) {
-    let alert = this.alertCtrl.create({
-      title: 'Congratulations',
-      message: player.name + ' has won the game!',
-
-      buttons: [
-        {
-          text: 'Home',
-          handler: data => {
-            this.resetGame();
-            this.navCtrl.setRoot(HomePage);
-          }
-        },
-        {
-          text: 'New Game',
-          handler: data => {
-            this.resetGame();
-            this.ionViewDidEnter();
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
-
   storeGame() {
-    localStorage.setItem('x01Storage'+this.num, JSON.stringify({
+    localStorage.setItem('x01Storage' + this.num, JSON.stringify({
       "players": this.players,
       "isDouble": this.isDouble,
       "isTriple": this.isTriple,
@@ -358,41 +254,20 @@ export class X01Page {
       "appSettings": this.appSettings,
       "showContent": this.showContent
     }));
-    localStorage.setItem('x01Stack'+this.num, JSON.stringify(this.actionStack.toArray()));
+    localStorage.setItem('x01Stack' + this.num, JSON.stringify(this.actionStack.toArray()));
     console.log('X01 Storage wurde gesetzt!');
     this.service.setGameIsActive(false);
     this.service.deletePlayers();
 
-    console.log("STOARGE: " + localStorage.getItem('x01Storage'+this.num));
+    console.log("Storage: " + localStorage.getItem('x01Storage' + this.num));
   }
-
-  getObjectOfPlayer(p) {
-    let tmpPlayer = new X01Player()
-    Object.assign(tmpPlayer, {
-      "roundScore": p.roundScore,
-      "avg": p.avg,
-      "toThrow": p.toThrow,
-      "lastThreeScores": p.lastThreeScores,
-      "legs": p.legs,
-      "sets": p.sets,
-      "doubleIn": p.doubleIn,
-      "doubleOut": p.doubleIn,
-      "id": p.id,
-      "name": p.name,
-      "totalScore": p.totalScore,
-      "roundThrowCount": p.roundThrowCount,
-      "totalThrowCount": p.totalThrowCount
-    });
-    return tmpPlayer;
-  }
-
 
   restoreGame() {
     console.log("restore X01storage");
-    let x01Storage = JSON.parse(localStorage.getItem('x01Storage'+this.num));
+    let x01Storage = JSON.parse(localStorage.getItem('x01Storage' + this.num));
     this.players = [];
     for (let p of x01Storage.players) {
-      this.players.push(this.getObjectOfPlayer(p));
+      this.players.push(this.service.getObjectOfPlayer(p));
     }
     // this.setPlayer();
     this.isDouble = x01Storage.isDouble;
@@ -403,11 +278,8 @@ export class X01Page {
     this.appSettings = x01Storage.appSettings;
     this.showContent = x01Storage.showContent;
     this.playerCounter = x01Storage.playerCounter;
-    this.activePlayer = this.getObjectOfPlayer(x01Storage.activePlayer);
-
-
-
-    let _x01stack = JSON.parse(localStorage.getItem('x01Stack'+this.num));
+    this.activePlayer = this.service.getObjectOfPlayer(x01Storage.activePlayer);
+    let _x01stack = JSON.parse(localStorage.getItem('x01Stack' + this.num));
     for (let stack of _x01stack) {
       let tmpAction = new x01ThrowAction();
       Object.assign(tmpAction, {
@@ -422,18 +294,57 @@ export class X01Page {
     this.service.setGameIsActive(true);
     this.gameRestoreToast();
   }
+
   deleteStorage() {
     console.log("delete x01storage");
-    localStorage.removeItem('x01Storage'+this.num);
-    localStorage.removeItem('x01Stack'+this.num);
+    localStorage.removeItem('x01Storage' + this.num);
+    localStorage.removeItem('x01Stack' + this.num);
+  }
+
+  // POPUPS //
+
+  async presentToastDoubleIn() {
+    this.service.toastPopup('playerToast', 'First throw must be a double');
+  }
+
+  async presentToastDoubleOut() {
+    this.service.toastPopup('playerToast', 'Last throw must be a double');
+  }
+  async showPopUpTriple25() {
+    this.service.toastPopup('playerToast', 'Triple not allowed on Bull');
   }
   async gameRestoreToast() {
-    const toast = await this.toastController.create({
-      cssClass: "playerToast",
-      message: 'Game restored',
-      duration: 2500,
-      position: 'top'
+    this.service.toastPopup('playerToast', 'Game restored!');
+  }
+
+  openPopupRestore() {
+    this.service.showMessageOkCancel('Restore?', 'Do you want to restore the last game?', ['Cancel', 'Yes']).then((res) => {
+      if (res) {
+        this.restoreGame();
+        this.showContent = true;
+      } else {
+        this.openSettingsModal();
+      }
     });
-    toast.present();
+  }
+
+  winningPopup(player: X01Player) {
+    this.service.showMessageOkCancel('Congratulations', player.name + ' has won the game!', ['Home', 'New Game']).then((res) => {
+      this.resetGame();
+      if (res) {
+        this.ionViewDidEnter();
+      } else {
+        this.navCtrl.setRoot(HomePage);
+      }
+    });
+  }
+  confirmLeave(): Promise<Boolean> {
+    let resolveLeaving;
+    const canLeave = new Promise<Boolean>(resolve => resolveLeaving = resolve);
+    let message = 'Do you want to leave the page? <br> The game will be stored.';
+    this.service.showMessageOkCancel('Leaving game', message, ['Cancel', 'Yes']).then((res) => {
+      resolveLeaving(res)
+    });
+    return canLeave;
   }
 }

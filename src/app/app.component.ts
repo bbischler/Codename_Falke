@@ -73,23 +73,14 @@ export class MyApp {
         if (nav.canGoBack()) {
           nav.pop();
         } else {
-          const alert = this.alertCtrl.create({
-            title: 'Confirm Exit',
-            message: 'Are you sure you want to exit the app?',
-            buttons: [{
-              text: 'Cancel',
-              role: 'cancel',
-              handler: () => {
-                this.nav.setRoot(HomePage);
-              }
-            }, {
-              text: 'Exit',
-              handler: () => {
-                this.platform.exitApp();
-              }
-            }]
+
+          this.service.showMessageOkCancel('Exit?', 'Are you sure you want to exit the app?', ['Cancel', 'Yes']).then((res) => {
+            if (res) {
+              this.platform.exitApp();
+            } else {
+              this.nav.setRoot(HomePage);
+            }
           });
-          alert.present();
         }
       }
       else {
@@ -103,8 +94,6 @@ export class MyApp {
     // we wouldn't want the back button to show in this scenario
     // this.nav.setRoot(page.component);
     this.nav.push(page.component);
-    this.service.setActivePage(page.title);
-
   }
 
   openPageX01(page, num) {
@@ -115,7 +104,6 @@ export class MyApp {
       param: num
     });
 
-    this.service.setActivePage(num);
   }
 
   checkActive(page) {

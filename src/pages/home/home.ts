@@ -33,8 +33,14 @@ export class HomePage {
     //   };
     // }
     this.createBanner();
-   
   }
+
+
+  ionViewDidEnter() {
+    this.service.setActivePage("Home");
+  }
+
+
   createBanner() {
 
     let bannerConfig: AdMobFreeBannerConfig = {

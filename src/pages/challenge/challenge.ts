@@ -26,12 +26,21 @@ export class ChallengePage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private service: ServiceProvider) {
     this.resetAll();
     this.getRandomPoints();
+    let storedAvg = JSON.parse(localStorage.getItem('challengeAvg'));
+    console.log(storedAvg);
+    this.lastavg = (storedAvg ? storedAvg : 0);
+    console.log(this.lastavg);
   }
+
   ionViewDidEnter() {
     this.service.setActivePage("Challenge");
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad ChallengePage');
+  }
+
+  ionViewWillLeave(){
+    localStorage.setItem('challengeAvg', JSON.stringify(this.lastavg));
   }
   getRandomPoints() {
     var rand = this.points[Math.floor(Math.random() * this.points.length)];
@@ -78,7 +87,10 @@ export class ChallengePage {
     this.resetAll();
     this.getRandomPoints();
   }
+
   endgame() {
+    this.lastavg = this.avg;
+    localStorage.setItem('challengeAvg', JSON.stringify(this.lastavg));
     this.resetAll();
     this.navCtrl.push(HomePage, {}, { animate: true, direction: 'forward' });
 

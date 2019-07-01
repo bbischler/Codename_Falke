@@ -1,7 +1,9 @@
 import { Player } from '../../models/player';
+import { X01Player } from '../../models/x01Player';
 import { X01Settings } from '../../models/x01Settings';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { AlertController, ToastController } from 'ionic-angular';
 
 /*
   Generated class for the ServiceProvider provider.
@@ -17,7 +19,7 @@ export class ServiceProvider {
   gameIsActive: Boolean = false;
   checkoutTable = new Map();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, public alertController: AlertController, public toastController: ToastController) {
     console.log('Hello ServiceProvider Provider');
     this.getCheckoutTable();
     this.setAppSettings();
@@ -95,4 +97,59 @@ export class ServiceProvider {
   getAppSettings() {
     return JSON.parse(localStorage.getItem('appsettings'));
   }
+
+  getObjectOfPlayer(p) {
+    let tmpPlayer = new X01Player()
+    Object.assign(tmpPlayer, {
+      "roundScore": p.roundScore,
+      "avg": p.avg,
+      "toThrow": p.toThrow,
+      "lastThreeScores": p.lastThreeScores,
+      "legs": p.legs,
+      "sets": p.sets,
+      "doubleIn": p.doubleIn,
+      "doubleOut": p.doubleIn,
+      "id": p.id,
+      "name": p.name,
+      "totalScore": p.totalScore,
+      "roundThrowCount": p.roundThrowCount,
+      "totalThrowCount": p.totalThrowCount
+    });
+    return tmpPlayer;
+  }
+
+  // POPUPS
+  async showMessageOkCancel(title, message, buttons) {
+    let resolveFunction: (confirm: boolean) => void;
+    const promise = new Promise<Boolean>(resolve => {
+      resolveFunction = resolve;
+    });
+    const alert = await this.alertController.create({
+      title: title,
+      message: message,
+      buttons: [{
+        text: buttons[0],
+        handler: () => resolveFunction(false)
+      }, {
+        text: buttons[1],
+        handler: () => resolveFunction(true)
+      }]
+    });
+    await alert.present();
+    return promise;
+  }
+
+  // TOASTS
+  async toastPopup(cssClass, message) {
+    const toast = await this.toastController.create({
+      cssClass: cssClass,
+      message: message,
+      duration: 2500,
+      position: 'top'
+    });
+    toast.present();
+  }
+
+
+
 }

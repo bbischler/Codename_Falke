@@ -2,10 +2,8 @@ import { cricketThrowAction } from './../../models/cricketThrowAction';
 import { CricketPoint } from './../../models/cricketPoint';
 import { CricketPlayer } from './../../models/cricketPlayer';
 import { Component } from '@angular/core';
-import { IonicPage, AlertController, NavController, NavParams, ModalController, Modal, ModalOptions, ToastController } from 'ionic-angular';
-import { AdMobFree, AdMobFreeBannerConfig, AdMobFreeInterstitialConfig } from '@ionic-native/admob-free/ngx';
+import { IonicPage, NavController, NavParams, ModalController, Modal, ModalOptions } from 'ionic-angular';
 import { Vibration } from '@ionic-native/vibration/ngx';
-import { Player } from '../../models/player';
 import { ServiceProvider } from '../../providers/service/service';
 import { HomePage } from '../home/home';
 import { Stack } from 'stack-typescript';
@@ -27,24 +25,14 @@ export class CricketPage {
   showContent: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public admob: AdMobFree, public modalCtrl: ModalController,
-    private service: ServiceProvider, private vibration: Vibration,
-    public alertController: AlertController, public toastController: ToastController) {
-    // if (localStorage.getItem('cricketStorage')) {
-    //   this.openPopupRestore();
-    // } else {
-    //   this.openModal();
-    // }
-  }
-  ionViewCanEnter() {
+    public modalCtrl: ModalController, private service: ServiceProvider, private vibration: Vibration) { }
 
-  }
 
   ionViewDidEnter() {
     if (localStorage.getItem('cricketStorage')) {
       this.openPopupRestore();
     } else {
-      this.openModal();
+      this.openSettingsModal();
     }
     this.service.setActivePage("Cricket");
     this.appSettings = this.service.getAppSettings();
@@ -74,7 +62,7 @@ export class CricketPage {
     console.log("STOARGE: " + localStorage.getItem('cricketStorage'));
   }
 
-  openModal() {
+  openSettingsModal() {
     this.deleteAll();
     this.deleteStorage();
     const myModalOptions: ModalOptions = {
@@ -245,108 +233,53 @@ export class CricketPage {
     this.gameRestoreToast();
   }
 
-  winningPopup(player: CricketPlayer) {
-    let alert = this.alertController.create({
-      title: 'Congratulations',
-      message: player.name + ' has won the game!',
 
-      buttons: [
-        {
-          text: 'Home',
-          handler: data => {
-            this.navCtrl.setRoot(HomePage);
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'New Game',
-          handler: data => {
-            this.ionViewDidEnter();
-            console.log('new game');
-          }
-        }
-      ]
+  // POPUPS //
+
+  winningPopup(player: CricketPlayer) {
+    this.service.showMessageOkCancel('Congratulations', player.name + ' has won the game!', ['Home', 'New Game']).then((res) => {
+      if (res) {
+        this.ionViewDidEnter();
+      } else {
+        this.navCtrl.setRoot(HomePage);
+      }
     });
-    alert.present();
   }
 
   confirmLeave(): Promise<Boolean> {
     let resolveLeaving;
     const canLeave = new Promise<Boolean>(resolve => resolveLeaving = resolve);
-    const alert = this.alertController.create({
-      title: 'Leaving game',
-      message: 'Do you want to leave the page? <br> The game will be stored.',
-      buttons: [
-        {
-          text: 'No',
-          role: 'cancel',
-          handler: () => resolveLeaving(false)
-        },
-        {
-          text: 'Yes',
-          handler: () => resolveLeaving(true)
-        }
-      ]
+    let message = 'Do you want to leave the page? <br> The game will be stored.';
+    this.service.showMessageOkCancel('Leaving game', message, ['Cancel', 'Yes']).then((res) => {
+      resolveLeaving(res)
     });
-    alert.present();
-    return canLeave
+    return canLeave;
   }
 
   openPopupNewGame() {
-    let alert = this.alertController.create({
-      title: 'NEW GAME',
-      message: 'Do you want to start a new game?',
-
-      buttons: [
-        {
-          text: 'No',
-          handler: data => {
-            return;
-          }
-        },
-        {
-          text: 'Yes',
-          handler: data => {
-            this.deleteAll();
-            this.openModal();
-          }
-        }
-      ]
+    this.service.showMessageOkCancel('New Game', 'Do you want to start a new game?', ['Cancel', 'Yes']).then((res) => {
+      if (res) {
+        this.deleteAll();
+        this.openSettingsModal();
+      } else {
+        return;
+      }
     });
-    alert.present();
   }
 
 
   openPopupRestore() {
-    let alert = this.alertController.create({
-      title: 'Restore game',
-      message: 'Do you want to restore the last game?',
-
-      buttons: [
-        {
-          text: 'No',
-          handler: data => {
-            this.openModal();
-          }
-        },
-        {
-          text: 'Yes',
-          handler: data => {
-            this.restoreGame();
-            this.showContent = true;
-          }
-        }
-      ]
+    this.service.showMessageOkCancel('Restore?', 'Do you want to restore the last game?', ['Cancel', 'Yes']).then((res) => {
+      if (res) {
+        this.restoreGame();
+        this.showContent = true;
+      } else {
+        this.openSettingsModal();
+      }
     });
-    alert.present();
   }
+
   async gameRestoreToast() {
-    const toast = await this.toastController.create({
-      cssClass: "playerToast",
-      message: 'Game restored',
-      duration: 2500,
-      position: 'top'
-    });
-    toast.present();
+    this.service.toastPopup('playerToast', 'Game restored!');
   }
 }
