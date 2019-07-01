@@ -12,12 +12,12 @@
 
     <ion-row class="ion-rows">
       <ion-col col-6>
-        <button ion-button full class="btn_bottom" (click)="addPlayer()">
+        <button ion-button full class="button" (click)="addPlayer()">
           Add Player
         </button>
       </ion-col>
       <ion-col col-6>
-        <button ion-button full class="btn_bottom" (click)="removePlayer()">
+        <button ion-button full class="button" (click)="removePlayer()">
           Remove Player
         </button>
       </ion-col>
@@ -25,17 +25,17 @@
   </ion-grid>
 </ion-content>
 
-<ion-footer>
+<ion-footer class="ionfooter">
   <ion-toolbar transparent>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <button ion-button full class="btn_bottom" (click)="dismiss()">
+    <ion-grid class="footer-grid" no-padding>
+      <ion-row class="footer-grid" no-padding>
+        <ion-col class="footer-grid" no-padding>
+          <button ion-button full class="button bottom" (click)="dismiss()">
             Abort
           </button>
         </ion-col>
         <ion-col>
-          <button ion-button full class="btn_bottom" (click)="play()">
+          <button ion-button full class="button bottom play" (click)="play()">
             Play
           </button>
         </ion-col>

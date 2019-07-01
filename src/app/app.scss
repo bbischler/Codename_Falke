@@ -146,8 +146,6 @@ page-menu {
             text-shadow: inherit;
         }
     }
-
-    /* follow me @nodws */
 }
 
 //alert popup design
@@ -159,8 +157,21 @@ page-menu {
 .alert-wrapper {
     @include border-radius($alert-md-border-radius);
     box-shadow: $alert-md-box-shadow;
-    background: color($colors, backgroundSec) !important;
+    background: color($colors, backgroundAlert) !important;
     color: color($colors, font) !important;
+    border: solid 1px color($colors, accentSec2) !important;
+}
+
+.alert-button:nth-child(2) {
+    color: color($colors, accent) !important;
+}
+
+.alert-button:nth-child(1) {
+    color: color($colors, fontSec) !important;
+}
+
+.alert-message {
+    color: color($colors, fontSec) !important;
 }
 
 .item-radio {
@@ -174,7 +185,7 @@ page-menu {
 }
 
 [aria-checked=true] .alert-radio-inner {
-    border-color: color($colors, accent) !important;
+    border-color: color($colors, accentSec) !important;
     background: transparent;
 }
 
@@ -182,13 +193,6 @@ page-menu {
     color: color($colors, font) !important;
 }
 
-.alert-message {
-    color: color($colors, font) !important;
-}
-
-.alert-button {
-    color: color($colors, font) !important;
-}
 
 //buttons design
 .button-ios-transparent.activated {
@@ -221,6 +225,33 @@ page-menu {
     text-align: center;
 }
 
+.toast-message {
+    color: color($colors, font) !important;
+    font-size: 2em;
+}
+
 .toast-container {
     background: color($colors, backgroundSec);
+    border: solid 1px color($colors, accentSec2) !important;
+}
+
+//toolbar
+.toolbar {
+    padding: 0 !important;
+}
+
+.toolbar-content {
+    height: 100%;
+}
+
+.ionfooter {
+    padding: 0;
+}
+
+.footer-grid {
+    height: 100%;
+}
+
+ion-backdrop {
+    opacity: 0.6 !important;
 }
