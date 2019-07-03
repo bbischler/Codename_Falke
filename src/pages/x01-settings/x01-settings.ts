@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
 import { ServiceProvider } from '../../providers/service/service';
-import { HomePage } from '../../pages/home/home';
 import { X01Player } from '../../models/x01Player';
 import { X01Settings } from '../../models/x01Settings';
 /**

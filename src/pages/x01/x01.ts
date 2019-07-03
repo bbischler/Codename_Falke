@@ -7,7 +7,6 @@ import { Vibration } from '@ionic-native/vibration/ngx';
 import { IonicPage, NavController, Platform, NavParams, Slides, ModalController, Modal, ModalOptions } from 'ionic-angular';
 import { X01Settings } from '../../models/x01Settings';
 import { ServiceProvider } from '../../providers/service/service';
-import { HomePage } from '../home/home';
 
 
 @IonicPage()
@@ -96,7 +95,7 @@ export class X01Page {
     myModal.onDidDismiss(data => {
       if (data == false) {
         this.service.setGameIsActive(false);
-        this.navCtrl.setRoot(HomePage);
+        this.navCtrl.setRoot('HomePage');
       }
       else if (data == true) {
         this.showContent = true;
@@ -334,7 +333,7 @@ export class X01Page {
       if (res) {
         this.ionViewDidEnter();
       } else {
-        this.navCtrl.setRoot(HomePage);
+        this.navCtrl.setRoot('HomePage');
       }
     });
   }

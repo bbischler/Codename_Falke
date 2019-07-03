@@ -2,12 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { ChallengePage } from '../pages/challenge/challenge';
 import { HomePage } from '../pages/home/home';
-import { InstructionsPage } from '../pages/instructions/instructions';
-import { AppsettingsPage } from '../pages/appsettings/appsettings';
-import { CricketPage } from '../pages/cricket/cricket';
-import { X01Page } from '../pages/x01/x01';
 import { ServiceProvider } from '../providers/service/service';
 import { App } from 'ionic-angular';
 
@@ -18,7 +13,7 @@ import { App } from 'ionic-angular';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = 'HomePage';
   showedAlert: boolean;
   confirmAlert: any;
   // activePage: any;
@@ -33,19 +28,19 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'Cricket', component: CricketPage },
+      { title: 'Home', component: 'HomePage' },
+      { title: 'Cricket', component: 'CricketPage' },
     ];
 
     this.pagesx01 = [
-      { title: '301', component: X01Page },
-      { title: '501', component: X01Page },
-      { title: '701', component: X01Page },
+      { title: '301', component: 'X01Page' },
+      { title: '501', component: 'X01Page' },
+      { title: '701', component: 'X01Page' },
     ];
     this.instructions = [
-      { title: 'Challenge', component: ChallengePage },
-      { title: 'Instructions', component: InstructionsPage },
-      { title: 'Settings', component: AppsettingsPage },
+      { title: 'Challenge', component: 'ChallengePage' },
+      { title: 'Instructions', component: 'InstructionsPage' },
+      { title: 'Settings', component: 'AppsettingsPage' },
     ];
 
   }
@@ -66,7 +61,7 @@ export class MyApp {
       let view = nav.getActive().instance.pageName;
       if (view === 'MODAL') {
         nav.pop();
-        this.nav.setRoot(HomePage);
+        this.nav.setRoot('HomePage');
       }
 
       if (activeView.name === 'HomePage') {
@@ -78,7 +73,7 @@ export class MyApp {
             if (res) {
               this.platform.exitApp();
             } else {
-              this.nav.setRoot(HomePage);
+              this.nav.setRoot('HomePage');
             }
           });
         }

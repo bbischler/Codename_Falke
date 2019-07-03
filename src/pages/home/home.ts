@@ -1,14 +1,11 @@
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
-import { NavController } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { AdMobFree, AdMobFreeBannerConfig, AdMobFreeInterstitialConfig } from '@ionic-native/admob-free/ngx';
-import { CricketPage } from '../cricket/cricket';
-import { X01Page } from '../x01/x01';
-import { InstructionsPage } from '../instructions/instructions';
 import { ServiceProvider } from '../../providers/service/service';
-import { ChallengePage } from '../challenge/challenge';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -60,17 +57,17 @@ export class HomePage {
 
   openCricket() {
     this.service.setActivePage('Cricket');
-    this.navCtrl.push(CricketPage);
+    this.navCtrl.push('CricketPage');
   }
   openX01(num: number) {
     this.service.setActivePage(num);
-    this.navCtrl.push(X01Page, {
+    this.navCtrl.push('X01Page', {
       param: num
     });
   }
   openChallenge() {
     this.service.setActivePage('Challenge');
-    this.navCtrl.push(ChallengePage);
+    this.navCtrl.push('ChallengePage');
   }
   inviteFriend() {
     this.socialSharing.share(this.message, "Dart App", null, this.url)

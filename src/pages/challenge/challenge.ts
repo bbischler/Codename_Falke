@@ -39,7 +39,7 @@ export class ChallengePage {
     console.log('ionViewDidLoad ChallengePage');
   }
 
-  ionViewWillLeave(){
+  ionViewWillLeave() {
     localStorage.setItem('challengeAvg', JSON.stringify(this.lastavg));
   }
   getRandomPoints() {

@@ -5,7 +5,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, Modal, ModalOptions } from 'ionic-angular';
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { ServiceProvider } from '../../providers/service/service';
-import { HomePage } from '../home/home';
 import { Stack } from 'stack-typescript';
 
 @IonicPage()
@@ -73,7 +72,7 @@ export class CricketPage {
     myModal.onDidDismiss(data => {
       if (data == false) {
         this.service.setGameIsActive(false);
-        this.navCtrl.setRoot(HomePage);
+        this.navCtrl.setRoot('HomePage');
       }
       else if (data == true) {
         this.showContent = true;
@@ -241,7 +240,7 @@ export class CricketPage {
       if (res) {
         this.ionViewDidEnter();
       } else {
-        this.navCtrl.setRoot(HomePage);
+        this.navCtrl.setRoot('HomePage');
       }
     });
   }
