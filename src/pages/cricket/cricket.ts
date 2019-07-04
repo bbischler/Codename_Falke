@@ -211,32 +211,30 @@ export class CricketPage {
     this.throwAmount = cStorage.throwAmount;
     this.players = [];
     for (let p of cStorage.players) {
-      let tmpPlayer = new CricketPlayer()
+      let tmpPlayer = new CricketPlayer(p.id, p.name)
       Object.assign(tmpPlayer, {
         "totalScore": p.totalScore,
         "roundThrowCount": p.roundThrowCount,
-        "totalThrowCount": p.totalThrowCount,
-        "id": p.id,
-        "name": p.name
+        "totalThrowCount": p.totalThrowCount
       });
       tmpPlayer.setPoints(p.points);
       this.players.push(tmpPlayer);
     }
     this.setPlayer();
 
-    let tmp = JSON.parse(localStorage.getItem('cricketStack'));
-    for (let i of tmp) {
-      let tmpAction = new cricketThrowAction();
-      Object.assign(tmpAction, {
-        "point": i.point,
-        "amount": i.amount,
-        "isDone": i.isDone,
-        "totalScoreIncrease": i.totalScoreIncrease,
-        "totalNumberOfPointIncreases": i.totalNumberOfPointIncreases
+    let tmp : Array<cricketThrowAction> = JSON.parse(localStorage.getItem('cricketStack'));
+
+    for(let tmpAct of tmp.reverse()){
+      tmpAct.player = this.players[tmpAct.player.id - 1];
+      var act = new cricketThrowAction(tmpAct.point, tmpAct.amount, tmpAct.player)
+      Object.assign(act, {
+        "isDone": tmpAct.isDone,
+        "totalNumberOfPointIncreases": tmpAct.totalNumberOfPointIncreases,
+        "totalScoreIncrease": tmpAct.totalScoreIncrease
       });
-      tmpAction.setPlayer(i.player);
-      this.actionStack.push(tmpAction);
+      this.actionStack.push(act);
     }
+
     this.deleteStorage();
     this.service.setGameIsActive(true);
     this.gameRestoreToast();
