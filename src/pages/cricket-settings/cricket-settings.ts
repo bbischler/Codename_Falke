@@ -53,22 +53,10 @@ export class CricketSettingsPage {
   }
 
   async presentToastMaxPlayer() {
-    const toast = await this.toastController.create({
-      cssClass: "playerToast",
-      message: 'Maximum eight player allowed',
-      duration: 2500,
-      position: 'top'
-    });
-    toast.present();
+    this.service.toastPopup('playerToast', 'Maximum eight player');
   }
 
   async presentToastMinPlayer() {
-    const toast = await this.toastController.create({
-      cssClass: "playerToast",
-      message: 'Minimum one player required',
-      duration: 2500,
-      position: 'top'
-    });
-    toast.present();
+    this.service.toastPopup('playerToast', 'Minimum one player');
   }
 }

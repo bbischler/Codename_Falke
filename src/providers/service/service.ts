@@ -14,7 +14,7 @@ import { AlertController, ToastController } from 'ionic-angular';
 @Injectable()
 export class ServiceProvider {
   activePage: string = 'Home';
-  x01Settings: X01Settings = new X01Settings(false, 3, 1, true, false);
+  x01Settings: X01Settings = new X01Settings(false, 3, 1, false, true);
   players: Player[] = [];
   gameIsActive: Boolean = false;
   checkoutTable = new Map();

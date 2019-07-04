@@ -78,75 +78,86 @@ page-menu {
         background-color: transparent;
     }
 
-    .page-header-menu {
-        color: color($colors, accent);
-        height: 5em;
-        vertical-align: middle;
-        text-align: center;
-        font-size: x-large;
-        font-weight: 400;
-        line-height: 5em;
-    }
-
     .buttonSide {
         font-size: 4.0vh;
     }
+}
 
-    @import url(//fonts.googleapis.com/css?family=Vibur);
+.page-header-menu {
+    color: color($colors, accent);
+    height: 5em;
+    vertical-align: middle;
+    text-align: center;
+    font-size: x-large;
+    font-weight: 400;
+    line-height: 5em;
+}
 
-    .logo b {
-        font-weight: 100;
-        font-size: 5vh;
-        color: color($colors, font);
-        text-shadow: 0 -20px 100px, 0 0 2px, 0 0 1em color($colors, accent), 0 0 0.5em color($colors, accent), 0 0 0.1em color($colors, accent), 0 7px 3px #000;
-        // text-shadow: 0 -20px 100px color($colors, btnActivated),  0 0 0.5em color($colors, accent), 0 0 0.1em color($colors, accent), 0 6px 3px rgb(15, 15, 15);
+
+@import url(//fonts.googleapis.com/css?family=Vibur);
+
+.logo b {
+    font-weight: 100;
+    font-size: 3vh;
+    color: color($colors, font);
+    text-shadow: 0 -20px 100px, 0 0 2px, 0 0 1em color($colors, accent), 0 0 0.5em color($colors, accent), 0 0 0.1em color($colors, accent), 0 7px 3px #000;
+    // text-shadow: 0 -20px 100px color($colors, btnActivated),  0 0 0.5em color($colors, accent), 0 0 0.1em color($colors, accent), 0 6px 3px rgb(15, 15, 15);
+}
+
+.side {
+    font-size: 5vh !important;
+}
+
+.logo b span {
+    animation: blink linear infinite 2.5s;
+}
+
+@keyframes blink {
+    78% {
+        color: inherit;
+        text-shadow: inherit;
     }
 
-    .logo b span {
-        animation: blink linear infinite 2.5s;
+    79% {
+        color: rgb(128, 128, 128);
     }
 
-    @keyframes blink {
-        78% {
-            color: inherit;
-            text-shadow: inherit;
-        }
+    80% {
+        color: color($colors, semiTransparent);
+        text-shadow: none;
+    }
 
-        79% {
-            color: rgb(128, 128, 128);
-        }
+    81% {
+        color: inherit;
+        text-shadow: inherit;
+    }
 
-        80% {
-            color: color($colors, semiTransparent);
-            text-shadow: none;
-        }
+    82% {
+        color: color($colors, semiTransparent);
+        text-shadow: none;
+    }
 
-        81% {
-            color: inherit;
-            text-shadow: inherit;
-        }
+    83% {
+        color: inherit;
+        text-shadow: inherit;
+    }
 
-        82% {
-            color: color($colors, semiTransparent);
-            text-shadow: none;
-        }
+    92% {
+        color: rgb(128, 128, 128);
+        text-shadow: none;
+    }
 
-        83% {
-            color: inherit;
-            text-shadow: inherit;
-        }
-
-        92% {
-            color: rgb(128, 128, 128);
-            text-shadow: none;
-        }
-
-        92.5% {
-            color: inherit;
-            text-shadow: inherit;
-        }
+    92.5% {
+        color: inherit;
+        text-shadow: inherit;
     }
 }
+
+
+
+
+
+
 
 //alert popup design
 .radio-checked {

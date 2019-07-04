@@ -4,14 +4,16 @@
 			<ion-icon color="fontSec" name="menu"></ion-icon>
 		</button>
 		<ion-title>
-			<div class="page-header"></div>
+			<div class="page-header-menu" *ngIf="showContent">
+				<div class="logo"><b>Cricket</b></div>
+			</div>
 		</ion-title>
 	</ion-toolbar>
 </ion-header>
 
 <ion-content padding>
 	<ion-grid style="height:95%;padding-top:0;width:100%;" no-padding *ngIf="showContent">
-		<ion-row  style="height:100%" nowrap class="forecast_container">
+		<ion-row style="height:100%" nowrap class="forecast_container">
 			<!-- <ion-scroll direction="x"> -->
 			<ion-col *ngFor="let player of players" class="player">
 
@@ -77,9 +79,6 @@
 			</ion-col>
 
 		</ion-row>
-
-
-
 
 	</ion-grid>
 
