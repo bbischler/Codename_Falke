@@ -26,7 +26,6 @@ export class CricketPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public modalCtrl: ModalController, private service: ServiceProvider, private vibration: Vibration) { }
 
-
   ionViewDidEnter() {
     if (localStorage.getItem('cricketStorage')) {
       this.openPopupRestore();
@@ -82,6 +81,7 @@ export class CricketPage {
       }
     });
   }
+
   deleteAll() {
     this.players = [];
     this.service.deletePlayers();
@@ -94,29 +94,45 @@ export class CricketPage {
   }
 
   addPoints(point: CricketPoint, id: number) {
-    this.throwAmount = 1;
+    this.throwAmount = this.getThrowAmount();
     this.vibrate();
-
-    if (this.isDouble) {
-      this.throwAmount = 2;
-    }
-    if (this.isTriple) {
-      this.throwAmount = 3;
-    }
 
     var action = new cricketThrowAction(point.value, this.throwAmount, this.players[id - 1]);
     this.actionStack.push(action);
     action.do();
 
-    if (this.players[id - 1].totalScore > this.currentHighscore)
-      this.currentHighscore = this.players[id - 1].totalScore;
+    this.checkForWins(id);
+    this.resetModifiers();
+  }
 
-    if (this.hasWon(this.players[id - 1])) {
-      this.winningPopup(this.players[id - 1]);
+  checkForWins(activePlayerId: number){
+    var player = this.players[activePlayerId - 1];
+    
+    if (this.hasWon(player)) {
+      this.service.deletePlayers();
+      this.service.setGameIsActive(false);
+
+      this.winningPopup(player);
+      return;
     }
 
+    if (player.totalScore > this.currentHighscore)
+    this.currentHighscore = player.totalScore;
+  }
+
+  resetModifiers(){
     this.isDouble = false;
     this.isTriple = false;
+  }
+
+  getThrowAmount() : number{
+    if (this.isDouble) {
+      return 2;
+    }
+    if (this.isTriple) {
+      return 3;
+    }
+    return 1;
   }
 
   undo() {
@@ -125,34 +141,27 @@ export class CricketPage {
     if (action != null)
       action.undo();
   }
+
   newgame() {
     console.log("newgame");
     this.openPopupNewGame();
   }
+
   double() {
     this.isTriple = false;
     this.isDouble = !this.isDouble;
   }
+
   trible() {
     this.isDouble = false;
     this.isTriple = !this.isTriple;
   }
 
   hasWon(player: CricketPlayer): Boolean {
-    console.log(this.currentHighscore + ": " + player.totalScore);
-    for (let point of player.points) {
-      if (!point.isClosed)
-        return false;
-    }
-
-    // berücksichtigt nicht edge case: player1 führt mit 100 punkten. player 2 holt auf und hat auch genau 100 dann gewinnt er..
-    if (player.totalScore >= this.currentHighscore) {
-      this.service.deletePlayers();
-      this.service.setGameIsActive(false);
-      return true;
-    } else {
+    if(player.points.some(p => !p.isClosed))
       return false;
-    }
+
+    return player.totalScore > this.currentHighscore;
   }
 
   setPlayer() {
@@ -185,6 +194,7 @@ export class CricketPage {
       console.log("no vibrate");
     }
   }
+
   deleteStorage() {
     console.log("delete storage");
     localStorage.removeItem('cricketStorage');
@@ -265,7 +275,6 @@ export class CricketPage {
       }
     });
   }
-
 
   openPopupRestore() {
     this.service.showMessageOkCancel('Restore?', 'Do you want to restore the last game?', ['Cancel', 'Yes']).then((res) => {
