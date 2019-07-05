@@ -90,7 +90,6 @@ export class CricketPage {
     this.isTriple = false;
     this.actionStack = new Stack<cricketThrowAction>();
     this.currentHighscore = 0;
-
   }
 
   addPoints(point: CricketPoint, id: number) {
@@ -105,27 +104,26 @@ export class CricketPage {
     this.resetModifiers();
   }
 
-  checkForWins(activePlayerId: number){
+  checkForWins(activePlayerId: number) {
     var player = this.players[activePlayerId - 1];
-    
+
+    if (player.totalScore > this.currentHighscore) {
+      this.currentHighscore = player.totalScore;
+    }
     if (this.hasWon(player)) {
       this.service.deletePlayers();
       this.service.setGameIsActive(false);
-
       this.winningPopup(player);
       return;
     }
-
-    if (player.totalScore > this.currentHighscore)
-    this.currentHighscore = player.totalScore;
   }
 
-  resetModifiers(){
+  resetModifiers() {
     this.isDouble = false;
     this.isTriple = false;
   }
 
-  getThrowAmount() : number{
+  getThrowAmount(): number {
     if (this.isDouble) {
       return 2;
     }
@@ -158,10 +156,10 @@ export class CricketPage {
   }
 
   hasWon(player: CricketPlayer): Boolean {
-    if(player.points.some(p => !p.isClosed))
+    if (player.points.some(p => !p.isClosed)) {
       return false;
-
-    return player.totalScore > this.currentHighscore;
+    }
+    return player.totalScore >= this.currentHighscore;
   }
 
   setPlayer() {
@@ -222,9 +220,9 @@ export class CricketPage {
     }
     this.setPlayer();
 
-    let tmp : Array<cricketThrowAction> = JSON.parse(localStorage.getItem('cricketStack'));
+    let tmp: Array<cricketThrowAction> = JSON.parse(localStorage.getItem('cricketStack'));
 
-    for(let tmpAct of tmp.reverse()){
+    for (let tmpAct of tmp.reverse()) {
       tmpAct.player = this.players[tmpAct.player.id - 1];
       var act = new cricketThrowAction(tmpAct.point, tmpAct.amount, tmpAct.player)
       Object.assign(act, {
