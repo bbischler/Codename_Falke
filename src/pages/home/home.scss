@@ -1,4 +1,7 @@
 page-home {
+
+
+
     ion-grid {
         display: block;
         height: 90%;
@@ -9,10 +12,12 @@ page-home {
         right: 0;
         margin: 2em;
     }
+
     ion-row {
         // border: solid 1px blue;
         height: 30%;
     }
+
     ion-col {
         // border: solid 1px yellow;
         padding: 0px !important;
@@ -20,6 +25,7 @@ page-home {
         justify-content: center;
         align-items: center;
     }
+
     .btn {
         display: flex;
         height: 100%;
@@ -30,6 +36,7 @@ page-home {
         border-radius: 5px;
         // margin:5px;
     }
+
     .font {
         font-weight: 300;
         font-size: 2.5rem;
@@ -38,8 +45,9 @@ page-home {
         text-align: center; // border: solid 1px red;
         vertical-align: middle !important;
     }
+
     .line {
-        background-color: color($colors, accentSec2);
+        background-color: color($colors, accentSec);
         border: none;
     }
     .line.vertical {
@@ -55,7 +63,11 @@ page-home {
         flex: 0 0 1px;
         height: 1px;
     }
+
     .linerow {
         height: 2px;
     }
+
+
+  
 }

@@ -18,7 +18,7 @@ export class HomePage {
   constructor(public platform: Platform, public navCtrl: NavController,
     private service: ServiceProvider, public admob: AdMobFree,
     private socialSharing: SocialSharing) {
-
+   
     // this.platform = platform;
     // if (/(android)/i.test(navigator.userAgent)) {
     //   this.admobId = {

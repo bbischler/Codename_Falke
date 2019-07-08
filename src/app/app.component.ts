@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { HomePage } from '../pages/home/home';
 import { ServiceProvider } from '../providers/service/service';
 import { App } from 'ionic-angular';
+import { timer } from 'rxjs/observable/timer';
 
 @Component({
   selector: 'page-menu',
@@ -20,6 +21,9 @@ export class MyApp {
   pages: Array<{ title: string, component: any }>;
   pagesx01: Array<{ title: string, component: any }>;
   instructions: Array<{ title: string, component: any }>;
+  showSplash = true;
+
+
 
   constructor(public platform: Platform, public statusBar: StatusBar,
     public splashScreen: SplashScreen, private service: ServiceProvider,
@@ -45,12 +49,18 @@ export class MyApp {
 
   }
 
+  hidesplash() {
+    this.showSplash = false;
+  }
+
+
   initializeApp() {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      timer(1200).subscribe(() => this.hidesplash())
     });
     this.platform.registerBackButtonAction(() => {
       // Catches the active view

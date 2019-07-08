@@ -1,10 +1,10 @@
 <ion-header no-border>
-	<ion-toolbar color="transparent">
+	<ion-toolbar color="transparent" *ngIf="showContent">
 		<button ion-button menuToggle>
 			<ion-icon color="accenfontSectSec" name="menu"></ion-icon>
 		</button>
 		<ion-title>
-			<div class="page-header-menu" *ngIf="showContent">
+			<div class="page-header-menu">
 				<div class="logo"><b>{{num}}</b></div>
 			</div>
 		</ion-title>
