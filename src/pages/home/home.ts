@@ -20,7 +20,6 @@ export class HomePage {
   constructor(public platform: Platform, public navCtrl: NavController,
     private service: ServiceProvider, public admob: AdMobFree,
     private socialSharing: SocialSharing) {
-
     this.platform = platform;
     if (/(android)/i.test(navigator.userAgent)) {
       this.admobId = {
@@ -31,9 +30,11 @@ export class HomePage {
         banner: 'ca-app-pub-3290488239272299/1907343774',
       };
     }
+  }
+  
+  ngOnInit(){
     this.createBanner();
   }
-
 
   ionViewDidEnter() {
     this.service.setActivePage("Home");
@@ -46,6 +47,7 @@ export class HomePage {
       id: this.admobId.banner,
       isTesting: false, // Remove in production 
       autoShow: true,
+      overlap: false
     };
 
     this.admob.banner.config(bannerConfig);

@@ -2,72 +2,74 @@ page-home {
 
 
 
-    ion-grid {
-        display: block;
-        height: 90%;
-        position: absolute;
-        bottom: 0;
-        top: 0;
-        left: 0;
-        right: 0;
-        margin: 2em;
-    }
+  ion-grid {
+    display: block;
+    height: 90%;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 2em;
+  }
 
-    ion-row {
-        // border: solid 1px blue;
-        height: 30%;
-    }
+  ion-row {
+    // border: solid 1px blue;
+    height: 30%;
+  }
 
-    ion-col {
-        // border: solid 1px yellow;
-        padding: 0px !important;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+  ion-col {
+    // border: solid 1px yellow;
+    padding: 0px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-    .btn {
-        display: flex;
-        height: 100%;
-        width: 100%;
-        box-shadow: none !important;
-        align-items: center;
-        background-color: color($colors, transparent);
-        border-radius: 5px;
-        // margin:5px;
-    }
+  .btn {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    box-shadow: none !important;
+    align-items: center;
+    background-color: color($colors, transparent);
+    border-radius: 5px;
+    // margin:5px;
+  }
 
-    .font {
-        font-weight: 300;
-        font-size: 2.5rem;
-        width: 100%;
-        color: color($colors, font);
-        text-align: center; // border: solid 1px red;
-        vertical-align: middle !important;
-    }
+  .font {
+    font-weight: 300;
+    font-size: 2.5rem;
+    width: 100%;
+    color: color($colors, font);
+    text-align: center; // border: solid 1px red;
+    vertical-align: middle !important;
+  }
 
-    .line {
-        background-color: color($colors, accentSec);
-        border: none;
-    }
-    .line.vertical {
-        margin: 7% 0 7% 0 !important;
-        flex: 0 0 1px;
-    }
-    .line.horizontal {
-        margin: 0 7% 0 7% !important;
-        height: 1px;
-    }
-    .line.no {
-        background-color: transparent;
-        flex: 0 0 1px;
-        height: 1px;
-    }
+  .line {
+    background-color: color($colors, accentSec);
+    border: none;
+  }
 
-    .linerow {
-        height: 2px;
-    }
+  .line.vertical {
+    margin: 7% 0 7% 0 !important;
+    flex: 0 0 1px;
+  }
+
+  .line.horizontal {
+    margin: 0 7% 0 7% !important;
+    height: 1px;
+  }
+
+  .line.no {
+    background-color: transparent;
+    flex: 0 0 1px;
+    height: 1px;
+  }
+
+  .linerow {
+    height: 2px;
+  }
 
 
-  
 }
