@@ -14,93 +14,110 @@
 // automatically applied to the <body> element in the app.
 ::-webkit-scrollbar,
 *::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 div.page-header {
-    margin: 0;
-    padding: 0;
-    color: color($colors, fontSec);
-    background-color: transparent;
-    font-size: medium;
-    font-weight: 200;
+  margin: 0;
+  padding: 0;
+  color: color($colors, fontSec);
+  background-color: transparent;
+  font-size: medium;
+  font-weight: 200;
 }
 
 ion-title {
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 0 90px 1px;
-    width: 100%;
-    height: 100%;
-    text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0 90px 1px;
+  width: 100%;
+  height: 100%;
+  text-align: center;
 }
 
 ion-content {
-    background-image: linear-gradient(160deg, color($colors, background) 20%, color($colors, backgroundSec)) !important;
+  background-image: linear-gradient(160deg, color($colors, background) 20%, color($colors, backgroundSec)) !important;
 }
 
 .scroll-content {
-    padding: 0 !important;
+  padding: 0 !important;
 }
 
 .fas.fa-circle {
-    margin: 0 0.2em 0 0.2em;
-    display: block;
-    color: color($colors, accent);
+  margin: 0 0.2em 0 0.2em;
+  display: block;
+  color: color($colors, accent);
 }
 
 .fas.fa-circle.closed {
-    margin: 0 0.2em 0 0.2em;
-    display: block;
-    color: color($colors, fontSec);
+  margin: 0 0.2em 0 0.2em;
+  display: block;
+  color: color($colors, fontSec);
 }
 
 .far.fa-circle {
-    margin: 0 0.2em 0 0.2em;
-    display: block;
-    color: color($colors, accentSec);
+  margin: 0 0.2em 0 0.2em;
+  display: block;
+  color: color($colors, accentSec);
 }
 
 page-menu {
-    .splash {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        z-index: 999;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: color($colors, background);
+
+  .splash {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIt 1.5s ease-in-out;
+    // background: color($colors, background);
+  }
+
+  @keyframes fadeIt {
+    0% {
+      background: color($colors, background);
     }
 
-    .pageActive {
-        font-weight: 400;
-        background-color: color($colors, semiTransparent);
-        color: color($colors, accent);
-        text-align: center;
+    50% {
+      background: color($colors, backgroundSec);
     }
+   
+  
+    100% {
+      background: transparent;
+    }
+  }
 
-    .pageTransparent {
-        text-align: center;
-        font-weight: 200;
-        color: color($colors, font);
-        background-color: transparent;
-    }
+  .pageActive {
+    font-weight: 400;
+    background-color: color($colors, semiTransparent);
+    color: color($colors, accent);
+    text-align: center;
+  }
 
-    .buttonSide {
-        font-size: 4.0vh;
-    }
+  .pageTransparent {
+    text-align: center;
+    font-weight: 200;
+    color: color($colors, font);
+    background-color: transparent;
+  }
+
+  .buttonSide {
+    font-size: 4.0vh;
+  }
 }
 
 .page-header-menu {
-    color: color($colors, accent);
-    height: 5em;
-    vertical-align: middle;
-    text-align: center;
-    font-size: x-large;
-    font-weight: 400;
-    line-height: 5em;
+  color: color($colors, accent);
+  height: 5em;
+  vertical-align: middle;
+  text-align: center;
+  font-size: x-large;
+  font-weight: 400;
+  line-height: 5em;
 }
 
 
@@ -108,60 +125,60 @@ page-menu {
 
 .logo b,
 ion-icon {
-    font-weight: 100;
-    font-size: 3vh;
-    color: color($colors, font);
-    text-shadow: 0 -20px 100px, 0 0 2px, 0 0 1em color($colors, accent), 0 0 0.5em color($colors, accent), 0 0 0.1em color($colors, accent), 0 7px 3px #000;
-    // text-shadow: 0 -20px 100px color($colors, btnActivated),  0 0 0.5em color($colors, accent), 0 0 0.1em color($colors, accent), 0 6px 3px rgb(15, 15, 15);
+  font-weight: 100;
+  font-size: 3vh;
+  color: color($colors, font);
+  text-shadow: 0 0 2px, 0 0 0.5em color($colors, accentSec), 0 0 0.5em color($colors, accentSec2), 0 0 0.1em color($colors, accent), 0 7px 3px #000;
+  //text-shadow: 0 -20px 100px, 0 0 2px, 0 0 1em color($colors, accent), 0 0 0.5em color($colors, accent), 0 0 0.1em color($colors, accent), 0 7px 3px #000;
 }
 
 .side {
-    font-size: 5vh !important;
+  font-size: 5vh !important;
 }
 
 .logo b span {
-    animation: blink linear infinite 2.5s;
+  animation: blink linear infinite 2.5s;
 }
 
 @keyframes blink {
-    78% {
-        color: inherit;
-        text-shadow: inherit;
-    }
+  78% {
+    color: inherit;
+    text-shadow: inherit;
+  }
 
-    79% {
-        color: rgb(128, 128, 128);
-    }
+  79% {
+    color: rgb(128, 128, 128);
+  }
 
-    80% {
-        color: color($colors, semiTransparent);
-        text-shadow: none;
-    }
+  80% {
+    color: color($colors, semiTransparent);
+    text-shadow: none;
+  }
 
-    81% {
-        color: inherit;
-        text-shadow: inherit;
-    }
+  81% {
+    color: inherit;
+    text-shadow: inherit;
+  }
 
-    82% {
-        color: color($colors, semiTransparent);
-        text-shadow: none;
-    }
+  82% {
+    color: color($colors, semiTransparent);
+    text-shadow: none;
+  }
 
-    83% {
-        color: inherit;
-        text-shadow: inherit;
-    }
+  83% {
+    color: inherit;
+    text-shadow: inherit;
+  }
 
-    92% {
-        color: rgb(128, 128, 128);
-        text-shadow: none;
-    }
+  92% {
+    color: rgb(128, 128, 128);
+    text-shadow: none;
+  }
 
-    92.5% {
-        color: inherit;
-        text-shadow: inherit;
-    }
+  92.5% {
+    color: inherit;
+    text-shadow: inherit;
+  }
 }
 
 
@@ -172,106 +189,106 @@ ion-icon {
 
 //alert popup design
 .radio-checked {
-    background-color: color($colors, transparent) !important;
-    border-color: color($colors, accent) !important;
+  background-color: color($colors, transparent) !important;
+  border-color: color($colors, accent) !important;
 }
 
 .alert-wrapper {
-    @include border-radius($alert-md-border-radius);
-    box-shadow: $alert-md-box-shadow;
-    background: color($colors, backgroundAlert) !important;
-    color: color($colors, font) !important;
-    border: solid 1px color($colors, accentSec2) !important;
+  @include border-radius($alert-md-border-radius);
+  box-shadow: $alert-md-box-shadow;
+  background: color($colors, backgroundAlert) !important;
+  color: color($colors, font) !important;
+  border: solid 1px color($colors, accentSec2) !important;
 }
 
 .alert-button:nth-child(2) {
-    color: color($colors, accent) !important;
+  color: color($colors, accent) !important;
 }
 
 .alert-button:nth-child(1) {
-    color: color($colors, fontSec) !important;
+  color: color($colors, fontSec) !important;
 }
 
 .alert-message {
-    color: color($colors, fontSec) !important;
+  color: color($colors, fontSec) !important;
 }
 
 .item-radio {
-    background: transparent;
-    color: color($colors, font) !important;
+  background: transparent;
+  color: color($colors, font) !important;
 }
 
 [aria-checked=true] .alert-radio-icon {
-    background-color: color($colors, accent) !important;
-    border: none !important;
+  background-color: color($colors, accent) !important;
+  border: none !important;
 }
 
 [aria-checked=true] .alert-radio-inner {
-    border-color: color($colors, accentSec) !important;
-    background: transparent;
+  border-color: color($colors, accentSec) !important;
+  background: transparent;
 }
 
 .alert-radio-label {
-    color: color($colors, font) !important;
+  color: color($colors, font) !important;
 }
 
 
 //buttons design
 .button-ios-transparent.activated {
-    background: color($colors, btnActivated) !important;
+  background: color($colors, btnActivated) !important;
 }
 
 .button-md-transparent.activated {
-    background: color($colors, btnActivated) !important;
+  background: color($colors, btnActivated) !important;
 }
 
 .button-ios.activated {
-    background: color($colors, btnActivated) !important;
+  background: color($colors, btnActivated) !important;
 }
 
 .button-md.activated {
-    background: color($colors, btnActivated) !important;
+  background: color($colors, btnActivated) !important;
 }
 
 .item-ios.activated {
-    background: color($colors, btnActivated) !important;
+  background: color($colors, btnActivated) !important;
 }
 
 .item-md.activated {
-    background: color($colors, btnActivated) !important;
+  background: color($colors, btnActivated) !important;
 }
 
 
 // Toast Design
 .playerToast {
-    text-align: center;
+  text-align: center;
 }
 
 .toast-message {
-    color: color($colors, font) !important;
-    font-size: 2em;
+  color: color($colors, font) !important;
+  font-size: 2em;
 }
 
 .toast-container {
-    background: color($colors, backgroundSec);
-    border: solid 1px color($colors, accentSec2) !important;
+  background: color($colors, backgroundSec);
+  border: solid 1px color($colors, accentSec2) !important;
 }
 
 //toolbar
 .toolbar {
-    padding: 0 !important;
+  padding: 0 !important;
 }
 
 .toolbar-content {
-    height: 100%;
+  height: 100%;
 }
 
 .ionfooter {
-    padding: 0;
+  padding: 0;
 }
 
 .footer-grid {
-    height: 100%;
+  height: 100%;
 }
 
 // ion-backdrop {

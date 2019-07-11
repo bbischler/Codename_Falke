@@ -1,5 +1,6 @@
 <ion-header no-border>
-	<ion-toolbar color="transparent" *ngIf="showContent">
+	<ion-toolbar color="transparent">
+			<div *ngIf="showContent">
 		<button ion-button menuToggle>
 			<ion-icon color="fontSec" name="menu"></ion-icon>
 		</button>
@@ -8,6 +9,7 @@
 				<div class="logo"><b>Cricket</b></div>
 			</div>
 		</ion-title>
+		</div>
 	</ion-toolbar>
 </ion-header>
 

@@ -11,24 +11,26 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  private admobId: any;
+  private admobId: any = {
+    banner: 'ca-app-pub-3290488239272299/2853593930',
+  };
   message: string = "Hey, here is a new cool dart scoring app";
   url: string = "https://play.google.com/store/apps/details?id=dartknight.app";
 
   constructor(public platform: Platform, public navCtrl: NavController,
     private service: ServiceProvider, public admob: AdMobFree,
     private socialSharing: SocialSharing) {
-   
-    // this.platform = platform;
-    // if (/(android)/i.test(navigator.userAgent)) {
-    //   this.admobId = {
-    //     banner: 'ca-app-pub-3290488239272299/2853593930',
-    //   };
-    // } else if (/(ipod|iphone|ipad)/i.test(navigator.userAgent)) {
-    //   this.admobId = {
-    //     banner: 'ca-app-pub-3290488239272299/1907343774',
-    //   };
-    // }
+
+    this.platform = platform;
+    if (/(android)/i.test(navigator.userAgent)) {
+      this.admobId = {
+        banner: 'ca-app-pub-3290488239272299/2853593930',
+      };
+    } else if (/(ipod|iphone|ipad)/i.test(navigator.userAgent)) {
+      this.admobId = {
+        banner: 'ca-app-pub-3290488239272299/1907343774',
+      };
+    }
     this.createBanner();
   }
 
@@ -41,8 +43,7 @@ export class HomePage {
   createBanner() {
 
     let bannerConfig: AdMobFreeBannerConfig = {
-      // id: 'ca-app-pub-3940256099942544/6300978111',
-      id: 'ca-app-pub-3290488239272299/2853593930',
+      id: this.admobId.banner,
       isTesting: false, // Remove in production 
       autoShow: true,
     };
