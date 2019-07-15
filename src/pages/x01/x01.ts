@@ -30,7 +30,6 @@ export class X01Page {
   throwCounter: number = 0;
   playerCounter: number = 0;
   containerof3: number[] = [1, 2, 3];
-  has180: Boolean = true;
   gameOver: Boolean = false;
   confirmAlert: any;
   activePlayer: X01Player;
@@ -38,6 +37,7 @@ export class X01Page {
   actionStack: Stack<x01ThrowAction> = new Stack<x01ThrowAction>();
   appSettings: any;
   showContent: boolean = false;
+  counter180: number = 0;
 
   constructor(public navCtrl: NavController, public platform: Platform,
     public navParams: NavParams, public modalCtrl: ModalController,
@@ -126,13 +126,18 @@ export class X01Page {
       }
     }
 
-    if (this.has180)
-      this.play180();
-
     if (this.isDouble) {
       points = points * 2;
     }
     if (this.isTriple) {
+      if (points == 20) {
+        this.counter180 += 1;
+        if (this.counter180 == 3) {
+          this.play180();
+          this.counter180 = 0;
+        }
+
+      }
       if (points == 25) {
         this.showPopUpTriple25();
         return;
@@ -169,6 +174,7 @@ export class X01Page {
 
     console.log("Player " + this.activePlayer.id + " roundThrowCounter = " + this.activePlayer.roundThrowCount);
     if (this.activePlayer.roundThrowCount == 3) {
+      this.counter180 = 0;
       this.playerCounter = (this.playerCounter + 1) % this.players.length;
       this.activePlayer = this.players[this.playerCounter];
       this.activePlayer.resetForTurn();
@@ -317,7 +323,7 @@ export class X01Page {
   }
 
   openPopupRestore() {
-    this.service.showMessageOkCancel('Restore?', 'Do you want to restore the last game?', ['Cancel', 'Yes']).then((res) => {
+    this.service.showMessageOkCancel('Restore ' + this.num + '?', 'Do you want to restore the last game?', ['Cancel', 'Yes']).then((res) => {
       if (res) {
         this.restoreGame();
         this.showContent = true;

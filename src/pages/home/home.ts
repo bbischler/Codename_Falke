@@ -30,10 +30,10 @@ export class HomePage {
         banner: 'ca-app-pub-3290488239272299/1907343774',
       };
     }
-  }
-  
-  ngOnInit(){
     this.createBanner();
+  }
+
+  ngOnInit() {
   }
 
   ionViewDidEnter() {
@@ -46,13 +46,14 @@ export class HomePage {
     let bannerConfig: AdMobFreeBannerConfig = {
       id: this.admobId.banner,
       isTesting: false, // Remove in production 
-      autoShow: true,
+      autoShow: false,
       overlap: false
     };
 
     this.admob.banner.config(bannerConfig);
 
     this.admob.banner.prepare().then(() => {
+      this.admob.banner.show();
       // success
     }).catch(e => console.log(e));
 

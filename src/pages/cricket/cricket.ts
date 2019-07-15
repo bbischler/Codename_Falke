@@ -273,7 +273,7 @@ export class CricketPage {
   }
 
   openPopupRestore() {
-    this.service.showMessageOkCancel('Restore?', 'Do you want to restore the last game?', ['Cancel', 'Yes']).then((res) => {
+    this.service.showMessageOkCancel('Restore cricket?', 'Do you want to restore the last game?', ['Cancel', 'Yes']).then((res) => {
       if (res) {
         this.restoreGame();
         this.showContent = true;
