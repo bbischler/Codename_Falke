@@ -133,7 +133,8 @@ export class ServiceProvider {
       }, {
         text: buttons[1],
         handler: () => resolveFunction(true)
-      }]
+      }],
+      enableBackdropDismiss: false
     });
     await alert.present();
     return promise;

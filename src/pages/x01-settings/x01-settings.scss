@@ -1,89 +1,93 @@
 page-x01-settings {
-    .heading {
-        font-size: 1.5em;
-        margin: 1em;
-        color: color($colors, font);
-        text-align: center;
-    }
+  .heading {
+    font-size: 1.5em;
+    margin: 1em;
+    color: color($colors, font);
+    text-align: center;
+  }
 
-    .playernames {
-        background: transparent;
-        border: solid 1px color($colors, accentSec2);
-        margin: 0 1em 1em 1em;
-    }
+  .playernames {
+    background: transparent;
+    border: solid 1px color($colors, accentSec2);
+    margin: 0 1em 1em 1em;
+  }
 
-    .ion-rows {
-        margin: 0 1em 1em 1em;
-    }
+  .ion-rows {
+    margin: 0 1em 1em 1em;
+  }
 
-    .button {
-        background-color: transparent;
-        box-shadow: none !important;
-        font-weight: 200;
-        font-size: 1.5rem;
-        color: color($colors, font);
-    }
+  .button {
+    background-color: transparent;
+    box-shadow: none !important;
+    font-weight: 200;
+    font-size: 1.5rem;
+    color: color($colors, font);
+  }
 
-    .bottom {
-        height: 100% !important;
-        margin: 0;
-        padding: 0;
-        font-size: 1.9rem;
-    }
+  .bottom {
+    height: 100% !important;
+    margin: 0;
+    padding: 0;
+    font-size: 2rem;
+    font-weight: 300;
+    letter-spacing: 0.0825em;
+  }
 
-    .play {
-        background-color: color($colors, semiTransparent);
-        color: color($colors, accent);
-    }
+  .play {
+    background-color: color($colors, semiTransparent);
+    color: color($colors, accent);
+  }
 
-    .doubles {
-        margin: 0 1em 0 1em;
-        background: transparent;
-        color: color($colors, font);
-        font-size: 1em;
-    }
+ 
 
-    .footer {
-        // height: 5em;
-        background-color: color($colors, semiTransparent);
-    }
+  .doubles {
+    margin: 0 1em 0 1em;
+    background: transparent;
+    color: color($colors, font);
+    font-size: 1em;
+  }
 
-    ion-toolbar {
-        height: 60px;
-    }
+  .footer {
+    // height: 5em;
+    background-color: color($colors, semiTransparent);
+  }
 
-    ion-input {
-        padding-left: 8px;
-        color: color($colors, font);
-    }
+  ion-toolbar {
+    height: 60px;
+  }
 
-    .checkbox-icon {
-        background-color: transparent !important;
-    }
+  ion-input {
+    padding-left: 8px;
+    color: color($colors, font);
+  }
 
-    .checkbox-checked {
-        background-color: color($colors, accent) !important;
-    }
+  .checkbox-icon {
+    background-color: transparent !important;
+  }
 
-    .gamestyle-active {
-        height: 100%;
-        color: color($colors, font);
-        width: 100%;
-        background-color: color($colors, semiTransparent);
-        border: solid 1px color($colors, accent);
-    }
+  .checkbox-checked {
+    background-color: color($colors, accent) !important;
+  }
 
-    .gamestyle {
-        height: 100%;
-        color: color($colors, fontSec);
-        width: 100%;
-        background-color: color($colors, transparent);
-        border: solid 1px color($colors, semiTransparent);
-    }
+  .gamestyle-active {
+    height: 100%;
+    color: color($colors, font);
+    width: 100%;
+    background-color: color($colors, semiTransparent);
+    border: solid 1px color($colors, accent);
+  }
 
-    .toggles {
-        margin: 2em 1em 1em 1em;
-        height: 3em;
-    }
+  .gamestyle {
+    height: 100%;
+    color: color($colors, fontSec);
+    width: 100%;
+    background-color: color($colors, transparent);
+    border: solid 1px color($colors, semiTransparent);
+  }
+
+  .toggles {
+    margin: 2em 1em 1em 1em;
+    height: 3em;
+  }
 
 }
