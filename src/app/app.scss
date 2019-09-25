@@ -98,6 +98,10 @@ page-menu {
     text-align: center;
   }
 
+  .disabled {
+    color: color($colors, fontDisabled) !important;
+  }
+
   .pageTransparent {
     text-align: center;
     font-weight: 200;

@@ -64,10 +64,12 @@ export class HomePage {
     this.navCtrl.push('CricketPage');
   }
   openX01(num: number) {
-    this.service.setActivePage(num);
-    this.navCtrl.push('X01Page', {
-      param: num
-    });
+    this.notAvaiableToast();
+    
+    // this.service.setActivePage(num);
+    // this.navCtrl.push('X01Page', {
+    //   param: num
+    // });
   }
   openChallenge() {
     this.service.setActivePage('Challenge');
@@ -78,6 +80,10 @@ export class HomePage {
       .then(() => {
       }).catch(() => {
       });
+  }
+
+  notAvaiableToast() {
+    this.service.toastPopup('playerToast', 'coming soon...');
   }
 
 }

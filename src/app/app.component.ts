@@ -105,13 +105,19 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     // this.nav.setRoot(page.component);
-    this.nav.push(page.component, {
-      param: num
-    });
+    this.notAvaiableToast();
+
+    // this.nav.push(page.component, {
+    //   param: num
+    // });
 
   }
 
   checkActive(page) {
     return page == this.service.getActivePage();
+  }
+
+  notAvaiableToast() {
+    this.service.toastPopup('playerToast', 'coming soon...');
   }
 }

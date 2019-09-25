@@ -5,8 +5,8 @@
     </button>
     <ion-title>
       <div class="page-header-menu">
-				<div class="logo"><b>Instructions</b></div>
-			</div>
+        <div class="logo"><b>Instructions</b></div>
+      </div>
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -51,13 +51,13 @@
 
     <ion-slide>
       <section class="textblock">
-
+        <div class="header"> 1. Aim of the game</div>
         Each player starts with X-01 (301, 501, 701) points. The number of points collected while hitting a board with a
         dart is
         subtracted from the given player's points. The winner is the player who scores exactly 0 points that way.
-        It is a double out game, which means that players must hit a double that makes their score exactly zero to win
+        Double-Out means that players must hit a double that makes their score exactly zero to win
         the game.
-        <div class="header">Bust</div>
+        <div class="header">2. Bust</div>
         In case of a bust the player's score from the previous turn is restored. There is bust if one of the following
         events arise:
         <ul>
@@ -67,13 +67,8 @@
           <li>The player has 1 point after subtracting (you cannot score 1 with double out)</li>
           <li>The player has 0 point after subtracting but violates the double-out rule</li>
         </ul>
-        <div class="header">End of the game</div>
+        <div class="header">3. End of the game</div>
         Players continue playing until one of them scores 0 points in total. The player who does so, wins the game.
-        If none of the players gets to zero in 20 turns, the player with the lower point wins.
-        If the scores are equal after 20 turns, the game will continue for another possible 10 turns.
-        During these extra turns, the player who gets to zero obviously wins. A player with lower score any time after
-        the 20th turn also wins the match.
-        If the scores are equal after 20+10 turns, the match will end in a draw.
       </section>
     </ion-slide>
   </ion-slides>
