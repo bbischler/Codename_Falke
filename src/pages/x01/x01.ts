@@ -7,6 +7,7 @@ import { Vibration } from '@ionic-native/vibration/ngx';
 import { IonicPage, NavController, Platform, NavParams, Slides, ModalController, Modal, ModalOptions } from 'ionic-angular';
 import { X01Settings } from '../../models/x01Settings';
 import { ServiceProvider } from '../../providers/service/service';
+import { DataProvider } from '../../providers/data/data';
 
 
 @IonicPage()
@@ -42,7 +43,7 @@ export class X01Page {
   constructor(public navCtrl: NavController, public platform: Platform,
     public navParams: NavParams, public modalCtrl: ModalController,
     private nativeAudio: NativeAudio, private service: ServiceProvider,
-    private vibration: Vibration) {
+    private vibration: Vibration, public data: DataProvider) {
     this.platform.ready().then(() => {
       this.nativeAudio.preloadSimple('180', 'assets/sounds/180.mp3').then((success) => {
         console.log("success");
@@ -112,7 +113,6 @@ export class X01Page {
       p.setTotalScore(this.num);
     })
     this.activePlayer = this.players[0];
-    console.log(this.service.checkoutTable);
   }
 
   addPoints(points: number) {
@@ -130,20 +130,7 @@ export class X01Page {
       points = points * 2;
     }
     if (this.isTriple) {
-      if (points == 20) {
-        this.counter180 += 1;
-        if (this.counter180 == 3) {
-          this.play180();
-          this.counter180 = 0;
-        }
-
-      }
-      if (points == 25) {
-        this.showPopUpTriple25();
-        return;
-      } else {
-        points = points * 3;
-      }
+      points = this.isTripleFunc(points);
     }
 
     if (points == 0) {
@@ -151,21 +138,24 @@ export class X01Page {
     } else {
       this.vibrate()
     }
+
     this.throw(points);
   }
 
+
+
   throw(points: number) {
+
     this.slides.slideTo(this.playerCounter, 1000);
 
     var action = new x01ThrowAction(points, this.activePlayer);
     this.actionStack.push(action);
     action.do();
-    this.activePlayer.setToThrow(this.service.getCheckOut(this.activePlayer.totalScore));
+    // this.activePlayer.setToThrow(this.service.getCheckOut(this.activePlayer.totalScore));
 
     if (this.hasWon()) {
       this.service.setGameIsActive(false);
       this.winningPopup(this.activePlayer);
-      return;
     }
 
     this.isDouble = false;
@@ -173,6 +163,7 @@ export class X01Page {
     this.throwCounter++;
 
     console.log("Player " + this.activePlayer.id + " roundThrowCounter = " + this.activePlayer.roundThrowCount);
+
     if (this.activePlayer.roundThrowCount == 3) {
       this.counter180 = 0;
       this.playerCounter = (this.playerCounter + 1) % this.players.length;
@@ -182,11 +173,67 @@ export class X01Page {
     }
   }
 
-  hasWon() {
-    if (this.activePlayer.totalScore <= 0) {
-      return true;
+
+  isTripleFunc(points) {
+    if (points == 20) {
+      this.counter180 += 1;
+      if (this.counter180 == 3) {
+        this.play180();
+        this.counter180 = 0;
+      }
+
+    }
+    if (points == 25) {
+      this.showPopUpTriple25();
+      return;
     } else {
-      return false;
+      points = points * 3;
+    }
+    return points;
+  }
+
+  hasWon() {
+    let _score = this.activePlayer.totalScore;
+    if (this.x01Settings.doubleOut) {
+      //DoubleOut == True
+
+      if (_score == 0 && this.isDouble) {
+        return true;
+      }
+      else if (_score <= 1) {
+        console.log("BUST!!!!!");
+        let tmpRoundCount = this.activePlayer.roundThrowCount;
+        for (let i = 0; i < tmpRoundCount; i++)
+          this.undo();
+
+        for (let i = 0; i < 3; i++)
+          this.throw(0);
+        return false;
+      }
+      else {
+        return false;
+      }
+
+
+    } else {
+      //DoubleOut == False
+      if (_score == 0) {
+        return true;
+      }
+      else if (_score < 0) {
+        let tmpRoundCount = this.activePlayer.roundThrowCount;
+        for (let i = 0; i < tmpRoundCount; i++)
+          this.undo();
+
+        for (let i = 0; i < 3; i++)
+          this.throw(0);
+
+        this.activePlayer.roundThrowCount = 3;
+        return false;
+      } else {
+        return false;
+      }
+
     }
   }
 
@@ -270,11 +317,6 @@ export class X01Page {
   restoreGame() {
     console.log("restore X01storage");
     let x01Storage = JSON.parse(localStorage.getItem('x01Storage' + this.num));
-    this.players = [];
-    for (let p of x01Storage.players) {
-      this.players.push(this.service.getObjectOfPlayer(p));
-    }
-    // this.setPlayer();
     this.isDouble = x01Storage.isDouble;
     this.isTriple = x01Storage.isTriple;
     this.throwCounter = x01Storage.throwCounter;
@@ -283,21 +325,48 @@ export class X01Page {
     this.appSettings = x01Storage.appSettings;
     this.showContent = x01Storage.showContent;
     this.playerCounter = x01Storage.playerCounter;
-    this.activePlayer = this.service.getObjectOfPlayer(x01Storage.activePlayer);
-    let _x01stack = JSON.parse(localStorage.getItem('x01Stack' + this.num));
-    for (let stack of _x01stack) {
-      let tmpAction = new x01ThrowAction();
-      Object.assign(tmpAction, {
-        "point": stack.point,
-        "isDone": stack.isDone,
+    // this.activePlayer = this.service.getObjectOfPlayer(x01Storage.activePlayer);
+    this.players = [];
+    for (let p of x01Storage.players) {
+      let tmpPlayer = new X01Player(this.data, p.id, p.name)
+      Object.assign(tmpPlayer, {
+        "totalScore": p.totalScore,
+        "roundThrowCount": p.roundThrowCount,
+        "totalThrowCount": p.totalThrowCount,
+        "roundScore": p.roundScore,
+        "avg": p.avg,
+        "toThrow": p.toThrow,
+        "lastScores": p.lastScores,
+        "legs": p.legs,
+        "sets": p.sets,
+        "doubleIn": p.doubleIn,
+        "doubleOut": p.doubleOut,
+
       });
-      tmpAction.setPlayer(stack.player);
-      this.actionStack.push(tmpAction);
+      this.players.push(tmpPlayer);
+    }
+    // this.setPlayer();
+    this.activePlayer = this.players[this.playerCounter];
+
+    // for (let p of x01Storage.players) {
+    //   this.players.push(this.service.getObjectOfPlayer(p));
+    // }
+    // // this.setPlayer();
+
+    let tmp: Array<x01ThrowAction> = JSON.parse(localStorage.getItem('x01Stack' + this.num));
+    for (let tmpAct of tmp.reverse()) {
+      tmpAct.player = this.players[tmpAct.player.id - 1];
+      var act = new x01ThrowAction(tmpAct.point, tmpAct.player)
+      Object.assign(act, {
+        "isDone": tmpAct.isDone
+      });
+      this.actionStack.push(act);
     }
 
     this.deleteStorage();
     this.service.setGameIsActive(true);
     this.gameRestoreToast();
+    // this.slides.slideTo(this.playerCounter, 1000);
   }
 
   deleteStorage() {
@@ -327,6 +396,7 @@ export class X01Page {
       if (res) {
         this.restoreGame();
         this.showContent = true;
+        this.slides.slideTo(this.playerCounter, 1000);
       } else {
         this.openSettingsModal();
       }

@@ -22,6 +22,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
 // import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
+import { DataProvider } from '../providers/data/data';
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import { HttpClientModule } from '@angular/common/http';
     SocialSharing,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     ServiceProvider,
+    DataProvider,
   ]
 })
 export class AppModule { }

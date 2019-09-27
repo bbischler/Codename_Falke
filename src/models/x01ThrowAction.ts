@@ -23,9 +23,14 @@ export class x01ThrowAction {
         if (!this.isDone)
             return;
 
+        if (this.player.roundThrowCount == 0) {
+            this.player.roundThrowCount = 3;
+        }
+        
         this.player.decreaseThrowCount();
         this.player.scorePoints(this.point * -1) // Same method, negative number ;)
     }
+
     public setPlayer(p) {
         let tmpPlayer = new X01Player();
         Object.assign(tmpPlayer, {
@@ -41,6 +46,5 @@ export class x01ThrowAction {
             "name": p.name
         });
         this.player = tmpPlayer;
-        // this.player.test();
     }
 }

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
 import { ServiceProvider } from '../../providers/service/service';
+import { DataProvider } from '../../providers/data/data';
+
 import { X01Player } from '../../models/x01Player';
 import { X01Settings } from '../../models/x01Settings';
 /**
@@ -23,11 +25,11 @@ export class X01SettingsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController, private service: ServiceProvider,
-    public toastController: ToastController) {
+    public toastController: ToastController, public data: DataProvider) {
     this.x01Settings = this.service.getX01Settings();
     this.gameNum = navParams.get('gameNum');
-    this.players.push(new X01Player(1, ""));
-    this.players.push(new X01Player(2, ""));
+    this.players.push(new X01Player(this.data, 1, ""));
+    this.players.push(new X01Player(this.data, 2, ""));
   }
 
   dismiss() {
@@ -52,7 +54,7 @@ export class X01SettingsPage {
       this.presentToastMaxPlayer();
     } else {
       var newPlayerNumber = this.players.length + 1;
-      this.players.push(new X01Player(newPlayerNumber, ""));
+      this.players.push(new X01Player(this.data, newPlayerNumber, ""));
     }
   }
 

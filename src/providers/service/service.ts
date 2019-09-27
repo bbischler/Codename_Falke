@@ -17,41 +17,9 @@ export class ServiceProvider {
   x01Settings: X01Settings = new X01Settings(false, 3, 1, false, true);
   players: Player[] = [];
   gameIsActive: Boolean = false;
-  checkoutTable = new Map();
 
   constructor(private http: HttpClient, public alertController: AlertController, public toastController: ToastController) {
-    console.log('Hello ServiceProvider Provider');
-    this.getCheckoutTable();
     this.setAppSettings();
-  }
-  getCheckoutTable() {
-    this.http.get('../../assets/checkoutTable.csv', { responseType: 'text' })
-      .subscribe(
-        data => {
-          data = data.replace(/(\r\n|\n|\r)/gm, "Y");
-          var lines = data.split('Y');
-          for (let line of lines) {
-            var arr = line.split(';');
-            let score = parseInt(arr[0]);
-            this.setCheckOutTable(score, arr[1]);
-          }
-
-        },
-        error => {
-          console.log(error);
-        }
-      );
-
-  }
-  setCheckOutTable(key: number, value: String) {
-    this.checkoutTable.set(key, value);
-  }
-
-
-  getCheckOut(num) {
-    if (this.checkoutTable.get(num)) {
-      return this.checkoutTable.get(num);
-    }
   }
 
   getActivePage() {

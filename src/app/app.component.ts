@@ -104,12 +104,11 @@ export class MyApp {
   openPageX01(page, num) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    // this.nav.setRoot(page.component);
-    this.notAvaiableToast();
+    // this.notAvaiableToast();
 
-    // this.nav.push(page.component, {
-    //   param: num
-    // });
+    this.nav.push(page.component, {
+      param: num
+    });
 
   }
 
