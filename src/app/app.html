@@ -43,7 +43,7 @@
       </button>
       <button [ngClass]="checkActive(p.title) ? 'pageActive' : 'pageTransparent'" menuClose ion-item detail-none
         *ngFor="let p of pagesx01" (click)="openPageX01(p,p.title)">
-        <div class="buttonSide disabled">
+        <div class="buttonSide">
           {{p.title}}
         </div>
       </button>

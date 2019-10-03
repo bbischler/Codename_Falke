@@ -16,25 +16,40 @@ export class CricketSettingsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController, private service: ServiceProvider,
     public toastController: ToastController) {
-    this.players.push(new CricketPlayer(1, ""));
-    this.players.push(new CricketPlayer(2, ""));
+
+    if (localStorage.getItem("cricketPlayer")) {
+      let tmpplayers = JSON.parse(localStorage.getItem("cricketPlayer"));
+      console.log("tmpplaers: " + tmpplayers);
+      for (let p of tmpplayers) {
+        this.players.push(new CricketPlayer(p.id, p.name));
+      }
+    }
+    else {
+      this.players.push(new CricketPlayer(1, ""));
+      this.players.push(new CricketPlayer(2, ""));
+    }
+
   }
 
   dismiss() {
     this.viewCtrl.dismiss(false);
   }
+
   play() {
     for (let i = 0; i < this.players.length; i++) {
       if (this.players[i].name == "") {
-        this.players[i].name = "Player " + (i + 1); 
+        this.players[i].name = "Player " + (i + 1);
       }
       this.service.addPlayer(this.players[i]);
     }
+    localStorage.setItem("cricketPlayer", JSON.stringify(this.players));
     this.viewCtrl.dismiss(true);
   }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad X01SettingsPage');
   }
+
   addPlayer() {
     if (this.players.length == 8) {
       this.presentToastMaxPlayer();

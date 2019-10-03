@@ -56,6 +56,28 @@ export class X01Player extends Player {
         }
     }
 
+    public increaseLegs() {
+        this.legs++;
+    }
+    public increaseSet() {
+        this.sets++;
+    }
+    public checkLegs(_legs) {
+        if (this.legs == _legs) {
+            this.legs = 0;
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public checkSets(_sets) {
+        if (this.sets == _sets)
+            return true;
+        else
+            return false;
+    }
+
     public increaseThrowCount() {
         this.roundThrowCount++;
         this.totalThrowCount++;
@@ -106,5 +128,17 @@ export class X01Player extends Player {
         this.totalScore = 0;
         this.roundThrowCount = 0;
         this.totalThrowCount = 0;
+    }
+
+    public resetForLegbased() {
+        // this.roundScore = 0;
+        // this.avg = 0;
+        this.toThrow = [];
+        this.lastScores = [];
+        this.doubleIn = true;
+        this.doubleOut = true;
+        this.totalScore = 0;
+        this.roundThrowCount = 0;
+        // this.totalThrowCount = 0;
     }
 }

@@ -28,8 +28,16 @@ export class X01SettingsPage {
     public toastController: ToastController, public data: DataProvider) {
     this.x01Settings = this.service.getX01Settings();
     this.gameNum = navParams.get('gameNum');
-    this.players.push(new X01Player(this.data, 1, ""));
-    this.players.push(new X01Player(this.data, 2, ""));
+    if (localStorage.getItem("x01Player")) {
+      let tmpplayers = JSON.parse(localStorage.getItem("x01Player"));
+      for (let p of tmpplayers) {
+        this.players.push(new X01Player(this.data, p.id, p.name));
+      }
+    }
+    else {
+      this.players.push(new X01Player(this.data, 1, ""));
+      this.players.push(new X01Player(this.data, 2, ""));
+    }
   }
 
   dismiss() {
@@ -44,6 +52,8 @@ export class X01SettingsPage {
       this.service.addPlayer(this.players[i]);
     }
     this.service.setX01Settings(this.x01Settings);
+    localStorage.setItem("x01Player", JSON.stringify(this.players));
+
     this.viewCtrl.dismiss(true);
   }
   ionViewDidLoad() {

@@ -191,49 +191,84 @@ export class X01Page {
     }
     return points;
   }
+  checkLegbasedWinning(_score: number) {
+    if (this.x01Settings.doubleOut) {
+      if (this.checkDoubleOutWinning(_score)) {
+        this.activePlayer.increaseLegs();
+        this.winningLegToast(this.activePlayer.name);
+        this.resetGameLegbased();
+        this.setPlayer();
+      }
+    } else {
+      if (this.checkNormalWinning(_score)) {
+        this.activePlayer.increaseLegs();
+        this.winningLegToast(this.activePlayer.name);
+        this.resetGameLegbased();
+        this.setPlayer();
+      }
+    }
+
+    if (this.activePlayer.checkLegs(this.x01Settings.legs)) {
+      this.activePlayer.increaseSet();
+    }
+
+    if (this.activePlayer.checkSets(this.x01Settings.sets)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  checkDoubleOutWinning(_score: number) {
+    if (_score == 0 && this.isDouble) {
+      return true;
+    }
+    else if (_score <= 1) {
+      console.log("BUST!!!!!");
+      let tmpRoundCount = this.activePlayer.roundThrowCount;
+      for (let i = 0; i < tmpRoundCount; i++)
+        this.undo();
+
+      for (let i = 0; i < 3; i++)
+        this.throw(0);
+      return false;
+    }
+    else {
+      return false;
+    }
+  }
+
+  checkNormalWinning(_score: number) {
+    if (_score == 0) {
+      return true;
+    }
+    else if (_score < 0) {
+      let tmpRoundCount = this.activePlayer.roundThrowCount;
+      for (let i = 0; i < tmpRoundCount; i++)
+        this.undo();
+
+      for (let i = 0; i < 3; i++)
+        this.throw(0);
+
+      this.activePlayer.roundThrowCount = 3;
+      return false;
+    } else {
+      return false;
+    }
+
+  }
 
   hasWon() {
     let _score = this.activePlayer.totalScore;
-    if (this.x01Settings.doubleOut) {
-      //DoubleOut == True
 
-      if (_score == 0 && this.isDouble) {
-        return true;
-      }
-      else if (_score <= 1) {
-        console.log("BUST!!!!!");
-        let tmpRoundCount = this.activePlayer.roundThrowCount;
-        for (let i = 0; i < tmpRoundCount; i++)
-          this.undo();
-
-        for (let i = 0; i < 3; i++)
-          this.throw(0);
-        return false;
-      }
-      else {
-        return false;
-      }
-
-
-    } else {
-      //DoubleOut == False
-      if (_score == 0) {
-        return true;
-      }
-      else if (_score < 0) {
-        let tmpRoundCount = this.activePlayer.roundThrowCount;
-        for (let i = 0; i < tmpRoundCount; i++)
-          this.undo();
-
-        for (let i = 0; i < 3; i++)
-          this.throw(0);
-
-        this.activePlayer.roundThrowCount = 3;
-        return false;
+    if (this.x01Settings.legbased)
+      return this.checkLegbasedWinning(_score);
+    else {
+      if (this.x01Settings.doubleOut) {
+        return this.checkDoubleOutWinning(_score);
       } else {
-        return false;
+        return this.checkNormalWinning(_score);
       }
-
     }
   }
 
@@ -271,6 +306,13 @@ export class X01Page {
   resetGame() {
     for (let p of this.players) {
       p.resetAll();
+    }
+  }
+
+
+  resetGameLegbased() {
+    for (let p of this.players) {
+      p.resetForLegbased();
     }
   }
 
@@ -409,10 +451,18 @@ export class X01Page {
       if (res) {
         this.ionViewDidEnter();
       } else {
+        localStorage.removeItem('x01Player');
         this.navCtrl.setRoot('HomePage');
       }
     });
   }
+
+
+  winningLegToast(name: String) {
+    this.service.toastPopup('playerToast', name + '  has won a leg!');
+  }
+
+
   confirmLeave(): Promise<Boolean> {
     let resolveLeaving;
     const canLeave = new Promise<Boolean>(resolve => resolveLeaving = resolve);

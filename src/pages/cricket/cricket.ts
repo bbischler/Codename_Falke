@@ -182,7 +182,7 @@ export class CricketPage {
         });
       }
     }
-  }
+  } 
 
   vibrate() {
     if (this.appSettings.vibrate) {
@@ -246,6 +246,7 @@ export class CricketPage {
       if (res) {
         this.ionViewDidEnter();
       } else {
+        localStorage.removeItem('cricketPlayer');
         this.navCtrl.setRoot('HomePage');
       }
     });
