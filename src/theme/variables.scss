@@ -22,30 +22,35 @@ $app-direction: ltr;
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
 $colors: (primary: #1C1D1F,
-secondary: #32db64,
-danger: #f53d3d,
-light: #f53d3d,
-font: #ffffff,
-fontSec: rgba(255, 255, 255, 0.55),
-fontDisabled: rgba(107, 107, 107, 0.5),
+  secondary: #32db64,
+  danger: #f53d3d,
+  light: #f53d3d,
+  font: #ffffff,
+  fontSec: rgba(255, 255, 255, 0.55),
+  fontDisabled: rgba(107, 107, 107, 0.5),
 
-accent:#1ada9a,
-accentSec: rgb(12, 156, 108),
-accentSec2: rgba(26, 218, 154, 0.4),
-accentSec3:rgb(36, 175, 129),
+  accent:#1ada9a,
+  accentSec: rgb(12, 156, 108),
+  accentSec2: rgba(26, 218, 154, 0.4),
+  accentSec3:rgb(36, 175, 129),
 
-background: #0b0b13,
-backgroundSec:rgb(11, 11, 51),
-backgroundAlert:rgb(11, 11, 41),
+  red:rgb(175, 45, 36),
+  homebutton: rgba(12, 156, 108, 0.7),
 
-transparent: rgba(67, 192, 163, 0),
-semiTransparent: rgba(255, 255, 255, 0.1),
-semiTransparentBtn: rgba(255, 255, 255, 0.05),
-semiTransparent2: rgba(255, 255, 255, 0.005),
 
-btnActivated: rgba(255, 255, 255, 0.25),
-dark: #222,
-green:rgb(0, 255, 0));
+
+  background: #0b0b13,
+  backgroundSec:rgb(28, 27, 54),
+  backgroundAlert:rgb(11, 11, 41),
+
+  transparent: rgba(67, 192, 163, 0),
+  semiTransparent: rgba(255, 255, 255, 0.1),
+  semiTransparentBtn: rgba(255, 255, 255, 0.05),
+  semiTransparent2: rgba(255, 255, 255, 0.005),
+
+  btnActivated: rgba(255, 255, 255, 0.25),
+  dark: #222,
+  green:rgb(0, 255, 0));
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here

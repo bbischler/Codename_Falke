@@ -38,10 +38,12 @@ export class CricketPage {
 
   async ionViewCanLeave() {
     if (this.service.getGameIsActive()) {
-      const shouldLeave = await this.confirmLeave();
-      if (shouldLeave)
-        this.storeGame();
-      return shouldLeave;
+      // const shouldLeave = await this.confirmLeave();
+      // if (shouldLeave)
+      // this.storeGame();
+      this.storeGame();
+      this.showGameStored();
+      return true;
     }
   }
 
@@ -94,6 +96,11 @@ export class CricketPage {
 
   addPoints(point: CricketPoint, id: number) {
     this.throwAmount = this.getThrowAmount();
+    if (this.throwAmount == 3 && point.value == 25) {
+      this.TripleBullToast();
+      this.resetModifiers();
+      return;
+    }
     this.vibrate();
 
     var action = new cricketThrowAction(point.value, this.throwAmount, this.players[id - 1]);
@@ -182,7 +189,7 @@ export class CricketPage {
         });
       }
     }
-  } 
+  }
 
   vibrate() {
     if (this.appSettings.vibrate) {
@@ -274,7 +281,7 @@ export class CricketPage {
   }
 
   openPopupRestore() {
-    this.service.showMessageOkCancel('Restore cricket?', 'Do you want to restore the last game?', ['Cancel', 'Yes']).then((res) => {
+    this.service.showMessageOkCancel('Restore cricket?', 'Do you want to restore the last game?', ['New game', 'Yes']).then((res) => {
       if (res) {
         this.restoreGame();
         this.showContent = true;
@@ -287,4 +294,13 @@ export class CricketPage {
   async gameRestoreToast() {
     this.service.toastPopup('playerToast', 'Game restored!');
   }
+
+  async TripleBullToast() {
+    this.service.toastPopup('playerToast', 'Triple Bull not allowed');
+  }
+
+  async showGameStored() {
+    this.service.toastPopup('playerToast', 'Game is stored');
+  }
+
 }

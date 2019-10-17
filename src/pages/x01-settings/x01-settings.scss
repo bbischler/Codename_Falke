@@ -1,9 +1,10 @@
 page-x01-settings {
   .heading {
-    font-size: 1.5em;
+    font-size: x-large;
     margin: 1em;
-    color: color($colors, font);
+    color: color($colors, homebutton);
     text-align: center;
+    font-weight: 300;
   }
 
   .playernames {
@@ -21,7 +22,7 @@ page-x01-settings {
     box-shadow: none !important;
     font-weight: 200;
     font-size: 1.5rem;
-    color: color($colors, font);
+    color: color($colors, fontSec);
   }
 
   .bottom {
@@ -31,6 +32,7 @@ page-x01-settings {
     font-size: 2rem;
     font-weight: 300;
     letter-spacing: 0.0825em;
+
   }
 
   .play {
@@ -38,7 +40,7 @@ page-x01-settings {
     color: color($colors, accent);
   }
 
- 
+
 
   .doubles {
     margin: 0 1em 0 1em;

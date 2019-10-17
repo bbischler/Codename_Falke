@@ -30,7 +30,12 @@ export class ServiceProvider {
   }
   setX01Settings(settings: X01Settings) {
     this.x01Settings = settings;
-    console.log(JSON.stringify(this.x01Settings));
+    localStorage.setItem("doubleOutGame", JSON.stringify(this.x01Settings.doubleOut));
+  }
+
+  resetX01Settings() {
+    this.x01Settings = new X01Settings(false, 3, 1, false, true);
+    localStorage.removeItem("doubleOutGame");
   }
   getX01Settings() {
     return this.x01Settings;
@@ -39,9 +44,11 @@ export class ServiceProvider {
   addPlayer(player: Player) {
     this.players.push(player);
   }
+
   getAllPlayer() {
     return this.players;
   }
+
   setGameIsActive(isactive: Boolean) {
     console.log("game: " + isactive);
     this.gameIsActive = isactive;
@@ -113,7 +120,7 @@ export class ServiceProvider {
     const toast = await this.toastController.create({
       cssClass: cssClass,
       message: message,
-      duration: 2500,
+      duration: 2000,
       position: 'top'
     });
     toast.present();

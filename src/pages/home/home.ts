@@ -15,7 +15,7 @@ export class HomePage {
     banner: 'ca-app-pub-3290488239272299/2853593930',
   };
   message: string = "Hey, here is a new cool dart scoring app";
-  url: string = "https://play.google.com/store/apps/details?id=dartknight.app";
+  url: string = "https://play.google.com/store/apps/details?id=com.bischlerdeveloper.dartist";
 
   constructor(public platform: Platform, public navCtrl: NavController,
     private service: ServiceProvider, public admob: AdMobFree,
@@ -65,7 +65,7 @@ export class HomePage {
   }
   openX01(num: number) {
     // this.notAvaiableToast();
-    
+
     this.service.setActivePage(num);
     this.navCtrl.push('X01Page', {
       param: num
@@ -76,7 +76,7 @@ export class HomePage {
     this.navCtrl.push('ChallengePage');
   }
   inviteFriend() {
-    this.socialSharing.share(this.message, "Dart App", null, this.url)
+    this.socialSharing.share(this.message, "Dartist", null, this.url)
       .then(() => {
       }).catch(() => {
       });

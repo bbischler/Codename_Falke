@@ -26,9 +26,11 @@ export class x01ThrowAction {
         if (this.player.roundThrowCount == 0) {
             this.player.roundThrowCount = 3;
         }
-        
+
         this.player.decreaseThrowCount();
-        this.player.scorePoints(this.point * -1) // Same method, negative number ;)
+
+        this.player.decreasePoint(this.point)
+
     }
 
     public setPlayer(p) {

@@ -1,87 +1,91 @@
 <ion-header no-border>
-	<ion-toolbar color="transparent">
-			<div *ngIf="showContent">
-		<button ion-button menuToggle>
-			<ion-icon color="fontSec" name="menu"></ion-icon>
-		</button>
-		<ion-title>
-			<div class="page-header-menu">
-				<div class="logo"><b>Cricket</b></div>
-			</div>
-		</ion-title>
-		</div>
-	</ion-toolbar>
+  <ion-toolbar color="transparent">
+    <button ion-button menuToggle class="homebutton">
+
+      <div class="homeiconcontainer">
+        <div class="homeiconitem">&nbsp;</div>
+        <div class="homeiconitem inner">&nbsp;</div>
+        <div class="homeiconitem">&nbsp;</div>
+      </div>
+      <!-- <ion-icon color="fontSec" name="menu"></ion-icon> -->
+    </button>
+    <ion-title>
+      <div class="page-header-menu">Cricket
+        <!-- <div class="logo"><b>Home</b></div> -->
+      </div>
+    </ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-	<ion-grid style="height:95%;padding-top:0;width:100%;" no-padding *ngIf="showContent">
-		<ion-row style="height:100%" nowrap class="forecast_container">
-			<!-- <ion-scroll direction="x"> -->
-			<ion-col *ngFor="let player of players" class="player">
+  <ion-grid style="height:95%;padding-top:0;width:100%;" no-padding *ngIf="showContent">
+    <ion-row style="height:100%" nowrap class="forecast_container">
+      <!-- <ion-scroll direction="x"> -->
+      <ion-col *ngFor="let player of players" class="player">
 
-				<!-- PlayerInfo -->
-				<ion-row class="playerinfo">
-					<ion-col class="playerName">
-						{{player.name}}
-					</ion-col>
-				</ion-row>
-				<ion-row class="playerinfo score">
-					<ion-col class="playerScore">
-						{{player.totalScore}}
-					</ion-col>
-				</ion-row>
+        <!-- PlayerInfo -->
+        <ion-row class="playerinfo">
+          <ion-col class="playerName">
+            {{player.name}}
+          </ion-col>
+        </ion-row>
+        <ion-row class="playerinfo score">
+          <ion-col class="playerScore">
+            {{player.totalScore}}
+          </ion-col>
+        </ion-row>
 
-				<!-- Scoreboard -->
-				<ion-row *ngFor="let points of player.points" class="scoreboardrow">
-					<button ion-button block color="transparent" (click)="addPoints(points, player.id)"
-						class="numbercontainer" [disabled]="points.setIsClosed">
+        <!-- Scoreboard -->
+        <ion-row *ngFor="let points of player.points" class="scoreboardrow">
+          <button ion-button block color="transparent" (click)="addPoints(points, player.id)" class="numbercontainer"
+            [disabled]="points.setIsClosed">
 
-						<ion-col align-self-center col-8>
-							<div [ngClass]="points.setIsClosed ? 'numberscore full' : 'numberscore'">
-								{{points.displayText}}
-							</div>
-						</ion-col>
-						<!-- Three Dots -->
-						<ion-col col-4 style="display:flex;">
-							<div class="dots">
-								<i *ngFor="let i of containerofThree" [ngClass]="points.setIsClosed ? 'fas fa-circle fa-xs closed' :
+            <ion-col align-self-center col-8>
+              <div [ngClass]="points.setIsClosed ? 'numberscore full' : 'numberscore'">
+                {{points.displayText}}
+              </div>
+            </ion-col>
+            <!-- Three Dots -->
+            <ion-col col-4 style="display:flex;">
+              <div class="dots">
+                <i *ngFor="let i of containerofThree" [ngClass]="points.setIsClosed ? 'fas fa-circle fa-xs closed' :
 								(i <= points.hitCount ? 'fas fa-circle fa-xs' : 'far fa-circle fa-xs')"></i>
-							</div>
-						</ion-col>
-					</button>
-				</ion-row>
-			</ion-col>
+              </div>
+            </ion-col>
+          </button>
+        </ion-row>
+      </ion-col>
 
-		</ion-row>
+    </ion-row>
 
 
-		<!-- Buttom Buttons -->
-		<ion-row style="height:10%;padding-top:0;">
-			<ion-col col-3>
-				<button ion-button block color="transparent" class="btn_bottom" (click)="undo()">
-					UNDO
-				</button>
-			</ion-col>
-			<ion-col col-3>
-				<button ion-button block color="transparent" class="btn_bottom" (click)="newgame()">
-					NEW GAME
-				</button>
-			</ion-col>
-			<ion-col col-3>
-				<button ion-button block [ngClass]="isDouble ? 'active_btn' : 'btn_bottom' " class="btn_bottom"
-					(click)="double()">
-					DOUBLE
-				</button>
-			</ion-col>
-			<ion-col col-3>
-				<button ion-button block [ngClass]="isTriple ? 'active_btn' : 'btn_bottom' " class="btn_bottom"
-					(click)="trible()">
-					TRIPLE
-				</button>
-			</ion-col>
+    <!-- Buttom Buttons -->
+    <ion-row style="height:10%;padding-top:0;">
+      <ion-col col-3>
+        <button ion-button block color="transparent" class="btn_bottom" (click)="undo()">
+          UNDO
+        </button>
+      </ion-col>
+      <ion-col col-3>
+        <button ion-button block color="transparent" class="btn_bottom" (click)="newgame()">
+          NEW GAME
+        </button>
+      </ion-col>
+      <ion-col col-3>
+        <button ion-button block [ngClass]="isDouble ? 'active_btn' : 'btn_bottom' " class="btn_bottom"
+          (click)="double()">
+          DOUBLE
+        </button>
+      </ion-col>
+      <ion-col col-3>
+        <button ion-button block [ngClass]="isTriple ? 'active_btn' : 'btn_bottom' " class="btn_bottom"
+          (click)="trible()">
+          TRIPLE
+        </button>
+      </ion-col>
 
-		</ion-row>
+    </ion-row>
 
-	</ion-grid>
-	<div class="ads"> </div>
+  </ion-grid>
+  <div class="ads"> </div>
 </ion-content>

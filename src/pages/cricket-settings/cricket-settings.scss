@@ -1,9 +1,10 @@
 page-cricket-settings {
   .heading {
-    font-size: 1.5em;
+    font-size: x-large;
     margin: 1em;
-    color: color($colors, font);
+    color: color($colors, homebutton);
     text-align: center;
+    font-weight: 300;
   }
 
   .playernames {
@@ -21,7 +22,7 @@ page-cricket-settings {
     box-shadow: none !important;
     font-weight: 200;
     font-size: 1.5rem;
-    color: color($colors, font);
+    color: color($colors, fontSec);
   }
 
   .bottom {

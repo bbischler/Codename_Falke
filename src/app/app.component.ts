@@ -6,6 +6,8 @@ import { HomePage } from '../pages/home/home';
 import { ServiceProvider } from '../providers/service/service';
 import { App } from 'ionic-angular';
 import { timer } from 'rxjs/observable/timer';
+import { Insomnia } from '@ionic-native/insomnia/ngx';
+
 
 @Component({
   selector: 'page-menu',
@@ -27,7 +29,7 @@ export class MyApp {
 
   constructor(public platform: Platform, public statusBar: StatusBar,
     public splashScreen: SplashScreen, private service: ServiceProvider,
-    public alertCtrl: AlertController, public app: App) {
+    public alertCtrl: AlertController, public app: App, private insomnia: Insomnia) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -58,7 +60,12 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      this.statusBar.styleDefault();
+      this.insomnia.keepAwake()
+        .then(
+          () => console.log('success keep awake'),
+          () => console.log('error keep awake')
+        );
+      this.statusBar.overlaysWebView(true);
       this.splashScreen.hide();
       timer(1200).subscribe(() => this.hidesplash())
     });

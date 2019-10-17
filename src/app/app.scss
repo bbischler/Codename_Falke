@@ -114,14 +114,17 @@ page-menu {
   }
 }
 
-.page-header-menu {
-  color: color($colors, accent);
-  height: 5em;
+.sidemenu {
+  height: 4.5em;
   vertical-align: middle;
+  line-height: 4.5em;
+}
+
+.page-header-menu {
+  color: color($colors, homebutton);
   text-align: center;
   font-size: x-large;
-  font-weight: 400;
-  line-height: 5em;
+  font-weight: 200;
 }
 
 
@@ -264,7 +267,25 @@ ion-icon {
 
 
 // Toast Design
+
 .playerToast {
+  text-align: center;
+
+  .toast-container {
+    border: solid 1px color($colors, accentSec2);
+  }
+}
+
+.playerToastBust {
+  text-align: center;
+
+  .toast-container {
+    border: solid 1px color($colors, red);
+  }
+}
+
+.playerToastLeg {
+  line-height: 30vw;
   text-align: center;
 }
 
@@ -274,9 +295,12 @@ ion-icon {
 }
 
 .toast-container {
-  background: color($colors, backgroundSec);
-  border: solid 1px color($colors, accentSec2) !important;
+  background: color($colors, background);
+  border: solid 1px color($colors, accentSec2);
 }
+
+
+
 
 //toolbar
 .toolbar {
@@ -295,10 +319,30 @@ ion-icon {
   height: 100%;
 }
 
-// ion-backdrop {
-//     opacity: 0.6 !important;
-// }
-// .ads {
-//   height: 60px;
-//   width: 100%;
-// }
+
+//home icon
+.homeiconcontainer {
+  position: absolute;
+  height: 75%;
+  right: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.homeiconitem {
+  margin: auto;
+  height: 1px;
+  background: color($colors, homebutton);
+  width: 70%;
+
+}
+
+.homebutton {
+  position: relative;
+}
+
+.inner {
+  width: 45%;
+}

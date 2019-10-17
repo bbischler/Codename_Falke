@@ -72,10 +72,12 @@ export class X01Page {
 
   async ionViewCanLeave() {
     if (this.service.getGameIsActive()) {
-      const shouldLeave = await this.confirmLeave();
-      if (shouldLeave)
-        this.storeGame();
-      return shouldLeave;
+      // const shouldLeave = await this.confirmLeave();
+      // if (shouldLeave)
+      //   this.storeGame();
+      this.storeGame();
+      this.showGameStored();
+      return true;
     }
   }
 
@@ -113,9 +115,12 @@ export class X01Page {
       p.setTotalScore(this.num);
     })
     this.activePlayer = this.players[0];
+    this.playerCounter = 0;
+    this.slides.slideTo(this.playerCounter, 1000);
   }
 
   addPoints(points: number) {
+
     if (this.x01Settings.doubleIn) {
       if (!this.isDouble && this.activePlayer.doubleIn) {
         this.presentToastDoubleIn();
@@ -130,6 +135,11 @@ export class X01Page {
       points = points * 2;
     }
     if (this.isTriple) {
+      if (points == 25) {
+        this.showPopUpTriple25();
+        this.isTriple = false;
+        return;
+      }
       points = this.isTripleFunc(points);
     }
 
@@ -183,12 +193,7 @@ export class X01Page {
       }
 
     }
-    if (points == 25) {
-      this.showPopUpTriple25();
-      return;
-    } else {
-      points = points * 3;
-    }
+    points = points * 3;
     return points;
   }
   checkLegbasedWinning(_score: number) {
@@ -208,6 +213,7 @@ export class X01Page {
       }
     }
 
+
     if (this.activePlayer.checkLegs(this.x01Settings.legs)) {
       this.activePlayer.increaseSet();
     }
@@ -225,6 +231,7 @@ export class X01Page {
     }
     else if (_score <= 1) {
       console.log("BUST!!!!!");
+      this.presentBust();
       let tmpRoundCount = this.activePlayer.roundThrowCount;
       for (let i = 0; i < tmpRoundCount; i++)
         this.undo();
@@ -243,6 +250,7 @@ export class X01Page {
       return true;
     }
     else if (_score < 0) {
+      this.presentBust();
       let tmpRoundCount = this.activePlayer.roundThrowCount;
       for (let i = 0; i < tmpRoundCount; i++)
         this.undo();
@@ -307,6 +315,8 @@ export class X01Page {
     for (let p of this.players) {
       p.resetAll();
     }
+    this.players = [];
+    this.service.deletePlayers();
   }
 
 
@@ -357,6 +367,7 @@ export class X01Page {
   }
 
   restoreGame() {
+    this.actionStack = new Stack<x01ThrowAction>();
     console.log("restore X01storage");
     let x01Storage = JSON.parse(localStorage.getItem('x01Storage' + this.num));
     this.isDouble = x01Storage.isDouble;
@@ -432,13 +443,19 @@ export class X01Page {
   async gameRestoreToast() {
     this.service.toastPopup('playerToast', 'Game restored!');
   }
+  async presentBust() {
+    this.service.toastPopup('playerToastBust', 'Bust!');
+  }
+  async showGameStored() {
+    this.service.toastPopup('playerToast', 'Game is stored');
+  }
 
   openPopupRestore() {
-    this.service.showMessageOkCancel('Restore ' + this.num + '?', 'Do you want to restore the last game?', ['Cancel', 'Yes']).then((res) => {
+    this.service.showMessageOkCancel('Restore ' + this.num + '?', 'Do you want to restore the last game?', ['New game', 'Yes']).then((res) => {
       if (res) {
         this.restoreGame();
         this.showContent = true;
-        this.slides.slideTo(this.playerCounter, 1000);
+        this.slides.slideTo(0, 1000);
       } else {
         this.openSettingsModal();
       }
@@ -459,7 +476,7 @@ export class X01Page {
 
 
   winningLegToast(name: String) {
-    this.service.toastPopup('playerToast', name + '  has won a leg!');
+    this.service.toastPopup('playerToastLeg', name + '  has won a leg!');
   }
 
 

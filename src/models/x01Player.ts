@@ -42,19 +42,37 @@ export class X01Player extends Player {
             let length = filtered.length;
             console.log("length: " + length);
 
-            if (length != throwLeft) {
+            if (length > throwLeft) {
                 console.log("length != throwleft");
                 return;
             }
-            if (length < 3)
-                filtered.unshift(' ');
 
-            if (length < 2)
-                filtered.unshift(' ');
+            if (throwLeft == 3) {
+                if (length <= 2)
+                    filtered.push(' ');
+                if (length < 2)
+                    filtered.push(' ');
+            }
 
+            if (throwLeft == 2) {
+                if (length == 2)
+                    filtered.unshift(' ');
+
+                if (length == 1) {
+                    filtered.unshift(' ');
+                    filtered.push(' ');
+                }
+            }
+            if (throwLeft == 1) {
+                filtered.unshift(' ');
+                filtered.unshift(' ');
+            }
             this.toThrow = filtered;
+        } else {
+            this.toThrow = [' ', ' ', ' '];
         }
     }
+
 
     public increaseLegs() {
         this.legs++;
@@ -91,20 +109,17 @@ export class X01Player extends Player {
     public scorePoints(points: number) {
         this.roundScore += points;
         this.totalScore -= points;
-        // if (this.totalScore <= 0)
-        //     this.totalScore = 0;
-
-
-        if (points >= 0)
-            this.lastScores.push(points);
-        else
-            this.lastScores.pop();
-
+        this.lastScores.push(points);
         this.avg = this.totalThrowCount == 0 ? 0 : Math.floor(this.roundScore / this.totalThrowCount);
-
-
         this.setToThrow();
+    }
 
+    public decreasePoint(points: number) {
+        this.roundScore -= points;
+        this.totalScore += points;
+        this.lastScores.pop();
+        this.avg = this.totalThrowCount == 0 ? 0 : Math.floor(this.roundScore / this.totalThrowCount);
+        this.setToThrow();
     }
 
     public setTotalScore(totalScore: number) {

@@ -9,13 +9,15 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class DataProvider {
-  checkoutTable = new Map();
+  checkoutTableDoubleOut = new Map();
+  checkoutTableSingleOut = new Map();
 
   constructor(public http: HttpClient) {
-    this.getCheckoutTable();
+    this.setCheckoutTables();
   }
-  getCheckoutTable() {
-    this.http.get('../../assets/checkoutTable.csv', { responseType: 'text' })
+
+  setCheckoutTables() {
+    this.http.get('../../assets/checkoutTableDoubleOut.csv', { responseType: 'text' })
       .subscribe(
         data => {
           data = data.replace(/(\r\n|\n|\r)/gm, "Y");
@@ -28,7 +30,29 @@ export class DataProvider {
             for (let i of _toThrow) {
               tmpArr.push(i);
             }
-            this.setCheckOutTable(score, tmpArr);
+            this.checkoutTableDoubleOut.set(score, tmpArr);
+          }
+
+        },
+        error => {
+          console.log(error);
+        }
+      );
+
+    this.http.get('../../assets/checkoutTableSingleOut.csv', { responseType: 'text' })
+      .subscribe(
+        data => {
+          data = data.replace(/(\r\n|\n|\r)/gm, "Y");
+          var lines = data.split('Y');
+          for (let line of lines) {
+            var arr = line.split(';');
+            let score = parseInt(arr[0]);
+            let tmpArr: String[] = [];
+            let _toThrow = arr[1].split(' ');
+            for (let i of _toThrow) {
+              tmpArr.push(i);
+            }
+            this.checkoutTableSingleOut.set(score, tmpArr);
           }
 
         },
@@ -39,14 +63,17 @@ export class DataProvider {
 
   }
 
-  setCheckOutTable(key: number, value: String[]) {
-    this.checkoutTable.set(key, value);
-  }
-
-
   getCheckOut(num) {
-    if (this.checkoutTable.get(num)) {
-      return this.checkoutTable.get(num);
+
+    let isdoubleOut: boolean = JSON.parse(localStorage.getItem("doubleOutGame"));
+    if (isdoubleOut) {
+      if (this.checkoutTableDoubleOut.get(num)) {
+        return this.checkoutTableDoubleOut.get(num);
+      }
+    } else {
+      if (this.checkoutTableSingleOut.get(num)) {
+        return this.checkoutTableSingleOut.get(num);
+      }
     }
   }
 }
