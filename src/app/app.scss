@@ -115,16 +115,21 @@ page-menu {
 }
 
 .sidemenu {
-  height: 4.5em;
+  height: 5em;
   vertical-align: middle;
-  line-height: 4.5em;
+  line-height: 5em;
 }
 
 .page-header-menu {
   color: color($colors, homebutton);
   text-align: center;
-  font-size: x-large;
-  font-weight: 200;
+  font-size: 2rem;
+  font-weight: 300;
+}
+
+ion-header {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 
@@ -323,7 +328,7 @@ ion-icon {
 //home icon
 .homeiconcontainer {
   position: absolute;
-  height: 75%;
+  height: 70%;
   right: 0;
   left: 0;
   display: flex;
@@ -335,7 +340,7 @@ ion-icon {
   margin: auto;
   height: 1px;
   background: color($colors, homebutton);
-  width: 70%;
+  width: 64%;
 
 }
 
@@ -344,5 +349,5 @@ ion-icon {
 }
 
 .inner {
-  width: 45%;
+  width: 40%;
 }

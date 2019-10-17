@@ -1,7 +1,4 @@
 page-home {
-
-
-
   ion-grid {
     display: block;
     height: 90%;
@@ -19,7 +16,6 @@ page-home {
   }
 
   ion-col {
-    // border: solid 1px yellow;
     padding: 0px !important;
     display: flex;
     justify-content: center;
@@ -34,15 +30,15 @@ page-home {
     align-items: center;
     background-color: color($colors, transparent);
     border-radius: 5px;
-    // margin:5px;
   }
 
   .font {
-    font-weight: 300;
-    font-size: 2.5rem;
+    letter-spacing: 1px;
+    font-weight: 200;
+    font-size: 2.3rem;
     width: 100%;
     color: color($colors, font);
-    text-align: center; // border: solid 1px red;
+    text-align: center;
     vertical-align: middle !important;
   }
 

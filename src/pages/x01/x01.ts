@@ -38,7 +38,6 @@ export class X01Page {
   actionStack: Stack<x01ThrowAction> = new Stack<x01ThrowAction>();
   appSettings: any;
   showContent: boolean = false;
-  counter180: number = 0;
 
   constructor(public navCtrl: NavController, public platform: Platform,
     public navParams: NavParams, public modalCtrl: ModalController,
@@ -72,9 +71,6 @@ export class X01Page {
 
   async ionViewCanLeave() {
     if (this.service.getGameIsActive()) {
-      // const shouldLeave = await this.confirmLeave();
-      // if (shouldLeave)
-      //   this.storeGame();
       this.storeGame();
       this.showGameStored();
       return true;
@@ -140,7 +136,7 @@ export class X01Page {
         this.isTriple = false;
         return;
       }
-      points = this.isTripleFunc(points);
+      points = points * 3;
     }
 
     if (points == 0) {
@@ -175,7 +171,7 @@ export class X01Page {
     console.log("Player " + this.activePlayer.id + " roundThrowCounter = " + this.activePlayer.roundThrowCount);
 
     if (this.activePlayer.roundThrowCount == 3) {
-      this.counter180 = 0;
+      this.has180();
       this.playerCounter = (this.playerCounter + 1) % this.players.length;
       this.activePlayer = this.players[this.playerCounter];
       this.activePlayer.resetForTurn();
@@ -183,19 +179,13 @@ export class X01Page {
     }
   }
 
-
-  isTripleFunc(points) {
-    if (points == 20) {
-      this.counter180 += 1;
-      if (this.counter180 == 3) {
-        this.play180();
-        this.counter180 = 0;
-      }
-
-    }
-    points = points * 3;
-    return points;
+  has180() {
+    let scores = this.activePlayer.lastScores;
+    let length = scores.length - 1;
+    if (scores[length] + scores[length - 1] + scores[length - 2] == 180)
+      this.play180();
   }
+
   checkLegbasedWinning(_score: number) {
     if (this.x01Settings.doubleOut) {
       if (this.checkDoubleOutWinning(_score)) {
@@ -359,16 +349,12 @@ export class X01Page {
       "showContent": this.showContent
     }));
     localStorage.setItem('x01Stack' + this.num, JSON.stringify(this.actionStack.toArray()));
-    console.log('X01 Storage wurde gesetzt!');
     this.service.setGameIsActive(false);
     this.service.deletePlayers();
-
-    console.log("Storage: " + localStorage.getItem('x01Storage' + this.num));
   }
 
   restoreGame() {
     this.actionStack = new Stack<x01ThrowAction>();
-    console.log("restore X01storage");
     let x01Storage = JSON.parse(localStorage.getItem('x01Storage' + this.num));
     this.isDouble = x01Storage.isDouble;
     this.isTriple = x01Storage.isTriple;
@@ -378,7 +364,6 @@ export class X01Page {
     this.appSettings = x01Storage.appSettings;
     this.showContent = x01Storage.showContent;
     this.playerCounter = x01Storage.playerCounter;
-    // this.activePlayer = this.service.getObjectOfPlayer(x01Storage.activePlayer);
     this.players = [];
     for (let p of x01Storage.players) {
       let tmpPlayer = new X01Player(this.data, p.id, p.name)
@@ -394,17 +379,11 @@ export class X01Page {
         "sets": p.sets,
         "doubleIn": p.doubleIn,
         "doubleOut": p.doubleOut,
-
       });
       this.players.push(tmpPlayer);
     }
     // this.setPlayer();
     this.activePlayer = this.players[this.playerCounter];
-
-    // for (let p of x01Storage.players) {
-    //   this.players.push(this.service.getObjectOfPlayer(p));
-    // }
-    // // this.setPlayer();
 
     let tmp: Array<x01ThrowAction> = JSON.parse(localStorage.getItem('x01Stack' + this.num));
     for (let tmpAct of tmp.reverse()) {
@@ -419,7 +398,6 @@ export class X01Page {
     this.deleteStorage();
     this.service.setGameIsActive(true);
     this.gameRestoreToast();
-    // this.slides.slideTo(this.playerCounter, 1000);
   }
 
   deleteStorage() {
