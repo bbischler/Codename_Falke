@@ -10,6 +10,7 @@ import { ServiceProvider } from '../../providers/service/service';
 import { DataProvider } from '../../providers/data/data';
 
 
+
 @IonicPage()
 @Component({
   selector: 'page-x01',
@@ -23,6 +24,8 @@ export class X01Page {
     this.slides.centeredSlides = true;
     this.slides.effect = "cube";
   }
+
+  
   num: number;
   players: X01Player[] = [];
   numbers: number[] = [1, 6, 11, 16];
@@ -57,6 +60,7 @@ export class X01Page {
     }
     // this.openSettings();
     this.x01Settings = this.service.getX01Settings();
+    
   }
 
   ionViewDidEnter() {
@@ -467,4 +471,5 @@ export class X01Page {
     });
     return canLeave;
   }
+
 }
