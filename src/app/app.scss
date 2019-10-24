@@ -132,17 +132,21 @@ ion-header {
   margin-bottom: 10px;
 }
 
+ion-icon {
+  color: color($colors, fontSec);
+
+}
 
 @import url(//fonts.googleapis.com/css?family=Vibur);
 
-.logo b,
-ion-icon {
+.logo b {
   font-weight: 100;
   font-size: 3vh;
   color: color($colors, font);
   text-shadow: 0 0 2px, 0 0 0.5em color($colors, accentSec), 0 0 0.5em color($colors, accentSec2), 0 0 0.1em color($colors, accent), 0 7px 3px #000;
   //text-shadow: 0 -20px 100px, 0 0 2px, 0 0 1em color($colors, accent), 0 0 0.5em color($colors, accent), 0 0 0.1em color($colors, accent), 0 7px 3px #000;
 }
+
 
 .side {
   font-size: 5vh !important;

@@ -9,12 +9,16 @@ page-cricket-settings {
 
   .playernames {
     background: transparent;
-    border: solid 1px color($colors, accentSec2);
-    margin: 0 1em 1em 1em;
+    border: solid 1px color($colors, accentSec2)!important;
+    // margin: 0 1em 1em 1em;
   }
 
   .ion-rows {
     margin: 0 1em 1em 1em;
+  }
+
+  .list {
+    width: 100%;
   }
 
   .button {

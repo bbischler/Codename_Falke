@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.4, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1024 1024" style="enable-background:new 0 0 1024 1024;" xml:space="preserve">
+<style type="text/css">
+	.st0{clip-path:url(#SVGID_2_);}
+	.st1{clip-path:url(#SVGID_4_);fill:#19DB9A;}
+	.st2{opacity:0.33;clip-path:url(#SVGID_6_);}
+	.st3{clip-path:url(#SVGID_8_);fill:#264739;}
+	.st4{clip-path:url(#SVGID_10_);fill:#0B0B13;}
+	.st5{clip-path:url(#SVGID_10_);fill:none;stroke:#0B0B13;stroke-width:91.824;}
+	.st6{clip-path:url(#SVGID_10_);fill:#0B0B33;}
+</style>
+<g>
+	<defs>
+		<rect id="SVGID_1_" width="1024" height="1024"/>
+	</defs>
+	<clipPath id="SVGID_2_">
+		<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+	</clipPath>
+	<g class="st0">
+		<defs>
+			<rect id="SVGID_3_" width="1024" height="1024"/>
+		</defs>
+		<clipPath id="SVGID_4_">
+			<use xlink:href="#SVGID_3_"  style="overflow:visible;"/>
+		</clipPath>
+		<path class="st1" d="M512,1024c282.77,0,512-229.23,512-512S794.77,0,512,0S0,229.23,0,512S229.23,1024,512,1024"/>
+	</g>
+	<g class="st0">
+		<defs>
+			<circle id="SVGID_5_" cx="512" cy="512" r="512"/>
+		</defs>
+		<clipPath id="SVGID_6_">
+			<use xlink:href="#SVGID_5_"  style="overflow:visible;"/>
+		</clipPath>
+		<g class="st2">
+			<g>
+				<defs>
+					<rect id="SVGID_7_" x="5.98" y="5.41" width="1164.47" height="1164.47"/>
+				</defs>
+				<clipPath id="SVGID_8_">
+					<use xlink:href="#SVGID_7_"  style="overflow:visible;"/>
+				</clipPath>
+				<polygon class="st3" points="183.46,571.18 247.89,776.11 635.46,1161.93 1163.38,634.01 776.11,247.89 544.65,183.46 
+					363.04,220.19 228.36,334.47 				"/>
+			</g>
+		</g>
+	</g>
+	<g class="st0">
+		<defs>
+			<rect id="SVGID_9_" width="1024" height="1024"/>
+		</defs>
+		<clipPath id="SVGID_10_">
+			<use xlink:href="#SVGID_9_"  style="overflow:visible;"/>
+		</clipPath>
+		<path class="st4" d="M512,655.21c79.09,0,143.21-64.12,143.21-143.21c0-79.09-64.12-143.21-143.21-143.21
+			S368.79,432.91,368.79,512C368.79,591.09,432.91,655.21,512,655.21"/>
+		<circle class="st5" cx="512" cy="512" r="327.63"/>
+		<path class="st6" d="M746.64,220.19"/>
+		<path class="st6" d="M242.63,771.13"/>
+	</g>
+</g>
+</svg>
