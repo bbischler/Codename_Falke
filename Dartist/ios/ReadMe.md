@@ -6,10 +6,10 @@ $ npm install
 $ ionic cordova build ios --prod
 ```
 dann sollte unter /platform/ios ein fertiges Xcode-Projekt erstellt sein
-[https://ionicframework.com/docs/v3/intro/deploying/](hier nochmal zum nachschauen)
+[https://ionicframework.com/docs/v3/intro/deploying/] (hier nochmal zum nachschauen)
 ## Store Eintrag
 >*keine Ahnung ob der AppStore Emojis bzw Rich-HTML erlaubt. Wenn nicht habe ich auch noch einen TExt ohne den Schnickschnack hier eingefügt
-[https://play.google.com/store/apps/details?id=com.bischlerdeveloper.dartist](Hier ist der Eintrag im Google PlayStore)* 
+[https://play.google.com/store/apps/details?id=com.bischlerdeveloper.dartist] (Hier ist der Eintrag im Google PlayStore)* 
 ###### # Screenshots
 Screenshots für iPhone & iPad sind in den Screenshots-Ordnern
 ###### # Keywords
