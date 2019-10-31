@@ -4,6 +4,7 @@ import { CricketPoint } from './cricketPoint';
 // import { PointerEvents } from 'ionic-angular/umd/gestures/pointer-events';
 
 export class CricketPlayer extends Player {
+ 
     points: CricketPoint[];
 
     constructor(id?: number, name?: string) {

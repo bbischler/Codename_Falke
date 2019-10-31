@@ -20,8 +20,9 @@
     </ion-row>
 
     <ion-row *ngFor="let player of players;let i=index" class="playernames">
+
       <ion-input type="text" placeholder="Player {{i+1}}" [(ngModel)]="players[i].name" clearInput></ion-input>
-      <!-- 
+<!-- 
       <ion-list reorder="true" (ionItemReorder)="reorderItems($event)" no-lines>
         <ion-item *ngFor="let player of players;let i=index" class="playernames" no-lines>
           <ion-input type="text" placeholder="Player {{i+1}}" [(ngModel)]="players[i].name" clearInput></ion-input>

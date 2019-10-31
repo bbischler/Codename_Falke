@@ -102,6 +102,6 @@
     <plugin name="cordova-plugin-statusbar" spec="^2.4.3" />
     <plugin name="cordova-plugin-insomnia" spec="4.3.0" />
     <engine name="browser" spec="6.0.0" />
-    <engine name="ios" spec="^4.5.5" />
     <engine name="android" spec="8.0.0" />
+    <engine name="ios" spec="4.5.5" />
 </widget>

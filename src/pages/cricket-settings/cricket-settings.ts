@@ -40,6 +40,7 @@ export class CricketSettingsPage {
       if (this.players[i].name == "") {
         this.players[i].name = "Player " + (i + 1);
       }
+      // this.players[i].setId(i);
       this.service.addPlayer(this.players[i]);
     }
     localStorage.setItem("cricketPlayer", JSON.stringify(this.players));

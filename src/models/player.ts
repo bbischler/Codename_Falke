@@ -9,7 +9,9 @@ export abstract class Player {
         this.id = id;
         this.name = name;
     }
-
+    setId(i: number) {
+        this.id = i;
+    }
     public abstract throw(points: number, throwAmout: number): void;
 }
 
