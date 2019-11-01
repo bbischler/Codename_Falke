@@ -21,6 +21,9 @@ Wilhelmstr 42
 64646 Heppenheim
 01799366807
 
+###### # License Policy 
+[https://bischlerdeveloperdartist.yolasite.com/] (Link zur License Policy der App)
+
 ###### # Name
 Dartist Pro - scoreboard for cricket 301 & more
 ###### # Kurzbeschreibung
