@@ -92,7 +92,7 @@ export class MyApp {
             } else {
               this.nav.setRoot('HomePage');
             }
-          });
+          }); 
         }
       }
       else {
