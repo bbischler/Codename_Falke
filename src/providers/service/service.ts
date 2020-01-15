@@ -3,7 +3,9 @@ import { X01Player } from '../../models/x01Player';
 import { X01Settings } from '../../models/x01Settings';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AlertController, ToastController } from 'ionic-angular';
+import { AlertController, ToastController, Platform } from 'ionic-angular';
+import { AdMobFreeBannerConfig, AdMobFree, AdMobFreeInterstitialConfig } from '@ionic-native/admob-free/ngx';
+import { AppRate, AppRatePreferences } from '@ionic-native/app-rate/ngx';
 
 /*
   Generated class for the ServiceProvider provider.
@@ -11,16 +13,75 @@ import { AlertController, ToastController } from 'ionic-angular';
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
+// interface AppRatePreferencesEnhanced extends AppRatePreferences {
+//   openUrl: (url: string) => void;
+// }
+
 @Injectable()
 export class ServiceProvider {
   activePage: string = 'Home';
   x01Settings: X01Settings = new X01Settings(false, 3, 1, false, true);
   players: Player[] = [];
   gameIsActive: Boolean = false;
+  private admobId: any = {
+    banner: 'ca-app-pub-3290488239272299/2853593930',
+    interstitial: 'ca-app-pub-3290488239272299/6076061171',
+  };
 
-  constructor(private http: HttpClient, public alertController: AlertController, public toastController: ToastController) {
+  constructor(public appRate: AppRate, public platform: Platform, public admob: AdMobFree, private http: HttpClient, public alertController: AlertController, public toastController: ToastController) {
+
+    this.platform = platform;
+    if (/(android)/i.test(navigator.userAgent)) {
+      this.admobId = {
+        banner: 'ca-app-pub-3290488239272299/2853593930',
+        interstitial: 'ca-app-pub-3290488239272299/6076061171',
+      };
+    } else if (/(ipod|iphone|ipad)/i.test(navigator.userAgent)) {
+      this.admobId = {
+        banner: 'ca-app-pub-3290488239272299/1907343774',
+        interstitial: 'ca-app-pub-3290488239272299/2248496801',
+      };
+    }
     this.setAppSettings();
   }
+
+
+  // rateMe() {
+  //   const custompreferences: AppRatePreferencesEnhanced = {
+  //     displayAppName: 'Dartist',
+  //     usesUntilPrompt: 5,
+  //     promptAgainForEachNewVersion: false,
+  //     inAppReview: true,
+  //     storeAppURL: {
+  //       android: 'market://details?id=com.bischlerdeveloper.dartist',
+  //     },
+  //     customLocale: {
+  //       title: "Would you mind rating %@?",
+  //       message: "It won’t take more than a minute and helps to promote our app. Thanks for your support!",
+  //       cancelButtonLabel: "No, Thanks",
+  //       laterButtonLabel: "Remind Me Later",
+  //       rateButtonLabel: "Rate It Now",
+  //       yesButtonLabel: "Yes!",
+  //       noButtonLabel: "Not really",
+  //       appRatePromptTitle: 'Do you like using %@',
+  //       feedbackPromptTitle: 'Mind giving us some feedback?',
+  //     },
+  //     callbacks: {
+  //       handleNegativeFeedback: function () {
+  //         window.open('mailto:bischler.developer@gmail.com', '_system');
+  //       },
+  //       onRateDialogShow: function (callback) {
+  //         callback(1) // cause immediate click on 'Rate Now' button
+  //       },
+  //       onButtonClicked: function (buttonIndex) {
+  //         console.log("onButtonClicked -> " + buttonIndex);
+  //       }
+  //     },
+  //     openUrl: (this.appRate.preferences as AppRatePreferencesEnhanced).openUrl
+  //   };
+  //   this.appRate.preferences = custompreferences;
+  //   this.appRate.promptForRating(false);
+  // }
 
   getActivePage() {
     return this.activePage;
@@ -128,4 +189,43 @@ export class ServiceProvider {
 
 
 
+
+
+  createBanner() {
+
+    let bannerConfig: AdMobFreeBannerConfig = {
+      id: this.admobId.banner,
+      isTesting: false, // Remove in production 
+      autoShow: false,
+      overlap: false
+    };
+
+    this.admob.banner.config(bannerConfig);
+
+    this.admob.banner.prepare().then(() => {
+      this.admob.banner.show();
+      // success
+    }).catch(e => console.log(e));
+
+  }
+
+
+
+  createInterstitial() {
+    let interstitialConfig: AdMobFreeInterstitialConfig = {
+      id: this.admobId.interstitial,
+      isTesting: false, // Remove in production
+      autoShow: true
+    };
+
+    this.admob.interstitial.config(interstitialConfig);
+
+    this.admob.interstitial.prepare().then(() => {
+      // success
+    });
+
+
+  }
 }
+
+

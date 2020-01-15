@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
 import { IonicPage, NavController } from 'ionic-angular';
-import { AdMobFree, AdMobFreeBannerConfig, AdMobFreeInterstitialConfig } from '@ionic-native/admob-free/ngx';
 import { ServiceProvider } from '../../providers/service/service';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
@@ -17,20 +15,9 @@ export class HomePage {
   message: string = "Hey, here is a new cool dart scoring app";
   url: string = "https://play.google.com/store/apps/details?id=com.bischlerdeveloper.dartist";
 
-  constructor(public platform: Platform, public navCtrl: NavController,
-    private service: ServiceProvider, public admob: AdMobFree,
+  constructor( public navCtrl: NavController,
+    private service: ServiceProvider,
     private socialSharing: SocialSharing) {
-    this.platform = platform;
-    if (/(android)/i.test(navigator.userAgent)) {
-      this.admobId = {
-        banner: 'ca-app-pub-3290488239272299/2853593930',
-      };
-    } else if (/(ipod|iphone|ipad)/i.test(navigator.userAgent)) {
-      this.admobId = {
-        banner: 'ca-app-pub-3290488239272299/1907343774',
-      };
-    }
-    this.createBanner();
   }
 
   ngOnInit() {
@@ -38,26 +25,9 @@ export class HomePage {
 
   ionViewDidEnter() {
     this.service.setActivePage("Home");
+    // this.service.rateMe();
   }
 
-
-  createBanner() {
-
-    let bannerConfig: AdMobFreeBannerConfig = {
-      id: this.admobId.banner,
-      isTesting: false, // Remove in production 
-      autoShow: false,
-      overlap: false
-    };
-
-    this.admob.banner.config(bannerConfig);
-
-    this.admob.banner.prepare().then(() => {
-      this.admob.banner.show();
-      // success
-    }).catch(e => console.log(e));
-
-  }
 
   openCricket() {
     this.service.setActivePage('Cricket');

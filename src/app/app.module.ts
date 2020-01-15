@@ -13,7 +13,7 @@ import { Vibration } from '@ionic-native/vibration/ngx';
 // import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { DataProvider } from '../providers/data/data';
-
+import { AppRate } from '@ionic-native/app-rate/ngx';
 
 @NgModule({
   declarations: [
@@ -39,6 +39,7 @@ import { DataProvider } from '../providers/data/data';
     AdMobFree,
     SocialSharing,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
+    AppRate,
     ServiceProvider,
     DataProvider,
   ]

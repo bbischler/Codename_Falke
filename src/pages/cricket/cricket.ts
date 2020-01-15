@@ -256,6 +256,7 @@ export class CricketPage {
         localStorage.removeItem('cricketPlayer');
         this.navCtrl.setRoot('HomePage');
       }
+      this.service.createInterstitial();
     });
   }
 

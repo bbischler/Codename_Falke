@@ -65,9 +65,11 @@ export class MyApp {
           () => console.log('success keep awake'),
           () => console.log('error keep awake')
         );
-      this.statusBar.overlaysWebView(true);
+      // this.statusBar.overlaysWebView(true);
+      this.statusBar.styleLightContent()
       this.splashScreen.hide();
       timer(1200).subscribe(() => this.hidesplash())
+      this.service.createBanner();
     });
     this.platform.registerBackButtonAction(() => {
       // Catches the active view
@@ -92,7 +94,7 @@ export class MyApp {
             } else {
               this.nav.setRoot('HomePage');
             }
-          }); 
+          });
         }
       }
       else {
