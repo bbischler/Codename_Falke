@@ -45,7 +45,9 @@ export class x01ThrowAction {
             "doubleIn": p.doubleIn,
             "doubleOut": p.doubleIn,
             "id": p.id,
-            "name": p.name
+            "name": p.name,
+            "totalPointsPerLeg": p.totalPointsPerLeg,
+            "avgPerLeg":p.avgPerLeg
         });
         this.player = tmpPlayer;
     }

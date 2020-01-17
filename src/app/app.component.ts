@@ -44,6 +44,7 @@ export class MyApp {
       { title: '701', component: 'X01Page' },
     ];
     this.instructions = [
+      { title: 'Stats', component: 'StatsPage' },
       { title: 'Challenge', component: 'ChallengePage' },
       { title: 'Instructions', component: 'InstructionsPage' },
       { title: 'Settings', component: 'AppsettingsPage' },

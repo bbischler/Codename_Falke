@@ -1,0 +1,64 @@
+page-statscricketmodal {
+  ion-content {
+    padding-top: 4em !important;
+  }
+
+  ion-card {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid color($colors, semiTransparent2);
+  }
+
+  ion-card-header {
+    color: color($colors, accentSec) !important;
+    background: transparent !important;
+  }
+
+  ion-card-content {
+    background: transparent !important;
+  }
+
+  .playername {
+    color: color($colors, font);
+    font-size: 1.1em;
+  }
+
+  .playerscore {
+    color: color($colors, font);
+    font-size: 1.1em;
+
+  }
+
+  .chart {
+    min-height: 17em !important;
+  }
+
+  .backbutton {
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    background: transparent !important;
+  }
+
+  .backbtn {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .flexcontainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .dates {
+    color: color($colors, fontSec);
+
+  }
+
+  .padding {
+    padding: 0.5em !important;
+  }
+
+}

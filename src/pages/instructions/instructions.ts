@@ -22,12 +22,6 @@ export class InstructionsPage {
   SwipedTabsIndicator: any = null;
   constructor(public navCtrl: NavController, public navParams: NavParams, public admob: AdMobFree, private service: ServiceProvider) {
     this.tabs = ["Cricket", "X-01", "Challenge"];
-    // this.admob.banner.hide();
-
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad InstructionsPage');
   }
 
   ionViewDidEnter() {

@@ -1,0 +1,184 @@
+<ion-header no-border>
+  <ion-toolbar color="transparent">
+    <button ion-button menuToggle class="homebutton">
+
+      <div class="homeiconcontainer">
+        <div class="homeiconitem">&nbsp;</div>
+        <div class="homeiconitem inner">&nbsp;</div>
+        <div class="homeiconitem">&nbsp;</div>
+      </div>
+    </button>
+    <ion-title>
+      <div class="page-header-menu">Stats
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+
+  <ion-segment class="SwipedTabs-tabs">
+    <ion-segment-button *ngFor='let tab of tabs ; let i = index ' value="IngoreMe" (click)="selectTab(i)"
+      [ngClass]='{ "SwipedTabs-activeTab" : ( this.SwipedTabsSlider  && ( this.SwipedTabsSlider.getActiveIndex() === i || (  tabs.length -1 === i&& this.SwipedTabsSlider.isEnd()))) }'>
+      {{tab}}
+    </ion-segment-button>
+  </ion-segment>
+
+  <!-- here is our dynamic line  "indicator"-->
+  <div id='indicator' class="SwipedTabs-indicatorSegment" [ngStyle]="{'width.%': (100/this.tabs.length)}"></div>
+
+  <ion-slides #SwipedTabsSlider (ionSlideDrag)="animateIndicator($event)"
+    (ionSlideWillChange)="updateIndicatorPosition()" (ionSlideDidChange)="updateIndicatorPosition()"
+    (pan)="updateIndicatorPosition()" [pager]="false">
+
+    <ion-slide>
+      <ng-template [ngIf]="hasX01Stats()" [ngIfElse]="nox01stats">
+        <ion-card *ngFor="let game of x01stats" (click)='openX01StatsForGame(game)'>
+          <button no-padding ion-item detail-none class="btn">
+            <ion-card-content no-padding>
+              <ion-grid no-padding>
+                <ion-row align-items: stretch>
+                  <ion-col class="datecol flexcontainer padding" col-2>
+                    <div>
+                      <ion-row class="daterow" justify-content-center>
+                        {{game.date | date: 'dd/MM'}}
+                      </ion-row>
+                      <ion-row class="daterow" justify-content-center>
+                        {{game.date | date: 'yyyy' }}
+                      </ion-row>
+                    </div>
+                  </ion-col>
+                  <ion-col class="flexcontainer padding">
+                    <!-- <div class="flexitem"> -->
+                    <div class="playernames" *ngFor="let player of game.players">
+                      {{player.name}}
+                    </div>
+                    <!-- </div> -->
+                  </ion-col>
+                  <ion-col col-2 class="time padding flexcontainer">
+                    <div>
+                      <ion-row class="" justify-content-center>
+                        {{game.date | date: 'hh:mm'}}
+                      </ion-row>
+                      <ion-row class="" justify-content-center>
+                        {{game.date | date: 'a' }}
+                      </ion-row>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card-content>
+          </button>
+        </ion-card>
+        <button ion-button full class=" button deletebtn" (click)="popupDeleteX01Stats()">
+          DELETE X-01 STATS
+        </button>
+      </ng-template>
+      <ng-template #nox01stats>
+        <ion-grid>
+          <ion-row>
+            <ion-col class="nostatsavaiable">
+              No X-01 Stats Avaiable
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="wannaplay">
+              Do you want to play X-01?
+            </ion-col>
+
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <button ion-button full class=" button playx01btn" (click)="playX01(301)">
+                PLAY 301
+              </button>
+            </ion-col>
+            <ion-col>
+              <button ion-button full class="button playx01btn" (click)="playX01(501)">
+                PLAY 501
+              </button>
+            </ion-col>
+            <ion-col><button ion-button full class="button playx01btn" (click)="playX01(701)">
+                PLAY 701
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ng-template>
+    </ion-slide>
+
+    <ion-slide>
+      <ng-template [ngIf]="hasCricketStats()" [ngIfElse]="nocricketstats">
+        <ion-card *ngFor="let game of cricketstats" (click)='openCricketStatsForGame(game)'>
+          <button no-padding ion-item detail-none class="btn">
+            <ion-card-content no-padding>
+              <ion-grid no-padding>
+                <ion-row align-items: stretch>
+                  <ion-col class="datecol flexcontainer padding" col-2>
+                    <div>
+                      <ion-row class="daterow" justify-content-center>
+                        {{game.date | date: 'dd/MM'}}
+                      </ion-row>
+                      <ion-row class="daterow" justify-content-center>
+                        {{game.date | date: 'yyyy' }}
+                      </ion-row>
+                    </div>
+                  </ion-col>
+                  <ion-col class="flexcontainer padding">
+                    <!-- <div class="flexitem"> -->
+                    <div class="playernames" *ngFor="let player of game.players">
+                      {{player.name}}
+                    </div>
+                    <!-- </div> -->
+                  </ion-col>
+                  <ion-col col-2 class="time padding flexcontainer">
+                    <div>
+                      <ion-row class="" justify-content-center>
+                        {{game.date | date: 'hh:mm'}}
+                      </ion-row>
+                      <ion-row class="" justify-content-center>
+                        {{game.date | date: 'a' }}
+                      </ion-row>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card-content>
+          </button>
+        </ion-card>
+        <button ion-button full class="button deletebtn" (click)="popupDeleteCricketStats()">
+          DELETE CRICKET STATS
+        </button>
+      </ng-template>
+      <ng-template #nocricketstats>
+        <ion-grid>
+          <ion-row>
+            <ion-col class="nostatsavaiable">
+              No Cricket Stats Avaiable
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="wannaplay">
+              Do you want to play cricket?
+            </ion-col>
+
+          </ion-row>
+          <ion-row>
+            <ion-col>
+            </ion-col>
+            <ion-col>
+              <button ion-button full class="button playx01btn" (click)="playCricket()">
+                PLAY CRICKET
+              </button>
+            </ion-col>
+            <ion-col>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ng-template>
+    </ion-slide>
+
+  </ion-slides>
+
+</ion-content>

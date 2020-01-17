@@ -6,6 +6,8 @@ import { IonicPage, NavController, NavParams, ModalController, Modal, ModalOptio
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { ServiceProvider } from '../../providers/service/service';
 import { Stack } from 'stack-typescript';
+import { Cricketstats } from '../../models/cricketstats';
+
 
 @IonicPage()
 @Component({
@@ -22,6 +24,7 @@ export class CricketPage {
   actionStack: Stack<cricketThrowAction> = new Stack<cricketThrowAction>();
   appSettings: any;
   showContent: boolean = false;
+  cricketstats: Cricketstats[] = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public modalCtrl: ModalController, private service: ServiceProvider, private vibration: Vibration) { }
@@ -33,6 +36,7 @@ export class CricketPage {
       this.openSettingsModal();
     }
     this.service.setActivePage("Cricket");
+    this.getStatsStorage();
     this.appSettings = this.service.getAppSettings();
   }
 
@@ -45,6 +49,18 @@ export class CricketPage {
       this.showGameStored();
       return true;
     }
+  }
+
+  getStatsStorage() {
+    if (localStorage.getItem('cricketstats') === null) {
+      this.cricketstats.push(new Cricketstats(0));
+    } else {
+      this.cricketstats = JSON.parse(localStorage.getItem('cricketstats'));
+      this.cricketstats.push(new Cricketstats(this.cricketstats.length));
+    }
+  }
+  writeStatsInStorage() {
+    localStorage.setItem('cricketstats', JSON.stringify(this.cricketstats));
   }
 
   storeGame() {
@@ -94,6 +110,12 @@ export class CricketPage {
     this.currentHighscore = 0;
   }
 
+  setStats() {
+    this.cricketstats[this.cricketstats.length - 1].date = new Date();
+    this.cricketstats[this.cricketstats.length - 1].players = this.players;
+  }
+
+
   addPoints(point: CricketPoint, id: number) {
     this.throwAmount = this.getThrowAmount();
     if (this.throwAmount == 3 && point.value == 25) {
@@ -118,6 +140,8 @@ export class CricketPage {
       this.currentHighscore = player.totalScore;
     }
     if (this.hasWon(player)) {
+      this.setStats();
+      this.writeStatsInStorage();   
       this.service.deletePlayers();
       this.service.setGameIsActive(false);
       this.winningPopup(player);

@@ -149,7 +149,9 @@ export class ServiceProvider {
       "name": p.name,
       "totalScore": p.totalScore,
       "roundThrowCount": p.roundThrowCount,
-      "totalThrowCount": p.totalThrowCount
+      "totalThrowCount": p.totalThrowCount,
+      "totalPointsPerLeg": p.totalPointsPerLeg,
+      "avgPerLeg": p.avgPerLeg
     });
     return tmpPlayer;
   }

@@ -8,6 +8,7 @@ import { IonicPage, NavController, Platform, NavParams, Slides, ModalController,
 import { X01Settings } from '../../models/x01Settings';
 import { ServiceProvider } from '../../providers/service/service';
 import { DataProvider } from '../../providers/data/data';
+import { X01stats } from '../../models/x01stats';
 
 
 
@@ -41,6 +42,7 @@ export class X01Page {
   actionStack: Stack<x01ThrowAction> = new Stack<x01ThrowAction>();
   appSettings: any;
   showContent: boolean = false;
+  x01stats: X01stats[] = [];
 
   constructor(public navCtrl: NavController, public platform: Platform,
     public navParams: NavParams, public modalCtrl: ModalController,
@@ -68,8 +70,18 @@ export class X01Page {
     } else {
       this.openSettingsModal();
     }
+    this.getStatsStorage();
     this.appSettings = this.service.getAppSettings();
     this.service.setActivePage(this.num);
+  }
+
+  getStatsStorage() {
+    if (localStorage.getItem('x01stats') === null) {
+      this.x01stats.push(new X01stats(0));
+    } else {
+      this.x01stats = JSON.parse(localStorage.getItem('x01stats'));
+      this.x01stats.push(new X01stats(this.x01stats.length));
+    }
   }
 
   async ionViewCanLeave() {
@@ -160,10 +172,11 @@ export class X01Page {
     var action = new x01ThrowAction(points, this.activePlayer);
     this.actionStack.push(action);
     action.do();
-    // this.activePlayer.setToThrow(this.service.getCheckOut(this.activePlayer.totalScore));
 
     if (this.hasWon()) {
+      this.setStats();
       this.service.setGameIsActive(false);
+      this.writeStatsInStorage();
       this.winningPopup(this.activePlayer);
     }
 
@@ -181,6 +194,9 @@ export class X01Page {
       this.slides.slideTo(this.playerCounter, 1000);
     }
   }
+  writeStatsInStorage() {
+    localStorage.setItem('x01stats', JSON.stringify(this.x01stats));
+  }
 
   has180() {
     let scores = this.activePlayer.lastScores;
@@ -189,23 +205,24 @@ export class X01Page {
       this.play180();
   }
 
+
+  doLegBasedStuff() {
+    this.activePlayer.increaseLegs();
+    this.winningLegToast(this.activePlayer.name);
+    this.resetGameLegbased();
+    this.setPlayer();
+  }
+
   checkLegbasedWinning(_score: number) {
     if (this.x01Settings.doubleOut) {
       if (this.checkDoubleOutWinning(_score)) {
-        this.activePlayer.increaseLegs();
-        this.winningLegToast(this.activePlayer.name);
-        this.resetGameLegbased();
-        this.setPlayer();
+        this.doLegBasedStuff();
       }
     } else {
       if (this.checkNormalWinning(_score)) {
-        this.activePlayer.increaseLegs();
-        this.winningLegToast(this.activePlayer.name);
-        this.resetGameLegbased();
-        this.setPlayer();
+        this.doLegBasedStuff();
       }
     }
-
 
     if (this.activePlayer.checkLegs(this.x01Settings.legs)) {
       this.activePlayer.increaseSet();
@@ -259,16 +276,27 @@ export class X01Page {
 
   }
 
+  setStats() {
+    if (!this.x01Settings.legbased) {
+      for (let p of this.players) {
+        p.setstats();
+      }
+    }
+    this.x01stats[this.x01stats.length - 1].date = new Date();
+    this.x01stats[this.x01stats.length - 1].players = this.players;
+  }
+
   hasWon() {
     let _score = this.activePlayer.totalScore;
 
-    if (this.x01Settings.legbased)
+    if (this.x01Settings.legbased) {
       return this.checkLegbasedWinning(_score);
+    }
     else {
       if (this.x01Settings.doubleOut) {
-        return this.checkDoubleOutWinning(_score);
+        return this.checkDoubleOutWinning(_score)
       } else {
-        return this.checkNormalWinning(_score);
+        return this.checkNormalWinning(_score)
       }
     }
   }
@@ -382,6 +410,8 @@ export class X01Page {
         "sets": p.sets,
         "doubleIn": p.doubleIn,
         "doubleOut": p.doubleOut,
+        "totalPointsPerLeg": p.totalPointsPerLeg,
+        "avgPerLeg": p.avgPerLeg
       });
       this.players.push(tmpPlayer);
     }

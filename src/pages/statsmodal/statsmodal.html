@@ -1,0 +1,57 @@
+<ion-content padding>
+
+  <ion-buttons start class="backbutton">
+    <button class="backbtn" ion-button (click)="closeModal()">
+      <ion-icon color="fontSec" name="arrow-back"></ion-icon>
+    </button>
+  </ion-buttons>
+
+  <ion-grid>
+    <ion-row justify-content-center>
+      <ion-col class="flexcontainer padding" align-self-center>
+
+        <div class="dates">
+          {{game.date | date: 'dd/MM/yyyy'}} &nbsp; &#8226; &nbsp; {{game.date | date: 'hh:mm a'}}
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-card>
+    <ion-card-header>
+      Total Score
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row *ngFor="let p of game.players">
+          <ion-col col-4 class="playername">
+            {{p.name}}
+          </ion-col>
+          <ion-col class="playerscore">
+            {{p.roundScore}}
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card>
+    <ion-card-header>
+      Average Points
+    </ion-card-header>
+    <ion-card-content class="chart">
+      <canvas #lineCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Total Points
+    </ion-card-header>
+    <ion-card-content class="chart">
+      <canvas #barCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

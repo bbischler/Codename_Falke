@@ -38,6 +38,8 @@ ion-title {
 
 ion-content {
   background-image: linear-gradient(160deg, color($colors, background) 20%, color($colors, backgroundSec)) !important;
+  // min-height: 500px;
+  // min-width: 500px;
 }
 
 .scroll-content {
@@ -345,7 +347,7 @@ ion-icon {
   margin: auto;
   height: 1px;
   background: color($colors, homebutton);
-  width: 65%; 
+  width: 65%;
 
 }
 
@@ -355,4 +357,10 @@ ion-icon {
 
 .inner {
   width: 40%;
+}
+
+// Stats MODAL //
+
+.stats-modal .modal-wrapper {
+  background-image: linear-gradient(160deg, color($colors, background) 20%, color($colors, backgroundSec)) !important;
 }

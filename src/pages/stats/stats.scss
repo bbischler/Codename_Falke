@@ -1,0 +1,131 @@
+page-stats {
+  .btn {
+    box-shadow: none !important;
+    background-color: color($colors, transparent);
+    padding: none !important;
+  }
+
+  ion-card {
+    padding: 0.2em;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid color($colors, semiTransparent2);
+  }
+
+  ion-card-header {
+    background: transparent !important;
+  }
+
+  ion-card-content {
+    background: transparent !important;
+  }
+
+  .label {
+    color: color($colors, fontSec);
+    font-size: 1.1em;
+    display: inline;
+    margin: 0 !important;
+
+  }
+
+  .playernames {
+    color: color($colors, fontSec);
+    font-size: 1.1em;
+    display: inline;
+    padding: 0 0.4em;
+  }
+
+  .datecol {
+    // background: color($colors, accentSec);
+  }
+
+  .padding {
+    padding: 0.5em !important;
+  }
+
+  .daterow {
+    color: color($colors, accentSec);
+    font-size: 1em;
+    font-weight: 400;
+  }
+
+  .time {
+    color: color($colors, fontSec);
+    font-size: 0.9em;
+  }
+
+  .flexcontainer {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  // .flexitem {}
+
+  .button {
+    height: 3em;
+    width: 90%;
+    margin: auto;
+    background-color: color($colors, transparent);
+  }
+
+  .deletebtn {
+    color: color($colors, deleteclr);
+    border: solid 1px color($colors, deleteclr);
+    margin-top: 3em;
+  }
+
+  .playx01btn {
+    color: color($colors, fontSec);
+    border: solid 1px color($colors, btnActivated);
+  }
+
+  .nostatsavaiable {
+    color: color($colors, font);
+    margin: 2em;
+    text-align: center;
+    font-size: 0.9em;
+  }
+
+  .wannaplay {
+    font-size: 0.9em;
+    text-align: center;
+    color: color($colors, fontSec);
+    margin: 2em;
+
+  }
+
+  .SwipedTabs-indicatorSegment {
+    -webkit-transition: 0.3s all;
+    -moz-transition: 0.3s all;
+    -o-transition: 0.3s all;
+    transition: 0.3s all;
+    transform-origin: top 0 left 0;
+    height: 1px;
+    position: relative;
+    top: -2px;
+    background-color: color($colors, accent) !important;
+  }
+
+  .SwipedTabs-tabs ion-segment-button {
+    font-size: large !important;
+    border: none !important;
+    color: color($colors, fontSec) !important;
+    background-color: color($colors, transparent) !important;
+  }
+
+  .SwipedTabs-tabs ion-segment-button.SwipedTabs-activeTab {
+    color: color($colors, accent) !important;
+  }
+
+  .SwipedTabs-tabs {
+    background-color: color($colors, transparent) !important;
+    height: 4em;
+    border-bottom: solid 1px color($colors, semiTransparent) !important;
+  }
+
+  .swiper-slide {
+    overflow-y: scroll;
+    display: block;
+  }
+}
