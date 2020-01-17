@@ -43,6 +43,13 @@ export class StatsmodalPage {
     this.setBarTotalScore();
   }
 
+  getTotalScore(scores: number[]) {
+    let total = 0;
+    for (let t of scores) {
+      total += t;
+    }
+    return total;
+  }
 
   closeModal() {
     this.navCtrl.pop();

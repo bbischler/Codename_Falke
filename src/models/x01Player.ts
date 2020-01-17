@@ -149,7 +149,7 @@ export class X01Player extends Player {
         this.avgPerLeg = [];
     }
 
-    public resetForLegbased() {
+    public resetForLegbased(num: number) {
         this.totalPointsPerLeg.push(this.roundScore);
         this.avgPerLeg.push(this.avg);
         this.roundScore = 0;//
@@ -158,7 +158,7 @@ export class X01Player extends Player {
         this.lastScores = [];
         this.doubleIn = true;
         this.doubleOut = true;
-        this.totalScore = 0;
+        this.totalScore = num;
         this.roundThrowCount = 0;
         this.totalThrowCount = 0;//
     }

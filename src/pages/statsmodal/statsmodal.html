@@ -25,10 +25,10 @@
       <ion-grid>
         <ion-row *ngFor="let p of game.players">
           <ion-col col-4 class="playername">
-            {{p.name}}
+            {{p.name}} :
           </ion-col>
           <ion-col class="playerscore">
-            {{p.roundScore}}
+            {{getTotalScore(p.totalPointsPerLeg)}}
           </ion-col>
 
         </ion-row>

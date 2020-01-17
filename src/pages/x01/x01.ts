@@ -210,7 +210,8 @@ export class X01Page {
     this.activePlayer.increaseLegs();
     this.winningLegToast(this.activePlayer.name);
     this.resetGameLegbased();
-    this.setPlayer();
+
+    // this.setPlayer();
   }
 
   checkLegbasedWinning(_score: number) {
@@ -224,15 +225,20 @@ export class X01Page {
       }
     }
 
-    if (this.activePlayer.checkLegs(this.x01Settings.legs)) {
-      this.activePlayer.increaseSet();
+    for (let p of this.players) {
+      if (p.checkLegs(this.x01Settings.legs)) {
+        p.increaseSet();
+        this.setAllLegsZero();
+      }
+      if (p.checkSets(this.x01Settings.sets))
+        return true;
     }
-
-    if (this.activePlayer.checkSets(this.x01Settings.sets)) {
-      return true;
-    } else {
-      return false;
-    }
+    return false;
+  }
+  setAllLegsZero() {
+    this.players.forEach(function (player) {
+      player.legs = 0;
+    });
   }
 
   checkDoubleOutWinning(_score: number) {
@@ -343,8 +349,11 @@ export class X01Page {
 
   resetGameLegbased() {
     for (let p of this.players) {
-      p.resetForLegbased();
+      p.resetForLegbased(this.num);
     }
+    this.activePlayer = this.players[0];
+    this.playerCounter = 0;
+    this.slides.slideTo(this.playerCounter, 1000);
   }
 
   play180() {

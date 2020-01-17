@@ -1,9 +1,9 @@
 <ion-content padding>
-    <ion-buttons start class="backbutton">
-        <button class="backbtn" ion-button (click)="closeModal()">
-          <ion-icon color="fontSec" name="arrow-back"></ion-icon>
-        </button>
-      </ion-buttons>
+  <ion-buttons start class="backbutton">
+    <button class="backbtn" ion-button (click)="closeModal()">
+      <ion-icon color="fontSec" name="arrow-back"></ion-icon>
+    </button>
+  </ion-buttons>
   <ion-grid>
     <ion-row justify-content-center>
       <ion-col class="flexcontainer padding" align-self-center>
@@ -18,11 +18,11 @@
     <ion-card-header>
       Total Score
     </ion-card-header>
-    <ion-card-content >
+    <ion-card-content>
       <ion-grid>
         <ion-row *ngFor="let p of game.players">
           <ion-col col-4 class="playername">
-            {{p.name}}
+            {{p.name}} :
           </ion-col>
           <ion-col class="playerscore">
             {{p.totalScore}}
