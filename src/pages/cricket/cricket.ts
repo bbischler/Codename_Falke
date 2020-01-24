@@ -2,11 +2,13 @@ import { cricketThrowAction } from './../../models/cricketThrowAction';
 import { CricketPoint } from './../../models/cricketPoint';
 import { CricketPlayer } from './../../models/cricketPlayer';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, Modal, ModalOptions } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController, ModalController, Modal, ModalOptions } from 'ionic-angular';
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { ServiceProvider } from '../../providers/service/service';
 import { Stack } from 'stack-typescript';
 import { Cricketstats } from '../../models/cricketstats';
+import { QuickstatscricketComponent } from '../../components/quickstatscricket/quickstatscricket';
+
 
 
 @IonicPage()
@@ -26,7 +28,7 @@ export class CricketPage {
   showContent: boolean = false;
   cricketstats: Cricketstats[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(public popoverCtrl: PopoverController,public navCtrl: NavController, public navParams: NavParams,
     public modalCtrl: ModalController, private service: ServiceProvider, private vibration: Vibration) { }
 
   ionViewDidEnter() {
@@ -113,6 +115,7 @@ export class CricketPage {
   setStats() {
     this.cricketstats[this.cricketstats.length - 1].date = new Date();
     this.cricketstats[this.cricketstats.length - 1].players = this.players;
+    this.writeStatsInStorage();
   }
 
 
@@ -140,10 +143,9 @@ export class CricketPage {
       this.currentHighscore = player.totalScore;
     }
     if (this.hasWon(player)) {
-      this.setStats();
-      this.writeStatsInStorage();   
-      this.service.deletePlayers();
-      this.service.setGameIsActive(false);
+      this.players.forEach(function (p) {
+        p.totalScoresPerGame.push(p.totalScore);
+      });
       this.winningPopup(player);
       return;
     }
@@ -269,16 +271,40 @@ export class CricketPage {
     this.gameRestoreToast();
   }
 
-
+  prepareRematch() {
+    this.players.forEach(function (p) {
+      p.prepareRematch();
+    });
+    this.isDouble = false;
+    this.isTriple = false;
+    this.currentHighscore = 0;
+    this.throwAmount = 1; // Factor for double and triple multiplication
+    this.actionStack = new Stack<cricketThrowAction>();
+    this.bannerRematch();
+  }
   // POPUPS //
 
   winningPopup(player: CricketPlayer) {
-    this.service.showMessageOkCancel('Congratulations', player.name + ' has won the game!', ['Home', 'New Game']).then((res) => {
-      if (res) {
-        this.ionViewDidEnter();
-      } else {
+    this.service.showMessageFourWay('Congratulations', player.name + ' has won the game!', ['Home', 'Cricket Settings', 'Stats', ["Rematch"]]).then((res) => {
+      if (res === "Home") {
+        this.setStats();
+        this.setStats();
         localStorage.removeItem('cricketPlayer');
+        this.service.deletePlayers();
+        this.service.setGameIsActive(false);
         this.navCtrl.setRoot('HomePage');
+      } else if (res === "New") {
+        this.setStats();
+        this.service.deletePlayers();
+        this.service.setGameIsActive(false);
+        this.ionViewDidEnter();
+      } else if (res === "Stats") {
+        this.setStats();
+        this.service.deletePlayers();
+        this.service.setGameIsActive(false);
+        this.navCtrl.push('StatsPage');
+      } else if (res == "Rematch") {
+        this.prepareRematch();
       }
       this.service.createInterstitial();
     });
@@ -327,5 +353,14 @@ export class CricketPage {
   async showGameStored() {
     this.service.toastPopup('playerToast', 'Game is stored');
   }
-
+  async bannerRematch() {
+    this.service.toastPopup('playerToast', 'Rematch!');
+  }
+  
+  presentQuickStats() {
+    let popover = this.popoverCtrl.create(QuickstatscricketComponent, { key1: this.players});
+    popover.present({
+      // ev: this.players
+    });
+  }
 }

@@ -1,110 +1,152 @@
 page-x01 {
-    .cardClass {
-        height: 100%;
-        border: solid 1px color($colors, semiTransparent);
-        color: color($colors, fontSec) !important;
-    }
-    .cardClassActive {
-        height: 100%;
-        border: solid 1px color($colors, accentSec);
-        background-color: color($colors, semiTransparent) !important;
-    }
-    ion-card-header {
-        height: 100%;
-        color: color($colors, font);
-    }
-    .slide-zoom {
-        height: 100%;
-    }
-    ion-slides {
-        padding-bottom: 1em !important;
-        height: 35%;
-    }
-    .card {
-        background-color: color($colors, transparent);
-        margin-top: 0 !important;
-    }
-    .inactive {
-        background-color: color($colors, semiTransparent) !important;
-    }
-    .scoreboardrow {
-        height: 20%;
-    }
-    .numbercontainer {
-        background-color: transparent;
-        box-shadow: none !important;
-        width: 100%;
-        height: 100%;
-        font-weight: 200;
-        color: color($colors, font);
-        font-size: 1.5em;
-    }
-    .btn_bottom {
-        height: 75%;
-        background-color: transparent;
-        box-shadow: none !important;
-        font-weight: 200;
-        font-size: 1.5rem;
-        color: color($colors, fontSec);
-        margin: 0 0.2em 0 0.2em;
-    }
-    .active_btn {
-        background-color: color($colors, semiTransparent) !important;
-        color: color($colors, font);
-        border: solid 1px color($colors, accentSec);
-        box-shadow: none !important;
-        width: 100%;
-        font-weight: 200;
-        height: 75%;
-        margin: 0 0.2em 0 0.2em;
-        font-size: 1.5rem;
-    }
-    .playerScore {
-        font-size: 3.5rem;
-        font-weight: 200;
-    }
-    .playerInfo {
-        color: color($colors, font);
-        height: 30%;
-    }
-    .stats {
-        height: 25%;
-        color: color($colors, fontSec);
-        font-weight: 100;
-    }
-    .lastScore {
-        height: 15%;
-        font-weight: 100;
-        color: color($colors, font);
-    }
-    .inactive {
-        background-color: transparent !important;
-        color: color($colors, fontSec);
-    }
-    .lastScoreInactive {
-        display: none;
-        height: 15%;
-        font-weight: 100;
-    }
-    .toThrow {
-        height: 100%;
-        color: color($colors, fontSec);
-    }
-    .playersTurn {
-        display: none;
-    }
-    .playersTurnActive {
-        height: 30%;
-        font-weight: 100;
-        color: color($colors, fontSec);
-    }
-    ion-row {
-        // border: solid 1px red;
-    }
-    ion-col {
-        // padding: 0 !important; // border: solid 1px yellow;
-        display: flex;
-        justify-content: center;
-        align-items: center; // border: solid 1px red;
-    }
+  .cardClass {
+    height: 100%;
+    border: solid 1px color($colors, semiTransparent);
+    color: color($colors, fontSec) !important;
+  }
+
+  .cardClassActive {
+    height: 100%;
+    border: solid 1px color($colors, accentSec);
+    background-color: color($colors, semiTransparent) !important;
+  }
+
+  ion-card-header {
+    height: 100%;
+    color: color($colors, font);
+  }
+
+  .slide-zoom {
+    height: 100%;
+  }
+
+  ion-slides {
+    padding-bottom: 1em !important;
+    height: 35%;
+  }
+
+  .toolbarstats {
+    display: flex;
+
+  }
+
+  .titlelegs {
+    text-align: right;
+    margin: 0 0.5em;
+    font-weight: 300;
+    font-size: 0.9em;
+    height: 100%;
+    background: transparent !important;
+    padding: 1em;
+    color: color($colors, homebutton);
+  }
+
+  .stats {
+    // margin-right: 4em;
+    font-size: 1.3em;
+  }
+
+  .card {
+    background-color: color($colors, transparent);
+    margin-top: 0 !important;
+  }
+
+  .inactive {
+    background-color: color($colors, semiTransparent) !important;
+  }
+
+  .scoreboardrow {
+    height: 20%;
+  }
+
+  .numbercontainer {
+    background-color: transparent;
+    box-shadow: none !important;
+    width: 100%;
+    height: 100%;
+    font-weight: 200;
+    color: color($colors, font);
+    font-size: 1.5em;
+  }
+
+  .btn_bottom {
+    height: 75%;
+    background-color: transparent;
+    box-shadow: none !important;
+    font-weight: 200;
+    font-size: 1.5rem;
+    color: color($colors, fontSec);
+    margin: 0 0.2em 0 0.2em;
+  }
+
+  .active_btn {
+    background-color: color($colors, semiTransparent) !important;
+    color: color($colors, font);
+    border: solid 1px color($colors, accentSec);
+    box-shadow: none !important;
+    width: 100%;
+    font-weight: 200;
+    height: 75%;
+    margin: 0 0.2em 0 0.2em;
+    font-size: 1.5rem;
+  }
+
+  .playerScore {
+    font-size: 3.5rem;
+    font-weight: 200;
+  }
+
+  .playerInfo {
+    color: color($colors, font);
+    height: 30%;
+  }
+
+  .stats {
+    height: 25%;
+    color: color($colors, fontSec);
+    font-weight: 100;
+  }
+
+  .lastScore {
+    height: 15%;
+    font-weight: 100;
+    color: color($colors, font);
+  }
+
+  .inactive {
+    background-color: transparent !important;
+    color: color($colors, fontSec);
+  }
+
+  .lastScoreInactive {
+    display: none;
+    height: 15%;
+    font-weight: 100;
+  }
+
+  .toThrow {
+    height: 100%;
+    color: color($colors, fontSec);
+  }
+
+  .playersTurn {
+    display: none;
+  }
+
+  .playersTurnActive {
+    height: 30%;
+    font-weight: 100;
+    color: color($colors, fontSec);
+  }
+
+  ion-row {
+    // border: solid 1px red;
+  }
+
+  ion-col {
+    // padding: 0 !important; // border: solid 1px yellow;
+    display: flex;
+    justify-content: center;
+    align-items: center; // border: solid 1px red;
+  }
 }

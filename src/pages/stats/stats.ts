@@ -21,6 +21,7 @@ export class StatsPage {
     this.tabs = ["X-01", "Cricket"];
     this.x01stats = JSON.parse(localStorage.getItem('x01stats'));
     this.cricketstats = JSON.parse(localStorage.getItem('cricketstats'));
+    console.log(this.x01stats);
   }
 
 

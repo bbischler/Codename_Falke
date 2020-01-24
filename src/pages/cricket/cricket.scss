@@ -61,6 +61,24 @@ page-cricket {
         color: color($colors, fontSec);
     }
 
+    
+  .titlelegs {
+    text-align: right;
+    margin: 0 0.5em;
+    font-weight: 300;
+    font-size: 0.9em;
+    height: 100%;
+    background: transparent !important;
+    padding: 1em;
+    color: color($colors, homebutton);
+  }
+
+  .stats {
+    // margin-right: 4em;
+    font-size: 1.3em;
+  }
+
+
     .scoreboard {
         height: 85%; // position: absolute;
         bottom: 0;

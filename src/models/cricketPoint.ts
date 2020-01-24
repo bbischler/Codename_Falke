@@ -23,7 +23,8 @@ export class CricketPoint {
 
     // Increases hitCount, checks for closing/opening
     public increaseHit(): void {
-        this.hitCount = Math.min(3, this.hitCount + 1);
+        this.hitCount += 1;
+        // this.hitCount = Math.min(3, this.hitCount + 1);
         this.checkForClosed();
     }
 
@@ -36,7 +37,7 @@ export class CricketPoint {
     // Sets isClosed correctly
     private checkForClosed(): void {
         var previousValue = this.isClosed;
-        this.isClosed = (this.hitCount == 3);
+        this.isClosed = (this.hitCount >= 3);
         if (previousValue != this.isClosed) {
             this.onClosedCallback(this.value, this.isClosed);
         }
@@ -44,5 +45,11 @@ export class CricketPoint {
 
     getValue(): number {
         return this.value;
+    }
+
+    prepareRematch() {
+        this.hitCount = 0;
+        this.isClosed = false;
+        this.setIsClosed = false;
     }
 }

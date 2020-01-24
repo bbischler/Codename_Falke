@@ -19,7 +19,6 @@ export class CricketSettingsPage {
 
     if (localStorage.getItem("cricketPlayer")) {
       let tmpplayers = JSON.parse(localStorage.getItem("cricketPlayer"));
-      console.log("tmpplaers: " + tmpplayers);
       for (let p of tmpplayers) {
         this.players.push(new CricketPlayer(p.id, p.name));
       }
@@ -32,6 +31,7 @@ export class CricketSettingsPage {
   }
 
   dismiss() {
+    this.service.setActivePage('Home');
     this.viewCtrl.dismiss(false);
   }
 
@@ -60,11 +60,16 @@ export class CricketSettingsPage {
     }
   }
 
-  removePlayer() {
+  removePlayer(id: number) {
     if (this.players.length == 1) {
       this.presentToastMinPlayer();
     } else {
-      this.players.splice(-1, 1);
+      for (let i = 0; i < this.players.length; i++) {
+        if (this.players[i].id == id) {
+          this.players.splice(i, 1);
+          return;
+        }
+      }
     }
   }
 

@@ -24,6 +24,7 @@ export class MyApp {
   pagesx01: Array<{ title: string, component: any }>;
   instructions: Array<{ title: string, component: any }>;
   showSplash = true;
+  showedClosePopup: boolean = false;
 
 
 
@@ -76,26 +77,30 @@ export class MyApp {
       // Catches the active view
 
       let nav = this.app.getActiveNavs()[0];
-      let activeView = nav.getActive();
+      // let activeView = nav.getActive();
       // Checks if can go back before show up the alert
       let view = nav.getActive().instance.pageName;
       if (view === 'MODAL') {
-        nav.pop();
-        this.nav.setRoot('HomePage');
+        // nav.pop();
+        // this.nav.setRoot('HomePage');
+        return;
       }
 
-      if (activeView.name === 'HomePage') {
+      if (nav.getActive().instance.pageName === 'HomePage') {
         if (nav.canGoBack()) {
           nav.pop();
         } else {
-
-          this.service.showMessageOkCancel('Exit?', 'Are you sure you want to exit the app?', ['Cancel', 'Yes']).then((res) => {
-            if (res) {
-              this.platform.exitApp();
-            } else {
-              this.nav.setRoot('HomePage');
-            }
-          });
+          if (!this.showedClosePopup) {
+            this.showedClosePopup = true;
+            this.service.showMessageOkCancel('Exit?', 'Are you sure you want to exit the app?', ['Cancel', 'Yes']).then((res) => {
+              this.showedClosePopup = false;
+              if (res) {
+                this.platform.exitApp();
+              } else {
+                this.nav.setRoot('HomePage');
+              }
+            });
+          }
         }
       }
       else {

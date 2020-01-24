@@ -4,8 +4,10 @@ import { CricketPoint } from './cricketPoint';
 // import { PointerEvents } from 'ionic-angular/umd/gestures/pointer-events';
 
 export class CricketPlayer extends Player {
- 
+
     points: CricketPoint[];
+
+    totalScoresPerGame: number[] = [];
 
     constructor(id?: number, name?: string) {
         super(id, name);
@@ -20,17 +22,11 @@ export class CricketPlayer extends Player {
     }
 
     public getPointsByValue(value: number): CricketPoint {
-        console.log("getPointsByValue");
         return this.points.filter(p => p.value == value)[0];
     }
 
     public throw(point: number, throwAmount: number): void {
         throw new Error("Should never reach method throw on CircketPoint!")
-    }
-
-    public test() {
-        console.log("I AM ALIVE!!");
-
     }
 
     setPoints(points) {
@@ -44,8 +40,14 @@ export class CricketPlayer extends Player {
             });
             this.points.push(tmpPoint);
         }
+    }
 
-        
-
+    prepareRematch() {
+        this.totalScore = 0;
+        this.roundThrowCount = 0;
+        this.totalThrowCount = 0;
+        this.points.forEach(function (p) {
+            p.prepareRematch();
+        });
     }
 }

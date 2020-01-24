@@ -14,10 +14,16 @@ import { Vibration } from '@ionic-native/vibration/ngx';
 import { HttpClientModule } from '@angular/common/http';
 import { DataProvider } from '../providers/data/data';
 import { AppRate } from '@ionic-native/app-rate/ngx';
+import { Quickstatsx01Component } from '../components/quickstatsx01/quickstatsx01';
+import { QuickstatscricketComponent } from '../components/quickstatscricket/quickstatscricket';
+
+
 
 @NgModule({
   declarations: [
     MyApp,
+    Quickstatsx01Component,
+    QuickstatscricketComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +35,8 @@ import { AppRate } from '@ionic-native/app-rate/ngx';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    Quickstatsx01Component,
+    QuickstatscricketComponent
   ],
   providers: [
     Vibration,

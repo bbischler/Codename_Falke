@@ -19,6 +19,7 @@ import { AppRate, AppRatePreferences } from '@ionic-native/app-rate/ngx';
 
 @Injectable()
 export class ServiceProvider {
+
   activePage: string = 'Home';
   x01Settings: X01Settings = new X01Settings(false, 3, 1, false, true);
   players: Player[] = [];
@@ -118,12 +119,10 @@ export class ServiceProvider {
     return this.gameIsActive;
   }
   deletePlayers() {
-    console.log("delete players");
     this.players = [];
   }
   setAppSettings() {
     if (!JSON.parse(localStorage.getItem('appsettings'))) {
-      console.log("appsettings in service NICHT gesetz");
       localStorage.setItem('appsettings', JSON.stringify({
         "sound": true,
         "vibrate": true
@@ -171,6 +170,57 @@ export class ServiceProvider {
       }, {
         text: buttons[1],
         handler: () => resolveFunction(true)
+      }],
+      enableBackdropDismiss: false
+    });
+    await alert.present();
+    return promise;
+  }
+
+  async showMessageThreeWay(title, message, buttons) {
+    let resolveFunction: (confirm: String) => void;
+    const promise = new Promise<String>(resolve => {
+      resolveFunction = resolve;
+    });
+    const alert = await this.alertController.create({
+      title: title,
+      message: message,
+      buttons: [{
+        text: buttons[0],
+        handler: () => resolveFunction("Home")
+      }, {
+        text: buttons[1],
+        handler: () => resolveFunction("Stats")
+      }, {
+        text: buttons[2],
+        handler: () => resolveFunction("New")
+      }],
+      enableBackdropDismiss: false
+    });
+    await alert.present();
+    return promise;
+  }
+
+  async showMessageFourWay(title, message, buttons) {
+    let resolveFunction: (confirm: String) => void;
+    const promise = new Promise<String>(resolve => {
+      resolveFunction = resolve;
+    });
+    const alert = await this.alertController.create({
+      title: title,
+      message: message,
+      buttons: [{
+        text: buttons[0],
+        handler: () => resolveFunction("Home")
+      }, {
+        text: buttons[1],
+        handler: () => resolveFunction("New")
+      }, {
+        text: buttons[2],
+        handler: () => resolveFunction("Stats")
+      }, {
+        text: buttons[3],
+        handler: () => resolveFunction("Rematch")
       }],
       enableBackdropDismiss: false
     });

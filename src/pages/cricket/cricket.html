@@ -9,10 +9,21 @@
       <!-- <ion-icon color="fontSec" name="menu"></ion-icon> -->
     </button>
     <ion-title>
-      <div class="page-header-menu">Cricket
+      <div class="page-header-menu" *ngIf="showContent">Cricket
         <!-- <div class="logo"><b>Home</b></div> -->
       </div>
     </ion-title>
+    <div style="display: flex; flex-direction: row; justify-content: flex-end" *ngIf="showContent">
+
+
+        <div class="titlelegs stats">
+          <ion-buttons>
+            <button ion-button (click)="presentQuickStats()">
+              <ion-icon style="font-size:1.6em " color="homebutton" name="ios-stats"></ion-icon>
+            </button>
+          </ion-buttons>
+        </div>
+      </div>
   </ion-toolbar>
 </ion-header>
 

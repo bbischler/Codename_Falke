@@ -9,9 +9,13 @@ page-x01-settings {
 
   .playernames {
     background: transparent;
-    border: solid 1px color($colors, accentSec2);
-    margin: 0 1em 1em 1em;
+    margin: 0 0.5em 0.5em 1em;
   }
+
+  .playernamecol {
+    border: solid 1px color($colors, accentSec2) !important;
+  }
+
 
   .ion-rows {
     margin: 0 1em 1em 1em;

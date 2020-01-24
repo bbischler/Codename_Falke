@@ -34,7 +34,7 @@
 
     <ion-slide>
       <ng-template [ngIf]="hasX01Stats()" [ngIfElse]="nox01stats">
-        <ion-card *ngFor="let game of x01stats" (click)='openX01StatsForGame(game)'>
+        <ion-card *ngFor="let game of x01stats.slice().reverse()" (click)='openX01StatsForGame(game)'>
           <button no-padding ion-item detail-none class="btn">
             <ion-card-content no-padding>
               <ion-grid no-padding>
@@ -50,10 +50,20 @@
                     </div>
                   </ion-col>
                   <ion-col class="flexcontainer padding">
+
+                    <ion-grid no-padding>
+                      <ion-row no-padding>
+                        <div class="num">
+                          {{game.num}}
+                        </div>
+                      </ion-row>
+                      <ion-row no-padding>
+                        <div class="playernames" *ngFor="let player of game.players">
+                          {{player.name}}
+                        </div>
+                      </ion-row>
+                    </ion-grid>
                     <!-- <div class="flexitem"> -->
-                    <div class="playernames" *ngFor="let player of game.players">
-                      {{player.name}}
-                    </div>
                     <!-- </div> -->
                   </ion-col>
                   <ion-col col-2 class="time padding flexcontainer">
@@ -72,14 +82,14 @@
           </button>
         </ion-card>
         <button ion-button full class=" button deletebtn" (click)="popupDeleteX01Stats()">
-          DELETE X-01 STATS 
+          DELETE X-01 STATS
         </button>
       </ng-template>
       <ng-template #nox01stats>
         <ion-grid>
           <ion-row>
             <ion-col class="nostatsavaiable">
-              No X-01 Stats Avaiable
+              No X-01 Stats Available
             </ion-col>
           </ion-row>
           <ion-row>
@@ -110,7 +120,7 @@
 
     <ion-slide>
       <ng-template [ngIf]="hasCricketStats()" [ngIfElse]="nocricketstats">
-        <ion-card *ngFor="let game of cricketstats" (click)='openCricketStatsForGame(game)'>
+        <ion-card *ngFor="let game of cricketstats.slice().reverse()" (click)='openCricketStatsForGame(game)'>
           <button no-padding ion-item detail-none class="btn">
             <ion-card-content no-padding>
               <ion-grid no-padding>
@@ -155,7 +165,7 @@
         <ion-grid>
           <ion-row>
             <ion-col class="nostatsavaiable">
-              No Cricket Stats Avaiable
+              No Cricket Stats Available
             </ion-col>
           </ion-row>
           <ion-row>

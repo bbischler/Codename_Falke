@@ -17,6 +17,10 @@ page-statscricketmodal {
     background: transparent !important;
   }
 
+  ion-icon {
+    font-size: 2.0em;
+  }
+
   .playername {
     color: color($colors, font);
     font-size: 1.1em;
@@ -25,7 +29,16 @@ page-statscricketmodal {
   .playerscore {
     color: color($colors, font);
     font-size: 1.1em;
+    margin-left: 2em;
+  }
 
+  .won {
+    color: color($colors, accent);
+  }
+
+  .gamesplayed {
+    color: color($colors, fontSec);
+    text-align: center;
   }
 
   .chart {

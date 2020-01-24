@@ -1,0 +1,41 @@
+<div class="bg">
+  <ion-grid>
+    <ion-row *ngIf="isLegbased" class="legset">
+      <ion-col>
+        Leg:
+      </ion-col>
+      <ion-col>
+        {{currentLeg}}
+      </ion-col>
+      <ion-col>
+        Set:
+      </ion-col>
+      <ion-col>
+        {{currentSet}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col align-self-center class="header">
+        Current Scores
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let p of players">
+      <ion-col class="playernamens">
+        <div>
+          {{ p.name}}:
+
+        </div>
+
+        <div [className]="isWinner(p) ? 'points best' : 'points'">
+          {{p.totalScore}}
+        </div>
+        <div *ngIf="isLegbased" class="setslegs">
+          L : {{p.legs}}&nbsp;&nbsp;S : {{p.sets}}
+        </div>
+      </ion-col>
+
+
+    </ion-row>
+  </ion-grid>
+</div>

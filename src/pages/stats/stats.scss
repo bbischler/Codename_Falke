@@ -27,12 +27,21 @@ page-stats {
 
   }
 
+  .num {
+    display: block;
+    color: color($colors, homebutton);
+    font-size: 0.9em;
+
+  }
+
   .playernames {
     color: color($colors, fontSec);
     font-size: 1.1em;
     display: inline;
-    padding: 0 0.4em;
+    padding: 0 0.4em 0 0;
   }
+
+ 
 
   .datecol {
     // background: color($colors, accentSec);
@@ -72,7 +81,7 @@ page-stats {
   .deletebtn {
     color: color($colors, deleteclr);
     border: solid 1px color($colors, deleteclr);
-    margin: 2em ;
+    margin: 2em;
   }
 
   .playx01btn {

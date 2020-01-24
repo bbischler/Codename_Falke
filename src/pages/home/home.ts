@@ -12,6 +12,9 @@ export class HomePage {
   private admobId: any = {
     banner: 'ca-app-pub-3290488239272299/2853593930',
   };
+
+  pageName = 'HomePage';
+
   message: string = "Hey, here is a new cool dart scoring app";
   url: string = "https://play.google.com/store/apps/details?id=com.bischlerdeveloper.dartist";
 

@@ -7,12 +7,12 @@
     </ion-row>
 
 
-    <ion-row class="ion-rows">
-      <ion-col col-6>
+    <ion-row class="ion-rows" justify-content-center>
+      <!-- <ion-col col-6>
         <button ion-button full class="button" (click)="removePlayer()">
           Remove Player
         </button>
-      </ion-col>
+      </ion-col> -->
       <ion-col col-6>
         <button ion-button full class="button" (click)="addPlayer()">
           Add Player
@@ -24,7 +24,14 @@
 
 
     <ion-row *ngFor="let player of players;let i=index" class="playernames">
-      <ion-input type="text" placeholder="Player {{i+1}}" [(ngModel)]="players[i].name" clearInput></ion-input>
+      <ion-col class="playernamecol">
+        <ion-input type="text" placeholder="Player {{i+1}}" [(ngModel)]="players[i].name" clearInput></ion-input>
+      </ion-col>
+      <ion-col col-1>
+        <button ion-button full class="button" (click)="removePlayer(player.id)">
+          <ion-icon color="fontSec" name="close"></ion-icon>
+        </button>
+      </ion-col>
     </ion-row>
 
 
@@ -46,7 +53,7 @@
 
     <ion-row *ngIf="x01Settings.legbased">
       <ion-item class="doubles" no-lines>
-        <ion-label>Legs: </ion-label>
+        <ion-label>Legs to win per set: </ion-label>
         <ion-select interface="alert" [(ngModel)]="x01Settings.legs" placeholder="Select Legs">
           <ion-option value="1">1</ion-option>
           <ion-option value="2">2</ion-option>
@@ -64,7 +71,7 @@
     </ion-row>
     <ion-row *ngIf="x01Settings.legbased">
       <ion-item class="doubles" no-lines>
-        <ion-label>Sets: </ion-label>
+        <ion-label>Sets to win: </ion-label>
         <ion-select interface="alert" [(ngModel)]="x01Settings.sets" placeholder="Select Sets">
           <ion-option value="1">1</ion-option>
           <ion-option value="2">2</ion-option>

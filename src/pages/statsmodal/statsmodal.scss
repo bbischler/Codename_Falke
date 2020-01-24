@@ -14,6 +14,10 @@ page-statsmodal {
     background: transparent !important;
   }
 
+  ion-icon {
+    font-size: 2.0em;
+  }
+
   .flexcontainer {
     display: flex;
     justify-content: center;
@@ -55,6 +59,10 @@ page-statsmodal {
   .playerscore {
     color: color($colors, font);
     font-size: 1.1em;
+   
+  }
 
+  .won {
+    color: color($colors, accent);
   }
 }

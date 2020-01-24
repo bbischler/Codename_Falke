@@ -68,11 +68,16 @@ export class X01SettingsPage {
     }
   }
 
-  removePlayer() {
+  removePlayer(id: number) {
     if (this.players.length == 1) {
       this.presentToastMinPlayer();
     } else {
-      this.players.splice(-1, 1);
+      for (let i = 0; i < this.players.length; i++) {
+        if (this.players[i].id == id) {
+          this.players.splice(i, 1);
+          return;
+        }
+      }
     }
   }
   quickgame() {

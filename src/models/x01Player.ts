@@ -3,6 +3,7 @@ import { Player } from './player';
 import { DataProvider } from '../providers/data/data';
 
 export class X01Player extends Player {
+
     roundScore: number = 0;
     avg: number = 0;
     toThrow: string[] = [];
@@ -149,9 +150,8 @@ export class X01Player extends Player {
         this.avgPerLeg = [];
     }
 
-    public resetForLegbased(num: number) {
-        this.totalPointsPerLeg.push(this.roundScore);
-        this.avgPerLeg.push(this.avg);
+    public prepareRematch(num: number) {
+        this.setstats();
         this.roundScore = 0;//
         this.avg = 0;//
         this.toThrow = [];

@@ -4,12 +4,12 @@ import { X01Player } from './../../models/x01Player';
 import { Component, ViewChild } from '@angular/core';
 import { NativeAudio } from '@ionic-native/native-audio/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
-import { IonicPage, NavController, Platform, NavParams, Slides, ModalController, Modal, ModalOptions } from 'ionic-angular';
+import { IonicPage, PopoverController, NavController, Platform, NavParams, Slides, ModalController, Modal, ModalOptions } from 'ionic-angular';
 import { X01Settings } from '../../models/x01Settings';
 import { ServiceProvider } from '../../providers/service/service';
 import { DataProvider } from '../../providers/data/data';
 import { X01stats } from '../../models/x01stats';
-
+import { Quickstatsx01Component } from '../../components/quickstatsx01/quickstatsx01';
 
 
 @IonicPage()
@@ -43,8 +43,11 @@ export class X01Page {
   appSettings: any;
   showContent: boolean = false;
   x01stats: X01stats[] = [];
+  currentleg: number = 1;
+  currentset: number = 1;
+  legssets: String[] = [];
 
-  constructor(public navCtrl: NavController, public platform: Platform,
+  constructor(public popoverCtrl: PopoverController, public navCtrl: NavController, public platform: Platform,
     public navParams: NavParams, public modalCtrl: ModalController,
     private nativeAudio: NativeAudio, private service: ServiceProvider,
     private vibration: Vibration, public data: DataProvider) {
@@ -116,8 +119,18 @@ export class X01Page {
         this.setPlayer();
         this.x01Settings = this.service.getX01Settings();
         this.service.setGameIsActive(true);
+        this.setGame();
       }
     });
+  }
+  setGame() {
+    this.isDouble = false;
+    this.isTriple = false;
+    this.throwCounter = 0;
+    this.playerCounter = 0;
+    this.activePlayer = this.players[0];
+    this.currentleg = 1;
+    this.currentset = 1;
   }
 
   setPlayer() {
@@ -174,10 +187,11 @@ export class X01Page {
     action.do();
 
     if (this.hasWon()) {
-      this.setStats();
-      this.service.setGameIsActive(false);
-      this.writeStatsInStorage();
-      this.winningPopup(this.activePlayer);
+      if (this.x01Settings.legbased)
+        this.winningPopupLegbased(this.activePlayer);
+      else
+        this.winningPopup(this.activePlayer);
+      return;
     }
 
     this.isDouble = false;
@@ -207,10 +221,11 @@ export class X01Page {
 
 
   doLegBasedStuff() {
+    this.legssets.push(this.currentleg + "/" + this.currentset);
     this.activePlayer.increaseLegs();
     this.winningLegToast(this.activePlayer.name);
     this.resetGameLegbased();
-
+    this.currentleg++;
     // this.setPlayer();
   }
 
@@ -228,6 +243,8 @@ export class X01Page {
     for (let p of this.players) {
       if (p.checkLegs(this.x01Settings.legs)) {
         p.increaseSet();
+        this.currentleg = 1;
+        this.currentset++;
         this.setAllLegsZero();
       }
       if (p.checkSets(this.x01Settings.sets))
@@ -235,6 +252,7 @@ export class X01Page {
     }
     return false;
   }
+
   setAllLegsZero() {
     this.players.forEach(function (player) {
       player.legs = 0;
@@ -246,7 +264,6 @@ export class X01Page {
       return true;
     }
     else if (_score <= 1) {
-      console.log("BUST!!!!!");
       this.presentBust();
       let tmpRoundCount = this.activePlayer.roundThrowCount;
       for (let i = 0; i < tmpRoundCount; i++)
@@ -283,13 +300,12 @@ export class X01Page {
   }
 
   setStats() {
-    if (!this.x01Settings.legbased) {
-      for (let p of this.players) {
-        p.setstats();
-      }
-    }
+    this.x01stats[this.x01stats.length - 1].num = this.num;
+    this.x01stats[this.x01stats.length - 1].isLegBased = this.x01Settings.legbased;
+    this.x01stats[this.x01stats.length - 1].legssets = this.legssets;
     this.x01stats[this.x01stats.length - 1].date = new Date();
     this.x01stats[this.x01stats.length - 1].players = this.players;
+    this.writeStatsInStorage();
   }
 
   hasWon() {
@@ -349,19 +365,18 @@ export class X01Page {
 
   resetGameLegbased() {
     for (let p of this.players) {
-      p.resetForLegbased(this.num);
+      p.prepareRematch(this.num);
     }
     this.activePlayer = this.players[0];
     this.playerCounter = 0;
+    this.actionStack = new Stack<x01ThrowAction>();
     this.slides.slideTo(this.playerCounter, 1000);
   }
 
   play180() {
     if (this.appSettings.sound) {
       this.nativeAudio.play('180').then((success) => {
-        console.log("success playing");
       }, (error) => {
-        console.log(error);
       });
     }
   }
@@ -386,7 +401,10 @@ export class X01Page {
       "activePlayer": this.activePlayer,
       "x01Settings": this.x01Settings,
       "appSettings": this.appSettings,
-      "showContent": this.showContent
+      "showContent": this.showContent,
+      "currentleg": this.currentleg,
+      "currentset": this.currentset,
+      "legssets": this.legssets
     }));
     localStorage.setItem('x01Stack' + this.num, JSON.stringify(this.actionStack.toArray()));
     this.service.setGameIsActive(false);
@@ -404,6 +422,9 @@ export class X01Page {
     this.appSettings = x01Storage.appSettings;
     this.showContent = x01Storage.showContent;
     this.playerCounter = x01Storage.playerCounter;
+    this.currentleg = x01Storage.currentleg;
+    this.currentset = x01Storage.currentset;
+    this.legssets = x01Storage.legssets;
     this.players = [];
     for (let p of x01Storage.players) {
       let tmpPlayer = new X01Player(this.data, p.id, p.name)
@@ -481,18 +502,71 @@ export class X01Page {
       }
     });
   }
+  SetPlayerForEndGame() {
+    if (!this.x01Settings.legbased) {
+      for (let p of this.players) {
+        p.setstats();
+      }
+    }
+    this.setStats();
+    this.service.deletePlayers();
+    this.service.setGameIsActive(false);
+  }
 
   winningPopup(player: X01Player) {
-    this.service.showMessageOkCancel('Congratulations', player.name + ' has won the game!', ['Home', 'New Game']).then((res) => {
-      this.resetGame();
-      if (res) {
-        this.ionViewDidEnter();
-      } else {
-        localStorage.removeItem('x01Player');
+    this.service.showMessageFourWay('Congratulations', player.name + ' has won the game!', ['Home', this.num + ' Settings', 'Stats', ["Rematch"]]).then((res) => {
+      if (res === "Home") {
+        localStorage.removeItem('cricketPlayer');
+        this.SetPlayerForEndGame();
         this.navCtrl.setRoot('HomePage');
+      } else if (res === "New") {
+        this.SetPlayerForEndGame();
+        this.ionViewDidEnter();
+      } else if (res === "Stats") {
+        this.SetPlayerForEndGame();
+        this.navCtrl.push('StatsPage');
+      } else if (res == "Rematch") {
+        this.prepareRematch();
       }
       this.service.createInterstitial();
     });
+  }
+
+  winningPopupLegbased(player: X01Player) {
+    this.service.showMessageThreeWay('Congratulations', player.name + ' has won the game!', ['Home', 'Stats', this.num + ' Settings']).then((res) => {
+      if (res === "Home") {
+        localStorage.removeItem('cricketPlayer');
+        this.SetPlayerForEndGame();
+        this.navCtrl.setRoot('HomePage');
+      } else if (res === "Stats") {
+        this.SetPlayerForEndGame();
+        this.navCtrl.push('StatsPage');
+      } else if (res === "New") {
+        this.SetPlayerForEndGame();
+        this.ionViewDidEnter();
+      }
+      this.service.createInterstitial();
+    });
+  }
+
+
+  prepareRematch() {
+    for (let p of this.players) {
+      p.prepareRematch(this.num);
+    }
+    this.isDouble = false;
+    this.isTriple = false;
+    this.throwCounter = 0;
+    this.playerCounter = 0;
+    this.gameOver = false;
+    this.actionStack = new Stack<x01ThrowAction>()
+    this.activePlayer = this.players[this.playerCounter];
+    this.slides.slideTo(this.playerCounter, 1000);
+    this.bannerRematch();
+  }
+
+  bannerRematch() {
+    this.service.toastPopup('playerToastLeg', 'Rematch!');
   }
 
 
@@ -511,4 +585,11 @@ export class X01Page {
     return canLeave;
   }
 
+
+  presentQuickStats() {
+    let popover = this.popoverCtrl.create(Quickstatsx01Component, { key1: this.players, key2: this.currentleg, key3: this.currentset, key4: this.x01Settings.legbased });
+    popover.present({
+      // ev: this.players
+    });
+  }
 }

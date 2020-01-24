@@ -1,0 +1,40 @@
+quickstatsx01 {
+  .bg {
+    padding: 2em;
+    background-color: color($colors, backgroundSec) !important;
+    border: 1px solid color($colors, accentSec);
+  }
+
+  .playernamens {
+    color: color($colors, fontSec);
+  }
+
+  .points {
+    color: color($colors, font);
+    display: inline;
+  }
+
+  .best {
+    color: color($colors, accent);
+  }
+
+  .header {
+    color: color($colors, font);
+    font-size: 1.3em;
+    margin: 0.2em 0;
+    align-content: center;
+  }
+
+  .legset {
+
+    color: color($colors, fontSec);
+  }
+
+  .setslegs {
+    color: color($colors, fontSec);
+    text-align: right;
+    display: inline;
+    margin-left: 5em; 
+  }
+
+}

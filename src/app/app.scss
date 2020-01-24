@@ -217,14 +217,19 @@ ion-icon {
   background: color($colors, backgroundAlert) !important;
   color: color($colors, font) !important;
   border: solid 1px color($colors, accentSec2) !important;
+
 }
 
-.alert-button:nth-child(2) {
-  color: color($colors, accent) !important;
-}
-
-.alert-button:nth-child(1) {
+.alert-button {
   color: color($colors, fontSec) !important;
+}
+
+// .alert-button:nth-child(2) {
+//   color: color($colors, fontSec) !important;
+// }
+
+.alert-button:last-child {
+  color: color($colors, accent) !important;
 }
 
 .alert-message {

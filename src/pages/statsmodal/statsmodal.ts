@@ -1,9 +1,9 @@
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ModalController, ModalOptions, Modal } from 'ionic-angular';
+import { ModalController, ViewController, Platform, ModalOptions, Modal } from 'ionic-angular';
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Chart } from "chart.js";
 import { X01stats } from "../../models/x01stats";
-
+import { X01Player } from "../../models/x01Player";
 /**
  * Generated class for the StatsmodalPage page.
  *
@@ -28,16 +28,23 @@ export class StatsmodalPage {
 
   game: X01stats;
   labels: String[] = [];
-  colors: String[] = ["rgb(28, 230, 162)", "rgb(50, 130, 162)", "rgb(28, 200, 62)", "rgb(128, 130, 162)", "rgb(128, 230, 62)", "rgb(68, 80, 62)", "", "rgb(28, 0, 162)"];
+  labelXAxis: String = "";
+  colors: String[] = ["rgba(28, 230, 162, 0.8)", "rgba(66, 169, 209, 0.8)", "rgba(228, 54, 54, 0.8)", "rgba(216, 243, 64, 0.8)",
+    "rgba(61, 206, 157, 0.8)", "rgba(220, 224, 218, 0.9)", "", "rgba(220, 85, 247, 0.8)"];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+  constructor(public platform: Platform, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
     this.game = navParams.get('game');
-
   }
 
   ionViewDidLoad() {
-    for (let i = 1; i < this.game.players[0].avgPerLeg.length + 1; i++) {
-      this.labels.push(i.toString());
+    if (this.game.isLegBased) {
+      this.labels = this.game.legssets;
+      this.labelXAxis = "leg/set";
+    } else {
+      this.labelXAxis = "# Games";
+      for (let i = 1; i < this.game.players[0].avgPerLeg.length + 1; i++) {
+        this.labels.push(i.toString());
+      }
     }
     this.setLineChart();
     this.setBarTotalScore();
@@ -50,9 +57,16 @@ export class StatsmodalPage {
     }
     return total;
   }
+  isWinner(p: X01Player) {
+    let allScores: number[] = [];
+    for (let p of this.game.players) {
+      allScores.push(p.totalScore);
+    }
+    return Math.min(...allScores) == p.totalScore;
+  }
 
   closeModal() {
-    this.navCtrl.pop();
+    this.viewCtrl.dismiss();
   }
 
   setLineChart() {
@@ -64,7 +78,7 @@ export class StatsmodalPage {
           label: this.game.players[i].name,
           fill: false,
           lineTension: 0.1,
-          backgroundColor: "rgba(75,192,192,0.4)",
+          backgroundColor: this.colors[i],
           borderColor: this.colors[i],
           borderCapStyle: "butt",
           borderDash: [],
@@ -74,10 +88,10 @@ export class StatsmodalPage {
           pointBackgroundColor: this.colors[i],
           pointBorderWidth: 1,
           pointHoverRadius: 5,
-          pointHoverBackgroundColor: "rgba(75,192,192,1)",
-          pointHoverBorderColor: "rgba(220,220,220,1)",
+          pointHoverBackgroundColor: this.colors[i],
+          pointHoverBorderColor: this.colors[i],
           pointHoverBorderWidth: 2,
-          pointRadius: 4,
+          pointRadius: 5,
           pointHitRadius: 10,
           data: this.game.players[i].avgPerLeg,
           spanGaps: true
@@ -94,7 +108,7 @@ export class StatsmodalPage {
       this.barChart.data.datasets[i] = (
         {
           label: this.game.players[i].name,
-          backgroundColor: "rgba(75,192,192,0.4)",
+          backgroundColor: this.colors[i],
           borderColor: this.colors[i],
           borderWidth: 1,
           data: this.game.players[i].totalPointsPerLeg,
@@ -113,7 +127,8 @@ export class StatsmodalPage {
           yAxes: [{
             ticks: {
               beginAtZero: true,
-              stepSize: 20,
+              // stepSize: 20,
+              autoSkipPadding: 30,
               precision: 0,
               autoSkip: true,
             },
@@ -125,7 +140,7 @@ export class StatsmodalPage {
           xAxes: [{
             scaleLabel: {
               display: true,
-              labelString: '# Games'
+              labelString: this.labelXAxis
             }
           }]
         }
@@ -151,13 +166,13 @@ export class StatsmodalPage {
             {
               ticks: {
                 beginAtZero: true,
-                stepSize: 100,
+                autoSkipPadding: 30,
                 precision: 0,
                 autoSkip: true,
               },
               scaleLabel: {
                 display: true,
-                labelString: 'Average'
+                labelString: 'Total Points'
               }
             }
           ],
@@ -168,7 +183,7 @@ export class StatsmodalPage {
               },
               scaleLabel: {
                 display: true,
-                labelString: '# Games'
+                labelString: this.labelXAxis
               }
             }
           ]
