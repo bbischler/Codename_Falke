@@ -17,6 +17,7 @@ import { QuickstatscricketComponent } from '../../components/quickstatscricket/q
   templateUrl: 'cricket.html',
 })
 export class CricketPage {
+  pageName = '';
   players: Array<CricketPlayer> = new Array<CricketPlayer>();
   isDouble: Boolean = false;
   isTriple: Boolean = false;
@@ -28,7 +29,7 @@ export class CricketPage {
   showContent: boolean = false;
   cricketstats: Cricketstats[] = [];
 
-  constructor(public popoverCtrl: PopoverController,public navCtrl: NavController, public navParams: NavParams,
+  constructor(public popoverCtrl: PopoverController, public navCtrl: NavController, public navParams: NavParams,
     public modalCtrl: ModalController, private service: ServiceProvider, private vibration: Vibration) { }
 
   ionViewDidEnter() {
@@ -74,10 +75,8 @@ export class CricketPage {
       "throwAmount": this.throwAmount
     }));
     localStorage.setItem('cricketStack', JSON.stringify(this.actionStack.toArray()));
-    console.log('cricket Storage wurde gesetzt!');
     this.service.setGameIsActive(false);
     this.service.deletePlayers();
-    console.log("STOARGE: " + localStorage.getItem('cricketStorage'));
   }
 
   openSettingsModal() {
@@ -174,7 +173,6 @@ export class CricketPage {
   }
 
   newgame() {
-    console.log("newgame");
     this.openPopupNewGame();
   }
 
@@ -196,7 +194,6 @@ export class CricketPage {
   }
 
   setPlayer() {
-    console.log(typeof (this.players));
     function flatten(a, b) { return a.concat(b); }
     for (let player of this.players) {
       for (let point of player.points) {
@@ -219,21 +216,17 @@ export class CricketPage {
 
   vibrate() {
     if (this.appSettings.vibrate) {
-      console.log("vibrate");
       this.vibration.vibrate(13);
     } else {
-      console.log("no vibrate");
     }
   }
 
   deleteStorage() {
-    console.log("delete storage");
     localStorage.removeItem('cricketStorage');
     localStorage.removeItem('cricketStack');
   }
 
   restoreGame() {
-    console.log("restore storage");
     let cStorage = JSON.parse(localStorage.getItem('cricketStorage'));
 
     this.isDouble = cStorage.isDouble;
@@ -356,11 +349,15 @@ export class CricketPage {
   async bannerRematch() {
     this.service.toastPopup('playerToast', 'Rematch!');
   }
-  
+
   presentQuickStats() {
-    let popover = this.popoverCtrl.create(QuickstatscricketComponent, { key1: this.players});
+    let popover = this.popoverCtrl.create(QuickstatscricketComponent, { key1: this.players });
+    this.pageName = 'POPOVER'
     popover.present({
       // ev: this.players
+    });
+    popover.onDidDismiss(data => {
+      this.pageName = '';
     });
   }
 }

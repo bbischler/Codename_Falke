@@ -18,7 +18,7 @@ export class HomePage {
   message: string = "Hey, here is a new cool dart scoring app";
   url: string = "https://play.google.com/store/apps/details?id=com.bischlerdeveloper.dartist";
 
-  constructor( public navCtrl: NavController,
+  constructor(public navCtrl: NavController,
     private service: ServiceProvider,
     private socialSharing: SocialSharing) {
   }
@@ -36,17 +36,24 @@ export class HomePage {
     this.service.setActivePage('Cricket');
     this.navCtrl.push('CricketPage');
   }
-  openX01(num: number) {
+  openX01() {
     // this.notAvaiableToast();
 
-    this.service.setActivePage(num);
-    this.navCtrl.push('X01Page', {
-      param: num
-    });
+    this.service.setActivePage("X-01");
+    this.navCtrl.push('X01Page');
   }
   openChallenge() {
     this.service.setActivePage('Challenge');
     this.navCtrl.push('ChallengePage');
+  }
+  openStats() {
+    this.service.setActivePage("Stats");
+    this.navCtrl.push('StatsPage');
+  }
+
+  openInstructions() {
+    this.service.setActivePage("Instructions");
+    this.navCtrl.push('InstructionsPage');
   }
   inviteFriend() {
     this.socialSharing.share(this.message, "Dartist", null, this.url)

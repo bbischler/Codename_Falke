@@ -74,11 +74,9 @@ export class StatsPage {
     this.navCtrl.push('CricketPage');
   }
 
-  playX01(num: number) {
-    this.service.setActivePage(num);
-    this.navCtrl.push('X01Page', {
-      param: num
-    });
+  playX01() {
+    this.service.setActivePage("X-01");
+    this.navCtrl.push('X01Page');
   }
   deletex01stats() {
     this.x01stats = [];

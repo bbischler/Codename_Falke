@@ -47,7 +47,10 @@ export class x01ThrowAction {
             "id": p.id,
             "name": p.name,
             "totalPointsPerLeg": p.totalPointsPerLeg,
-            "avgPerLeg":p.avgPerLeg
+            "avgPerLeg": p.avgPerLeg,
+            "totalThrowsPerLeg": p.totalThrowsPerLeg,
+            "totalSCoreForAllGames": p.totalSCoreForAllGames,
+            "firstNinePerLeg": p.firstNinePerLeg
         });
         this.player = tmpPlayer;
     }

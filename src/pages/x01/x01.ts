@@ -1,6 +1,6 @@
 import { Stack } from 'stack-typescript';
-import { x01ThrowAction } from './../../models/x01ThrowAction';
-import { X01Player } from './../../models/x01Player';
+import { x01ThrowAction } from '../../models/x01ThrowAction';
+import { X01Player } from '../../models/x01Player';
 import { Component, ViewChild } from '@angular/core';
 import { NativeAudio } from '@ionic-native/native-audio/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
@@ -26,8 +26,9 @@ export class X01Page {
     this.slides.effect = "cube";
   }
 
+  pageName = '';
 
-  num: number;
+  // num: number;
   players: X01Player[] = [];
   numbers: number[] = [1, 6, 11, 16];
   isDouble: Boolean = false;
@@ -53,29 +54,28 @@ export class X01Page {
     private vibration: Vibration, public data: DataProvider) {
     this.platform.ready().then(() => {
       this.nativeAudio.preloadSimple('180', 'assets/sounds/180.mp3').then((success) => {
-        console.log("success");
       }, (error) => {
         console.log(error);
       });
     });
-    if (this.navParams.get('param')) {
-      this.num = this.navParams.get('param');
-    } else {
-      this.num = 301;
-    }
+    // if (this.navParams.get('param')) {
+    //   this.num = this.navParams.get('param');
+    // } else {
+    //   this.num = 301;
+    // }
     // this.openSettings();
     this.x01Settings = this.service.getX01Settings();
   }
 
   ionViewDidEnter() {
-    if (localStorage.getItem('x01Storage' + this.num)) {
+    if (localStorage.getItem('x01Storage' + this.x01Settings.num)) {
       this.openPopupRestore();
     } else {
       this.openSettingsModal();
     }
     this.getStatsStorage();
     this.appSettings = this.service.getAppSettings();
-    this.service.setActivePage(this.num);
+    this.service.setActivePage(this.x01Settings.num);
   }
 
   getStatsStorage() {
@@ -107,7 +107,7 @@ export class X01Page {
       enableBackdropDismiss: true,
       showBackdrop: false,
     };
-    const myModal: Modal = this.modalCtrl.create("X01SettingsPage", { gameNum: this.num }, myModalOptions);
+    const myModal: Modal = this.modalCtrl.create("X01SettingsPage", { gameNum: this.x01Settings.num }, myModalOptions);
     myModal.present();
     myModal.onDidDismiss(data => {
       if (data == false) {
@@ -136,7 +136,7 @@ export class X01Page {
   setPlayer() {
     this.players = this.service.getAllPlayer() as X01Player[];
     this.players.forEach(p => {
-      p.setTotalScore(this.num);
+      p.setTotalScore(this.x01Settings.num);
     })
     this.activePlayer = this.players[0];
     this.playerCounter = 0;
@@ -179,6 +179,7 @@ export class X01Page {
 
 
   throw(points: number) {
+    console.log("THROOOOOOOOOOW");
 
     this.slides.slideTo(this.playerCounter, 1000);
 
@@ -265,6 +266,7 @@ export class X01Page {
     }
     else if (_score <= 1) {
       this.presentBust();
+      console.log("BUUUUUUUUST");
       let tmpRoundCount = this.activePlayer.roundThrowCount;
       for (let i = 0; i < tmpRoundCount; i++)
         this.undo();
@@ -300,7 +302,7 @@ export class X01Page {
   }
 
   setStats() {
-    this.x01stats[this.x01stats.length - 1].num = this.num;
+    this.x01stats[this.x01stats.length - 1].num = this.x01Settings.num;
     this.x01stats[this.x01stats.length - 1].isLegBased = this.x01Settings.legbased;
     this.x01stats[this.x01stats.length - 1].legssets = this.legssets;
     this.x01stats[this.x01stats.length - 1].date = new Date();
@@ -365,7 +367,7 @@ export class X01Page {
 
   resetGameLegbased() {
     for (let p of this.players) {
-      p.prepareRematch(this.num);
+      p.prepareRematch(this.x01Settings.num);
     }
     this.activePlayer = this.players[0];
     this.playerCounter = 0;
@@ -392,7 +394,7 @@ export class X01Page {
   }
 
   storeGame() {
-    localStorage.setItem('x01Storage' + this.num, JSON.stringify({
+    localStorage.setItem('x01Storage' + this.x01Settings.num, JSON.stringify({
       "players": this.players,
       "isDouble": this.isDouble,
       "isTriple": this.isTriple,
@@ -406,14 +408,14 @@ export class X01Page {
       "currentset": this.currentset,
       "legssets": this.legssets
     }));
-    localStorage.setItem('x01Stack' + this.num, JSON.stringify(this.actionStack.toArray()));
+    localStorage.setItem('x01Stack' + this.x01Settings.num, JSON.stringify(this.actionStack.toArray()));
     this.service.setGameIsActive(false);
     this.service.deletePlayers();
   }
 
   restoreGame() {
     this.actionStack = new Stack<x01ThrowAction>();
-    let x01Storage = JSON.parse(localStorage.getItem('x01Storage' + this.num));
+    let x01Storage = JSON.parse(localStorage.getItem('x01Storage' + this.x01Settings.num));
     this.isDouble = x01Storage.isDouble;
     this.isTriple = x01Storage.isTriple;
     this.throwCounter = x01Storage.throwCounter;
@@ -441,14 +443,17 @@ export class X01Page {
         "doubleIn": p.doubleIn,
         "doubleOut": p.doubleOut,
         "totalPointsPerLeg": p.totalPointsPerLeg,
-        "avgPerLeg": p.avgPerLeg
+        "avgPerLeg": p.avgPerLeg,
+        "totalThrowsPerLeg": p.totalThrowsPerLeg,
+        "totalSCoreForAllGames": p.totalSCoreForAllGames,
+        "firstNinePerLeg":p.firstNinePerLeg
       });
       this.players.push(tmpPlayer);
     }
     // this.setPlayer();
     this.activePlayer = this.players[this.playerCounter];
 
-    let tmp: Array<x01ThrowAction> = JSON.parse(localStorage.getItem('x01Stack' + this.num));
+    let tmp: Array<x01ThrowAction> = JSON.parse(localStorage.getItem('x01Stack' + this.x01Settings.num));
     for (let tmpAct of tmp.reverse()) {
       tmpAct.player = this.players[tmpAct.player.id - 1];
       var act = new x01ThrowAction(tmpAct.point, tmpAct.player)
@@ -464,9 +469,8 @@ export class X01Page {
   }
 
   deleteStorage() {
-    console.log("delete x01storage");
-    localStorage.removeItem('x01Storage' + this.num);
-    localStorage.removeItem('x01Stack' + this.num);
+    localStorage.removeItem('x01Storage' + this.x01Settings.num);
+    localStorage.removeItem('x01Stack' + this.x01Settings.num);
   }
 
   // POPUPS //
@@ -492,7 +496,7 @@ export class X01Page {
   }
 
   openPopupRestore() {
-    this.service.showMessageOkCancel('Restore ' + this.num + '?', 'Do you want to restore the last game?', ['New game', 'Yes']).then((res) => {
+    this.service.showMessageOkCancel('Restore ' + this.x01Settings.num + '?', 'Do you want to restore the last game?', ['New game', 'Yes']).then((res) => {
       if (res) {
         this.restoreGame();
         this.showContent = true;
@@ -514,7 +518,7 @@ export class X01Page {
   }
 
   winningPopup(player: X01Player) {
-    this.service.showMessageFourWay('Congratulations', player.name + ' has won the game!', ['Home', this.num + ' Settings', 'Stats', ["Rematch"]]).then((res) => {
+    this.service.showMessageFourWay('Congratulations', player.name + ' has won the game!', ['Home', this.x01Settings.num + ' Settings', 'Stats', ["Rematch"]]).then((res) => {
       if (res === "Home") {
         localStorage.removeItem('cricketPlayer');
         this.SetPlayerForEndGame();
@@ -533,7 +537,7 @@ export class X01Page {
   }
 
   winningPopupLegbased(player: X01Player) {
-    this.service.showMessageThreeWay('Congratulations', player.name + ' has won the game!', ['Home', 'Stats', this.num + ' Settings']).then((res) => {
+    this.service.showMessageThreeWay('Congratulations', player.name + ' has won the game!', ['Home', 'Stats', this.x01Settings.num + ' Settings']).then((res) => {
       if (res === "Home") {
         localStorage.removeItem('cricketPlayer');
         this.SetPlayerForEndGame();
@@ -552,7 +556,7 @@ export class X01Page {
 
   prepareRematch() {
     for (let p of this.players) {
-      p.prepareRematch(this.num);
+      p.prepareRematch(this.x01Settings.num);
     }
     this.isDouble = false;
     this.isTriple = false;
@@ -588,8 +592,12 @@ export class X01Page {
 
   presentQuickStats() {
     let popover = this.popoverCtrl.create(Quickstatsx01Component, { key1: this.players, key2: this.currentleg, key3: this.currentset, key4: this.x01Settings.legbased });
+    this.pageName = 'POPOVER'
     popover.present({
       // ev: this.players
+    });
+    popover.onDidDismiss(data => {
+      this.pageName = '';
     });
   }
 }

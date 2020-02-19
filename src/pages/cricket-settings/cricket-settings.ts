@@ -29,6 +29,12 @@ export class CricketSettingsPage {
     }
 
   }
+  resetSettings() {
+    localStorage.removeItem("cricketPlayer");
+    this.players = [];
+    this.players.push(new CricketPlayer(1, ""));
+    this.players.push(new CricketPlayer(2, ""));
+  }
 
   dismiss() {
     this.service.setActivePage('Home');
@@ -48,15 +54,18 @@ export class CricketSettingsPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad X01SettingsPage');
   }
 
   addPlayer() {
     if (this.players.length == 8) {
       this.presentToastMaxPlayer();
     } else {
-      var newPlayerNumber = this.players.length + 1;
-      this.players.push(new CricketPlayer(newPlayerNumber, ""));
+      var ids: number[] = [];
+      this.players.forEach(function (player) {
+        ids.push(player.id);
+      });
+      let newId = Math.max(...ids) + 1;
+      this.players.push(new CricketPlayer(newId, ""));
     }
   }
 

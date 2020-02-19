@@ -1,67 +1,67 @@
 page-cricket {
-    .player {
-        padding: 0 1em 0 1em !important;
-        min-width: 25%;
-    }
+  .player {
+    padding: 0 1em 0 1em !important;
+    min-width: 25%;
+  }
 
-    .playerName {
-        color: color($colors, fontSec);
-        text-align: center; // font-weight: 200;
-    }
+  .playerName {
+    color: color($colors, fontSec);
+    text-align: center; // font-weight: 200;
+  }
 
-    .playerinfo {
-        height: 5%;
-    }
+  .playerinfo {
+    height: 5%;
+  }
 
-    .playerScore {
-        color: color($colors, font);
-        text-align: center;
-        font-size: x-large;
-    }
+  .playerScore {
+    color: color($colors, font);
+    text-align: center;
+    font-size: x-large;
+  }
 
-    .score {
-        margin-bottom: 2em;
-    }
+  .score {
+    margin-bottom: 2em;
+  }
 
-    .active {
-        margin: 0.4 0 0.4em 0;
-        border: none;
-        background-color: color($colors, accent);
-    }
+  .active {
+    margin: 0.4 0 0.4em 0;
+    border: none;
+    background-color: color($colors, accent);
+  }
 
-    .dotscontainer {
-        // height: 100%!important;
-        display: flex;
-        align-items: center;
-    }
+  .dotscontainer {
+    // height: 100%!important;
+    display: flex;
+    align-items: center;
+  }
 
-    .dots {
-        // padding: 5px !important; // display: block;
-        vertical-align: middle !important;
-    }
+  .dots {
+    // padding: 5px !important; // display: block;
+    vertical-align: middle !important;
+  }
 
-    .numbercontainer {
-        height: 100%;
-        background-color: transparent; // display: flex;
-        box-shadow: none !important; // align-items: center;
-        // border: solid green;
-        padding: 0 !important;
-        margin: 0 !important;
-    }
+  .numbercontainer {
+    height: 100%;
+    background-color: transparent; // display: flex;
+    box-shadow: none !important; // align-items: center;
+    // border: solid green;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
 
-    .numberscore {
-        font-weight: 200;
-        background-color: transparent;
-        color: color($colors, fontSec); // text-align: right;
-        font-size: 1.7rem;
-        vertical-align: middle !important;
-    }
+  .numberscore {
+    font-weight: 200;
+    background-color: transparent;
+    color: color($colors, fontSec); // text-align: right;
+    font-size: 1.7rem;
+    vertical-align: middle !important;
+  }
 
-    .full {
-        color: color($colors, fontSec);
-    }
+  .full {
+    color: color($colors, fontSec);
+  }
 
-    
+
   .titlelegs {
     text-align: right;
     margin: 0 0.5em;
@@ -79,58 +79,58 @@ page-cricket {
   }
 
 
-    .scoreboard {
-        height: 85%; // position: absolute;
-        bottom: 0;
-        top: 0;
-        left: 0;
-        right: 0;
-    }
+  .scoreboard {
+    height: 85%; // position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
 
-    .scoreboardrow {
-        height: 12%;
-    }
+  .scoreboardrow {
+    height: 12%;
+  }
 
-    .btn_bottom {
-        background-color: transparent;
-        box-shadow: none !important;
-        height: 75%;
-        font-weight: 200;
-        font-size: 1.5rem;
-        color: color($colors, fontSec);
-    }
+  .btn_bottom {
+    background-color: transparent;
+    box-shadow: none !important;
+    height: 75%;
+    font-weight: 200;
+    font-size: 1.5rem;
+    color: color($colors, fontSec);
+  }
 
-    .active_btn {
-        background-color: color($colors, semiTransparent) !important;
-        border: solid 1px color($colors, accentSec);
-        color: color($colors, font);
-    }
+  .active_btn {
+    background-color: color($colors, semiTransparent) !important;
+    border: solid 1px color($colors, accentSec);
+    color: color($colors, font);
+  }
 
-    ion-col {
-        // border: solid 1px green;
-    }
+  ion-col {
+    // border: solid 1px green;
+  }
 
-    ion-grid {
-        // border: solid green;
-    }
+  ion-grid {
+    // border: solid green;
+  }
 
-    ion-row {
-        // border: solid 1px red;
-    }
+  ion-row {
+    // border: solid 1px red;
+  }
 
-    .fas.fa-circle,
-    .fas.fa-circle.closed,
-    .far.fa-circle {
-        font-size: 0.7em;
-        margin: 4px 0 4px 4px;
-    }
+  .fas.fa-circle,
+  .fas.fa-circle.closed,
+  .far.fa-circle {
+    font-size: 0.7em;
+    margin: 4px 0 4px 4px;
+  }
 
-    .forecast_container{
-        overflow-x: scroll!important;
-        // overflow-y: hidden;
-        // word-wrap: break-word;
-        // height:20vw;
-        // font-size:0.8em;
-        // font-weight:300;
-}
+  .forecast_container {
+    overflow-x: scroll !important;
+    // overflow-y: hidden;
+    // word-wrap: break-word;
+    // height:20vw;
+    // font-size:0.8em;
+    // font-weight:300;
+  }
 }

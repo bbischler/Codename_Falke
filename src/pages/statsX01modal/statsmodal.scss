@@ -7,7 +7,7 @@ page-statsmodal {
 
   ion-card-header {
     background: transparent !important;
-    color: color($colors, accentSec) !important;
+    color: color($colors, btnActivated) !important;
   }
 
   ion-card-content {
@@ -30,8 +30,15 @@ page-statsmodal {
 
   }
 
+
+  .gamesplayed {
+    color: color($colors, fontSec);
+    text-align: center;
+    margin-top:1em;
+  }
+
   .chart {
-    min-height: 17em !important;
+    height: 15em !important;
   }
 
   .backbutton {
@@ -58,8 +65,9 @@ page-statsmodal {
 
   .playerscore {
     color: color($colors, font);
+    margin-left: 2em;
     font-size: 1.1em;
-   
+
   }
 
   .won {

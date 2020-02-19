@@ -14,11 +14,15 @@ export class X01Player extends Player {
     doubleOut: boolean = true;
     totalPointsPerLeg: number[] = [];
     avgPerLeg: number[] = [];
+    totalThrowsPerLeg: number[] = [];
+    firstNinePerLeg: number[][] = [];
+    totalSCoreForAllGames: number = 0
 
     constructor(public data?: DataProvider, id?: number, name?: string) {
         super(id, name);
         this.toThrow = [];
         this.totalPointsPerLeg = [];
+        this.totalThrowsPerLeg = [];
     }
 
     public throw(points: number): void {
@@ -147,7 +151,10 @@ export class X01Player extends Player {
         this.roundThrowCount = 0;
         this.totalThrowCount = 0;
         this.totalPointsPerLeg = [];
+        this.totalThrowsPerLeg = [];
+        this.firstNinePerLeg = [];
         this.avgPerLeg = [];
+        this.totalSCoreForAllGames = 0;
     }
 
     public prepareRematch(num: number) {
@@ -164,6 +171,9 @@ export class X01Player extends Player {
     }
     public setstats() {
         this.totalPointsPerLeg.push(this.roundScore);
+        this.totalThrowsPerLeg.push(this.totalThrowCount);
         this.avgPerLeg.push(this.avg);
+        this.firstNinePerLeg.push(this.lastScores);
+        this.totalSCoreForAllGames += this.roundScore;
     }
 }

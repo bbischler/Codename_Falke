@@ -28,14 +28,18 @@
             {{p.name}} :
           </ion-col>
           <ion-col [className]="isWinner(p) ? 'playerscore won' : 'playerscore'">
-            {{getTotalScore(p.totalPointsPerLeg)}}
+            {{p.totalSCoreForAllGames}}
           </ion-col>
 
+        </ion-row>
+        <ion-row>
+          <ion-col class="gamesplayed">
+            {{game.players[0].totalPointsPerLeg.length}} game(s) played
+          </ion-col>
         </ion-row>
       </ion-grid>
     </ion-card-content>
   </ion-card>
-
 
   <ion-card>
     <ion-card-header>
@@ -43,6 +47,25 @@
     </ion-card-header>
     <ion-card-content class="chart">
       <canvas #lineCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      First 9 Average
+    </ion-card-header>
+    <ion-card-content class="chart">
+      <canvas #lineCanvasFirstNine></canvas>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card>
+    <ion-card-header>
+      Total Throws per Game
+    </ion-card-header>
+    <ion-card-content class="chart">
+      <canvas #lineCanvasThrow></canvas>
     </ion-card-content>
   </ion-card>
 

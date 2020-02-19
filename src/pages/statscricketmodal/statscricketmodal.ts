@@ -29,8 +29,8 @@ export class StatscricketmodalPage {
   private barChart: Chart;
 
   game: Cricketstats;
-  colors: String[] = ["rgba(28, 230, 162, 0.8)", "rgba(66, 169, 209, 0.8)", "rgba(228, 54, 54, 0.8)", "rgba(216, 243, 64, 0.8)",
-    "rgba(61, 206, 157, 0.8)", "rgba(220, 224, 218, 0.9)", "", "rgba(220, 85, 247, 0.8)"];
+  colors: String[] = ["rgba(28, 250, 162, 0.8)", "rgba(66, 149, 229, 0.8)", "rgba(228, 54, 54, 0.8)", "rgba(216, 243, 64, 0.8)",
+  "rgba(61, 6, 157, 0.8)", "rgba(220, 224, 218, 0.9)", "", "rgba(220, 85, 247, 0.8)"];
   labelsCricket: String[] = ["20", "19", "18", "17", "16", "15", "Bull"];
   labels: String[] = [];
 

@@ -21,13 +21,13 @@ export class X01SettingsPage {
   x01Settings: X01Settings;
   players: X01Player[] = [];
   pageName = 'MODAL';
-  gameNum: String;
+  gameNum: number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController, private service: ServiceProvider,
     public toastController: ToastController, public data: DataProvider) {
     this.x01Settings = this.service.getX01Settings();
-    this.gameNum = navParams.get('gameNum');
+    // this.gameNum = navParams.get('gameNum');
     if (localStorage.getItem("x01Player")) {
       let tmpplayers = JSON.parse(localStorage.getItem("x01Player"));
       for (let p of tmpplayers) {
@@ -38,6 +38,15 @@ export class X01SettingsPage {
       this.players.push(new X01Player(this.data, 1, ""));
       this.players.push(new X01Player(this.data, 2, ""));
     }
+  }
+
+  resetSettings() {
+    this.service.resetX01Settings();
+    this.x01Settings = this.service.getX01Settings();
+    this.players = [];
+    localStorage.removeItem("x01Player");
+    this.players.push(new X01Player(this.data, 1, ""));
+    this.players.push(new X01Player(this.data, 2, ""));
   }
 
   dismiss() {
@@ -56,15 +65,17 @@ export class X01SettingsPage {
 
     this.viewCtrl.dismiss(true);
   }
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad X01SettingsPage');
-  }
+
   addPlayer() {
     if (this.players.length == 8) {
       this.presentToastMaxPlayer();
     } else {
-      var newPlayerNumber = this.players.length + 1;
-      this.players.push(new X01Player(this.data, newPlayerNumber, ""));
+      var ids: number[] = [];
+      this.players.forEach(function (player) {
+        ids.push(player.id);
+      });
+      let newId = Math.max(...ids) + 1;
+      this.players.push(new X01Player(this.data, newId, ""));
     }
   }
 
@@ -85,6 +96,10 @@ export class X01SettingsPage {
   }
   legbasedgame() {
     this.x01Settings.legbased = true;
+  }
+
+  setNum(num: number) {
+    this.x01Settings.num = num;
   }
 
   async presentToastMaxPlayer() {

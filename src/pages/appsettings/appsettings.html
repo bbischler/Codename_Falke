@@ -18,7 +18,8 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-grid style="height:95%;padding-top:0;width:100%;" no-padding>
+  <ion-grid style="height:95%;padding-top:3em;width:100%;" no-padding>
+    
     <ion-row class="toggles">
       <ion-col>
         <button ion-button full [className]="sound ? 'btn-active' : 'btn'" (click)="soundon()">
@@ -44,14 +45,20 @@
         </button>
       </ion-col>
     </ion-row>
-    <ion-row class="toggles">
-    </ion-row>
+
     <ion-row class="toggles">
       <ion-col>
         <button ion-button full class="btn-save" (click)="save()">
           SAVE
         </button>
       </ion-col>
+    </ion-row>
+    <ion-row class="toggles">
+    </ion-row>
+    <ion-row class="toggles">
+      <button ion-button full class="btn-save deletebtn" (click)="deleteCachePopup()">
+        DELETE CACHE
+      </button>
     </ion-row>
   </ion-grid>
 

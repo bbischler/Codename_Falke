@@ -21,7 +21,7 @@ import { AppRate, AppRatePreferences } from '@ionic-native/app-rate/ngx';
 export class ServiceProvider {
 
   activePage: string = 'Home';
-  x01Settings: X01Settings = new X01Settings(false, 3, 1, false, true);
+  x01Settings: X01Settings = new X01Settings(false, 3, 1, false, true, 301);
   players: Player[] = [];
   gameIsActive: Boolean = false;
   private admobId: any = {
@@ -96,9 +96,10 @@ export class ServiceProvider {
   }
 
   resetX01Settings() {
-    this.x01Settings = new X01Settings(false, 3, 1, false, true);
+    this.x01Settings = new X01Settings(false, 3, 1, false, true, 301);
     localStorage.removeItem("doubleOutGame");
   }
+
   getX01Settings() {
     return this.x01Settings;
   }
@@ -150,7 +151,10 @@ export class ServiceProvider {
       "roundThrowCount": p.roundThrowCount,
       "totalThrowCount": p.totalThrowCount,
       "totalPointsPerLeg": p.totalPointsPerLeg,
-      "avgPerLeg": p.avgPerLeg
+      "avgPerLeg": p.avgPerLeg,
+      "totalThrowsPerLeg": p.totalThrowsPerLeg,
+      "totalSCoreForAllGames": p.totalSCoreForAllGames,
+      "firstNinePerLeg": p.firstNinePerLeg
     });
     return tmpPlayer;
   }

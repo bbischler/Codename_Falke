@@ -9,7 +9,7 @@ page-statscricketmodal {
   }
 
   ion-card-header {
-    color: color($colors, accentSec) !important;
+    color: color($colors, btnActivated) !important;
     background: transparent !important;
   }
 
@@ -39,10 +39,12 @@ page-statscricketmodal {
   .gamesplayed {
     color: color($colors, fontSec);
     text-align: center;
+    margin-top: 1em;
+
   }
 
   .chart {
-    min-height: 17em !important;
+    height: 15em !important;
   }
 
   .backbutton {

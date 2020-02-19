@@ -1,31 +1,37 @@
 page-appsettings {
 
-    .toggles {
-        margin: 1em 1em 1em 1em;
-        height: 3em;
-    }
+  .toggles {
+    margin: 1em 1em 1em 1em;
+    height: 3em;
+  }
 
-    .btn {
-        height: 100%;
-        width: 100%;
-        color: color($colors, fontSec);
-        background-color: color($colors, transparent);
-        border: solid 1px color($colors, semiTransparent);
-    }
+  .btn {
+    height: 100%;
+    width: 100%;
+    color: color($colors, fontSec);
+    background-color: color($colors, transparent);
+    border: solid 1px color($colors, semiTransparent);
+  }
 
-    .btn-active {
-        height: 100%;
-        width: 100%;
-        color: color($colors, font);
-        background-color: color($colors, semiTransparent);
-        border: solid 1px color($colors, accent);
-    }
+  .btn-active {
+    height: 100%;
+    width: 100%;
+    color: color($colors, font);
+    background-color: color($colors, semiTransparent);
+    border: solid 1px color($colors, accent);
+  }
 
-    .btn-save {
-        height: 100%;
-        width: 100%;
-        color: color($colors, font);
-        background-color: color($colors, semiTransparentBtn);
-        border: solid 1px color($colors, fontSec);
-    }
+  .btn-save {
+    height: 100%;
+    width: 100%;
+    color: color($colors, font);
+    background-color: color($colors, semiTransparentBtn);
+    border: solid 1px color($colors, fontSec);
+  }
+
+  .deletebtn {
+    color: color($colors, deleteclr);
+    background: transparent;
+    border: solid 1px color($colors, deleteclr);
+  }
 }

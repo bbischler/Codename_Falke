@@ -33,6 +33,7 @@ export class MyApp {
     public alertCtrl: AlertController, public app: App, private insomnia: Insomnia) {
     this.initializeApp();
 
+
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: 'HomePage' },
@@ -40,13 +41,13 @@ export class MyApp {
     ];
 
     this.pagesx01 = [
-      { title: '301', component: 'X01Page' },
-      { title: '501', component: 'X01Page' },
-      { title: '701', component: 'X01Page' },
+      { title: 'X-01', component: 'X01Page' },
+      // { title: '501', component: 'X01Page' },
+      // { title: '701', component: 'X01Page' },
     ];
     this.instructions = [
-      { title: 'Stats', component: 'StatsPage' },
       { title: 'Challenge', component: 'ChallengePage' },
+      { title: 'Stats', component: 'StatsPage' },
       { title: 'Instructions', component: 'InstructionsPage' },
       { title: 'Settings', component: 'AppsettingsPage' },
     ];
@@ -75,14 +76,14 @@ export class MyApp {
     });
     this.platform.registerBackButtonAction(() => {
       // Catches the active view
-
       let nav = this.app.getActiveNavs()[0];
       // let activeView = nav.getActive();
       // Checks if can go back before show up the alert
       let view = nav.getActive().instance.pageName;
-      if (view === 'MODAL') {
+      if (view === 'MODAL' || view === 'POPOVER') {
         // nav.pop();
         // this.nav.setRoot('HomePage');
+        console.log("MODALLL or POPOVER");
         return;
       }
 
