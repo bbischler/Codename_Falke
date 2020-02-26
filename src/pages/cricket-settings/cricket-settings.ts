@@ -1,4 +1,4 @@
-import { CricketPlayer } from './../../models/cricketPlayer';
+import { CricketPlayer } from '../../models/cricket/cricketPlayer';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
 import { ServiceProvider } from '../../providers/service/service';

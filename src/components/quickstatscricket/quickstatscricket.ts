@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ViewController, Platform, NavParams } from 'ionic-angular';
-import { CricketPlayer } from '../../models/cricketPlayer';
+import { CricketPlayer } from '../../models/cricket/cricketPlayer';
 /**
  * Generated class for the Quickstatsx01Component component.
  *

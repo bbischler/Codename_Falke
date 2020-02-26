@@ -1,14 +1,14 @@
 import { Stack } from 'stack-typescript';
-import { x01ThrowAction } from '../../models/x01ThrowAction';
-import { X01Player } from '../../models/x01Player';
+import { x01ThrowAction } from '../../models/x01/x01ThrowAction';
+import { X01Player } from '../../models/x01/x01Player';
 import { Component, ViewChild } from '@angular/core';
 import { NativeAudio } from '@ionic-native/native-audio/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { IonicPage, PopoverController, NavController, Platform, NavParams, Slides, ModalController, Modal, ModalOptions } from 'ionic-angular';
-import { X01Settings } from '../../models/x01Settings';
+import { X01Settings } from '../../models/x01/x01Settings';
 import { ServiceProvider } from '../../providers/service/service';
 import { DataProvider } from '../../providers/data/data';
-import { X01stats } from '../../models/x01stats';
+import { X01stats } from '../../models/x01/x01stats';
 import { Quickstatsx01Component } from '../../components/quickstatsx01/quickstatsx01';
 
 
@@ -20,8 +20,8 @@ import { Quickstatsx01Component } from '../../components/quickstatsx01/quickstat
 export class X01Page {
   @ViewChild(Slides) slides: Slides;
   ngAfterViewInit() {
-    this.slides.spaceBetween = 1;
-    this.slides.slidesPerView = 1.3;
+    this.slides.spaceBetween = 0;
+    this.slides.slidesPerView = 0;
     this.slides.centeredSlides = true;
     this.slides.effect = "cube";
   }
@@ -293,7 +293,6 @@ export class X01Page {
       for (let i = 0; i < 3; i++)
         this.throw(0);
 
-      this.activePlayer.roundThrowCount = 3;
       return false;
     } else {
       return false;
@@ -446,7 +445,7 @@ export class X01Page {
         "avgPerLeg": p.avgPerLeg,
         "totalThrowsPerLeg": p.totalThrowsPerLeg,
         "totalSCoreForAllGames": p.totalSCoreForAllGames,
-        "firstNinePerLeg":p.firstNinePerLeg
+        "firstNinePerLeg": p.firstNinePerLeg
       });
       this.players.push(tmpPlayer);
     }
@@ -455,7 +454,10 @@ export class X01Page {
 
     let tmp: Array<x01ThrowAction> = JSON.parse(localStorage.getItem('x01Stack' + this.x01Settings.num));
     for (let tmpAct of tmp.reverse()) {
-      tmpAct.player = this.players[tmpAct.player.id - 1];
+      for (let i = 0; i < this.players.length; i++) {
+        if (this.players[i].id == tmpAct.player.id)
+          tmpAct.player = this.players[i];
+      }
       var act = new x01ThrowAction(tmpAct.point, tmpAct.player)
       Object.assign(act, {
         "isDone": tmpAct.isDone
@@ -465,6 +467,7 @@ export class X01Page {
 
     this.deleteStorage();
     this.service.setGameIsActive(true);
+    this.slides.slideTo(this.playerCounter, 1000);
     this.gameRestoreToast();
   }
 

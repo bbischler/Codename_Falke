@@ -37,8 +37,6 @@ export class HomePage {
     this.navCtrl.push('CricketPage');
   }
   openX01() {
-    // this.notAvaiableToast();
-
     this.service.setActivePage("X-01");
     this.navCtrl.push('X01Page');
   }
@@ -51,10 +49,11 @@ export class HomePage {
     this.navCtrl.push('StatsPage');
   }
 
-  openInstructions() {
-    this.service.setActivePage("Instructions");
-    this.navCtrl.push('InstructionsPage');
+  openATW() {
+    this.service.setActivePage("Around The World");
+    this.navCtrl.push('AroundWorldPage');
   }
+
   inviteFriend() {
     this.socialSharing.share(this.message, "Dartist", null, this.url)
       .then(() => {

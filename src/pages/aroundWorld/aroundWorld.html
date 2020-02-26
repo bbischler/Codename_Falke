@@ -1,0 +1,118 @@
+<ion-header no-border>
+  <ion-toolbar color="transparent">
+    <button ion-button menuToggle class="homebutton">
+      <div class="homeiconcontainer">
+        <div class="homeiconitem">&nbsp;</div>
+        <div class="homeiconitem inner">&nbsp;</div>
+        <div class="homeiconitem">&nbsp;</div>
+      </div>
+      <!-- <ion-icon color="fontSec" name="menu"></ion-icon> -->
+    </button>
+    <ion-title>
+      <div class="page-header-menu" *ngIf="showContent">Around The World </div>
+    </ion-title>
+    <div style="display: flex; flex-direction: row; justify-content: flex-end" *ngIf="showContent">
+
+
+      <div class="titlelegs stats">
+        <ion-buttons>
+          <button ion-button (click)="presentQuickStats()">
+            <ion-icon style="font-size:1.6em " color="homebutton" name="ios-stats"></ion-icon>
+          </button>
+        </ion-buttons>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+[ngClass]="isActivePlayer(player) ? 'playerName active' : 'playerName'"
+<ion-content padding>
+  <div class="namecontainer" *ngIf="showContent">
+    <div class="nameitem" *ngFor="let player of players">
+      <div [ngClass]="isActivePlayer(player.id) ? 'playerName activePlayerInfo' : 'playerName'"> {{player.name}}</div>
+      <div [ngClass]="isActivePlayer(player.id) ? 'playerScore activePlayerInfo' : 'playerScore'">
+        {{getToThrow(player.id)}} </div>
+    </div>
+  </div>
+
+  <ion-grid style="height:80%;padding-top:0;width:100%;" no-padding *ngIf="showContent">
+    <ion-row *ngIf="getActivePlayer()" style="height:30%">
+
+      <ion-card *ngIf="getActivePlayer" class="cardClassActive">
+        <ion-card-header no-padding>
+          <ion-grid style="height:100%;" no-padding>
+            <ion-row class="stats" align-items-center>
+              <ion-col class="labels">
+                Active player
+              </ion-col>
+              <ion-col class="colcenter">
+                {{activePlayer.name}}
+              </ion-col>
+              <ion-col class="labels">
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="score" align-items-center>
+              <ion-col class="labels">
+                To throw
+              </ion-col>
+              <ion-col class="colcenter accent">
+                {{getToThrow(activePlayer.id)}}
+              </ion-col>
+              <ion-col class="labels">
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="stats" align-items-center>
+              <ion-col class="colcenter">
+                Throws Left
+              </ion-col>
+              <ion-col class="colcenter">
+                Avg
+              </ion-col>
+            </ion-row>
+            <ion-row class="stats" align-items-center>
+              <ion-col class="colcenter">
+                {{3 - activePlayer.roundThrowCount}}
+              </ion-col>
+              <ion-col class="colcenter">
+                {{activePlayer.avg}} %
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-header>
+      </ion-card>
+    </ion-row>
+    <ion-row class="hitmiss" align-items-center>
+      <ion-col class="btncol">
+        <button ion-button block color="transparent" class="btn_miss" (click)="throw(0)">
+          <div class="numberscore">
+            MISS
+          </div>
+        </button>
+      </ion-col>
+      <ion-col class="btncol">
+        <button ion-button block color="transparent" class="btn_hit" (click)="throw(1)">
+          <div class="numberscore">
+            HIT
+          </div>
+        </button>
+      </ion-col>
+    </ion-row>
+    <!-- Buttom Buttons -->
+    <ion-row style="height:10%;padding-top:0;">
+      <ion-col col-6>
+        <button ion-button block color="transparent" class="btn_bottom" (click)="undo()">
+          UNDO
+        </button>
+      </ion-col>
+      <ion-col col-6>
+        <button ion-button block color="transparent" class="btn_bottom" (click)="newgame()">
+          NEW GAME
+        </button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+  <div class="ads"> </div>
+</ion-content>

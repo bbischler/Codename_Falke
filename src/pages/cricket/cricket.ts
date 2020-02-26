@@ -1,12 +1,12 @@
-import { cricketThrowAction } from './../../models/cricketThrowAction';
-import { CricketPoint } from './../../models/cricketPoint';
-import { CricketPlayer } from './../../models/cricketPlayer';
+import { cricketThrowAction } from '../../models/cricket/cricketThrowAction';
+import { CricketPoint } from '../../models/cricket/cricketPoint';
+import { CricketPlayer } from '../../models/cricket/cricketPlayer';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController, ModalController, Modal, ModalOptions } from 'ionic-angular';
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { ServiceProvider } from '../../providers/service/service';
 import { Stack } from 'stack-typescript';
-import { Cricketstats } from '../../models/cricketstats';
+import { Cricketstats } from '../../models/cricket/cricketstats';
 import { QuickstatscricketComponent } from '../../components/quickstatscricket/quickstatscricket';
 
 
@@ -117,6 +117,15 @@ export class CricketPage {
     this.writeStatsInStorage();
   }
 
+  SetPlayerForEndGame() {
+    for (let p of this.players) {
+      p.setStats();
+    }
+    this.setStats();
+    this.service.deletePlayers();
+    this.service.setGameIsActive(false);
+  }
+
 
   addPoints(point: CricketPoint, id: number) {
     this.throwAmount = this.getThrowAmount();
@@ -127,7 +136,7 @@ export class CricketPage {
     }
     this.vibrate();
 
-    var action = new cricketThrowAction(point.value, this.throwAmount, this.players[id - 1]);
+    var action = new cricketThrowAction(point.value, this.throwAmount, this.players[id]);
     this.actionStack.push(action);
     action.do();
 
@@ -136,15 +145,12 @@ export class CricketPage {
   }
 
   checkForWins(activePlayerId: number) {
-    var player = this.players[activePlayerId - 1];
+    var player = this.players[activePlayerId];
 
     if (player.totalScore > this.currentHighscore) {
       this.currentHighscore = player.totalScore;
     }
     if (this.hasWon(player)) {
-      this.players.forEach(function (p) {
-        p.totalScoresPerGame.push(p.totalScore);
-      });
       this.winningPopup(player);
       return;
     }
@@ -239,17 +245,22 @@ export class CricketPage {
       Object.assign(tmpPlayer, {
         "totalScore": p.totalScore,
         "roundThrowCount": p.roundThrowCount,
-        "totalThrowCount": p.totalThrowCount
+        "totalThrowCount": p.totalThrowCount,
+        "totalScoresPerGame": p.totalScoresPerGamem,
+        "pointsPerGame": p.pointsPerGame,
       });
       tmpPlayer.setPoints(p.points);
       this.players.push(tmpPlayer);
     }
     this.setPlayer();
 
-    let tmp: Array<cricketThrowAction> = JSON.parse(localStorage.getItem('cricketStack'));
+    let tmpStack: Array<cricketThrowAction> = JSON.parse(localStorage.getItem('cricketStack'));
 
-    for (let tmpAct of tmp.reverse()) {
-      tmpAct.player = this.players[tmpAct.player.id - 1];
+    for (let tmpAct of tmpStack.reverse()) {
+      for (let i = 0; i < this.players.length; i++) {
+        if (this.players[i].id == tmpAct.player.id)
+          tmpAct.player = this.players[i];
+      }
       var act = new cricketThrowAction(tmpAct.point, tmpAct.amount, tmpAct.player)
       Object.assign(act, {
         "isDone": tmpAct.isDone,
@@ -273,6 +284,7 @@ export class CricketPage {
     this.currentHighscore = 0;
     this.throwAmount = 1; // Factor for double and triple multiplication
     this.actionStack = new Stack<cricketThrowAction>();
+    this.setPlayer();
     this.bannerRematch();
   }
   // POPUPS //
@@ -280,19 +292,18 @@ export class CricketPage {
   winningPopup(player: CricketPlayer) {
     this.service.showMessageFourWay('Congratulations', player.name + ' has won the game!', ['Home', 'Cricket Settings', 'Stats', ["Rematch"]]).then((res) => {
       if (res === "Home") {
-        this.setStats();
-        this.setStats();
+        this.SetPlayerForEndGame();
         localStorage.removeItem('cricketPlayer');
         this.service.deletePlayers();
         this.service.setGameIsActive(false);
         this.navCtrl.setRoot('HomePage');
       } else if (res === "New") {
-        this.setStats();
+        this.SetPlayerForEndGame();
         this.service.deletePlayers();
         this.service.setGameIsActive(false);
         this.ionViewDidEnter();
       } else if (res === "Stats") {
-        this.setStats();
+        this.SetPlayerForEndGame();
         this.service.deletePlayers();
         this.service.setGameIsActive(false);
         this.navCtrl.push('StatsPage');

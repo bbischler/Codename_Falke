@@ -3,8 +3,8 @@ import { IonicPage, NavController, NavParams, ViewController, ToastController } 
 import { ServiceProvider } from '../../providers/service/service';
 import { DataProvider } from '../../providers/data/data';
 
-import { X01Player } from '../../models/x01Player';
-import { X01Settings } from '../../models/x01Settings';
+import { X01Player } from '../../models/x01/x01Player';
+import { X01Settings } from '../../models/x01/x01Settings';
 /**
  * Generated class for the X01SettingsPage page.
  *

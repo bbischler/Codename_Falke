@@ -24,11 +24,11 @@
     <ion-card-content>
       <ion-grid>
         <ion-row *ngFor="let p of game.players">
-          <ion-col [className]="isWinner(p) ? 'playername won' : 'playername'">
+          <ion-col col-4 [className]="isWinner(p) ? 'playername won' : 'playername'">
             {{p.name}} :
           </ion-col>
-          <ion-col [className]="isWinner(p) ? 'playerscore won' : 'playerscore'">
-            {{p.totalSCoreForAllGames}}
+          <ion-col  col-8 [className]="isWinner(p) ? 'playerscore won' : 'playerscore'">
+            {{p.totalScoreForAllGames}}
           </ion-col>
 
         </ion-row>

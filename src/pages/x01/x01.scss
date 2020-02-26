@@ -43,7 +43,7 @@ page-x01 {
 
   .stats {
     // margin-right: 4em;
-    font-size: 1.3em;
+    font-size: 1em;
   }
 
   .card {
@@ -108,9 +108,13 @@ page-x01 {
   }
 
   .lastScore {
-    height: 15%;
+    height: 20%;
     font-weight: 100;
     color: color($colors, font);
+  }
+
+  .labels {
+    color: color($colors, btnActivated);
   }
 
   .inactive {

@@ -38,10 +38,12 @@ export class AppsettingsPage {
   deleteCache() {
     localStorage.removeItem('appsettings');
     localStorage.removeItem('challengeAvg');
+    
     localStorage.removeItem('cricketPlayer');
     localStorage.removeItem('cricketstats');
     localStorage.removeItem('cricketStorage');
     localStorage.removeItem('cricketStack');
+
     localStorage.removeItem('x01Player');
     localStorage.removeItem('x01stats');
     localStorage.removeItem('x01Storage');
@@ -53,6 +55,11 @@ export class AppsettingsPage {
     localStorage.removeItem('x01Stack501');
     localStorage.removeItem('x01Stack701');
     localStorage.removeItem('doubleOutGame');
+
+    localStorage.removeItem('atwStorage'); 
+    localStorage.removeItem('atwStack');
+    localStorage.removeItem('atwPlayer');
+    localStorage.removeItem('atwstats');
     this.service.setAppSettings();
     this.service.resetX01Settings();
     this.service.deletePlayers()

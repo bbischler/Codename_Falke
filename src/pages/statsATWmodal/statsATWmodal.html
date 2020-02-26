@@ -1,0 +1,61 @@
+<ion-content padding>
+
+  <ion-buttons start class="backbutton">
+    <button class="backbtn" ion-button (click)="closeModal()">
+      <ion-icon color="fontSec" name="arrow-back"></ion-icon>
+    </button>
+  </ion-buttons>
+
+  <ion-grid>
+    <ion-row justify-content-center>
+      <ion-col class="flexcontainer padding" align-self-center>
+
+        <div class="dates">
+          {{game.date | date: 'dd/MM/yyyy'}} &nbsp; &#8226; &nbsp; {{game.date | date: 'hh:mm a'}}
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-card>
+    <ion-card-header>
+      Total Won Games
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row *ngFor="let p of game.players">
+          <ion-col col-4 [className]="isWinner(p) ? 'playername won' : 'playername'">
+            {{p.name}} :
+          </ion-col>
+          <ion-col col-8 [className]="isWinner(p) ? 'playerscore won' : 'playerscore'">
+            {{p.counterWonGames}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="gamesplayed">
+            {{game.players[0].avgPerGame.length}} game(s) played
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Average Hit Rate Per Game
+    </ion-card-header>
+    <ion-card-content class="chart">
+      <canvas #lineCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngFor="let game of game.players[0].avgPerGame; let i = index" id="canvas{{i}}">
+    <ion-card-header>
+      Hits Per Point, Game #{{i+1}}
+    </ion-card-header>
+    <ion-card-content class="chart">
+      <canvas #yourId></canvas>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

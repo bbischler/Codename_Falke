@@ -54,12 +54,12 @@
               </ion-row>
               <ion-row class="stats" align-items-center>
                 <ion-col *ngIf="this.x01Settings.legbased">
-                  L : {{player.legs}}/{{this.x01Settings.legs}}
+                  <section class="labels"> Legs to win: {{player.legs}}/{{this.x01Settings.legs}}</section>
                 </ion-col>
                 <ion-col>
                 </ion-col>
                 <ion-col *ngIf="this.x01Settings.legbased">
-                  S : {{player.sets}}/{{this.x01Settings.sets}}
+                  <section class="labels"> Sets to win: {{player.sets}}/{{this.x01Settings.sets}}</section>
                 </ion-col>
               </ion-row>
               <ion-row class="lastScore" align-items-center>

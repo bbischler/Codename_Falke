@@ -2,8 +2,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ModalController, ViewController, Platform, ModalOptions, Modal } from 'ionic-angular';
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Chart } from "chart.js";
-import { X01stats } from "../../models/x01stats";
-import { X01Player } from "../../models/x01Player";
+import { X01stats } from "../../models/x01/x01stats";
+import { X01Player } from "../../models/x01/x01Player";
 /**
  * Generated class for the StatsmodalPage page.
  *
@@ -64,9 +64,9 @@ export class StatsmodalPage {
   isWinner(p: X01Player) {
     let allScores: number[] = [];
     for (let p of this.game.players) {
-      allScores.push(p.totalSCoreForAllGames);
+      allScores.push(p.totalScoreForAllGames);
     }
-    return Math.max(...allScores) == p.totalSCoreForAllGames;
+    return Math.max(...allScores) == p.totalScoreForAllGames;
   }
 
   closeModal() {

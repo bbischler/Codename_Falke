@@ -1,0 +1,185 @@
+page-aroundWorld {
+  .namecontainer {
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: center;
+    padding: 0.2em;
+  }
+
+  .labels {
+    color: color($colors, fontDisabled);
+    font-size: 1.5rem;
+    padding-left: 1em !important;
+  }
+
+  .accent {
+    color: color($colors, accent);
+  }
+
+  .nameitem {
+    width: 24%;
+    // align-self: flex-start;
+
+  }
+
+  .player {
+    padding: 0 1em 0 1em !important;
+    min-width: 25%;
+  }
+
+  .playerName {
+    color: color($colors, btnActivated);
+    text-align: center; // font-weight: 200;
+  }
+
+  .playerScore {
+    color: color($colors, btnActivated);
+    text-align: center;
+    font-size: large;
+  }
+  .activePlayerInfo {
+    color: color($colors, font);
+  }
+
+  .activeplayer {
+    color: white;
+  }
+
+  .hitmiss {
+    padding: 0 1em 0 1em;
+    height: 60% !important;
+  }
+
+
+  .btncol {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .active {
+    margin: 0.4 0 0.4em 0;
+    border: none;
+    background-color: color($colors, accent);
+  }
+
+  .btn_miss {
+    border: solid 1px color($colors, semiTransparent);
+    height: 80%;
+    background-color: transparent;
+    box-shadow: none !important;
+    font-weight: 400;
+    font-size: 3rem;
+    color: color($colors, fontSec);
+  }
+
+  .activeplayer {
+    color: color($colors, fontSec);
+  }
+
+  .cardClassActive {
+    height: 100%;
+    border: solid 1px color($colors, accentSec);
+    background-color: color($colors, semiTransparent) !important;
+  }
+
+  .score {
+    height: 40%;
+    color: color($colors, font);
+    font-size: 3.5rem;
+    font-weight: 200;
+  }
+
+  .stats {
+    height: 20%;
+    color: color($colors, fontSec);
+    font-weight: 100;
+  }
+
+  .colcenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  ion-card-header {
+    height: 100%;
+    color: color($colors, font) !important;
+  }
+
+  .btn_hit {
+    background-color: color($colors, semiTransparent) !important;
+    border: solid 1px color($colors, semiTransparent);
+    height: 80%;
+    background-color: transparent;
+    box-shadow: none !important;
+    font-weight: 400;
+    font-size: 3rem;
+    color: color($colors, accent) !important;
+  }
+
+
+
+  .numberscore {
+    font-weight: 200;
+    background-color: transparent;
+    color: color($colors, fontSec); // text-align: right;
+    font-size: 1.7rem;
+    vertical-align: middle !important;
+
+  }
+
+
+  .scoreboard {
+    height: 85%; // position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+
+  .btn_bottom {
+    background-color: transparent;
+    box-shadow: none !important;
+    height: 75%;
+    font-weight: 200;
+    font-size: 1.5rem;
+    color: color($colors, fontSec);
+  }
+
+  .active_btn {
+    background-color: color($colors, semiTransparent) !important;
+    border: solid 1px color($colors, accentSec);
+    color: color($colors, font);
+  }
+
+
+  ion-col {
+    // border: solid 1px red;
+
+
+  }
+
+  ion-grid {
+    // border: solid green;
+  }
+
+  ion-row {
+    // border: solid 1px red;
+  }
+
+  .forecast_container {
+    overflow-x: scroll !important;
+    // overflow-y: hidden;
+    // word-wrap: break-word;
+    // height:20vw;
+    // font-size:0.8em;
+    // font-weight:300;
+  }
+}

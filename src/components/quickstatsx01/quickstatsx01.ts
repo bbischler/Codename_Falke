@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ViewController, Platform, NavParams } from 'ionic-angular';
-import { X01Player } from '../../models/x01Player';
+import { X01Player } from '../../models/x01/x01Player';
 /**
  * Generated class for the Quickstatsx01Component component.
  *

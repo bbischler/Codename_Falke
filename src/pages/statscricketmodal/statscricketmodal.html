@@ -21,10 +21,10 @@
     <ion-card-content>
       <ion-grid>
         <ion-row *ngFor="let p of game.players">
-          <ion-col [className]="isWinner(p) ? 'playername won' : 'playername'">
+          <ion-col col-4 [className]="isWinner(p) ? 'playername won' : 'playername'">
             {{p.name}} :
           </ion-col>
-          <ion-col [className]="isWinner(p) ? 'playerscore won' : 'playerscore'">
+          <ion-col col-8 [className]="isWinner(p) ? 'playerscore won' : 'playerscore'">
             {{getTotalScore(p)}}
           </ion-col>
 
@@ -47,12 +47,21 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card>
+  <ion-card *ngFor="let game of game.players[0].totalScoresPerGame; let i = index" id="canvas{{i}}">
+    <ion-card-header>
+      Hits Per Point, Game #{{i+1}}
+    </ion-card-header>
+    <ion-card-content class="chart">
+      <canvas #yourId></canvas>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- <ion-card>
     <ion-card-header>
       Hits Per Point
     </ion-card-header>
     <ion-card-content class="chart">
       <canvas #barCanvas></canvas>
     </ion-card-content>
-  </ion-card>
+  </ion-card> -->
 </ion-content>

@@ -176,6 +176,73 @@
       </ng-template>
     </ion-slide>
 
+    <ion-slide>
+      <ng-template [ngIf]="hasATWStats()" [ngIfElse]="noatwstats">
+        <ion-card *ngFor="let game of atwstats.slice().reverse()" (click)='openATWStatsForGame(game)'>
+          <button no-padding ion-item detail-none class="btn">
+            <ion-card-content no-padding>
+              <ion-grid no-padding>
+                <ion-row align-items: stretch>
+                  <ion-col class="datecol flexcontainer padding" col-2>
+                    <div>
+                      <ion-row class="daterow" justify-content-center>
+                        {{game.date | date: 'dd/MM'}}
+                      </ion-row>
+                      <ion-row class="daterow" justify-content-center>
+                        {{game.date | date: 'yyyy' }}
+                      </ion-row>
+                    </div>
+                  </ion-col>
+                  <ion-col class="flexcontainer padding">
+                    <!-- <div class="flexitem"> -->
+                    <div class="playernames" *ngFor="let player of game.players">
+                      {{player.name}}
+                    </div>
+                    <!-- </div> -->
+                  </ion-col>
+                  <ion-col col-2 class="time padding flexcontainer">
+                    <div>
+                      <ion-row class="" justify-content-center>
+                        {{game.date | date: 'hh:mm'}}
+                      </ion-row>
+                      <ion-row class="" justify-content-center>
+                        {{game.date | date: 'a' }}
+                      </ion-row>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card-content>
+          </button>
+        </ion-card>
+        <button ion-button full class="button deletebtn" (click)="popupDeleteATWStats()">
+          DELETE ATW STATS
+        </button>
+      </ng-template>
+      <ng-template #noatwstats>
+        <ion-grid>
+          <ion-row>
+            <ion-col class="nostatsavaiable">
+              No Around The World Stats Available
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="wannaplay">
+              Do you want to play Around The World
+            </ion-col>
+
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <button ion-button full class="button playx01btn" (click)="playATW()">
+                PLAY ATW
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ng-template>
+    </ion-slide>
+
   </ion-slides>
 
 </ion-content>

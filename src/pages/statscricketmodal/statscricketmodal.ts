@@ -1,10 +1,10 @@
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ModalController, Platform, ViewController, ModalOptions, Modal } from 'ionic-angular';
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, ViewChildren, QueryList } from "@angular/core";
 import { Chart } from "chart.js";
-import { X01stats } from "../../models/x01stats";
-import { Cricketstats } from '../../models/cricketstats';
-import { CricketPlayer } from '../../models/cricketPlayer';
+import { X01stats } from "../../models/x01/x01stats";
+import { Cricketstats } from '../../models/cricket/cricketstats';
+import { CricketPlayer } from '../../models/cricket/cricketPlayer';
 
 /**
  * Generated class for the StatsmodalPage page.
@@ -21,29 +21,35 @@ import { CricketPlayer } from '../../models/cricketPlayer';
 export class StatscricketmodalPage {
 
   @ViewChild("lineCanvas") lineCanvas: ElementRef;
-  @ViewChild("barCanvas") barCanvas: ElementRef;
+  // @ViewChild("barCanvas") barCanvas: ElementRef;
+  @ViewChildren("yourId") myChartsCanvas: QueryList<any>;
 
 
   pageName = 'MODAL';
   private lineChart: Chart;
-  private barChart: Chart;
+  private charts: Chart[] = [];
+  // private barChart: Chart;
 
   game: Cricketstats;
   colors: String[] = ["rgba(28, 250, 162, 0.8)", "rgba(66, 149, 229, 0.8)", "rgba(228, 54, 54, 0.8)", "rgba(216, 243, 64, 0.8)",
-  "rgba(61, 6, 157, 0.8)", "rgba(220, 224, 218, 0.9)", "", "rgba(220, 85, 247, 0.8)"];
-  labelsCricket: String[] = ["20", "19", "18", "17", "16", "15", "Bull"];
-  labels: String[] = [];
+    "rgba(61, 6, 157, 0.8)", "rgba(220, 224, 218, 0.9)", "", "rgba(220, 85, 247, 0.8)"];
+  labelsCricketPoints: String[] = ["20", "19", "18", "17", "16", "15", "Bull"];
+  labelsGame: String[] = [];
 
   constructor(public platform: Platform, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
     this.game = navParams.get('game');
+    console.log(this.game);
   }
 
   ionViewDidLoad() {
     for (let i = 1; i < this.game.players[0].totalScoresPerGame.length + 1; i++) {
-      this.labels.push(i.toString());
+      this.labelsGame.push(i.toString());
     }
-    this.setBarTotalScore();
+
     this.setLineChart();
+    for (let i = 0; i < this.myChartsCanvas.length; i++) {
+      this.setBarTotalScore(i);
+    }
   }
   getTotalScore(player: CricketPlayer) {
     let totalScore: number = 0;
@@ -54,10 +60,10 @@ export class StatscricketmodalPage {
 
   isWinner(p: CricketPlayer) {
     let allScores: number[] = [];
-    for (let p of this.game.players) {
-      allScores.push(p.totalScore);
+    for (let player of this.game.players) {
+      allScores.push(this.getTotalScore(player));
     }
-    return Math.max(...allScores) == p.totalScore;
+    return Math.max(...allScores) == this.getTotalScore(p);
   }
 
   setLineChart() {
@@ -92,14 +98,16 @@ export class StatscricketmodalPage {
       this.lineChart.update();
     }
   }
-  setBarTotalScore() {
-    this.drawBarChart();
+  setBarTotalScore(j: number) {
+    this.drawBarChart(j);
     for (let i = 0; i < this.game.players.length; i++) {
       let hits: String[] = [];
-      for (let point of this.game.players[i].points) {
+      for (let point of this.game.players[i].pointsPerGame[j]) {
         hits.push(point.hitCount.toString());
       }
-      this.barChart.data.datasets[i] = (
+
+      // for (let i = 0; i < this.game.players.length; i++) {
+      this.charts[j].data.datasets[i] = (
         {
           label: this.game.players[i].name,
           backgroundColor: this.colors[i],
@@ -108,10 +116,21 @@ export class StatscricketmodalPage {
           data: hits,
         }
       );
-      this.barChart.update();
+      this.charts[j].update();
     }
+    //   this.barChart.data.datasets[i] = (
+    //     {
+    //       label: this.game.players[i].name,
+    //       backgroundColor: this.colors[i],
+    //       borderColor: this.colors[i],
+    //       borderWidth: 1,
+    //       data: hits,
+    //     }
+    //   );
+    //   this.barChart.update();
+    // }
+    // }
   }
-
   drawLineChart() {
     this.lineChart = new Chart(this.lineCanvas.nativeElement, {
       type: "line",
@@ -139,17 +158,18 @@ export class StatscricketmodalPage {
         }
       },
       data: {
-        labels: this.labels,
+        labels: this.labelsGame,
         datasets: []
       }
     });
   }
 
-  drawBarChart() {
-    this.barChart = new Chart(this.barCanvas.nativeElement, {
+  drawBarChart(i: number) {
+    let array = this.myChartsCanvas.toArray();
+    this.charts[i] = new Chart(array[i].nativeElement, {
       type: "bar",
       data: {
-        labels: this.labelsCricket,
+        labels: this.labelsCricketPoints,
         datasets: []
       },
       options: {
@@ -171,7 +191,7 @@ export class StatscricketmodalPage {
           xAxes: [
             {
               ticks: {
-                beginAtZero: true
+                beginAtZero: true,
               },
               scaleLabel: {
                 display: true,

@@ -1,6 +1,6 @@
 import { Player } from '../../models/player';
-import { X01Player } from '../../models/x01Player';
-import { X01Settings } from '../../models/x01Settings';
+import { X01Player } from '../../models/x01/x01Player';
+import { X01Settings } from '../../models/x01/x01Settings';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AlertController, ToastController, Platform } from 'ionic-angular';
