@@ -22,18 +22,19 @@ export class CricketSettingsPage {
       for (let p of tmpplayers) {
         this.players.push(new CricketPlayer(p.id, p.name));
       }
+      this.players = this.service.setPlayerIDs(this.players);
     }
     else {
+      this.players.push(new CricketPlayer(0, ""));
       this.players.push(new CricketPlayer(1, ""));
-      this.players.push(new CricketPlayer(2, ""));
     }
 
   }
   resetSettings() {
     localStorage.removeItem("cricketPlayer");
     this.players = [];
+    this.players.push(new CricketPlayer(0, ""));
     this.players.push(new CricketPlayer(1, ""));
-    this.players.push(new CricketPlayer(2, ""));
   }
 
   dismiss() {
@@ -46,7 +47,6 @@ export class CricketSettingsPage {
       if (this.players[i].name == "") {
         this.players[i].name = "Player " + (i + 1);
       }
-      // this.players[i].setId(i);
       this.service.addPlayer(this.players[i]);
     }
     localStorage.setItem("cricketPlayer", JSON.stringify(this.players));
@@ -60,12 +60,8 @@ export class CricketSettingsPage {
     if (this.players.length == 8) {
       this.presentToastMaxPlayer();
     } else {
-      var ids: number[] = [];
-      this.players.forEach(function (player) {
-        ids.push(player.id);
-      });
-      let newId = Math.max(...ids) + 1;
-      this.players.push(new CricketPlayer(newId, ""));
+      this.players.push(new CricketPlayer(this.players.length, ""));
+      console.log(this.players);
     }
   }
 
@@ -76,6 +72,7 @@ export class CricketSettingsPage {
       for (let i = 0; i < this.players.length; i++) {
         if (this.players[i].id == id) {
           this.players.splice(i, 1);
+          this.players = this.service.setPlayerIDs(this.players);
           return;
         }
       }

@@ -220,7 +220,10 @@ export class AroundWorldPage {
     let tmp: Array<atwThrowAction> = JSON.parse(localStorage.getItem('atwStack'));
 
     for (let tmpAct of tmp.reverse()) {
-      tmpAct.player = this.players[tmpAct.player.id - 1];
+      for (let i = 0; i < this.players.length; i++) {
+        if (this.players[i].id == tmpAct.player.id)
+          tmpAct.player = this.players[i];
+      }
       var act = new atwThrowAction(tmpAct.point, tmpAct.player)
       Object.assign(act, {
         "isDone": tmpAct.isDone,

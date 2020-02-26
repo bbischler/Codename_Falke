@@ -33,10 +33,11 @@ export class X01SettingsPage {
       for (let p of tmpplayers) {
         this.players.push(new X01Player(this.data, p.id, p.name));
       }
+      this.players = this.service.setPlayerIDs(this.players);
     }
     else {
+      this.players.push(new X01Player(this.data, 0, ""));
       this.players.push(new X01Player(this.data, 1, ""));
-      this.players.push(new X01Player(this.data, 2, ""));
     }
   }
 
@@ -45,8 +46,8 @@ export class X01SettingsPage {
     this.x01Settings = this.service.getX01Settings();
     this.players = [];
     localStorage.removeItem("x01Player");
+    this.players.push(new X01Player(this.data, 0, ""));
     this.players.push(new X01Player(this.data, 1, ""));
-    this.players.push(new X01Player(this.data, 2, ""));
   }
 
   dismiss() {
@@ -70,12 +71,7 @@ export class X01SettingsPage {
     if (this.players.length == 8) {
       this.presentToastMaxPlayer();
     } else {
-      var ids: number[] = [];
-      this.players.forEach(function (player) {
-        ids.push(player.id);
-      });
-      let newId = Math.max(...ids) + 1;
-      this.players.push(new X01Player(this.data, newId, ""));
+      this.players.push(new X01Player(this.data, this.players.length, ""));
     }
   }
 
@@ -86,6 +82,7 @@ export class X01SettingsPage {
       for (let i = 0; i < this.players.length; i++) {
         if (this.players[i].id == id) {
           this.players.splice(i, 1);
+          this.players = this.service.setPlayerIDs(this.players);
           return;
         }
       }

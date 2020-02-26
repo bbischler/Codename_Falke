@@ -122,6 +122,12 @@ export class ServiceProvider {
   deletePlayers() {
     this.players = [];
   }
+  setPlayerIDs(players: any[]) {
+    for (let i = 0; i < players.length; i++) {
+      players[i].id = i;
+    }
+    return players;
+  }
   setAppSettings() {
     if (!JSON.parse(localStorage.getItem('appsettings'))) {
       localStorage.setItem('appsettings', JSON.stringify({
@@ -132,31 +138,6 @@ export class ServiceProvider {
   }
   getAppSettings() {
     return JSON.parse(localStorage.getItem('appsettings'));
-  }
-
-  getObjectOfPlayer(p) {
-    let tmpPlayer = new X01Player()
-    Object.assign(tmpPlayer, {
-      "roundScore": p.roundScore,
-      "avg": p.avg,
-      "toThrow": p.toThrow,
-      "lastThreeScores": p.lastThreeScores,
-      "legs": p.legs,
-      "sets": p.sets,
-      "doubleIn": p.doubleIn,
-      "doubleOut": p.doubleIn,
-      "id": p.id,
-      "name": p.name,
-      "totalScore": p.totalScore,
-      "roundThrowCount": p.roundThrowCount,
-      "totalThrowCount": p.totalThrowCount,
-      "totalPointsPerLeg": p.totalPointsPerLeg,
-      "avgPerLeg": p.avgPerLeg,
-      "totalThrowsPerLeg": p.totalThrowsPerLeg,
-      "totalSCoreForAllGames": p.totalSCoreForAllGames,
-      "firstNinePerLeg": p.firstNinePerLeg
-    });
-    return tmpPlayer;
   }
 
   // POPUPS

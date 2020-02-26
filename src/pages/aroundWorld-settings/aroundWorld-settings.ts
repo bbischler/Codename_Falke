@@ -22,18 +22,19 @@ export class AroundWorldSettingsPage {
       for (let p of tmpplayers) {
         this.players.push(new atwPlayer(p.id, p.name));
       }
+      this.players = this.service.setPlayerIDs(this.players);
     }
     else {
+      this.players.push(new atwPlayer(0, ""));
       this.players.push(new atwPlayer(1, ""));
-      this.players.push(new atwPlayer(2, ""));
     }
 
   }
   resetSettings() {
     localStorage.removeItem("atwPlayer");
     this.players = [];
+    this.players.push(new atwPlayer(0, ""));
     this.players.push(new atwPlayer(1, ""));
-    this.players.push(new atwPlayer(2, ""));
   }
 
   dismiss() {
@@ -60,12 +61,7 @@ export class AroundWorldSettingsPage {
     if (this.players.length == 8) {
       this.presentToastMaxPlayer();
     } else {
-      var ids: number[] = [];
-      this.players.forEach(function (player) {
-        ids.push(player.id);
-      });
-      let newId = Math.max(...ids) + 1;
-      this.players.push(new atwPlayer(newId, ""));
+      this.players.push(new atwPlayer(this.players.length, ""));
     }
   }
 
@@ -76,6 +72,7 @@ export class AroundWorldSettingsPage {
       for (let i = 0; i < this.players.length; i++) {
         if (this.players[i].id == id) {
           this.players.splice(i, 1);
+          this.players = this.service.setPlayerIDs(this.players);
           return;
         }
       }
