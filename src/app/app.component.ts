@@ -81,10 +81,13 @@ export class MyApp {
       // let activeView = nav.getActive();
       // Checks if can go back before show up the alert
       let view = nav.getActive().instance.pageName;
-      if (view === 'MODAL' || view === 'POPOVER') {
-        // nav.pop();
-        // this.nav.setRoot('HomePage');
-        console.log("MODALLL or POPOVER");
+      if (view === 'POPOVER') {
+        console.log("POPOVER");
+        return;
+      }
+      if (view === 'MODAL') {
+        console.log("MODAL");
+        nav.getActive().instance.closeModal();
         return;
       }
 

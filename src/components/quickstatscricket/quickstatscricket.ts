@@ -12,17 +12,16 @@ import { CricketPlayer } from '../../models/cricket/cricketPlayer';
   templateUrl: 'quickstatscricket.html'
 })
 export class QuickstatscricketComponent {
-  pageName = 'MODAL';
+  pageName = 'POPOVER';
   players: CricketPlayer[] = [];
 
   constructor(public platform: Platform, public viewCtrl: ViewController, public navParams: NavParams) {
     this.players = this.navParams.get('key1');
   }
 
-  close() {
-    this.viewCtrl.dismiss();
-  }
-
+  // closeModal() {
+  //   this.viewCtrl.dismiss();
+  // }
 
   isWinner(p: CricketPlayer) {
     let allScores: number[] = [];

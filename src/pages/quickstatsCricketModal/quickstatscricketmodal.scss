@@ -1,0 +1,100 @@
+page-quickstatscricketmodal {
+  .player {
+    padding: 0 1em 0 1em !important;
+    min-width: 25%;
+  }
+
+  .playerName {
+    color: color($colors, fontSec);
+    text-align: center; // font-weight: 200;
+  }
+
+  .playerinfo {
+    height: 5%;
+  }
+
+  .playerScore {
+    color: color($colors, font);
+    text-align: center;
+    font-size: x-large;
+  }
+
+  .score {
+    margin-bottom: 2em;
+  }
+
+  .active {
+    margin: 0.4 0 0.4em 0;
+    border: none;
+    background-color: color($colors, accent);
+  }
+
+  .dotscontainer {
+    // height: 100%!important;
+    display: flex;
+    align-items: center;
+  }
+
+  .dots {
+    vertical-align: middle !important;
+  }
+
+
+  .numberscore {
+    font-weight: 200;
+    background-color: transparent;
+    color: color($colors, fontSec); // text-align: right;
+    font-size: 1.7rem;
+    vertical-align: middle !important;
+  }
+
+  .full {
+    color: color($colors, fontSec);
+  }
+
+  .scoreboard {
+    height: 85%; // position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .scoreboardrow {
+    height: 10%;
+    // padding: 2em;
+  }
+
+  .fas.fa-circle,
+  .fas.fa-circle.closed,
+  .far.fa-circle {
+    font-size: 0.7em;
+    margin: 4px 0 4px 4px;
+  }
+
+  .forecast_container {
+    overflow-x: scroll !important;
+  }
+
+  .backbutton {
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    background: transparent !important;
+  }
+
+  .backbtn {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  ion-icon {
+    font-size: 2.0em;
+  }
+  .pointcol{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

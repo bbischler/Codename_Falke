@@ -191,7 +191,7 @@ export class StatsATWmodalPage {
             },
             scaleLabel: {
               display: true,
-              labelString: 'Average'
+              labelString: 'Average %'
             }
           }],
           xAxes: [{

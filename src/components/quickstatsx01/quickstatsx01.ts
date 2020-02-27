@@ -12,7 +12,7 @@ import { X01Player } from '../../models/x01/x01Player';
   templateUrl: 'quickstatsx01.html'
 })
 export class Quickstatsx01Component {
-  pageName = 'MODAL';
+  pageName = 'POPOVER';
   players: X01Player[] = [];
   currentLeg: number = 1;
   currentSet: number = 1;
@@ -25,10 +25,10 @@ export class Quickstatsx01Component {
     this.isLegbased = this.navParams.get('key4');
   }
 
-  close() {
-    this.viewCtrl.dismiss();
-  }
-
+  // closeModal() {
+  //   console.log("close popover");
+  //   this.viewCtrl.dismiss();
+  // }
 
   isWinner(p: X01Player) {
     let allScores: number[] = [];

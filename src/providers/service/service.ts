@@ -1,5 +1,4 @@
 import { Player } from '../../models/player';
-import { X01Player } from '../../models/x01/x01Player';
 import { X01Settings } from '../../models/x01/x01Settings';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -29,7 +28,8 @@ export class ServiceProvider {
     interstitial: 'ca-app-pub-3290488239272299/6076061171',
   };
 
-  constructor(public appRate: AppRate, public platform: Platform, public admob: AdMobFree, private http: HttpClient, public alertController: AlertController, public toastController: ToastController) {
+  constructor(public appRate: AppRate, public platform: Platform, public admob: AdMobFree,
+    private http: HttpClient, public alertController: AlertController, public toastController: ToastController) {
 
     this.platform = platform;
     if (/(android)/i.test(navigator.userAgent)) {
@@ -224,10 +224,6 @@ export class ServiceProvider {
     toast.present();
   }
 
-
-
-
-
   createBanner() {
 
     let bannerConfig: AdMobFreeBannerConfig = {
@@ -245,9 +241,6 @@ export class ServiceProvider {
     }).catch(e => console.log(e));
 
   }
-
-
-
   createInterstitial() {
     let interstitialConfig: AdMobFreeInterstitialConfig = {
       id: this.admobId.interstitial,
@@ -263,6 +256,10 @@ export class ServiceProvider {
 
 
   }
+
+
+
+
 }
 
 

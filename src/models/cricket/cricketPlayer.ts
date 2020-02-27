@@ -4,10 +4,12 @@ import { CricketPoint } from './cricketPoint';
 // import { PointerEvents } from 'ionic-angular/umd/gestures/pointer-events';
 
 export class CricketPlayer extends Player {
-
     points: CricketPoint[];
     totalScoresPerGame: number[] = [];
     pointsPerGame: CricketPoint[][] = [];
+    avg: number = 0;
+    avgPerGame: number[] = [];
+    missCounter: number = 0;
 
     constructor(id?: number, name?: string) {
         super(id, name);
@@ -29,6 +31,24 @@ export class CricketPlayer extends Player {
         throw new Error("Should never reach method throw on CircketPoint!")
     }
 
+    resetForTurn() {
+        this.roundThrowCount = 0;
+    }
+    public increaseThrowCount() {
+        this.roundThrowCount++;
+        this.totalThrowCount++;
+        let score = this.totalThrowCount - this.missCounter;
+        let tmpAvg = score == 0 ? "0" : ((score / this.totalThrowCount) * 100).toFixed(1);
+        this.avg = parseFloat(tmpAvg);
+    }
+    public decreaseThrowCount() {
+        this.roundThrowCount--;
+        this.totalThrowCount--;
+        let score = this.totalThrowCount - this.missCounter;
+        let tmpAvg = score == 0 ? "0" : ((score / this.totalThrowCount) * 100).toFixed(1);
+        this.avg = parseFloat(tmpAvg);
+    }
+
     setPoints(points) {
         this.points = [];
         for (let p of points) {
@@ -43,11 +63,12 @@ export class CricketPlayer extends Player {
     }
 
     prepareRematch() {
-        this.pointsPerGame.push(this.points);
-        this.totalScoresPerGame.push(this.totalScore);
+        this.setStats();
         this.totalScore = 0;
         this.roundThrowCount = 0;
         this.totalThrowCount = 0;
+        this.missCounter = 0;
+        this.avg = 0;
         this.fillCricketpoints();
         // this.points.forEach(function (p) {
         //     p.prepareRematch();
@@ -57,8 +78,9 @@ export class CricketPlayer extends Player {
     public setStats() {
         this.pointsPerGame.push(this.points);
         this.totalScoresPerGame.push(this.totalScore);
+        this.avgPerGame.push(this.avg);
     }
-    
+
     fillCricketpoints() {
         this.points = [];
         this.points = [

@@ -26,7 +26,6 @@ export class AroundWorldPage {
   atwStats: Atwstats[] = [];
   activePlayer: atwPlayer;
   playerCounter: number = 0;
-  throwCounter: number = 0;
 
   constructor(public popoverCtrl: PopoverController, public navCtrl: NavController, public navParams: NavParams,
     public modalCtrl: ModalController, private service: ServiceProvider, private vibration: Vibration) { }
@@ -44,9 +43,6 @@ export class AroundWorldPage {
 
   async ionViewCanLeave() {
     if (this.service.getGameIsActive()) {
-      // const shouldLeave = await this.confirmLeave();
-      // if (shouldLeave)
-      // this.storeGame();
       this.storeGame();
       this.showGameStored();
       return true;
@@ -69,7 +65,6 @@ export class AroundWorldPage {
     localStorage.setItem('atwStorage', JSON.stringify({
       "players": this.players,
       "throwAmount": this.throwAmount,
-      "throwCounter": this.throwCounter,
       "playerCounter": this.playerCounter,
       "activePlayer": this.activePlayer,
       "appSettings": this.appSettings,
@@ -194,12 +189,9 @@ export class AroundWorldPage {
     let apwStorage = JSON.parse(localStorage.getItem('atwStorage'));
 
     this.throwAmount = apwStorage.throwAmount;
-    this.throwCounter = apwStorage.throwCounter;
     this.playerCounter = apwStorage.playerCounter;
     this.appSettings = apwStorage.appSettings;
     this.showContent = apwStorage.showContent;
-    this.playerCounter = apwStorage.playerCounter;
-
 
     this.players = [];
     for (let p of apwStorage.players) {
@@ -238,7 +230,6 @@ export class AroundWorldPage {
   }
 
   setGame() {
-    this.throwCounter = 0;
     this.playerCounter = 0;
     this.activePlayer = this.players[0];
   }
@@ -248,6 +239,8 @@ export class AroundWorldPage {
       p.prepareRematch();
     });
     this.throwAmount = 1; // Factor for double and triple multiplication
+    this.playerCounter = 0;
+    this.activePlayer = this.players[this.playerCounter];
     this.actionStack = new Stack<atwThrowAction>();
     this.bannerRematch();
   }

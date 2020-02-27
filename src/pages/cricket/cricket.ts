@@ -28,6 +28,8 @@ export class CricketPage {
   appSettings: any;
   showContent: boolean = false;
   cricketstats: Cricketstats[] = [];
+  activePlayer: CricketPlayer;
+  playerCounter: number = 0;
 
   constructor(public popoverCtrl: PopoverController, public navCtrl: NavController, public navParams: NavParams,
     public modalCtrl: ModalController, private service: ServiceProvider, private vibration: Vibration) { }
@@ -72,7 +74,11 @@ export class CricketPage {
       "isDouble": this.isDouble,
       "isTriple": this.isTriple,
       "currentHighscore": this.currentHighscore,
-      "throwAmount": this.throwAmount
+      "throwAmount": this.throwAmount,
+      "playerCounter": this.playerCounter,
+      "activePlayer": this.activePlayer,
+      "appSettings": this.appSettings,
+      "showContent": this.showContent,
     }));
     localStorage.setItem('cricketStack', JSON.stringify(this.actionStack.toArray()));
     this.service.setGameIsActive(false);
@@ -97,8 +103,18 @@ export class CricketPage {
         this.players = this.service.getAllPlayer() as CricketPlayer[];
         this.setPlayer();
         this.service.setGameIsActive(true);
+        this.setGame();
       }
     });
+  }
+  setGame() {
+    this.playerCounter = 0;
+    this.activePlayer = this.players[0];
+  }
+  isActivePlayer(id: number) {
+    if (this.activePlayer)
+      return id == this.activePlayer.id;
+    else return false;
   }
 
   deleteAll() {
@@ -127,26 +143,31 @@ export class CricketPage {
   }
 
 
-  addPoints(point: CricketPoint, id: number) {
+  addPoints(point: number) {
     this.throwAmount = this.getThrowAmount();
-    if (this.throwAmount == 3 && point.value == 25) {
+    if (this.throwAmount == 3 && point == 25) {
       this.TripleBullToast();
       this.resetModifiers();
       return;
     }
     this.vibrate();
 
-    var action = new cricketThrowAction(point.value, this.throwAmount, this.players[id]);
+    var action = new cricketThrowAction(point, this.throwAmount, this.activePlayer);
     this.actionStack.push(action);
     action.do();
 
-    this.checkForWins(id);
+    this.checkForWins(this.activePlayer);
     this.resetModifiers();
+
+
+    if (this.activePlayer.roundThrowCount == 3) {
+      this.playerCounter = (this.playerCounter + 1) % this.players.length;
+      this.activePlayer = this.players[this.playerCounter];
+      this.activePlayer.resetForTurn();
+    }
   }
 
-  checkForWins(activePlayerId: number) {
-    var player = this.players[activePlayerId];
-
+  checkForWins(player: CricketPlayer) {
     if (player.totalScore > this.currentHighscore) {
       this.currentHighscore = player.totalScore;
     }
@@ -174,8 +195,13 @@ export class CricketPage {
   undo() {
     console.log("Undo prompted")
     var action = this.actionStack.pop();
-    if (action != null)
+    if (action != null) {
+      if (this.activePlayer.roundThrowCount == 0) {
+        this.playerCounter = (this.playerCounter - 1) < 0 ? this.players.length - 1 : (this.playerCounter - 1)
+        this.activePlayer = this.players[this.playerCounter];
+      }
       action.undo();
+    }
   }
 
   newgame() {
@@ -239,6 +265,10 @@ export class CricketPage {
     this.isTriple = cStorage.isTriple;
     this.currentHighscore = cStorage.currentHighscore;
     this.throwAmount = cStorage.throwAmount;
+    this.playerCounter = cStorage.playerCounter;
+    this.activePlayer = cStorage.activePlayer;
+    this.appSettings = cStorage.appSettings;
+    this.showContent = cStorage.showContent;
     this.players = [];
     for (let p of cStorage.players) {
       let tmpPlayer = new CricketPlayer(p.id, p.name)
@@ -248,6 +278,9 @@ export class CricketPage {
         "totalThrowCount": p.totalThrowCount,
         "totalScoresPerGame": p.totalScoresPerGamem,
         "pointsPerGame": p.pointsPerGame,
+        "avg": p.avg,
+        "avgPerGame": p.avgPerGame,
+        "missCounter": p.missCounter,
       });
       tmpPlayer.setPoints(p.points);
       this.players.push(tmpPlayer);
@@ -269,6 +302,7 @@ export class CricketPage {
       });
       this.actionStack.push(act);
     }
+    this.activePlayer = this.players[this.playerCounter];
 
     this.deleteStorage();
     this.service.setGameIsActive(true);
@@ -284,9 +318,19 @@ export class CricketPage {
     this.currentHighscore = 0;
     this.throwAmount = 1; // Factor for double and triple multiplication
     this.actionStack = new Stack<cricketThrowAction>();
+    this.playerCounter = 0;
+    this.activePlayer = this.players[this.playerCounter];
     this.setPlayer();
     this.bannerRematch();
   }
+
+
+  getActivePlayer() {
+    if (this.activePlayer)
+      return true
+    else return false;
+  }
+
   // POPUPS //
 
   winningPopup(player: CricketPlayer) {
@@ -362,13 +406,12 @@ export class CricketPage {
   }
 
   presentQuickStats() {
-    let popover = this.popoverCtrl.create(QuickstatscricketComponent, { key1: this.players });
-    this.pageName = 'POPOVER'
-    popover.present({
-      // ev: this.players
-    });
-    popover.onDidDismiss(data => {
-      this.pageName = '';
-    });
+    const myModalOptions: ModalOptions = {
+      enableBackdropDismiss: true,
+      showBackdrop: true,
+      cssClass: 'stats-modal'
+    };
+    const myModal: Modal = this.modalCtrl.create("QuickstatsCricketModalPage", { players: this.players }, myModalOptions);
+    myModal.present();
   }
 }

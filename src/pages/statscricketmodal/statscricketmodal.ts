@@ -21,12 +21,13 @@ import { CricketPlayer } from '../../models/cricket/cricketPlayer';
 export class StatscricketmodalPage {
 
   @ViewChild("lineCanvas") lineCanvas: ElementRef;
-  // @ViewChild("barCanvas") barCanvas: ElementRef;
+  @ViewChild("lineCanvasAvg") lineCanvasAvg: ElementRef;
   @ViewChildren("yourId") myChartsCanvas: QueryList<any>;
 
 
   pageName = 'MODAL';
   private lineChart: Chart;
+  private lineChartAvg: Chart;
   private charts: Chart[] = [];
   // private barChart: Chart;
 
@@ -38,7 +39,6 @@ export class StatscricketmodalPage {
 
   constructor(public platform: Platform, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
     this.game = navParams.get('game');
-    console.log(this.game);
   }
 
   ionViewDidLoad() {
@@ -47,6 +47,7 @@ export class StatscricketmodalPage {
     }
 
     this.setLineChart();
+    this.setLineChartAvg();
     for (let i = 0; i < this.myChartsCanvas.length; i++) {
       this.setBarTotalScore(i);
     }
@@ -118,18 +119,39 @@ export class StatscricketmodalPage {
       );
       this.charts[j].update();
     }
-    //   this.barChart.data.datasets[i] = (
-    //     {
-    //       label: this.game.players[i].name,
-    //       backgroundColor: this.colors[i],
-    //       borderColor: this.colors[i],
-    //       borderWidth: 1,
-    //       data: hits,
-    //     }
-    //   );
-    //   this.barChart.update();
-    // }
-    // }
+  }
+
+  setLineChartAvg() {
+    this.drawLineChartAvg();
+    for (let i = 0; i < this.game.players.length; i++) {
+
+
+      this.lineChartAvg.data.datasets[i] = (
+        {
+          label: this.game.players[i].name,
+          fill: false,
+          lineTension: 0.1,
+          backgroundColor: this.colors[i],
+          borderColor: this.colors[i],
+          borderCapStyle: "butt",
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: "miter",
+          pointBorderColor: this.colors[i],
+          pointBackgroundColor: this.colors[i],
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: this.colors[i],
+          pointHoverBorderColor: this.colors[i],
+          pointHoverBorderWidth: 2,
+          pointRadius: 5,
+          pointHitRadius: 10,
+          data: this.game.players[i].avgPerGame,
+          spanGaps: true
+        }
+      );
+      this.lineChartAvg.update();
+    }
   }
   drawLineChart() {
     this.lineChart = new Chart(this.lineCanvas.nativeElement, {
@@ -163,7 +185,38 @@ export class StatscricketmodalPage {
       }
     });
   }
-
+  drawLineChartAvg() {
+    this.lineChartAvg = new Chart(this.lineCanvasAvg.nativeElement, {
+      type: "line",
+      options: {
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              autoSkipPadding: 30,
+              precision: 0,
+              autoSkip: true,
+            },
+            scaleLabel: {
+              display: true,
+              labelString: 'Hitrate %'
+            }
+          }],
+          xAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: '# Games'
+            }
+          }]
+        }
+      },
+      data: {
+        labels: this.labelsGame,
+        datasets: []
+      }
+    });
+  }
   drawBarChart(i: number) {
     let array = this.myChartsCanvas.toArray();
     this.charts[i] = new Chart(array[i].nativeElement, {

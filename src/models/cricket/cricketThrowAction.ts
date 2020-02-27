@@ -19,21 +19,26 @@ export class cricketThrowAction {
     public do(): void {
         if (this.isDone)
             return;
+        if (this.point > 0) {
+            var point = this.player.getPointsByValue(this.point);
 
-        var point = this.player.getPointsByValue(this.point);
-
-        for (var i = 0; i < this.amount; i++) {
-            if (point.isClosed && !point.setIsClosed) {
-                this.totalNumberOfPointIncreases++;
-                this.player.totalScore += point.getValue();
-                this.totalScoreIncrease += point.getValue();
-                point.increaseHit();
-            }
-            if (!point.isClosed) {
-                this.totalNumberOfPointIncreases++;
-                point.increaseHit();
+            for (var i = 0; i < this.amount; i++) {
+                if (point.isClosed && !point.setIsClosed) {
+                    this.player.totalScore += point.getValue();
+                    this.totalScoreIncrease += point.getValue();
+                    point.increaseHit();
+                }
+                if (!point.isClosed) {
+                    point.increaseHit();
+                }
             }
         }
+        else {
+            this.totalScoreIncrease = 0;
+            this.player.missCounter++;
+        }
+        this.player.increaseThrowCount();
+        this.totalNumberOfPointIncreases++;
         this.isDone = true;
     }
 
@@ -41,12 +46,19 @@ export class cricketThrowAction {
         if (!this.isDone)
             return;
 
-        var point = this.player.getPointsByValue(this.point);
-        this.player.totalScore -= this.totalScoreIncrease;
-
-        for (var i = 0; i < this.totalNumberOfPointIncreases; i++) {
-            point.decreaseHit();
+        if (this.player.roundThrowCount == 0) {
+            this.player.roundThrowCount = 3;
         }
+        this.player.totalScore -= this.totalScoreIncrease;
+        if (this.point > 0) {
+            var point = this.player.getPointsByValue(this.point);
+            for (var i = 0; i < this.totalNumberOfPointIncreases; i++) {
+                point.decreaseHit();
+            }
+        } else {
+            this.player.missCounter--;
+        }
+        this.player.decreaseThrowCount();
     }
 
     public setPlayer(p) {

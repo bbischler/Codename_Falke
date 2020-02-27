@@ -16,61 +16,92 @@
     <div style="display: flex; flex-direction: row; justify-content: flex-end" *ngIf="showContent">
 
 
-        <div class="titlelegs stats">
-          <ion-buttons>
-            <button ion-button (click)="presentQuickStats()">
-              <ion-icon style="font-size:1.6em " color="homebutton" name="ios-stats"></ion-icon>
-            </button>
-          </ion-buttons>
-        </div>
+      <div class="titlelegs stats">
+        <ion-buttons>
+          <button ion-button (click)="presentQuickStats()">
+            <ion-icon style="font-size:1.6em " color="homebutton" name="ios-stats"></ion-icon>
+          </button>
+        </ion-buttons>
       </div>
+    </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-grid style="height:95%;padding-top:0;width:100%;" no-padding *ngIf="showContent">
-    <ion-row style="height:100%" nowrap class="forecast_container">
-      <!-- <ion-scroll direction="x"> -->
-      <ion-col *ngFor="let player of players; let i = index" class="player">
+  <ion-grid style="height:95%;padding:0 0.5em;width:100%;" no-padding *ngIf="showContent">
+    <div class="namecontainer" *ngIf="getActivePlayer()">
+      <div class="nameitem" *ngFor="let player of players">
+        <div [ngClass]="isActivePlayer(player.id) ? 'playerName activePlayerInfo' : 'playerName'">
+          {{player.name}}
+        </div>
+        <div [ngClass]="isActivePlayer(player.id) ? 'playerName activePlayerInfo' : 'playerName'">
+          {{player.totalScore}}
+        </div>
+      </div>
+    </div>
 
-        <!-- PlayerInfo -->
-        <ion-row class="playerinfo">
-          <ion-col class="playerName">
-            {{player.name}}
-          </ion-col>
-        </ion-row>
-        <ion-row class="playerinfo score">
-          <ion-col class="playerScore">
-            {{player.totalScore}}
-          </ion-col>
-        </ion-row>
+    <ion-row class="throwsleftrow" justify-content-center *ngIf="getActivePlayer()">
+      <ion-col align-self-center>
+        <div class="throwsleft">
+          {{activePlayer.name}} throws left: {{3 - activePlayer.roundThrowCount}}<br>
+          <span class="avg">Avg: {{activePlayer.avg}} % </span>
+        </div>
+      </ion-col>
+    </ion-row>
 
-        <!-- Scoreboard -->
-        <ion-row *ngFor="let points of player.points" class="scoreboardrow">
-          <button ion-button block color="transparent" (click)="addPoints(points, i)" class="numbercontainer"
-            [disabled]="points.setIsClosed">
+
+    <ion-row class="scoreboardrow" *ngIf="getActivePlayer()">
+      <ion-col>
+        <ion-row *ngFor="let points of activePlayer.points | slice:0:4" class="scoreboardrowpoints">
+          <button ion-button block color="transparent" (click)="addPoints(points.value, activePlayer.id)"
+            class="numbercontainer" [disabled]="points.setIsClosed">
 
             <ion-col align-self-center col-8>
               <div [ngClass]="points.setIsClosed ? 'numberscore full' : 'numberscore'">
                 {{points.displayText}}
               </div>
             </ion-col>
-            <!-- Three Dots -->
             <ion-col col-4 style="display:flex;">
               <div class="dots">
                 <i *ngFor="let i of containerofThree" [ngClass]="points.setIsClosed ? 'fas fa-circle fa-xs closed' :
-								(i <= points.hitCount ? 'fas fa-circle fa-xs' : 'far fa-circle fa-xs')"></i>
+                  (i <= points.hitCount ? 'fas fa-circle fa-xs' : 'far fa-circle fa-xs')"></i>
               </div>
             </ion-col>
           </button>
         </ion-row>
       </ion-col>
 
+      <ion-col>
+        <ion-row *ngFor="let points of activePlayer.points | slice:4" class="scoreboardrowpoints">
+          <button ion-button block color="transparent" (click)="addPoints(points.value, activePlayer.id)"
+            class="numbercontainer" [disabled]="points.setIsClosed">
+
+            <ion-col align-self-center col-8>
+              <div [ngClass]="points.setIsClosed ? 'numberscore full' : 'numberscore'">
+                {{points.displayText}}
+              </div>
+            </ion-col>
+            <ion-col col-4 style="display:flex;">
+              <div class="dots">
+                <i *ngFor="let i of containerofThree" [ngClass]="points.setIsClosed ? 'fas fa-circle fa-xs closed' :
+                      (i <= points.hitCount ? 'fas fa-circle fa-xs' : 'far fa-circle fa-xs')"></i>
+              </div>
+            </ion-col>
+          </button>
+        </ion-row>
+        <ion-row align-items-center class="scoreboardrowpoints">
+          <ion-col align-self-stretch no-padding class="colmiss">
+            <button ion-button block color="transparent" class="btn_miss" (click)="addPoints(0, activePlayer.id)">
+              <div class="numberscore">
+                MISS
+              </div>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-col>
     </ion-row>
 
-
-    <!-- Buttom Buttons -->
-    <ion-row style="height:10%;padding-top:0;">
+    <ion-row style="height:15%;padding-top:0;">
       <ion-col col-3>
         <button ion-button block color="transparent" class="btn_bottom" (click)="undo()">
           UNDO
@@ -95,6 +126,82 @@
       </ion-col>
 
     </ion-row>
+
+
+    <!-- <ion-row class="throwsleftrow">
+      <ion-col col-6>
+        <button ion-button block color="transparent" class="btn_bottom" (click)="undo()">
+          UNDO
+        </button>
+      </ion-col>
+      <ion-col col-6>
+        <button ion-button block color="transparent" class="btn_bottom" (click)="newgame()">
+          NEW GAME
+        </button>
+      </ion-col>
+    </ion-row> -->
+
+
+    <!-- <ion-row style="height:100%" nowrap>
+      <ion-col *ngFor="let player of players; let i = index" class="player">
+        <ion-row class="playerinfo">
+          <ion-col class="playerName">
+            {{player.name}}
+          </ion-col>
+        </ion-row>
+        <ion-row class="playerinfo score">
+          <ion-col class="playerScore">
+            {{player.totalScore}}
+          </ion-col>
+        </ion-row>
+      </ion-col>
+
+      <ion-row *ngFor="let points of activePlayer.points" class="scoreboardrow">
+        <button ion-button block color="transparent" (click)="addPoints(points.value, i)" class="numbercontainer"
+          [disabled]="points.setIsClosed">
+
+          <ion-col align-self-center col-8>
+            <div [ngClass]="points.setIsClosed ? 'numberscore full' : 'numberscore'">
+              {{points.displayText}}
+            </div>
+          </ion-col>
+          <ion-col col-4 style="display:flex;">
+            <div class="dots">
+              <i *ngFor="let i of containerofThree" [ngClass]="points.setIsClosed ? 'fas fa-circle fa-xs closed' :
+								(i <= points.hitCount ? 'fas fa-circle fa-xs' : 'far fa-circle fa-xs')"></i>
+            </div>
+          </ion-col>
+        </button>
+      </ion-row>
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row style="height:10%;padding-top:0;">
+      <ion-col col-3>
+        <button ion-button block color="transparent" class="btn_bottom" (click)="undo()">
+          UNDO
+        </button>
+      </ion-col>
+      <ion-col col-3>
+        <button ion-button block color="transparent" class="btn_bottom" (click)="newgame()">
+          NEW GAME
+        </button>
+      </ion-col>
+      <ion-col col-3>
+        <button ion-button block [ngClass]="isDouble ? 'active_btn' : 'btn_bottom' " class="btn_bottom"
+          (click)="double()">
+          DOUBLE
+        </button>
+      </ion-col>
+      <ion-col col-3>
+        <button ion-button block [ngClass]="isTriple ? 'active_btn' : 'btn_bottom' " class="btn_bottom"
+          (click)="trible()">
+          TRIPLE
+        </button>
+      </ion-col>
+
+    </ion-row> -->
 
   </ion-grid>
   <div class="ads"> </div>

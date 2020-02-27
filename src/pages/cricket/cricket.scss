@@ -53,7 +53,7 @@ page-cricket {
     font-weight: 200;
     background-color: transparent;
     color: color($colors, fontSec); // text-align: right;
-    font-size: 1.7rem;
+    font-size: 1.9rem;
     vertical-align: middle !important;
   }
 
@@ -79,16 +79,16 @@ page-cricket {
   }
 
 
-  .scoreboard {
-    height: 85%; // position: absolute;
-    bottom: 0;
-    top: 0;
-    left: 0;
-    right: 0;
+  .scoreboardrow {
+    height: 60%;
   }
 
-  .scoreboardrow {
-    height: 12%;
+  .throwsleftrow {
+    height: 15%;
+  }
+
+  .scoreboardrowpoints {
+    height: 25%;
   }
 
   .btn_bottom {
@@ -106,6 +106,15 @@ page-cricket {
     color: color($colors, font);
   }
 
+  .btn_multiplier {
+    background-color: transparent;
+    box-shadow: none !important;
+    // height: 75%;
+    font-weight: 200;
+    font-size: 1.5rem;
+    color: color($colors, fontSec);
+  }
+
   ion-col {
     // border: solid 1px green;
   }
@@ -121,16 +130,72 @@ page-cricket {
   .fas.fa-circle,
   .fas.fa-circle.closed,
   .far.fa-circle {
-    font-size: 0.7em;
+    font-size: 0.9em;
     margin: 4px 0 4px 4px;
   }
 
-  .forecast_container {
-    overflow-x: scroll !important;
-    // overflow-y: hidden;
-    // word-wrap: break-word;
-    // height:20vw;
-    // font-size:0.8em;
-    // font-weight:300;
+
+
+  //NEW CSS
+
+  .namecontainer {
+    height: 25%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: stretch;
+    align-content: center;
+    padding: 1.2em;
+  }
+
+  .nameitem {
+    width: 24%;
+    height: 50%;
+  }
+
+
+  .playerName {
+    color: color($colors, btnActivated);
+    text-align: center;
+    font-size: 1.0em;
+    transition: linear .2s;
+  }
+
+  .activePlayerInfo {
+    color: color($colors, font);
+    font-size: 1.4em;
+  }
+
+  .btn_miss {
+    border: solid 2px color($colors, deleteclr2);
+    background-color: transparent;
+    height: 80%;
+    width: 80%;
+    // padding: 1em;
+    box-shadow: none !important;
+    font-weight: 400;
+    font-size: large;
+    margin: auto auto;
+    color: color($colors, fontSec);
+  }
+
+  .throwsleft {
+    margin: 0 auto;
+    text-align: center;
+    font-size: large;
+    font-weight: 400;
+    color: color($colors, fontSec);
+  }
+
+  .colmiss {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .avg {
+    color: color($colors, btnActivated);
+    font-size: 0.8em;
   }
 }

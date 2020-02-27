@@ -41,6 +41,10 @@ export class AroundWorldSettingsPage {
     this.service.setActivePage('Home');
     this.viewCtrl.dismiss(false);
   }
+  closeModal() {
+    this.service.setActivePage('Home');
+    this.viewCtrl.dismiss(false);
+  }
 
   play() {
     for (let i = 0; i < this.players.length; i++) {

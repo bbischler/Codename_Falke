@@ -54,6 +54,11 @@ export class X01SettingsPage {
     this.service.setActivePage('Home');
     this.viewCtrl.dismiss(false);
   }
+  closeModal() {
+    console.log("close x01 settings");
+    this.service.setActivePage('Home');
+    this.viewCtrl.dismiss(false);
+  }
   play() {
     for (let i = 0; i < this.players.length; i++) {
       if (this.players[i].name == "") {

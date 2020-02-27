@@ -1,0 +1,55 @@
+<ion-content padding>
+  <ion-buttons start class="backbutton">
+    <button class="backbtn" ion-button (click)="closeModal()">
+      <ion-icon color="fontSec" name="arrow-back"></ion-icon>
+    </button>
+  </ion-buttons>
+
+  <ion-grid style="height:95%;padding-top:0;width:100%;margin:1em;" no-padding>
+    <ion-row style="height:100%" nowrap class="forecast_container">
+      <!-- <ion-scroll direction="x"> -->
+      <ion-col *ngFor="let player of players" class="player">
+
+        <!-- PlayerInfo -->
+        <ion-row class="playerinfo">
+          <ion-col class="playerName">
+            {{player.name}}
+          </ion-col>
+        </ion-row>
+        <ion-row class="playerinfo score">
+          <ion-col class="playerScore">
+            {{player.totalScore}}
+          </ion-col>
+        </ion-row>
+
+        <!-- Scoreboard -->
+        <ion-row *ngFor="let points of player.points" class="scoreboardrow">
+          <!-- <div class="numbercontainer"> -->
+
+          <ion-col align-self-center col-8 class="pointcol">
+            <div [ngClass]="points.setIsClosed ? 'numberscore full' : 'numberscore'">
+              {{points.displayText}}
+            </div>
+          </ion-col>
+          <!-- Three Dots -->
+          <ion-col col-4 class="pointcol">
+            <div class="dots">
+              <i *ngFor="let i of containerofThree" [ngClass]="points.setIsClosed ? 'fas fa-circle fa-xs closed' :
+								(i <= points.hitCount ? 'fas fa-circle fa-xs' : 'far fa-circle fa-xs')"></i>
+            </div>
+          </ion-col>
+          <!-- </div> -->
+        </ion-row>
+        <ion-row class="playerinfo">
+          <ion-col class="pointcol playerName ">
+            Avg: {{player.avg}} %
+          </ion-col>
+        </ion-row>
+      </ion-col>
+
+    </ion-row>
+
+
+
+  </ion-grid>
+</ion-content>
