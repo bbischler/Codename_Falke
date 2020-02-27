@@ -5,6 +5,13 @@
     </button>
   </ion-buttons>
 
+  <ion-row class="playerinfo">
+    <ion-col>
+      <section class="heading">Quickstats</section>
+    </ion-col>
+  </ion-row>
+
+
   <ion-grid style="height:95%;padding-top:0;width:100%;margin:1em;" no-padding>
     <ion-row style="height:100%" nowrap class="forecast_container">
       <!-- <ion-scroll direction="x"> -->
@@ -23,10 +30,10 @@
         </ion-row>
 
         <!-- Scoreboard -->
-        <ion-row *ngFor="let points of player.points" class="scoreboardrow">
+        <ion-row *ngFor="let points of player.points" class="scoreboardrow" justify-content-center>
           <!-- <div class="numbercontainer"> -->
 
-          <ion-col align-self-center col-8 class="pointcol">
+          <ion-col align-self-center col-4 class="pointcol">
             <div [ngClass]="points.setIsClosed ? 'numberscore full' : 'numberscore'">
               {{points.displayText}}
             </div>

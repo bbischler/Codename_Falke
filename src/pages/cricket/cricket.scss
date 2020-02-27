@@ -130,7 +130,7 @@ page-cricket {
   .fas.fa-circle,
   .fas.fa-circle.closed,
   .far.fa-circle {
-    font-size: 0.9em;
+    font-size: 0.8em;
     margin: 4px 0 4px 4px;
   }
 
@@ -139,7 +139,7 @@ page-cricket {
   //NEW CSS
 
   .namecontainer {
-    height: 25%;
+    height: 26%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -158,13 +158,13 @@ page-cricket {
   .playerName {
     color: color($colors, btnActivated);
     text-align: center;
-    font-size: 1.0em;
+    font-size: 1em;
     transition: linear .2s;
   }
 
   .activePlayerInfo {
     color: color($colors, font);
-    font-size: 1.4em;
+    // font-size: 1.2em;
   }
 
   .btn_miss {
