@@ -26,6 +26,8 @@ page-x01-settings {
     background: transparent;
     margin: 0.5em 0 !important;
     border: solid 1px color($colors, accentSec2) !important;
+    border-radius: 8px !important;
+
   }
 
   ion-list,
@@ -96,20 +98,18 @@ page-x01-settings {
     background-color: color($colors, accent) !important;
   }
 
-  .gamestyle-active {
-    height: 100%;
-    color: color($colors, font);
-    width: 100%;
-    background-color: color($colors, semiTransparent);
-    border: solid 1px color($colors, accent);
-  }
-
   .gamestyle {
     height: 100%;
     color: color($colors, fontSec);
     width: 100%;
     background-color: color($colors, transparent);
     border: solid 1px color($colors, semiTransparent);
+  }
+
+  .activegamestyle {
+    color: color($colors, font);
+    background-color: color($colors, semiTransparent);
+    border: solid 1px color($colors, accent);
   }
 
   .toggles {

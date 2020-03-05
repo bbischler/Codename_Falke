@@ -95,4 +95,10 @@ export class bobPlayer extends Player {
         this.avgPerGame.push(this.avg);
         this.totalScoresPerGame.push(this.totalScore);
     }
+
+    public fillPointsGameOver() {
+        for (let i = this.toThrow - 1 ; i <= 21; i++) {
+            this.pointCounter[i] = 3;
+        }
+    }
 }

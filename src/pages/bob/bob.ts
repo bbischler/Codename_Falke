@@ -125,6 +125,7 @@ export class BobPage {
       return;
     }
     if (this.checkforLose(this.activePlayer)) {
+      this.players.forEach(p => p.fillPointsGameOver());
       this.loosingPopup(this.activePlayer);
       return;
     }

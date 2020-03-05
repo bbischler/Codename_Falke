@@ -87,7 +87,11 @@ export class StatsATWmodalPage {
       },
       options: {
         legend: {
-          position: 'bottom'
+          position: 'bottom',
+          labels: {
+            boxWidth: 8,
+            fontSize: 10,
+          }
         },
         maintainAspectRatio: false,
         scales: {
@@ -180,7 +184,11 @@ export class StatsATWmodalPage {
       type: "line",
       options: {
         legend: {
-          position: 'bottom'
+          position: 'bottom',
+          labels: {
+            boxWidth: 8,
+            fontSize: 10,
+          }
         },
         maintainAspectRatio: false,
         scales: {

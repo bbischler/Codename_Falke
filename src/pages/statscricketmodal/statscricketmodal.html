@@ -43,7 +43,7 @@
       Total Score Per Game
     </ion-card-header>
     <ion-card-content class="chart">
-      <canvas #lineCanvas></canvas>
+      <canvas height="250px" #lineCanvas></canvas>
     </ion-card-content>
   </ion-card>
 
@@ -53,7 +53,7 @@
       Average Hitrate Per Game
     </ion-card-header>
     <ion-card-content class="chart">
-      <canvas #lineCanvasAvg></canvas>
+      <canvas height="250px" #lineCanvasAvg></canvas>
     </ion-card-content>
   </ion-card>
 
@@ -62,16 +62,8 @@
       Hits Per Point, Game #{{i+1}}
     </ion-card-header>
     <ion-card-content class="chart">
-      <canvas #yourId></canvas>
+      <canvas  #yourId></canvas>
     </ion-card-content>
   </ion-card>
 
-  <!-- <ion-card>
-    <ion-card-header>
-      Hits Per Point
-    </ion-card-header>
-    <ion-card-content class="chart">
-      <canvas #barCanvas></canvas>
-    </ion-card-content>
-  </ion-card> -->
 </ion-content>

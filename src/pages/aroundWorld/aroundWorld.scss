@@ -75,13 +75,14 @@ page-aroundWorld {
   }
 
   .btn_miss {
-    border: solid 1px color($colors, semiTransparent);
+    border: solid 1px color($colors, semiTransparentBtn);
     height: 80%;
     background-color: transparent;
     box-shadow: none !important;
     font-weight: 400;
     font-size: 3rem;
     color: color($colors, fontSec);
+    border-radius: 8px 0 0 8px;
   }
 
   .activeplayer {
@@ -92,6 +93,7 @@ page-aroundWorld {
     height: 100%;
     border: none;
     background-color: color($colors, semiTransparentBtn) !important;
+    border-radius: 8px;
     padding: 0.5em;
   }
 
@@ -131,14 +133,16 @@ page-aroundWorld {
   }
 
   .btn_hit {
-    background-color: color($colors, semiTransparent) !important;
-    border: solid 1px color($colors, semiTransparent);
+    background-color: color($colors, semiTransparentBtn) !important;
+    border: solid 1px color($colors, semiTransparentBtn);
     height: 80%;
     background-color: transparent;
     box-shadow: none !important;
     font-weight: 400;
     font-size: 3rem;
     color: color($colors, accent) !important;
+    border-radius: 0 8px 8px 0;
+
   }
 
 

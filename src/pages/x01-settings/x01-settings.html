@@ -16,19 +16,21 @@
 
     <ion-row class="toggles">
       <ion-col>
-        <button ion-button full [className]="x01Settings.num == 301 ? 'gamestyle-active' : 'gamestyle'"
+        <button ion-button full
+          [className]="x01Settings.num == 301 ? 'gamestyle activegamestyle first-child' : 'gamestyle first-child'"
           (click)="setNum(301)">
           301
         </button>
       </ion-col>
       <ion-col>
-        <button ion-button full [className]="x01Settings.num == 501 ? 'gamestyle-active' : 'gamestyle'"
+        <button ion-button full [className]="x01Settings.num == 501 ? 'gamestyle activegamestyle' : 'gamestyle'"
           (click)="setNum(501)">
           501
         </button>
       </ion-col>
       <ion-col>
-        <button ion-button full [className]="x01Settings.num == 701 ? 'gamestyle-active' : 'gamestyle'"
+        <button ion-button full
+          [className]="x01Settings.num == 701 ? 'gamestyle activegamestyle last-child' : 'gamestyle last-child'"
           (click)="setNum(701)">
           701
         </button>
@@ -47,7 +49,7 @@
       </ion-col>
       <ion-col col-2>
         <ion-buttons>
-          <button ion-button (click)="toggleReorder()"> 
+          <button ion-button (click)="toggleReorder()">
             <ion-icon style="font-size:1.5em;" name="create" [ngStyle]="{'color':reorder ? '#15a575' : '#d6d2f840' }">
             </ion-icon>
           </button>
@@ -76,13 +78,15 @@
 
     <ion-row class="toggles">
       <ion-col>
-        <button ion-button full [className]="!x01Settings.legbased ? 'gamestyle-active' : 'gamestyle'"
+        <button ion-button full
+          [className]="!x01Settings.legbased ? 'gamestyle activegamestyle first-child' : 'gamestyle first-child'"
           (click)="quickgame()">
           QUICK GAME
         </button>
       </ion-col>
       <ion-col>
-        <button ion-button full [className]="x01Settings.legbased ? 'gamestyle-active' : 'gamestyle'"
+        <button ion-button full
+          [className]="x01Settings.legbased ? 'gamestyle activegamestyle last-child' : 'gamestyle last-child'"
           (click)="legbasedgame()">
           LEG BASED
         </button>

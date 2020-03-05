@@ -1,8 +1,8 @@
 quickstatsx01 {
   .bg {
-    padding: 2em;
+    padding: 0.5em;
     background-color: color($colors, backgroundSec) !important;
-    border: 1px solid color($colors, accentSec);
+    border: 1px solid color($colors, backgroundSec);
   }
 
   .playernamens {

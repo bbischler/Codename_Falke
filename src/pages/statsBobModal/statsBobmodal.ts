@@ -92,7 +92,11 @@ export class StatsBobmodalPage {
       },
       options: {
         legend: {
-          position: 'bottom'
+          position: 'bottom',
+          labels: {
+            boxWidth: 8,
+            fontSize: 10,
+          }
         },
         maintainAspectRatio: false,
         scales: {
@@ -183,7 +187,11 @@ export class StatsBobmodalPage {
       type: "line",
       options: {
         legend: {
-          position: 'bottom'
+          position: 'bottom',
+          labels: {
+            boxWidth: 8,
+            fontSize: 10,
+          }
         },
         maintainAspectRatio: false,
         scales: {
@@ -255,7 +263,11 @@ export class StatsBobmodalPage {
       type: "line",
       options: {
         legend: {
-          position: 'bottom'
+          position: 'bottom',
+          labels: {
+            boxWidth: 8,
+            fontSize: 10,
+          }
         },
         maintainAspectRatio: false,
         scales: {
@@ -272,7 +284,7 @@ export class StatsBobmodalPage {
             }
           }],
           xAxes: [{
-            offset:true,
+            offset: true,
             scaleLabel: {
               display: true,
               labelString: '# Games'

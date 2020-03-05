@@ -27,6 +27,7 @@ page-appsettings {
     color: color($colors, font);
     background-color: color($colors, semiTransparentBtn);
     border: solid 1px color($colors, fontSec);
+    border-radius: 8px;
   }
 
   .deletebtn {

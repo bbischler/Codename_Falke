@@ -26,6 +26,8 @@ page-cricket-settings {
     background: transparent;
     margin: 0.5em 0 !important;
     border: solid 1px color($colors, accentSec2) !important;
+    border-radius: 8px !important;
+
   }
 
   ion-list,
@@ -48,6 +50,7 @@ page-cricket-settings {
     font-weight: 200;
     font-size: 1.5rem;
     color: color($colors, fontSec);
+
   }
 
   .bottom {
@@ -72,8 +75,8 @@ page-cricket-settings {
   ion-input {
     padding-left: 8px;
     color: color($colors, font);
-  } 
-  
+  }
+
   ion-toolbar {
     height: 60px;
   }

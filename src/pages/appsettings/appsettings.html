@@ -19,15 +19,15 @@
 
 <ion-content padding>
   <ion-grid style="height:95%;padding-top:3em;width:100%;" no-padding>
-    
+
     <ion-row class="toggles">
       <ion-col>
-        <button ion-button full [className]="sound ? 'btn-active' : 'btn'" (click)="soundon()">
+        <button ion-button full [className]="sound ? 'btn-active first-child' : 'btn first-child'" (click)="soundon()">
           SOUND ON
         </button>
       </ion-col>
       <ion-col>
-        <button ion-button full [className]="!sound ? 'btn-active' : 'btn'" (click)="soundoff()">
+        <button ion-button full [className]="!sound ? 'btn-active last-child' : 'btn last-child'" (click)="soundoff()">
           SOUND OFF
         </button>
       </ion-col>
@@ -35,12 +35,14 @@
 
     <ion-row class="toggles">
       <ion-col>
-        <button ion-button full [className]="vibrate ? 'btn-active' : 'btn'" (click)="vibrateon()">
+        <button ion-button full [className]="vibrate ? 'btn-active first-child' : 'btn first-child'"
+          (click)="vibrateon()">
           VIBRATION ON
         </button>
       </ion-col>
       <ion-col>
-        <button ion-button full [className]="!vibrate ? 'btn-active' : 'btn'" (click)="vibrateoff()">
+        <button ion-button full [className]="!vibrate ? 'btn-active last-child' : 'btn last-child'"
+          (click)="vibrateoff()">
           VIBRATION OFF
         </button>
       </ion-col>

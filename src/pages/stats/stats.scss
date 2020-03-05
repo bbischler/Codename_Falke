@@ -6,7 +6,7 @@ page-stats {
   }
 
   ion-card {
-    padding: 0.2em;
+    padding: 0.5em;
     background: rgba(255, 255, 255, 0.04) !important;
     border: 1px solid color($colors, semiTransparent2);
   }
@@ -41,7 +41,7 @@ page-stats {
     padding: 0 0.4em 0 0;
   }
 
- 
+
 
   .datecol {
     // background: color($colors, accentSec);
@@ -74,14 +74,16 @@ page-stats {
   .button {
     height: 3em;
     width: 90%;
-    margin: auto;
+    margin: 2em auto;
+
     background-color: color($colors, transparent);
+    border-radius: 8px;
   }
 
   .deletebtn {
     color: color($colors, deleteclr);
     border: solid 1px color($colors, deleteclr);
-    margin: 2em;
+    // margin: 2em;
   }
 
   .playx01btn {

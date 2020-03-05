@@ -158,7 +158,11 @@ export class StatscricketmodalPage {
       type: "line",
       options: {
         legend: {
-          position: 'bottom'
+          position: 'bottom',
+          labels: {
+            boxWidth: 8,
+            fontSize: 10,
+          }
         },
         maintainAspectRatio: false,
         scales: {
@@ -194,7 +198,11 @@ export class StatscricketmodalPage {
       type: "line",
       options: {
         legend: {
-          position: 'bottom'
+          position: 'bottom',
+          labels: {
+            boxWidth: 8,
+            fontSize: 10,
+          }
         },
         maintainAspectRatio: false,
         scales: {
@@ -235,7 +243,11 @@ export class StatscricketmodalPage {
       },
       options: {
         legend: {
-          position: 'bottom'
+          position: 'bottom',
+          labels: {
+            boxWidth: 8,
+            fontSize: 10,
+          }
         },
         maintainAspectRatio: false,
         scales: {

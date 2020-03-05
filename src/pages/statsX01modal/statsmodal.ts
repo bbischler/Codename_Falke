@@ -201,7 +201,11 @@ export class StatsmodalPage {
       type: "line",
       options: {
         legend: {
-          position: 'bottom'
+          position: 'bottom',
+          labels: {
+            boxWidth: 8,
+            fontSize: 10,
+          }
         },
         maintainAspectRatio: false,
         scales: {
@@ -238,7 +242,11 @@ export class StatsmodalPage {
       type: "line",
       options: {
         legend: {
-          position: 'bottom'
+          position: 'bottom',
+          labels: {
+            boxWidth: 8,
+            fontSize: 10,
+          }
         },
         maintainAspectRatio: false,
         scales: {
@@ -275,7 +283,11 @@ export class StatsmodalPage {
       type: "line",
       options: {
         legend: {
-          position: 'bottom'
+          position: 'bottom',
+          labels: {
+            boxWidth: 8,
+            fontSize: 10,
+          }
         },
         maintainAspectRatio: false,
         scales: {
@@ -316,7 +328,11 @@ export class StatsmodalPage {
       },
       options: {
         legend: {
-          position: 'bottom'
+          position: 'bottom',
+          labels: {
+            boxWidth: 8,
+            fontSize: 10,
+          }
         },
         maintainAspectRatio: false,
         scales: {

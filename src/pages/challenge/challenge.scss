@@ -1,118 +1,120 @@
 page-challenge {
-    .cardClassActive {
-        height: 100%;
-        border: solid 1px color($colors, accentSec);
-        background-color: color($colors, semiTransparent) !important;
-    }
+  .cardClassActive {
+    height: 100%;
+    border: none;
+    background-color: color($colors, semiTransparentBtn) !important;
+    border-radius: 8px;
+    padding: 0.5em;
+  }
 
-    ion-card-header {
-        height: 100%;
-        color: color($colors, font) !important;
-    }
+  ion-card-header {
+    height: 100%;
+    color: color($colors, font) !important;
+  }
 
-    .slide-zoom {
-        height: 100%;
-    }
+  .slide-zoom {
+    height: 100%;
+  }
 
-    ion-slides {
-        // padding-bottom: 1em !important;
-        height: 25%;
-    }
+  ion-slides {
+    // padding-bottom: 1em !important;
+    height: 25%;
+  }
 
-    .card {
-        background-color: color($colors, transparent);
-        margin-top: 0 !important;
-    }
+  .card {
+    background-color: color($colors, transparent);
+    margin-top: 0 !important;
+  }
 
-    .score {
-        height: 60%;
-        color: color($colors, font);
-        font-size: 3.5rem;
-        font-weight: 200;
-    }
+  .score {
+    height: 60%;
+    color: color($colors, font);
+    font-size: 3.5rem;
+    font-weight: 200;
+  }
 
-    .stats {
-        height: 20%;
-        color: color($colors, fontSec);
-        font-weight: 100;
-    }
+  .stats {
+    height: 20%;
+    color: color($colors, fontSec);
+    font-weight: 100;
+  }
 
-    .slides{
-      margin-top: 10px;  
-    }
+  .slides {
+    margin-top: 10px;
+  }
 
-    .btn_miss {
-        border: solid 1px color($colors, semiTransparent);
-        height: 82%;
-        background-color: transparent;
-        box-shadow: none !important;
-        font-weight: 400;
-        font-size: 3rem;
-        color: color($colors, fontSec);
-    }
+  .btn_miss {
+    border: solid 1px color($colors, semiTransparentBtn);
+    height: 80%;
+    background-color: transparent;
+    box-shadow: none !important;
+    font-weight: 400;
+    font-size: 2rem;
+    color: color($colors, fontSec);
+  }
 
-    .btn_hit {
-        background-color: color($colors, semiTransparent) !important;
-        border: solid 1px color($colors, semiTransparent);
-        height: 82%;
-        background-color: transparent;
-        box-shadow: none !important;
-        font-weight: 400;
-        font-size: 3rem;
-        color: color($colors, accent);
-    }
+  .btn_hit {
+    background-color: color($colors, semiTransparentBtn) !important;
+    border: solid 1px color($colors, semiTransparentBtn);
+    height: 80%;
+    background-color: transparent;
+    box-shadow: none !important;
+    font-weight: 400;
+    font-size: 2rem;
+    color: color($colors, accent) !important;
+  }
 
-    .btn_bottom {
-        height: 60%;
-        background-color: transparent;
-        box-shadow: none !important;
-        font-weight: 200;
-        font-size: 1.5rem;
-        color: color($colors, fontSec);
-    }
+  .btn_bottom {
+    height: 60%;
+    background-color: transparent;
+    box-shadow: none !important;
+    font-weight: 200;
+    font-size: 1.5rem;
+    color: color($colors, fontSec);
+  }
 
-    .hitmiss {
-        padding: 0 1em 0 1em;
-        height: 80% !important;
-    }
+  .hitmiss {
+    padding: 0 1em 0 1em;
+    height: 80% !important;
+  }
 
-    .endgame {
-        height: 20%;
-        padding: 1em;
-    }
+  .endgame {
+    height: 20%;
+    padding: 1em;
+  }
 
-    .gamemode {
-        height: 100%;
-        color: color($colors, fontSec);
-        width: 100%;
-        background-color: color($colors, transparent);
-        border: solid 1px color($colors, semiTransparent);
-    }
+  .gamemode {
+    height: 100%;
+    color: color($colors, fontSec);
+    width: 100%;
+    background-color: color($colors, transparent);
+    border: solid 1px color($colors, semiTransparent);
+  }
 
 
-    .active {
-        color: color($colors, font);
-        background-color: color($colors, semiTransparent);
-        border: solid 1px color($colors, accentSec);
+  .active {
+    // color: color($colors, font);
+    background-color: color($colors, semiTransparentBtn);
+    border: solid 1px color($colors, accentSec);
 
-    }
+  }
 
-    ion-row {
-        // border: solid 1px red;
+  ion-row {
+    // border: solid 1px red;
 
-    }
+  }
 
-    ion-col {
-        // border: solid 1px red;
+  ion-col {
+    // border: solid 1px red;
 
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-    ion-grid {
-        // border: solid 1px red;
+  ion-grid {
+    // border: solid 1px red;
 
-    }
+  }
 }
