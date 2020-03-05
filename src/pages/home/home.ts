@@ -54,6 +54,11 @@ export class HomePage {
     this.navCtrl.push('AroundWorldPage');
   }
 
+  openBob() {
+    this.service.setActivePage("Bob´s 27");
+    this.navCtrl.push('BobPage');
+  }
+  
   inviteFriend() {
     this.socialSharing.share(this.message, "Dartist", null, this.url)
       .then(() => {

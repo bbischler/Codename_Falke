@@ -47,7 +47,7 @@ export class X01Page {
   currentleg: number = 1;
   currentset: number = 1;
   legssets: String[] = [];
-
+  bust: boolean = false;
   constructor(public popoverCtrl: PopoverController, public navCtrl: NavController, public platform: Platform,
     public navParams: NavParams, public modalCtrl: ModalController,
     private nativeAudio: NativeAudio, private service: ServiceProvider,
@@ -58,12 +58,6 @@ export class X01Page {
         console.log(error);
       });
     });
-    // if (this.navParams.get('param')) {
-    //   this.num = this.navParams.get('param');
-    // } else {
-    //   this.num = 301;
-    // }
-    // this.openSettings();
     this.x01Settings = this.service.getX01Settings();
   }
 
@@ -166,23 +160,19 @@ export class X01Page {
       }
       points = points * 3;
     }
-
-    if (points == 0) {
-      this.vibrateMiss()
-    } else {
-      this.vibrate()
-    }
-
     this.throw(points);
   }
 
 
 
   throw(points: number) {
-    console.log("THROOOOOOOOOOW");
+    if (points == 0) {
+      this.vibrateMiss()
+    } else {
+      this.vibrate()
+    }
 
     this.slides.slideTo(this.playerCounter, 1000);
-
     var action = new x01ThrowAction(points, this.activePlayer);
     this.actionStack.push(action);
     action.do();
@@ -199,7 +189,6 @@ export class X01Page {
     this.isTriple = false;
     this.throwCounter++;
 
-    console.log("Player " + this.activePlayer.id + " roundThrowCounter = " + this.activePlayer.roundThrowCount);
 
     if (this.activePlayer.roundThrowCount == 3) {
       this.has180();
@@ -207,8 +196,11 @@ export class X01Page {
       this.activePlayer = this.players[this.playerCounter];
       this.activePlayer.resetForTurn();
       this.slides.slideTo(this.playerCounter, 1000);
+
     }
+
   }
+
   writeStatsInStorage() {
     localStorage.setItem('x01stats', JSON.stringify(this.x01stats));
   }
@@ -265,14 +257,15 @@ export class X01Page {
       return true;
     }
     else if (_score <= 1) {
+      this.bust = true;
       this.presentBust();
-      console.log("BUUUUUUUUST");
       let tmpRoundCount = this.activePlayer.roundThrowCount;
       for (let i = 0; i < tmpRoundCount; i++)
         this.undo();
 
       for (let i = 0; i < 3; i++)
         this.throw(0);
+      this.bust = false;
       return false;
     }
     else {
@@ -285,6 +278,7 @@ export class X01Page {
       return true;
     }
     else if (_score < 0) {
+      this.bust = true;
       this.presentBust();
       let tmpRoundCount = this.activePlayer.roundThrowCount;
       for (let i = 0; i < tmpRoundCount; i++)
@@ -292,7 +286,7 @@ export class X01Page {
 
       for (let i = 0; i < 3; i++)
         this.throw(0);
-
+      this.bust = false;
       return false;
     } else {
       return false;
@@ -325,7 +319,6 @@ export class X01Page {
   }
 
   undo() {
-    console.log("Undo prompted")
     var action = this.actionStack.pop();
     if (action != null) {
       // Switch to previous Player if necessary
@@ -405,7 +398,7 @@ export class X01Page {
       "showContent": this.showContent,
       "currentleg": this.currentleg,
       "currentset": this.currentset,
-      "legssets": this.legssets
+      "legssets": this.legssets,
     }));
     localStorage.setItem('x01Stack' + this.x01Settings.num, JSON.stringify(this.actionStack.toArray()));
     this.service.setGameIsActive(false);

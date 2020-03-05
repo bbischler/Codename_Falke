@@ -16,6 +16,7 @@ import { DataProvider } from '../providers/data/data';
 import { AppRate } from '@ionic-native/app-rate/ngx';
 import { Quickstatsx01Component } from '../components/quickstatsx01/quickstatsx01';
 import { QuickstatscricketComponent } from '../components/quickstatscricket/quickstatscricket';
+import { RulesComponent } from '../components/rules/rules';
 
 
 
@@ -23,7 +24,8 @@ import { QuickstatscricketComponent } from '../components/quickstatscricket/quic
   declarations: [
     MyApp,
     Quickstatsx01Component,
-    QuickstatscricketComponent
+    QuickstatscricketComponent,
+    RulesComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +38,8 @@ import { QuickstatscricketComponent } from '../components/quickstatscricket/quic
   entryComponents: [
     MyApp,
     Quickstatsx01Component,
-    QuickstatscricketComponent
+    QuickstatscricketComponent,
+    RulesComponent
   ],
   providers: [
     Vibration,

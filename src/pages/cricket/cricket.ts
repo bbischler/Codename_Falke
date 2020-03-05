@@ -7,7 +7,7 @@ import { Vibration } from '@ionic-native/vibration/ngx';
 import { ServiceProvider } from '../../providers/service/service';
 import { Stack } from 'stack-typescript';
 import { Cricketstats } from '../../models/cricket/cricketstats';
-import { QuickstatscricketComponent } from '../../components/quickstatscricket/quickstatscricket';
+// import { QuickstatscricketComponent } from '../../components/quickstatscricket/quickstatscricket';
 
 
 
@@ -276,7 +276,7 @@ export class CricketPage {
         "totalScore": p.totalScore,
         "roundThrowCount": p.roundThrowCount,
         "totalThrowCount": p.totalThrowCount,
-        "totalScoresPerGame": p.totalScoresPerGamem,
+        "totalScoresPerGame": p.totalScoresPerGame,
         "pointsPerGame": p.pointsPerGame,
         "avg": p.avg,
         "avgPerGame": p.avgPerGame,

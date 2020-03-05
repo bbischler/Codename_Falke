@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, ToastController, PopoverController } from 'ionic-angular';
 import { ServiceProvider } from '../../providers/service/service';
 import { DataProvider } from '../../providers/data/data';
-
+import { RulesComponent } from '../../components/rules/rules';
 import { X01Player } from '../../models/x01/x01Player';
 import { X01Settings } from '../../models/x01/x01Settings';
+
 /**
  * Generated class for the X01SettingsPage page.
  *
@@ -22,10 +23,10 @@ export class X01SettingsPage {
   players: X01Player[] = [];
   pageName = 'MODAL';
   gameNum: number;
-
+  reorder: boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController, private service: ServiceProvider,
-    public toastController: ToastController, public data: DataProvider) {
+    public toastController: ToastController, public data: DataProvider, public popoverCtrl: PopoverController) {
     this.x01Settings = this.service.getX01Settings();
     // this.gameNum = navParams.get('gameNum');
     if (localStorage.getItem("x01Player")) {
@@ -41,6 +42,19 @@ export class X01SettingsPage {
     }
   }
 
+  toggleReorder() {
+    this.reorder = !this.reorder;
+  }
+
+  openRules(mode: string) {
+    let popover = this.popoverCtrl.create(RulesComponent, { key1: mode });
+    this.pageName = 'POPOVER'
+    popover.present({});
+    popover.onDidDismiss(data => {
+      this.pageName = 'MODAL';
+    });
+  }
+
   resetSettings() {
     this.service.resetX01Settings();
     this.x01Settings = this.service.getX01Settings();
@@ -48,6 +62,10 @@ export class X01SettingsPage {
     localStorage.removeItem("x01Player");
     this.players.push(new X01Player(this.data, 0, ""));
     this.players.push(new X01Player(this.data, 1, ""));
+  }
+  doReorder(event) {
+    let draggedItem = this.players.splice(event.from, 1)[0];
+    this.players.splice(event.to, 0, draggedItem)
   }
 
   dismiss() {

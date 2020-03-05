@@ -2,8 +2,8 @@ import { IonicPage, NavController, NavParams, Card } from 'ionic-angular';
 import { ModalController, ViewController, Platform, ModalOptions, Modal } from 'ionic-angular';
 import { Component, OnInit, ViewChild, ElementRef, ViewChildren, QueryList } from "@angular/core";
 import { Chart } from "chart.js";
-import { Atwstats } from "../../models/atw/atwstats";
-import { atwPlayer } from "../../models/atw/atwPlayer";
+import { Bobstats } from "../../models/bob/bobstats";
+import { bobPlayer } from "../../models/bob/bobPlayer";
 /**
  * Generated class for the StatsmodalPage page.
  *
@@ -13,19 +13,21 @@ import { atwPlayer } from "../../models/atw/atwPlayer";
 
 @IonicPage()
 @Component({
-  selector: 'page-statsATWmodal',
-  templateUrl: 'statsATWmodal.html',
+  selector: 'page-statsBobmodal',
+  templateUrl: 'statsBobmodal.html',
 })
-export class StatsATWmodalPage {
+export class StatsBobmodalPage {
 
   @ViewChild("lineCanvas") lineCanvas: ElementRef;
   @ViewChildren("yourId") myChartsCanvas: QueryList<any>;
+  @ViewChild("lineCanvasTotal") lineCanvasTotal: ElementRef;
 
   pageName = 'MODAL';
   private lineChart: Chart;
   private charts: Chart[] = [];
+  private lineChartTotal: Chart;
 
-  game: Atwstats;
+  game: Bobstats;
   labelsGames: String[] = [];
   labelsPoints: String[] = [];
   xAxisGames: String = "# Games";
@@ -49,13 +51,11 @@ export class StatsATWmodalPage {
       else
         this.labelsPoints.push(i.toString());
     }
-
+    this.setLineChartTotal();
+    this.avgPointsLINE();
     for (let i = 0; i < this.myChartsCanvas.length; i++) {
       this.ThrowsPerPoint(i);
     }
-
-
-    this.avgPointsLINE();
   }
 
   ThrowsPerPoint(j: number) {
@@ -64,13 +64,18 @@ export class StatsATWmodalPage {
     for (let i = 0; i < this.game.players.length; i++) {
       // this.chart.data.datasets[i] = (
 
+      let hits: number[] = [];
+      for (let m = 0; m < this.game.players[i].pointCounterPerGame[j].length; m++) {
+        hits[m] = 3 - this.game.players[i].pointCounterPerGame[j][m];
+      }
+
       this.charts[j].data.datasets[i] = (
         {
           label: this.game.players[i].name,
           backgroundColor: this.colors[i],
           borderColor: this.colors[i],
           borderWidth: 1,
-          data: this.game.players[i].pointCounterPerGame[j],
+          data: hits,
         }
       );
       this.charts[j].update();
@@ -119,21 +124,19 @@ export class StatsATWmodalPage {
       }
     });
   }
-
+  add(a, b) {
+    return a + b;
+  }
   getTotalScore(scores: number[]) {
-    let total = 0;
-    for (let t of scores) {
-      total += t;
-    }
-    return total;
+    return scores.reduce((a, b) => a + b, 0);
   }
 
-  isWinner(p: atwPlayer) {
+  isWinner(player: bobPlayer) {
     let allScores: number[] = [];
     for (let p of this.game.players) {
-      allScores.push(p.counterWonGames);
+      allScores.push(this.getTotalScore(p.totalScoresPerGame));
     }
-    return Math.max(...allScores) == p.counterWonGames;
+    return Math.max(...allScores) == this.getTotalScore(player.totalScoresPerGame);
   }
 
   closeModal() {
@@ -202,6 +205,77 @@ export class StatsATWmodalPage {
             scaleLabel: {
               display: true,
               labelString: this.xAxisGames
+            }
+          }]
+        }
+      },
+      data: {
+        labels: this.labelsGames,
+        datasets: []
+      }
+    });
+  }
+
+
+  setLineChartTotal() {
+    this.drawLineChartTotal();
+    for (let i = 0; i < this.game.players.length; i++) {
+
+
+      this.lineChartTotal.data.datasets[i] = (
+        {
+          label: this.game.players[i].name,
+          fill: false,
+          lineTension: 0.1,
+          backgroundColor: this.colors[i],
+          borderColor: this.colors[i],
+          borderCapStyle: "butt",
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: "miter",
+          pointBorderColor: this.colors[i],
+          pointBackgroundColor: this.colors[i],
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: this.colors[i],
+          pointHoverBorderColor: this.colors[i],
+          pointHoverBorderWidth: 2,
+          pointRadius: 5,
+          pointHitRadius: 10,
+          data: this.game.players[i].totalScoresPerGame,
+          spanGaps: true
+        }
+      );
+      this.lineChartTotal.update();
+    }
+  }
+
+  drawLineChartTotal() {
+    this.lineChartTotal = new Chart(this.lineCanvasTotal.nativeElement, {
+      type: "line",
+      options: {
+        legend: {
+          position: 'bottom'
+        },
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              autoSkipPadding: 30,
+              precision: 0,
+              autoSkip: true,
+            },
+            scaleLabel: {
+              display: true,
+              labelString: 'Score'
+            }
+          }],
+          xAxes: [{
+            offset:true,
+            scaleLabel: {
+              display: true,
+              labelString: '# Games'
             }
           }]
         }

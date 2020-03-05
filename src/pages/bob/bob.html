@@ -9,7 +9,7 @@
       <!-- <ion-icon color="fontSec" name="menu"></ion-icon> -->
     </button>
     <ion-title>
-      <div class="page-header-menu" *ngIf="showContent">Around The World </div>
+      <div class="page-header-menu" *ngIf="showContent">Bob´s 27 </div>
     </ion-title>
     <div style="display: flex; flex-direction: row; justify-content: flex-end" *ngIf="showContent">
 
@@ -30,12 +30,12 @@
     <div class="nameitem" *ngFor="let player of players">
       <div [ngClass]="isActivePlayer(player.id) ? 'playerName activePlayerInfo' : 'playerName'"> {{player.name}}</div>
       <div [ngClass]="isActivePlayer(player.id) ? 'playerScore activePlayerInfo' : 'playerScore'">
-        {{getToThrow(player.id)}} </div>
+        {{player.totalScore}} </div>
     </div>
   </div>
 
   <ion-grid style="height:80%;padding-top:0;width:100%;" no-padding *ngIf="showContent">
-    <ion-row *ngIf="getActivePlayer()" style="height:30%">
+    <ion-row *ngIf="getActivePlayer()" style="height:40%">
 
       <ion-card *ngIf="getActivePlayer" class="cardClassActive">
         <ion-card-header no-padding>
@@ -53,7 +53,7 @@
 
             <ion-row class="score" align-items-center>
               <ion-col class="labels">
-                To throw
+                To throw:
               </ion-col>
               <ion-col class="colcenter accent">
                 {{getToThrow(activePlayer.id)}}
@@ -63,18 +63,52 @@
             </ion-row>
 
             <ion-row class="stats" align-items-center>
+              <ion-col class="labels" col-3>
+                Throws left:
+              </ion-col>
+              <ion-col> </ion-col>
+
+              <ion-col class="labels" col-3>
+                Miss:
+              </ion-col>
+
+              <!-- <ion-col> </ion-col> -->
+              <ion-col> </ion-col>
+              <ion-col class="labels" col-3>
+                Avg:
+              </ion-col>
+            </ion-row>
+            <ion-row class="stats" align-items-center>
+              <ion-col class="labels"col-3>
+                <span class="font">{{3 - activePlayer.roundThrowCount}}</span>
+              </ion-col>
+              <ion-col> </ion-col>
+
+              <ion-col class="labels" col-3>
+                <span class="font">{{activePlayer.pointCounter[activePlayer.toThrow-1]}} </span>
+              </ion-col>
+
+              <ion-col> </ion-col>
+              <ion-col class="labels" col-3>
+                <span class="font">{{activePlayer.avg}} </span>%
+              </ion-col>
+            </ion-row>
+
+            <!-- <ion-row class="stats" align-items-center>
               <ion-col class="labels">
                 Throws left: <span class="font">{{3 - activePlayer.roundThrowCount}}</span>
               </ion-col>
               <ion-col> </ion-col>
-              <ion-col> </ion-col>
-              <ion-col> </ion-col>
-              <ion-col> </ion-col>
+
+              <ion-col class="labels">
+                Miss: <span class="font">{{activePlayer.pointCounter[activePlayer.toThrow-1]}} </span>
+              </ion-col>
+
               <ion-col> </ion-col>
               <ion-col class="labels">
                 Avg: <span class="font">{{activePlayer.avg}} </span>%
               </ion-col>
-            </ion-row>
+            </ion-row> -->
           </ion-grid>
         </ion-card-header>
       </ion-card>

@@ -66,4 +66,21 @@ page-home {
   .linerow {
     height: 2px;
   }
+  
+  .titlelegs {
+    text-align: right;
+    margin: 0 0.5em;
+    font-weight: 300;
+    font-size: 0.9em;
+    height: 100%;
+    background: transparent !important;
+    padding: 1em;
+    color: color($colors, homebutton);
+  }
+
+  .stats {
+    height: 20%;
+    color: color($colors, fontSec);
+    font-weight: 100;
+  }
 }

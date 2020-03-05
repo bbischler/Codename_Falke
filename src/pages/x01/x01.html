@@ -205,7 +205,7 @@
     </ion-row>
     <ion-row class="scoreboardrow">
       <ion-col>
-        <button ion-button block color="transparent" class="btn_bottom" (click)="undo()">
+        <button [disabled]="botsTurn" ion-button block color="transparent" class="btn_bottom" (click)="undo()">
           <div class="numberscore">
             UNDO
           </div>

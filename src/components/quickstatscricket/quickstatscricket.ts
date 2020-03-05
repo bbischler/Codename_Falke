@@ -30,4 +30,15 @@ export class QuickstatscricketComponent {
     }
     return Math.max(...allScores) == p.totalScore;
   }
+
+  getToThrow(id: number) {
+    for (let i = 0; i < this.players.length; i++) {
+      if (id == this.players[i].id) {
+        if (this.players[i].totalScore > 20)
+          return "Bull";
+        else
+          return this.players[i].totalScore;
+      }
+    }
+  }
 }

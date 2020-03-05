@@ -19,7 +19,6 @@ export class MyApp {
   rootPage: any = 'HomePage';
   showedAlert: boolean;
   confirmAlert: any;
-  // activePage: any;
   pages: Array<{ title: string, component: any }>;
   pagesx01: Array<{ title: string, component: any }>;
   instructions: Array<{ title: string, component: any }>;
@@ -47,9 +46,9 @@ export class MyApp {
     ];
     this.instructions = [
       { title: 'Around The World', component: 'AroundWorldPage' },
+      { title: 'Bob´s 27', component: 'BobPage' },
       { title: 'Challenge', component: 'ChallengePage' },
       { title: 'Stats', component: 'StatsPage' },
-      { title: 'Instructions', component: 'InstructionsPage' },
       { title: 'Settings', component: 'AppsettingsPage' },
     ];
 

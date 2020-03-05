@@ -19,7 +19,7 @@
 
   <ion-card>
     <ion-card-header>
-      Total Won Games
+      Total Score
     </ion-card-header>
     <ion-card-content>
       <ion-grid>
@@ -28,7 +28,7 @@
             {{p.name}} :
           </ion-col>
           <ion-col col-7 [className]="isWinner(p) ? 'playerscore won' : 'playerscore'">
-            {{p.counterWonGames}}
+            {{getTotalScore(p.totalScoresPerGame)}}
           </ion-col>
         </ion-row>
         <ion-row>
@@ -39,6 +39,17 @@
       </ion-grid>
     </ion-card-content>
   </ion-card>
+
+  
+  <ion-card>
+    <ion-card-header>
+      Total Score Per Game
+    </ion-card-header>
+    <ion-card-content class="chart">
+      <canvas #lineCanvasTotal></canvas>
+    </ion-card-content>
+  </ion-card>
+
 
   <ion-card>
     <ion-card-header>

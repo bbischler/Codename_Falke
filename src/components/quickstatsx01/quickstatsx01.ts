@@ -37,4 +37,6 @@ export class Quickstatsx01Component {
     }
     return Math.min(...allScores) == p.totalScore;
   }
+
+  
 }

@@ -26,12 +26,10 @@ export class X01Player extends Player {
     }
 
     public throw(points: number): void {
-        console.log("THROW FUNCTION NEVER USED!!");
     }
 
     setToThrow() {
         let throwLeft = 3 - this.roundThrowCount
-        console.log("throwleft: " + throwLeft);
         this.toThrow = [];
         let _toThrow = this.data.getCheckOut(this.totalScore);
 
@@ -41,10 +39,8 @@ export class X01Player extends Player {
                 return el != null;
             });
             let length = filtered.length;
-            console.log("length: " + length);
 
             if (length > throwLeft) {
-                console.log("length != throwleft");
                 return;
             }
 
@@ -106,7 +102,7 @@ export class X01Player extends Player {
         this.roundThrowCount--;
         this.totalThrowCount--;
     }
-    
+
     public scorePoints(points: number) {
         this.roundScore += points;
         this.totalScore -= points;

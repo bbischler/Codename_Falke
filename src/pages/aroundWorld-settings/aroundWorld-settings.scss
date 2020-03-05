@@ -1,27 +1,45 @@
 page-aroundWorld-settings {
+
   .heading {
     font-size: 2rem;
-    margin: 1em;
     color: color($colors, homebutton);
+    text-align: center;
+    height: fit-content;
+    font-weight: 300;
+    margin: auto 0;
+  }
+
+  .rules {
+    font-size: 2rem;
+    color: color($colors, homebutton2);
     text-align: center;
     font-weight: 300;
   }
 
-  .playernames {
-    background: transparent;
-    margin: 0 0.5em 0.5em 1em;
+  .headercenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .playernamecol {
+  .itemplayer {
+    background: transparent;
+    margin: 0.5em 0 !important;
     border: solid 1px color($colors, accentSec2) !important;
+  }
+
+  ion-list,
+  ion-reorder-group,
+  ion-item,
+  ion-input,
+  .item-inner {
+    border: none !important;
+    box-shadow: none !important;
+
   }
 
   .ion-rows {
     margin: 0 1em 1.5em 1em;
-  }
-
-  .list {
-    width: 100%;
   }
 
   .button {
@@ -46,19 +64,9 @@ page-aroundWorld-settings {
     color: color($colors, accent);
   }
 
-  .doubles {
-    background: transparent;
-    color: color($colors, font);
-    font-size: 1em;
-  }
-
   .footer {
     // height: 5em;
     background-color: color($colors, semiTransparent);
-  }
-
-  ion-toolbar {
-    height: 60px;
   }
 
   ion-input {
@@ -66,5 +74,7 @@ page-aroundWorld-settings {
     color: color($colors, font);
   }
 
-
+  ion-toolbar {
+    height: 60px;
+  }
 }

@@ -1,0 +1,24 @@
+.bg {
+  padding: 0.5em;
+  background-color: color($colors, backgroundSec) !important;
+  border: 1px solid color($colors, accentSec);
+}
+
+.headerMode {
+  color: color($colors, font);
+  margin: 1em 0 0.2em 0;
+  font-size: 1.4em;
+}
+
+.header {
+  color: color($colors, font);
+  margin: 1em 0 0.2em 0;
+  font-size: 1.2em;
+}
+
+.textblock {
+  padding: 1em;
+  font-size: 1em;
+  color: color($colors, fontSec);
+  text-align: start !important;
+}

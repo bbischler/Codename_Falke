@@ -30,18 +30,20 @@ $colors: (primary: #1C1D1F,
   fontDisabled: rgba(107, 107, 107, 0.5),
 
   accent:rgb(28, 230, 162),
-  accentSec: rgb(21, 165, 117),
-  accentSec2: rgba(26, 218, 154, 0.349),
+  accentSec: #15a575,
+  accentSec2: #1ada9a59,
   accentSec3:rgb(36, 175, 129),
 
   red:rgb(175, 45, 36),
-  homebutton: rgba(214, 210, 248, 0.25),
+  homebutton: #d6d2f840,
+  homebutton2: rgba(214, 210, 248, 0.15),
   // homebutton: rgba(12, 156, 108, 0.7),
   deleteclr: rgba(196, 14, 14, 0.781),
   deleteclr2: rgba(196, 14, 14, 0.3),
 
-  background: #0b0b13,
-  backgroundSec:rgb(28, 27, 54),
+  background: rgb(9, 9, 15),
+  backgroundSec:rgb(23, 26, 63),
+
   backgroundAlert:rgb(11, 11, 41),
 
   transparent: rgba(67, 192, 163, 0),

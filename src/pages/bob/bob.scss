@@ -1,4 +1,4 @@
-page-aroundWorld {
+page-bob {
   .namecontainer {
     height: 20%;
     display: flex;
@@ -14,16 +14,15 @@ page-aroundWorld {
     color: color($colors, btnActivated);
     font-size: 1.5rem;
     padding: 1em !important;
+    text-align: center;
   }
 
   .accent {
     color: color($colors, accent);
   }
-
-  .font {
+  .font{
     color: color($colors, font);
   }
-
 
   .nameitem {
     width: 24%;
@@ -57,7 +56,7 @@ page-aroundWorld {
 
   .hitmiss {
     padding: 0 1em 0 1em;
-    height: 60% !important;
+    height: 50% !important;
   }
 
 

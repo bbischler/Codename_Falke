@@ -60,6 +60,11 @@ export class AppsettingsPage {
     localStorage.removeItem('atwStack');
     localStorage.removeItem('atwPlayer');
     localStorage.removeItem('atwstats');
+
+    localStorage.removeItem('bobStorage'); 
+    localStorage.removeItem('bobStack');
+    localStorage.removeItem('bobPlayer');
+    localStorage.removeItem('bobstats');
     this.service.setAppSettings();
     this.service.resetX01Settings();
     this.service.deletePlayers()

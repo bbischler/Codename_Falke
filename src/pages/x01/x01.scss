@@ -8,7 +8,7 @@ page-x01 {
   .cardClassActive {
     height: 100%;
     border: solid 1px color($colors, accentSec);
-    background-color: color($colors, semiTransparent) !important;
+    background-color: color($colors, semiTransparentBtn) !important;
   }
 
   ion-card-header {

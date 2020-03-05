@@ -1,7 +1,8 @@
 import { CricketPlayer } from '../../models/cricket/cricketPlayer';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, ToastController, PopoverController } from 'ionic-angular';
 import { ServiceProvider } from '../../providers/service/service';
+import { RulesComponent } from '../../components/rules/rules';
 
 @IonicPage()
 @Component({
@@ -11,11 +12,12 @@ import { ServiceProvider } from '../../providers/service/service';
 export class CricketSettingsPage {
   players: CricketPlayer[] = [];
   pageName = 'MODAL';
+  reorder: boolean = false;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController, private service: ServiceProvider,
-    public toastController: ToastController) {
+    public toastController: ToastController, public popoverCtrl: PopoverController) {
 
     if (localStorage.getItem("cricketPlayer")) {
       let tmpplayers = JSON.parse(localStorage.getItem("cricketPlayer"));
@@ -30,11 +32,24 @@ export class CricketSettingsPage {
     }
 
   }
+
   resetSettings() {
     localStorage.removeItem("cricketPlayer");
     this.players = [];
     this.players.push(new CricketPlayer(0, ""));
     this.players.push(new CricketPlayer(1, ""));
+  }
+
+  toggleReorder() {
+    this.reorder = !this.reorder;
+  }
+  openRules(mode: string) {
+    let popover = this.popoverCtrl.create(RulesComponent, { key1: mode });
+    this.pageName = 'POPOVER'
+    popover.present({});
+    popover.onDidDismiss(data => {
+      this.pageName = 'MODAL';
+    });
   }
 
   dismiss() {
@@ -50,6 +65,7 @@ export class CricketSettingsPage {
       if (this.players[i].name == "") {
         this.players[i].name = "Player " + (i + 1);
       }
+      
       this.service.addPlayer(this.players[i]);
     }
     localStorage.setItem("cricketPlayer", JSON.stringify(this.players));
@@ -57,6 +73,11 @@ export class CricketSettingsPage {
   }
 
   ionViewDidLoad() {
+  }
+
+  doReorder(event) {
+    let draggedItem = this.players.splice(event.from, 1)[0];
+    this.players.splice(event.to, 0, draggedItem)
   }
 
   addPlayer() {

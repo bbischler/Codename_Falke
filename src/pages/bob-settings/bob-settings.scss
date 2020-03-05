@@ -1,5 +1,5 @@
-page-cricket-settings {
-
+page-bob-settings {
+  
   .heading {
     font-size: 2rem;
     color: color($colors, homebutton);
@@ -72,10 +72,8 @@ page-cricket-settings {
   ion-input {
     padding-left: 8px;
     color: color($colors, font);
-  } 
-  
+  }
   ion-toolbar {
     height: 60px;
   }
-
 }

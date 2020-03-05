@@ -157,6 +157,9 @@ export class StatscricketmodalPage {
     this.lineChart = new Chart(this.lineCanvas.nativeElement, {
       type: "line",
       options: {
+        legend: {
+          position: 'bottom'
+        },
         maintainAspectRatio: false,
         scales: {
           yAxes: [{
@@ -172,6 +175,7 @@ export class StatscricketmodalPage {
             }
           }],
           xAxes: [{
+            offset: true,
             scaleLabel: {
               display: true,
               labelString: '# Games'
@@ -189,6 +193,9 @@ export class StatscricketmodalPage {
     this.lineChartAvg = new Chart(this.lineCanvasAvg.nativeElement, {
       type: "line",
       options: {
+        legend: {
+          position: 'bottom'
+        },
         maintainAspectRatio: false,
         scales: {
           yAxes: [{
@@ -204,6 +211,7 @@ export class StatscricketmodalPage {
             }
           }],
           xAxes: [{
+            offset: true,
             scaleLabel: {
               display: true,
               labelString: '# Games'
@@ -226,6 +234,9 @@ export class StatscricketmodalPage {
         datasets: []
       },
       options: {
+        legend: {
+          position: 'bottom'
+        },
         maintainAspectRatio: false,
         scales: {
           yAxes: [
@@ -243,6 +254,7 @@ export class StatscricketmodalPage {
           ],
           xAxes: [
             {
+              // offset: true,
               ticks: {
                 beginAtZero: true,
               },

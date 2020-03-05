@@ -3,6 +3,8 @@ import { IonicPage, NavController, Slides } from 'ionic-angular';
 import { X01stats } from "../../models/x01/x01stats";
 import { Cricketstats } from "../../models/cricket/cricketstats";
 import { Atwstats } from "../../models/atw/atwstats";
+import { Bobstats } from "../../models/bob/bobstats";
+
 import { ModalController, ModalOptions, Modal } from 'ionic-angular';
 import { ServiceProvider } from '../../providers/service/service';
 
@@ -16,17 +18,17 @@ export class StatsPage {
   private x01stats: X01stats[] = [];
   private cricketstats: Cricketstats[] = [];
   private atwstats: Atwstats[] = [];
-
+  private bobstats: Bobstats[] = [];
   tabs: any = [];
   SwipedTabsIndicator: any = null;
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, private service: ServiceProvider) {
-    this.tabs = ["X-01", "Cricket", "ATW"];
+    this.tabs = ["X-01", "Cricket", "ATW", "Bob´s 27"];
     this.x01stats = JSON.parse(localStorage.getItem('x01stats'));
     this.cricketstats = JSON.parse(localStorage.getItem('cricketstats'));
     this.atwstats = JSON.parse(localStorage.getItem('atwstats'));
-
-    console.log(this.atwstats);
+    this.bobstats = JSON.parse(localStorage.getItem('bobstats'));
+    console.log(this.bobstats);
   }
 
 
@@ -83,6 +85,16 @@ export class StatsPage {
     myModal.present();
   }
 
+  openBobStatsForGame(game: Bobstats) {
+    const myModalOptions: ModalOptions = {
+      enableBackdropDismiss: true,
+      showBackdrop: true,
+      cssClass: 'stats-modal'
+    };
+    const myModal: Modal = this.modalCtrl.create("StatsBobmodalPage", { game: game }, myModalOptions);
+    myModal.present();
+  }
+
   playX01() {
     this.service.setActivePage("X-01");
     this.navCtrl.push('X01Page');
@@ -94,6 +106,11 @@ export class StatsPage {
   playATW() {
     this.service.setActivePage("Around The World");
     this.navCtrl.push('AroundWorldPage');
+  }
+
+  playBob() {
+    this.service.setActivePage("Bob´s 27");
+    this.navCtrl.push('BobPage');
   }
 
   deletex01stats() {
@@ -109,9 +126,12 @@ export class StatsPage {
     this.atwstats = [];
     localStorage.removeItem("atwstats")
   }
-
+  deletebobstats() {
+    this.bobstats = [];
+    localStorage.removeItem("bobstats")
+  }
   popupDeleteX01Stats() {
-    this.service.showMessageOkCancel('Delete X-01 Stats?', 'Do you really want to delete x-01 stats?', ['No', 'Yes']).then((res) => {
+    this.service.showMessageOkCancel('Delete X-01 Stats?', 'Do you really want to delete X-01 stats?', ['No', 'Yes']).then((res) => {
       if (res) {
         this.deletex01stats();
       } else {
@@ -119,7 +139,7 @@ export class StatsPage {
     });
   }
   popupDeleteCricketStats() {
-    this.service.showMessageOkCancel('Delete Cricket Stats?', 'Do you really want to delete dricket stats?', ['No', 'Yes']).then((res) => {
+    this.service.showMessageOkCancel('Delete Cricket Stats?', 'Do you really want to delete Cricket stats?', ['No', 'Yes']).then((res) => {
       if (res) {
         this.deletecricketstats();
       } else {
@@ -127,9 +147,18 @@ export class StatsPage {
     });
   }
   popupDeleteATWStats() {
-    this.service.showMessageOkCancel('Delete ATW Stats?', 'Do you really want to delete x-01 stats?', ['No', 'Yes']).then((res) => {
+    this.service.showMessageOkCancel('Delete ATW Stats?', 'Do you really want to delete Around The World stats?', ['No', 'Yes']).then((res) => {
       if (res) {
         this.deleteatwstats();
+      } else {
+      }
+    });
+  }
+
+  popupDeleteBobStats() {
+    this.service.showMessageOkCancel('Delete Bob´s 27 Stats?', 'Do you really want to delete Bob´s 27 stats?', ['No', 'Yes']).then((res) => {
+      if (res) {
+        this.deletebobstats();
       } else {
       }
     });
@@ -148,6 +177,11 @@ export class StatsPage {
   hasATWStats() {
     if (this.atwstats)
       return this.atwstats.length > 0;
+    else return false;
+  }
+  hasBobStats() {
+    if (this.bobstats)
+      return this.bobstats.length > 0;
     else return false;
   }
 }

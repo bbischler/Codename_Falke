@@ -1,4 +1,4 @@
-import { atwPlayer } from '../../models/atw/atwPlayer';
+import { bobPlayer } from '../../models/bob/bobPlayer';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ToastController, PopoverController } from 'ionic-angular';
 import { ServiceProvider } from '../../providers/service/service';
@@ -6,11 +6,11 @@ import { RulesComponent } from '../../components/rules/rules';
 
 @IonicPage()
 @Component({
-  selector: 'page-aroundWorld-settings',
-  templateUrl: 'aroundWorld-settings.html',
+  selector: 'page-bob-settings',
+  templateUrl: 'bob-settings.html',
 })
-export class AroundWorldSettingsPage {
-  players: atwPlayer[] = [];
+export class BobSettingsPage {
+  players: bobPlayer[] = [];
   pageName = 'MODAL';
   reorder: boolean = false;
 
@@ -19,23 +19,23 @@ export class AroundWorldSettingsPage {
     public viewCtrl: ViewController, private service: ServiceProvider,
     public toastController: ToastController, public popoverCtrl: PopoverController) {
 
-    if (localStorage.getItem("atwPlayer")) {
-      let tmpplayers = JSON.parse(localStorage.getItem("atwPlayer"));
+    if (localStorage.getItem("bobPlayer")) {
+      let tmpplayers = JSON.parse(localStorage.getItem("bobPlayer"));
       for (let p of tmpplayers) {
-        this.players.push(new atwPlayer(p.id, p.name));
+        this.players.push(new bobPlayer(p.id, p.name));
       }
       this.players = this.service.setPlayerIDs(this.players);
     }
     else {
-      this.players.push(new atwPlayer(0, ""));
-      this.players.push(new atwPlayer(1, ""));
+      this.players.push(new bobPlayer(0, ""));
+      this.players.push(new bobPlayer(1, ""));
     }
 
   }
- 
+
   toggleReorder() {
     this.reorder = !this.reorder;
-  }
+  } 
   openRules(mode: string) {
     let popover = this.popoverCtrl.create(RulesComponent, { key1: mode });
     this.pageName = 'POPOVER'
@@ -49,10 +49,10 @@ export class AroundWorldSettingsPage {
     this.players.splice(event.to, 0, draggedItem)
   }
   resetSettings() {
-    localStorage.removeItem("atwPlayer");
+    localStorage.removeItem("bobPlayer");
     this.players = [];
-    this.players.push(new atwPlayer(0, ""));
-    this.players.push(new atwPlayer(1, ""));
+    this.players.push(new bobPlayer(0, ""));
+    this.players.push(new bobPlayer(1, ""));
   }
 
   dismiss() {
@@ -72,7 +72,7 @@ export class AroundWorldSettingsPage {
       // this.players[i].setId(i);
       this.service.addPlayer(this.players[i]);
     }
-    localStorage.setItem("atwPlayer", JSON.stringify(this.players));
+    localStorage.setItem("bobPlayer", JSON.stringify(this.players));
     this.viewCtrl.dismiss(true);
   }
 
@@ -83,7 +83,7 @@ export class AroundWorldSettingsPage {
     if (this.players.length == 8) {
       this.presentToastMaxPlayer();
     } else {
-      this.players.push(new atwPlayer(this.players.length, ""));
+      this.players.push(new bobPlayer(this.players.length, ""));
     }
   }
 

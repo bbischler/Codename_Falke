@@ -19,10 +19,12 @@ import { AppRate, AppRatePreferences } from '@ionic-native/app-rate/ngx';
 @Injectable()
 export class ServiceProvider {
 
+
   activePage: string = 'Home';
   x01Settings: X01Settings = new X01Settings(false, 3, 1, false, true, 301);
   players: Player[] = [];
   gameIsActive: Boolean = false;
+  allpoints: number[] = [];
   private admobId: any = {
     banner: 'ca-app-pub-3290488239272299/2853593930',
     interstitial: 'ca-app-pub-3290488239272299/6076061171',
@@ -44,8 +46,41 @@ export class ServiceProvider {
       };
     }
     this.setAppSettings();
+    // this.fillPoints();
+  }
+  fillPoints() {
+    for (let i = 1; i < 61; i++) {
+      let underTwenty = false;
+      if (i <= 20) {
+        underTwenty = true;
+      } else {
+        if ((i / 2) % 1 == 0)
+          underTwenty = ((i / 2) <= 20);
+
+        if (!underTwenty) {
+          if ((i / 3) % 1 == 0)
+            underTwenty = ((i / 3) <= 20);
+        }
+      }
+      if (underTwenty)
+        this.allpoints.push(i);
+    }
+    console.log(this.allpoints);
   }
 
+  getPointForBot(score: number) {
+    let isgood = false;
+    let item: number;
+    while (!isgood) {
+      item = this.getRandomPoint();
+      isgood = (item <= score);
+    }
+    return item;
+  }
+
+  getRandomPoint() {
+    return this.allpoints[Math.floor(Math.random() * this.allpoints.length)];
+  }
 
   // rateMe() {
   //   const custompreferences: AppRatePreferencesEnhanced = {
@@ -258,7 +293,12 @@ export class ServiceProvider {
   }
 
 
-
+  //BOT
+  delay(amount: number) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, amount);
+    });
+  }
 
 }
 
