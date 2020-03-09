@@ -40,7 +40,7 @@
   <section class="textblock" *ngIf="isMode('atw')">
     <div class=" headerMode">Around The World
     </div>
-    <!-- <div class="header"> Around The World</div> -->
+    <div class="header">1. Rules</div>
     The aim of this game is to be the first player to hit all the numbers on the dart board from 1 - 20 and bullseye.
     Any segment
     of the number - single, double or triple - counts as a hit. The numbers must be hit in order, and players change
@@ -51,8 +51,16 @@
   <!-- //BOB -->
   <section class="textblock" *ngIf="isMode('bob')">
     <div class=" headerMode">Bob´s 27</div>
-    <!-- <div class="header"> Bob´s 27</div> -->
-    SCHREIBE HIER NOCH ZEUG REIN
+    <div class="header">1. Rules</div>
+
+    All fields from 1 to 20 and Bullseye are played. Each player starts with 27 points and has three throws to hit the
+    double
+    field of each segment. For each hit the double value of the segment are added to the score of the player.
+    If the player does not hit the double field within three throws, the double value of the segment of the field is
+    subtracted from his score.
+    <div class="header">2. End of the game</div>
+    The player with the highest score wins the game. <br>
+    If a player has a negative score, he loses the game immediately
   </section>
 
   <!-- //Challange -->
